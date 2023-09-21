@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { colors } from '../constants/colors';
 import Button from '../components/public/Button';
 import MainPageImage from '../public/images/elephant.png';
+import MainComment from '../components/auth/MainComment';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -18,13 +19,7 @@ const HomePage = () => {
 
   return (
     <MainPageLayout>
-      <MainPageTextContainer>
-        <MainPageText>
-          전공 고민이 많은 당신께,
-          <br />
-          대학생 매칭 서비스
-        </MainPageText>
-      </MainPageTextContainer>
+      <MainComment />
       <ImageBox>
         <img
           src={MainPageImage}
@@ -60,19 +55,9 @@ export default HomePage;
 const MainPageLayout = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   width: 100%;
-`;
-
-const MainPageTextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const MainPageText = styled.h1`
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 2rem;
+  height: 100%;
+  padding-top: 7rem;
 `;
 
 const ImageBox = styled.div`
