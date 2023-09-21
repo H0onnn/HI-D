@@ -8,7 +8,8 @@
 
     /* Modules */
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true, // .ts .tsx 를 가져오도록 허용
     "resolveJsonModule": true, // json 파일을 모듈로 가져옴
 
     /* JavaScript Support */
