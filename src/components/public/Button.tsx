@@ -72,7 +72,7 @@ const TYPE_VARIANTS: Record<string, VariantStyle> = {
 
 const TYPE_SIZES = {
   small: {
-    fontSize: '13px',
+    fontSize: '14px',
     padding: '3px 9px',
     fontWeight: '500',
   },
@@ -107,13 +107,13 @@ const StyledButton = styled.button<ButtonInterface>`
 
   &:hover {
     background-color: ${(props) =>
-    !props.disabled &&
+      !props.disabled &&
       (TYPE_VARIANTS[props.variant!].hover?.backgroundColor ||
         TYPE_VARIANTS[props.variant!].backgroundColor)};
     border: ${(props) =>
-    !props.disabled &&
+      !props.disabled &&
       (TYPE_VARIANTS[props.variant!].hover?.border || TYPE_VARIANTS[props.variant!].border)};
     color: ${(props) =>
-    TYPE_VARIANTS[props.variant!].hover?.color || TYPE_VARIANTS[props.variant!].color};
+      TYPE_VARIANTS[props.variant!].hover?.color || TYPE_VARIANTS[props.variant!].color};
   }
 `;
