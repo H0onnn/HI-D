@@ -22,7 +22,6 @@ module.exports = {
   plugins: ['react-refresh', 'react', 'react-hooks', '@typescript-eslint', 'prettier'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    indent: ['error', 2, { SwitchCase: 1 }], // 들여쓰기 2칸만 허용
     'no-var': 'error', // var 키워드 사용 금지
     'require-await': 'error', // async 함수 내부에 await 키워드가 없으면 오류 발생
     eqeqeq: 'warn', // ==, != 대신에 ===, !== 사용
