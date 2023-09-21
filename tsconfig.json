@@ -3,13 +3,12 @@
     /* Language and Environment */
     "target": "ES2020",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "jsx": "react-jsx",
+    "jsx": "react",
     "useDefineForClassFields": true,
 
     /* Modules */
     "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true, // .ts .tsx 를 가져오도록 허용
+    "moduleResolution": "node",
     "resolveJsonModule": true, // json 파일을 모듈로 가져옴
 
     /* JavaScript Support */
