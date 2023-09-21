@@ -1,5 +1,6 @@
 import React from 'react';
 import HomePage from '../pages/HomePage';
+import LoginPage from '../pages/auth/LoginPage';
 
 interface AppRoutesInterface {
   name: string;
@@ -15,6 +16,12 @@ const routes: AppRoutesInterface[] = [
     name: 'Home',
     path: '/',
     component: HomePage,
+    meta: { hideNavBar: true },
+  },
+  {
+    name: 'Login',
+    path: '/login',
+    component: LoginPage,
     meta: { hideNavBar: true },
   },
 ];
