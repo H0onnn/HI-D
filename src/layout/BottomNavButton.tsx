@@ -20,7 +20,7 @@ const BottomNavButton = ({ text, onClick, ...props }: BottomNavButtonInterface) 
 export default BottomNavButton;
 
 const BottomBtnContainer = styled.div`
-  padding: 0 14px;
+  padding: 0 1.4rem;
 `;
 
 const BtnText = styled.p`

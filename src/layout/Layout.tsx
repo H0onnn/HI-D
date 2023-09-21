@@ -34,8 +34,9 @@ const PageContentLayout = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  max-width: 390px;
+  max-width: 39rem;
   background: ${colors.white};
   margin: 0 auto;
-  padding-bottom: 65px;
+  padding: 2rem;
+  padding-bottom: 6.5rem;
 `;
