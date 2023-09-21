@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../constants/colors';
+import BottomNavBar from './BottomNavBar';
 
 interface LayoutInterface {
   children: React.ReactNode;
@@ -9,7 +10,10 @@ interface LayoutInterface {
 const Layout = ({ children }: LayoutInterface) => {
   return (
     <PageLayout>
-      <PageContentLayout>{children}</PageContentLayout>
+      <PageContentLayout>
+        {children}
+        <BottomNavBar />
+      </PageContentLayout>
     </PageLayout>
   );
 };
