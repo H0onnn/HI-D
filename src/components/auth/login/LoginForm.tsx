@@ -5,6 +5,7 @@ import { LoginDataInterface } from '../../../types/types';
 import Button from '../../public/Button';
 import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
+import { emailValidation, passwordValidation } from '../../../utils/auth/validationRules';
 
 const LoginForm = () => {
   const {
@@ -21,15 +22,16 @@ const LoginForm = () => {
         <InputWrapper>
           <Input
             type='email'
-            {...register('mail', { required: '이메일을 입력해주세요.' })}
+            {...register('mail', emailValidation)}
             placeholder='이메일 주소를 입력해주세요.'
           />
           {errors.mail && <ErrorText>{errors.mail.message}</ErrorText>}
         </InputWrapper>
+
         <InputWrapper>
           <Input
             type='password'
-            {...register('password', { required: '비밀번호를 입력해주세요.' })}
+            {...register('password', passwordValidation)}
             placeholder='비밀번호를 입력해주세요.'
           />
           {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
