@@ -4,6 +4,7 @@ import Input from '../../public/Input';
 import { LoginDataInterface } from '../../../types/types';
 import Button from '../../public/Button';
 import styled from 'styled-components';
+import { colors } from '../../../constants/colors';
 
 const LoginForm = () => {
   const {
@@ -17,19 +18,22 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit(loginSubmit)}>
       <InputContainer>
-        <Input
-          type='email'
-          {...register('mail', { required: '이메일을 입력해주세요.' })}
-          placeholder='이메일 주소를 입력해주세요.'
-        />
-        {errors.mail && <p>{errors.mail.message}</p>}
-
-        <Input
-          type='password'
-          {...register('password', { required: '비밀번호를 입력해주세요.' })}
-          placeholder='비밀번호를 입력해주세요.'
-        />
-        {errors.password && <p>{errors.password.message}</p>}
+        <InputWrapper>
+          <Input
+            type='email'
+            {...register('mail', { required: '이메일을 입력해주세요.' })}
+            placeholder='이메일 주소를 입력해주세요.'
+          />
+          {errors.mail && <ErrorText>{errors.mail.message}</ErrorText>}
+        </InputWrapper>
+        <InputWrapper>
+          <Input
+            type='password'
+            {...register('password', { required: '비밀번호를 입력해주세요.' })}
+            placeholder='비밀번호를 입력해주세요.'
+          />
+          {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
+        </InputWrapper>
       </InputContainer>
       <ButtonContainer>
         <Button $isFullWidth type='submit'>
@@ -47,8 +51,13 @@ const InputContainer = styled.div`
   margin-bottom: 1.6rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3rem;
   margin-bottom: 4rem;
+`;
+
+const InputWrapper = styled.div`
+  position: relative;
+  width: 100%;
 `;
 
 const ButtonContainer = styled.div`
@@ -60,4 +69,11 @@ const ButtonContainer = styled.div`
   bottom: 18rem;
   left: 0;
   padding: 0 1rem;
+`;
+
+const ErrorText = styled.p`
+  font-size: 12px;
+  color: ${colors.error};
+  position: absolute;
+  bottom: -2rem;
 `;
