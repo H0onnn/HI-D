@@ -32,11 +32,11 @@ const HomePage = () => {
         />
       </ImageBox>
       <ButtonContainer>
-        <Button isFullWidth onClick={loginClickHandler}>
+        <Button $isFullWidth onClick={loginClickHandler}>
           로그인
         </Button>
         <Button
-          isFullWidth
+          $isFullWidth
           variant='textOnly'
           style={{
             color: colors.gray,

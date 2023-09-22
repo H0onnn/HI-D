@@ -6,7 +6,7 @@ interface ButtonInterface extends React.ButtonHTMLAttributes<HTMLButtonElement> 
   children: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'textOnly';
   size?: 'small' | 'medium' | 'large';
-  isFullWidth?: boolean;
+  $isFullWidth?: boolean;
   disabled?: boolean;
 }
 
@@ -25,7 +25,7 @@ const Button = ({
   children,
   variant = 'primary',
   size = 'medium',
-  isFullWidth,
+  $isFullWidth,
   disabled,
   ...props
 }: ButtonInterface) => {
@@ -33,7 +33,7 @@ const Button = ({
     <StyledButton
       variant={variant}
       size={size}
-      isFullWidth={isFullWidth}
+      $isFullWidth={$isFullWidth}
       disabled={disabled}
       {...props}
     >
@@ -94,7 +94,7 @@ const StyledButton = styled.button<ButtonInterface>`
   line-height: 24px;
   border-radius: 10px;
   transition: all 0.4s ease;
-  width: ${(props) => (props.isFullWidth ? '100%' : 'auto')};
+  width: ${(props) => (props.$isFullWidth ? '100%' : 'auto')};
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   filter: ${(props) => (props.disabled ? 'opacity(0.5)' : 'none')};
 
