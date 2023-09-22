@@ -9,7 +9,7 @@ type Props = {
 export default function ChatItem({ chat, onClick }: Props) {
   console.log('chat', chat);
   return (
-    <Container onClick={onClick}>
+    <ChatItemLayout onClick={onClick}>
       <ProfileBox>
         <img src='/src/public/images/elephant.png' alt='profile' />
       </ProfileBox>
@@ -22,11 +22,11 @@ export default function ChatItem({ chat, onClick }: Props) {
         <div>...</div>
         <div>num</div>
       </div>
-    </Container>
+    </ChatItemLayout>
   );
 }
 
-const Container = styled.div`
+const ChatItemLayout = styled.div`
   display: grid;
   grid-template-columns: 2fr 8fr 1fr;
 
