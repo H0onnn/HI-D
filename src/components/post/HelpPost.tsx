@@ -1,16 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PostDetail } from '../../types/post';
+import BoldContent from '../../utils/BoldContent';
 
-export default function HelpPost({ post }: { post: PostDetail }) {
+type Props = {
+  post: PostDetail;
+  keyword?: string;
+};
+
+export default function HelpPost({ post, keyword }: Props) {
   return (
     <HelpPostLayout>
       <div style={{ display: 'flex' }}>
-        <div>{post.title}</div>
+        <div>{keyword ? <BoldContent keyword={keyword} content={post.title} /> : post.title}</div>
         <div>{post.createAt}</div>
       </div>
       <div>
-        <div>{post.content}</div>
+        <div>
+          {keyword ? <BoldContent keyword={keyword} content={post.content} /> : post.content}
+        </div>
         <div>
           <ImgBox>
             {post.images.map((img, index) => (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { PostDetail } from '../../types/post';
+import { PostDetail, PostList } from '../../types/post';
 import HelpPost from './HelpPost';
 import FreePost from './FreePost';
 
@@ -19,112 +19,113 @@ export default function PostListByTab({ tabList, fetchOptions }: Props) {
   const [postList, setPostList] = useState<PostDetail[]>([]);
 
   const fetchPostList = async (params: string) => {
+    console.log(params);
     // fetch post list by category
     // if (!category) all post list
-    const response = await fetch(`API_URL/post?${params}`);
-    const data = await response.json();
-    // const response = {
-    //   dataList: [
-    //     {
-    //       postId: '1',
-    //       writer: 'sjm96',
-    //       major: '컴퓨터공학과',
-    //       category: 'free',
-    //       title: '안녕하세요!',
-    //       content:
-    //         '내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다',
-    //       viewCount: '5',
-    //       recommendCount: '1',
-    //       replyCount: '2',
-    //       images: [
-    //         '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
-    //         '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
-    //         '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
-    //       ],
-    //       createAt: '2023-09-17T06:52:38.123Z',
-    //       updateAt: '2023-09-17T06:52:38.123Z',
-    //     },
-    //     {
-    //       postId: '1',
-    //       writer: 'sjm96',
-    //       major: '컴퓨터공학과',
-    //       category: 'help',
-    //       content: '내용입니다',
-    //       title: '안녕하세요!',
-    //       viewCount: '5',
-    //       recommendCount: '1',
-    //       replyCount: '2',
-    //       images: [
-    //         '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
-    //         '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
-    //         '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
-    //       ],
-    //       createAt: '2023-09-17T06:52:38.123Z',
-    //       updateAt: '2023-09-17T06:52:38.123Z',
-    //     },
-    //     {
-    //       postId: '1',
-    //       writer: 'sjm96',
-    //       major: '컴퓨터공학과',
-    //       category: 'free',
-    //       content: '내용입니다',
-    //       title: '안녕하세요!',
-    //       viewCount: '5',
-    //       recommendCount: '1',
-    //       replyCount: '2',
-    //       images: [
-    //         '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
-    //         '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
-    //         '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
-    //       ],
-    //       createAt: '2023-09-17T06:52:38.123Z',
-    //       updateAt: '2023-09-17T06:52:38.123Z',
-    //     },
-    //     {
-    //       postId: '1',
-    //       writer: 'sjm96',
-    //       major: '컴퓨터공학과',
-    //       category: 'free',
-    //       content: '내용입니다',
-    //       title: '안녕하세요!',
-    //       viewCount: '5',
-    //       recommendCount: '1',
-    //       replyCount: '2',
-    //       images: [
-    //         '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
-    //         '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
-    //         '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
-    //       ],
-    //       createAt: '2023-09-17T06:52:38.123Z',
-    //       updateAt: '2023-09-17T06:52:38.123Z',
-    //     },
-    //     {
-    //       postId: '1',
-    //       writer: 'sjm96',
-    //       major: '컴퓨터공학과',
-    //       category: 'free',
-    //       content: '내용입니다',
-    //       title: '안녕하세요!',
-    //       viewCount: '5',
-    //       recommendCount: '1',
-    //       replyCount: '2',
-    //       images: [
-    //         '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
-    //         '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
-    //         '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
-    //       ],
-    //       createAt: '2023-09-17T06:52:38.123Z',
-    //       updateAt: '2023-09-17T06:52:38.123Z',
-    //     },
-    //   ],
-    //   size: '1',
-    //   next: 'false',
-    // };
-    // const data: PostList = await response;
+    // const response = await fetch(`API_URL/post?${params}`);
+    // const data = await response.json();
+    const response = {
+      dataList: [
+        {
+          postId: '1',
+          writer: 'sjm96',
+          major: '컴퓨터공학과',
+          category: 'free',
+          title: '안녕하세요!',
+          content:
+            '내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다',
+          viewCount: '5',
+          recommendCount: '1',
+          replyCount: '2',
+          images: [
+            '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
+            '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
+            '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
+          ],
+          createAt: '2023-09-17T06:52:38.123Z',
+          updateAt: '2023-09-17T06:52:38.123Z',
+        },
+        {
+          postId: '1',
+          writer: 'sjm96',
+          major: '컴퓨터공학과',
+          category: 'help',
+          content: '내용입니다',
+          title: '안녕하세요!',
+          viewCount: '5',
+          recommendCount: '1',
+          replyCount: '2',
+          images: [
+            '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
+            '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
+            '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
+          ],
+          createAt: '2023-09-17T06:52:38.123Z',
+          updateAt: '2023-09-17T06:52:38.123Z',
+        },
+        {
+          postId: '1',
+          writer: 'sjm96',
+          major: '컴퓨터공학과',
+          category: 'free',
+          content: '내용입니다',
+          title: '안녕하세요!',
+          viewCount: '5',
+          recommendCount: '1',
+          replyCount: '2',
+          images: [
+            '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
+            '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
+            '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
+          ],
+          createAt: '2023-09-17T06:52:38.123Z',
+          updateAt: '2023-09-17T06:52:38.123Z',
+        },
+        {
+          postId: '1',
+          writer: 'sjm96',
+          major: '컴퓨터공학과',
+          category: 'free',
+          content: '내용입니다',
+          title: '안녕하세요!',
+          viewCount: '5',
+          recommendCount: '1',
+          replyCount: '2',
+          images: [
+            '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
+            '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
+            '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
+          ],
+          createAt: '2023-09-17T06:52:38.123Z',
+          updateAt: '2023-09-17T06:52:38.123Z',
+        },
+        {
+          postId: '1',
+          writer: 'sjm96',
+          major: '컴퓨터공학과',
+          category: 'free',
+          content: '내용입니다',
+          title: '안녕하세요!',
+          viewCount: '5',
+          recommendCount: '1',
+          replyCount: '2',
+          images: [
+            '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
+            '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
+            '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
+          ],
+          createAt: '2023-09-17T06:52:38.123Z',
+          updateAt: '2023-09-17T06:52:38.123Z',
+        },
+      ],
+      size: '1',
+      next: 'false',
+    };
+    const data: PostList = await response;
     setPostList(data.dataList);
-    console.log(data.dataList[0]);
-    // setPostList([])
   };
+
+  const kyeword = '내용';
 
   useEffect(() => {
     fetchPostList(`category=${showTap.category}&${fetchOptions}`);
@@ -151,7 +152,7 @@ export default function PostListByTab({ tabList, fetchOptions }: Props) {
                 case 'help':
                   return <HelpPost post={post} />;
                 case 'free':
-                  return <FreePost post={post} />;
+                  return <FreePost post={post} keyword={kyeword} />;
                 default:
                   return null;
               }
