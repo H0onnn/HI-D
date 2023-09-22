@@ -1,6 +1,7 @@
 import React from 'react';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/auth/LoginPage';
+import SignUpPage from '../pages/auth/SignUpPage';
 
 interface AppRoutesInterface {
   name: string;
@@ -13,7 +14,7 @@ interface AppRoutesInterface {
 
 const routes: AppRoutesInterface[] = [
   {
-    name: 'Home',
+    name: 'Spalsh',
     path: '/',
     component: HomePage,
     meta: { hideNavBar: true },
@@ -22,6 +23,12 @@ const routes: AppRoutesInterface[] = [
     name: 'Login',
     path: '/login',
     component: LoginPage,
+    meta: { hideNavBar: true },
+  },
+  {
+    name: 'SignUp',
+    path: '/signup',
+    component: SignUpPage,
     meta: { hideNavBar: true },
   },
 ];
