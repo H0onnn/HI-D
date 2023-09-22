@@ -12,3 +12,7 @@ export interface ProfileSetupInterface {
   major: string;
   imageURL: string;
 }
+
+export interface SVGIconInterface {
+  color: string;
+}
