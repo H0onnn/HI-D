@@ -7,4 +7,5 @@ export const colors = {
   paleGray: '#F9F8F8',
   lineGray: '#D6D6D6',
   white: '#FFFFFF',
+  error: '#FF6969',
 } as const;
