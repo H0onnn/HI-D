@@ -19,7 +19,8 @@ const HomePage = () => {
 
   return (
     <MainPageLayout>
-      <MainComment />
+      <MainComment comment='전공 고민이 많은 당신께,' />
+      <MainComment comment='대학생 매칭 서비스' />
       <ImageBox>
         <img
           src={MainPageImage}

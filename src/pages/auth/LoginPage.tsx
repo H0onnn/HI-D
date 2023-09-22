@@ -23,7 +23,8 @@ const LoginPage = () => {
 
   return (
     <LoginPageLayout>
-      <MainComment />
+      <MainComment comment='전공 고민이 많은 당신께,' />
+      <MainComment comment='대학생 매칭 서비스' />
       <LoginForm />
       <ButtonContainer>
         <AuthButtonContainer>

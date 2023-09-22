@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const MainComment = () => {
+interface MainCommentInterface {
+  comment: string;
+}
+
+const MainComment = ({ comment }: MainCommentInterface) => {
   return (
     <MainTextContainer>
-      <MainText>
-        전공 고민이 많은 당신께,
-        <br />
-        대학생 매칭 서비스
-      </MainText>
+      <MainText>{comment}</MainText>
     </MainTextContainer>
   );
 };
