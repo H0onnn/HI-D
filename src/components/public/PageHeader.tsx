@@ -1,22 +1,18 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '../../constants/colors';
 import BackIcon from '../../public/images/headerBackBtn.png';
 
 interface PageHeaderInterface {
   title: string;
+  onClick?: () => void;
 }
 
-const PageHeader = ({ title }: PageHeaderInterface) => {
-  const navigate = useNavigate();
-
-  const backButtonClickHandler = () => navigate(-1);
-
+const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
   return (
     <PageHeaderLayout>
       <BackButtonBox>
-        <img src={BackIcon} alt='back button' onClick={backButtonClickHandler} />
+        <img src={BackIcon} alt='back button' onClick={onClick} />
       </BackButtonBox>
       <HeaderTitle>{title}</HeaderTitle>
       <div></div>
