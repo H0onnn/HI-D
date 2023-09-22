@@ -8,4 +8,5 @@ export const colors = {
   lineGray: '#D6D6D6',
   white: '#FFFFFF',
   error: '#FF6969',
+  success: '#00C851',
 } as const;
