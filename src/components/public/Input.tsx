@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constants/colors';
 import Button from './Button';
@@ -9,19 +9,23 @@ interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
   children?: React.ReactNode;
 }
 
-const Input = ({ image, button, children, ...props }: InputInterface) => {
-  return (
-    <InputLayout>
-      <CustomInput {...props} />
-      {image && <img src={image} alt='input icon' />}
-      {button && (
-        <Button variant='textOnly' style={{ color: colors.font }}>
-          {children}
-        </Button>
-      )}
-    </InputLayout>
-  );
-};
+const Input = forwardRef<HTMLInputElement, InputInterface>(
+  ({ image, button, children, ...props }, ref) => {
+    return (
+      <InputLayout>
+        <CustomInput ref={ref} {...props} />
+        {image && <img src={image} alt='input icon' />}
+        {button && (
+          <Button variant='textOnly' style={{ color: colors.font }}>
+            {children}
+          </Button>
+        )}
+      </InputLayout>
+    );
+  },
+);
+
+Input.displayName = 'Input';
 
 export default Input;
 
