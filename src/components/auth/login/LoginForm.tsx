@@ -6,13 +6,29 @@ import Button from '../../public/Button';
 import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
 import { emailValidation, passwordValidation } from '../../../utils/auth/validationRules';
+import CheckIcon from '../../public/UI/CheckIcon';
+import WarningIcon from '../../public/UI/WarningIcon';
 
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginDataInterface>();
+    watch,
+  } = useForm<LoginDataInterface>({ mode: 'onChange' });
+
+  const emailError = errors.mail;
+  const passwordError = errors.password;
+
+  const emailValue = watch('mail');
+  const passwordValue = watch('password');
+
+  const emailStatus = emailError ? 'error' : emailValue && !emailError ? 'success' : 'default';
+  const passwordStatus = passwordError
+    ? 'error'
+    : passwordValue && !passwordError
+    ? 'success'
+    : 'default';
 
   const loginSubmit: SubmitHandler<LoginDataInterface> = (data) => console.log(data);
 
@@ -22,6 +38,14 @@ const LoginForm = () => {
         <InputWrapper>
           <Input
             type='email'
+            image={
+              emailError ? (
+                <WarningIcon color={colors.error} />
+              ) : emailValue ? (
+                <CheckIcon color={colors.success} />
+              ) : undefined
+            }
+            status={emailStatus}
             {...register('mail', emailValidation)}
             placeholder='이메일 주소를 입력해주세요.'
           />
@@ -31,6 +55,14 @@ const LoginForm = () => {
         <InputWrapper>
           <Input
             type='password'
+            image={
+              passwordError ? (
+                <WarningIcon color={colors.error} />
+              ) : passwordValue ? (
+                <CheckIcon color={colors.success} />
+              ) : undefined
+            }
+            status={passwordStatus}
             {...register('password', passwordValidation)}
             placeholder='비밀번호를 입력해주세요.'
           />
