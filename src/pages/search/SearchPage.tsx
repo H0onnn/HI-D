@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import { colors } from '../constants/colors';
+import PostListByTab from '../../components/post/PostListByTab';
 
 const tabList = [
-  { id: 1, name: '도움이 필요해요' },
-  { id: 2, name: '자유게시판' },
+  { id: 1, name: '도움이 필요해요', category: 'help' },
+  { id: 2, name: '자유게시판', category: 'free' },
 ];
-
+// TODO: mypage tabList
+// const tabList = [
+//   { id: 0, name: '전체', category: '' },
+//   { id: 1, name: '도움이 필요해요', category: 'help' },
+//   { id: 2, name: '자유게시판', category: 'free' },
+// ];
 const SearchPage = () => {
   const [keyword, setKeyword] = useState('');
-  const [searchHistory, setSearchHistory] = useState([]);
-  const [showTap, setShowTap] = useState(1);
-  const [helpPostList, setHelpPostList] = useState([]);
-  const [freePostList, setFreePostList] = useState([]);
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
 
   const searchByKeyword = () => {
     if (keyword.trim() === '') return;
-    // TODO: fetch
     setSearchHistory([keyword, ...searchHistory]);
     setKeyword('');
-    setHelpPostList([]);
-    setFreePostList([]);
   };
 
   return (
@@ -44,27 +43,7 @@ const SearchPage = () => {
           ))}
         </div>
       </SearchHistoryContainer>
-      <SearchResultContainer>
-        <TabBox>
-          {tabList.map((tab, index) => (
-            <TabText
-              key={index}
-              isseleced={tab.id === showTap ? 'true' : 'false'}
-              onClick={() => setShowTap(tab.id)}
-            >
-              {tab.name}
-            </TabText>
-          ))}
-        </TabBox>
-        <SearchResultList>
-          <div>
-            {showTap === 1 && helpPostList.map((post, index) => <div key={index}>haha</div>)}
-          </div>
-          <div>
-            {showTap === 2 && freePostList.map((post, index) => <div key={index}>haha</div>)}
-          </div>
-        </SearchResultList>
-      </SearchResultContainer>
+      <PostListByTab tabList={tabList} fetchOptions={`keyword=${keyword}`} />
     </SearchPageLayout>
   );
 };
@@ -148,28 +127,4 @@ const SearchHistoryItem = styled.div`
   min-width: 50px;
 
   text-align: center;
-`;
-const SearchResultContainer = styled.div``;
-
-const TabText = styled.div<{ isseleced: string }>`
-  height: 34px;
-
-  border-bottom: ${({ isseleced }) => (isseleced === 'true' ? '2px solid #000' : 'none')};
-  color: ${({ isseleced }) => (isseleced === 'true' ? '#000' : '##C8C8C8')};
-  font-family: SUIT;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%;
-`;
-const TabBox = styled.div`
-  display: flex;
-  gap: 1.2rem;
-`;
-const SearchResultList = styled.div`
-  background: #f8f8f8;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
 `;

@@ -13,8 +13,8 @@ export type Comment = {
 };
 
 enum Category {
-  'free',
-  'help',
+  'help' = 'help',
+  'free' = 'free',
 }
 
 export type PostList = {
@@ -28,6 +28,7 @@ export type PostDetail = {
   major: string;
   category: Category;
   title: string;
+  content: string;
   viewCount: number;
   recommendCount: number;
   reportCount: number;
