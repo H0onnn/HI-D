@@ -3,15 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '../../constants/colors';
 import Button from '../../components/public/Button';
-import Input from '../../components/public/Input';
 import MainComment from '../../components/auth/MainComment';
+import LoginForm from '../../components/auth/login/LoginForm';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
-  const loginClickHandler = () => {
-    console.log('로그인 버튼 클릭');
-  };
 
   const findIdClickHandler = () => {};
 
@@ -28,14 +24,8 @@ const LoginPage = () => {
   return (
     <LoginPageLayout>
       <MainComment />
-      <InputContainer>
-        <Input placeholder='이메일 주소를 입력해 주세요.' />
-        <Input placeholder='비밀번호를 입력해 주세요.' />
-      </InputContainer>
+      <LoginForm />
       <ButtonContainer>
-        <Button isFullWidth onClick={loginClickHandler}>
-          로그인
-        </Button>
         <AuthButtonContainer>
           <Button
             variant='textOnly'
@@ -90,15 +80,6 @@ const LoginPageLayout = styled.div`
   width: 100%;
   height: 100%;
   padding-top: 7rem;
-`;
-
-const InputContainer = styled.div`
-  width: 100%;
-  margin-bottom: 1.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-bottom: 4rem;
 `;
 
 const ButtonContainer = styled.div`
