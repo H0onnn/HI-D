@@ -2,12 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { PostDetail } from '../../types/post';
 import BoldContent from '../../utils/BoldContent';
+import { getContentSnippet } from '../../utils/post';
 
 type Props = {
   post: PostDetail;
   keyword?: string;
 };
-export default function FreePost({ post, keyword }: Props) {
+const FreePost = ({ post, keyword }: Props) => {
+  const contentSnippet = getContentSnippet(post.content, keyword);
+
   return (
     <FreePostLayout>
       <div style={{ display: 'flex' }}>
@@ -17,7 +20,7 @@ export default function FreePost({ post, keyword }: Props) {
       <div>
         <div>{keyword ? <BoldContent keyword={keyword} content={post.title} /> : post.title}</div>
         <div>
-          {keyword ? <BoldContent keyword={keyword} content={post.content} /> : post.content}
+          {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
         </div>
         <div style={{ display: 'flex' }}>
           <ImgBox>
@@ -34,7 +37,8 @@ export default function FreePost({ post, keyword }: Props) {
       </div>
     </FreePostLayout>
   );
-}
+};
+export default FreePost;
 
 const FreePostLayout = styled.div`
   width: 100%;

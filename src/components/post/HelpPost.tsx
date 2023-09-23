@@ -2,13 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { PostDetail } from '../../types/post';
 import BoldContent from '../../utils/BoldContent';
+import { getContentSnippet } from '../../utils/post';
 
 type Props = {
   post: PostDetail;
   keyword?: string;
 };
 
-export default function HelpPost({ post, keyword }: Props) {
+const HelpPost = ({ post, keyword }: Props) => {
+  const contentSnippet = getContentSnippet(post.content, keyword);
+
   return (
     <HelpPostLayout>
       <div style={{ display: 'flex' }}>
@@ -17,7 +20,7 @@ export default function HelpPost({ post, keyword }: Props) {
       </div>
       <div>
         <div>
-          {keyword ? <BoldContent keyword={keyword} content={post.content} /> : post.content}
+          {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
         </div>
         <div>
           <ImgBox>
@@ -34,7 +37,8 @@ export default function HelpPost({ post, keyword }: Props) {
       </div>
     </HelpPostLayout>
   );
-}
+};
+export default HelpPost;
 
 const HelpPostLayout = styled.div`
   width: 100%;
