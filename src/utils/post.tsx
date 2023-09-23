@@ -29,3 +29,7 @@ export const getContentSnippet = (content: string, keyword?: string, snippetLeng
   // 키워드를 찾지 못하면 처음 100자를 반환
   return content.slice(0, snippetLength);
 };
+
+export const truncateText = (text: string, maxLength: number = 6) => {
+  return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+};
