@@ -6,7 +6,7 @@ type Props = {
   onClick: () => void;
 };
 
-export default function ChatItem({ chat, onClick }: Props) {
+const ChatItem = ({ chat, onClick }: Props) => {
   console.log('chat', chat);
   return (
     <ChatItemLayout onClick={onClick}>
@@ -24,7 +24,8 @@ export default function ChatItem({ chat, onClick }: Props) {
       </div>
     </ChatItemLayout>
   );
-}
+};
+export default ChatItem;
 
 const ChatItemLayout = styled.div`
   display: grid;

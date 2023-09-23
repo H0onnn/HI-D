@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 type Props = { chatContent: { content: string; date: string; nickname: string } };
-export default function MyChat({ chatContent }: Props) {
+
+const MyChat = ({ chatContent }: Props) => {
   const { content, date } = chatContent;
   return (
     <MyChatLayout>
@@ -10,7 +11,8 @@ export default function MyChat({ chatContent }: Props) {
       <ChatDate>{date}</ChatDate>
     </MyChatLayout>
   );
-}
+};
+export default MyChat;
 
 const MyChatLayout = styled.div`
   display: flex;

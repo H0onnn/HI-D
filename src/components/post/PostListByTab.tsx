@@ -14,7 +14,8 @@ type Tab = {
   name: string;
   category: string;
 };
-export default function PostListByTab({ tabList, fetchOptions }: Props) {
+
+const PostListByTab = ({ tabList, fetchOptions }: Props) => {
   const [showTap, setShowTap] = useState<Tab>({ id: 1, name: '도움이 필요해요', category: 'help' });
   const [postList, setPostList] = useState<PostDetail[]>([]);
 
@@ -162,7 +163,10 @@ export default function PostListByTab({ tabList, fetchOptions }: Props) {
       </PostListContainer>
     </PostListByTabLayout>
   );
-}
+};
+
+export default PostListByTab;
+
 const PostListByTabLayout = styled.div``;
 const TabBox = styled.div`
   display: flex;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import MyChat from './MyChat';
 import YourChat from './YourChat';
 
-export default function ChatContents() {
+const ChatContents = () => {
   const chatContents = [
     {
       nickname: 'nickname',
@@ -36,7 +36,9 @@ export default function ChatContents() {
       ))}
     </ChatContentsLayout>
   );
-}
+};
+export default ChatContents;
+
 const ChatContentsLayout = styled.div`
   width: 100%;
   gap: 8px;

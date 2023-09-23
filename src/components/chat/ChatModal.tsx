@@ -5,7 +5,7 @@ import ChatContents from './ChatContents';
 type Props = {
   setModal: (modal: boolean) => void;
 };
-export default function ChatModal({ setModal }: Props) {
+const ChatModal = ({ setModal }: Props) => {
   const modalBackground = useRef(null);
 
   return (
@@ -27,7 +27,9 @@ export default function ChatModal({ setModal }: Props) {
       </ChatRoomContainer>
     </ChatModalLayout>
   );
-}
+};
+
+export default ChatModal;
 
 const ChatModalLayout = styled.div`
   width: 100%;
