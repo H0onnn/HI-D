@@ -3,7 +3,7 @@ export interface LoginDataInterface {
   password: string;
 }
 
-export interface ProfileSetupInterface {
+export interface ProfileSetupDataInterface {
   mail: string;
   password: string;
   passwordConfirm: string;
@@ -11,8 +11,13 @@ export interface ProfileSetupInterface {
   school: string;
   major: string;
   imageURL: string;
+  agreement: boolean;
 }
 
 export interface SVGIconInterface {
   color: string;
+}
+
+export interface ProfileSetupStepInterface {
+  onNext: () => void;
 }
