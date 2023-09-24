@@ -12,10 +12,22 @@ const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
   return (
     <PageHeaderLayout>
       <BackButtonBox>
-        <img src={BackIcon} alt='back button' onClick={onClick} />
+        <img
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          src={BackIcon}
+          alt='back button'
+          onClick={onClick}
+        />
       </BackButtonBox>
       <HeaderTitle>{title}</HeaderTitle>
-      <div></div>
+      <div
+        style={{
+          width: '2.4rem',
+        }}
+      ></div>
     </PageHeaderLayout>
   );
 };
@@ -31,6 +43,7 @@ const PageHeaderLayout = styled.div`
   height: 4.8rem;
   position: fixed;
   top: 0;
+  padding: 2rem;
   background-color: ${colors.white};
 `;
 
