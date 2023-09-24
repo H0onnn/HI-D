@@ -17,6 +17,7 @@ const LoginForm = () => {
     watch,
   } = useForm<LoginDataInterface>({ mode: 'onChange' });
 
+  // TODO : 회원기입 폼에서도 validation에 따른 status 전달이 필요할 것이기 때문에 로직 분리 필요
   const emailError = errors.mail;
   const passwordError = errors.password;
 
