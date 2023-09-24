@@ -1,11 +1,11 @@
 import React, { ReactElement, ReactNode, useState } from 'react';
 
-interface StepProps {
+export interface StepProps {
   name: string;
   children: ReactNode;
 }
 
-interface FunnelProps {
+export interface FunnelProps {
   children: Array<ReactElement<StepProps>>;
 }
 
@@ -22,5 +22,5 @@ export const useFunnel = (defaultStep: string) => {
     return <>{targetStep}</>;
   };
 
-  return [Funnel, Step, setStep] as const;
+  return { Funnel, Step, setStep } as const;
 };
