@@ -2,30 +2,43 @@ import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constants/colors';
 import Button from './Button';
+import CheckIcon from '../public/UI/CheckIcon';
+import WarningIcon from '../public/UI/WarningIcon';
+import SearchIcon from '../../../public/images/input/search.png';
 
 interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
   image?: string | React.ReactNode;
   button?: boolean;
   children?: React.ReactNode;
-  status?: 'default' | 'success' | 'error';
+  status?: 'default' | 'success' | 'error' | 'search';
 }
 
 const colorMap = {
   default: colors.primary,
   success: colors.success,
   error: colors.error,
+  search: colors.primary,
 };
 
 const Input = forwardRef<HTMLInputElement, InputInterface>(
   ({ image, button, children, status = 'default', ...props }, ref) => {
+    const renderIcon = () => {
+      switch (status) {
+        case 'error':
+          return <WarningIcon color={colors.error} />;
+        case 'success':
+          return <CheckIcon color={colors.success} />;
+        case 'search':
+          return <img src={SearchIcon} alt='search icon' />;
+        default:
+          return typeof image === 'string' ? <img src={image} alt='input icon' /> : image;
+      }
+    };
+
     return (
       <InputLayout status={status}>
         <CustomInput ref={ref} {...props} />
-        {typeof image === 'string' ? ( // 문자열일 때는 이미지로 처리
-          <img src={image} alt='input icon' />
-        ) : (
-          image // 컴포넌트일 때는 그대로 렌더링
-        )}
+        {renderIcon()}
         {button && (
           <Button variant='textOnly' style={{ color: colors.font }}>
             {children}
@@ -40,7 +53,7 @@ Input.displayName = 'Input';
 
 export default Input;
 
-const InputLayout = styled.div<{ status: 'default' | 'success' | 'error' }>`
+const InputLayout = styled.div<{ status: 'default' | 'success' | 'error' | 'search' }>`
   position: relative;
   width: 100%;
   height: 4.8rem;
