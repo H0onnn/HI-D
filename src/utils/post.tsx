@@ -12,12 +12,10 @@ export const getContentSnippet = (content: string, keyword?: string, snippetLeng
   let startIndex = 0;
   const keywordLength = keyword.length;
 
-  // 문자열을 반복하여 키워드가 나타나는 위치를 찾음
   while (startIndex < content.length) {
     const chunk = content.slice(startIndex, startIndex + snippetLength - keywordLength);
     const keywordIndex = chunk.indexOf(keyword);
 
-    // 키워드가 없으면 다음 스니펫으로 이동
     if (keywordIndex === -1) {
       startIndex += snippetLength;
     } else {
@@ -30,6 +28,12 @@ export const getContentSnippet = (content: string, keyword?: string, snippetLeng
   return content.slice(0, snippetLength);
 };
 
-export const truncateText = (text: string, maxLength: number = 6) => {
-  return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+/**
+ * 문자열의 길이가 길 경우 말줄임표를 붙여 반환합니다.
+ * @param content 추출할 문자열
+ * @param maxLength 최대 길이 (기본값: 6)
+ * @returns 추출된 문자열
+ */
+export const truncateContent = (content: string, maxLength: number = 6) => {
+  return content.length > maxLength ? content.slice(0, maxLength) + '...' : content;
 };

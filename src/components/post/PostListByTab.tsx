@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { PostDetail, PostList } from '../../types/post';
+import { Post, PostList, getPostListOptions } from '../../types/post';
 import HelpPost from './HelpPost';
 import FreePost from './FreePost';
 import useObserver from '../../hooks/useObserver';
 
 type Props = {
   tabList: Tab[];
-  getPostOptions?: getPostOptions;
+  getPostListOptions?: getPostListOptions;
 };
 
 type Tab = {
@@ -15,24 +15,17 @@ type Tab = {
   name: string;
   category: string;
 };
-type getPostOptions = {
-  keyword: string;
-  page: number;
-  category: string;
-};
 
-const PostListByTab = ({ tabList, getPostOptions }: Props) => {
+const PostListByTab = ({ tabList, getPostListOptions }: Props) => {
   const [showTap, setShowTap] = useState<Tab>({ id: 1, name: '도움이 필요해요', category: 'help' });
-  const [postList, setPostList] = useState<PostDetail[]>([]);
+  const [postList, setPostList] = useState<Post[]>([]);
   // const [pages, setPages] = useState<number[]>([]); // 탭마다 페이지를 따로 관리해야 함
   // 탭마다 페이지를 따로 관리할 지 -> fetch 로직도 나눠서 관리, 여기에서 관리할지 -> options으로 나눔
 
-  const fetchPostList = async (params: getPostOptions) => {
+  const fetchPostList = async (params: getPostListOptions) => {
     console.log(params);
-    // fetch post list by category
     // if (!category) all post list
-    // const response = await fetch(`API_URL/post?${params}`);
-    // const data = await response.json();
+    // const { data } = await axios.get<PostList>('/api/posts', {params: {category, keyword, page}});
     const response = {
       dataList: [
         {
@@ -132,6 +125,7 @@ const PostListByTab = ({ tabList, getPostOptions }: Props) => {
       size: '1',
       next: 'false',
     };
+
     const data: PostList = await response;
     setPostList(data.dataList);
   };
@@ -142,9 +136,8 @@ const PostListByTab = ({ tabList, getPostOptions }: Props) => {
   const infiniteRef = useObserver(callback);
 
   useEffect(() => {
-    // fetchPostList(`category=${showTap.category}&${fetchOptions}`);
     fetchPostList({ category: showTap.category, keyword, page: pages[showTap.id] });
-  }, [showTap, getPostOptions, pages]);
+  }, [showTap, getPostListOptions, pages]);
 
   return (
     <PostListByTabLayout>

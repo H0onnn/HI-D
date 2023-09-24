@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PostListByTab from '../../components/post/PostListByTab';
-import { truncateText } from '../../utils/post';
+import { truncateContent } from '../../utils/post';
 
 const tabList = [
   { id: 1, name: '도움이 필요해요', category: 'help' },
@@ -40,11 +40,11 @@ const SearchPage = () => {
         <p>최근검색어</p>
         <div>
           {searchHistory.map((item, index) => (
-            <SearchHistoryItem key={index}>{truncateText(item, 6)}</SearchHistoryItem>
+            <SearchHistoryItem key={index}>{truncateContent(item, 6)}</SearchHistoryItem>
           ))}
         </div>
       </SearchHistoryContainer>
-      <PostListByTab tabList={tabList} fetchOptions={`keyword=${keyword}`} />
+      <PostListByTab tabList={tabList} getPostListOptions={{ keyword }} />
     </SearchPageLayout>
   );
 };
