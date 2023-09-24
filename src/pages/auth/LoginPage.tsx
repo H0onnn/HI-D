@@ -80,6 +80,7 @@ const LoginPageLayout = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  padding: 2rem;
   padding-top: 7rem;
 `;
 
@@ -91,7 +92,7 @@ const ButtonContainer = styled.div`
   position: absolute;
   bottom: 7rem;
   left: 0;
-  padding: 0 1rem;
+  padding: 0 2rem;
 `;
 
 const AuthButtonContainer = styled.div`
