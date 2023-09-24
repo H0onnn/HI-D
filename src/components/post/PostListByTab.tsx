@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { PostDetail, PostList } from '../../types/post';
 import HelpPost from './HelpPost';
 import FreePost from './FreePost';
+import useObserver from '../../hooks/useObserver';
 
 type Props = {
   tabList: Tab[];
-  fetchOptions?: string;
+  getPostOptions?: getPostOptions;
 };
 
 type Tab = {
@@ -14,12 +15,19 @@ type Tab = {
   name: string;
   category: string;
 };
+type getPostOptions = {
+  keyword: string;
+  page: number;
+  category: string;
+};
 
-const PostListByTab = ({ tabList, fetchOptions }: Props) => {
+const PostListByTab = ({ tabList, getPostOptions }: Props) => {
   const [showTap, setShowTap] = useState<Tab>({ id: 1, name: '도움이 필요해요', category: 'help' });
   const [postList, setPostList] = useState<PostDetail[]>([]);
+  // const [pages, setPages] = useState<number[]>([]); // 탭마다 페이지를 따로 관리해야 함
+  // 탭마다 페이지를 따로 관리할 지 -> fetch 로직도 나눠서 관리, 여기에서 관리할지 -> options으로 나눔
 
-  const fetchPostList = async (params: string) => {
+  const fetchPostList = async (params: getPostOptions) => {
     console.log(params);
     // fetch post list by category
     // if (!category) all post list
@@ -87,7 +95,8 @@ const PostListByTab = ({ tabList, fetchOptions }: Props) => {
           writer: 'sjm96',
           major: '컴퓨터공학과',
           category: 'free',
-          content: '내용입니다',
+          content:
+            '"isseleced" is being sent through to the DOM, which will likely trigger a React console error. If you would like automatic filtering of unknown props, you can opt-into that behavior via `<StyleSheetManager shouldForwardProp={...}>` (connect an API like `@emotion/is-pro내용입니다내용입p-valid`) or consider using transient props (`$` ',
           title: '안녕하세요!',
           viewCount: '5',
           recommendCount: '1',
@@ -105,7 +114,8 @@ const PostListByTab = ({ tabList, fetchOptions }: Props) => {
           writer: 'sjm96',
           major: '컴퓨터공학과',
           category: 'free',
-          content: '내용입니다',
+          content:
+            '내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다',
           title: '안녕하세요!',
           viewCount: '5',
           recommendCount: '1',
@@ -126,11 +136,15 @@ const PostListByTab = ({ tabList, fetchOptions }: Props) => {
     setPostList(data.dataList);
   };
 
-  const kyeword = '내용';
+  const keyword = '내용';
+
+  const callback = () => {};
+  const infiniteRef = useObserver(callback);
 
   useEffect(() => {
-    fetchPostList(`category=${showTap.category}&${fetchOptions}`);
-  }, [showTap, fetchOptions]);
+    // fetchPostList(`category=${showTap.category}&${fetchOptions}`);
+    fetchPostList({ category: showTap.category, keyword, page: pages[showTap.id] });
+  }, [showTap, getPostOptions, pages]);
 
   return (
     <PostListByTabLayout>
@@ -151,15 +165,16 @@ const PostListByTab = ({ tabList, fetchOptions }: Props) => {
             {(() => {
               switch (post.category) {
                 case 'help':
-                  return <HelpPost post={post} />;
+                  return <HelpPost post={post} keyword={keyword} />;
                 case 'free':
-                  return <FreePost post={post} keyword={kyeword} />;
+                  return <FreePost post={post} keyword={keyword} />;
                 default:
                   return null;
               }
             })()}
           </React.Fragment>
         ))}
+        {postList.length !== 0 && <div ref={infiniteRef}></div>}
       </PostListContainer>
     </PostListByTabLayout>
   );

@@ -22,7 +22,7 @@ const HelpPost = ({ post, keyword }: Props) => {
         <div>
           {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
         </div>
-        <div>
+        <div style={{ display: 'flex' }}>
           <ImgBox>
             {post.images.map((img, index) => (
               <img src={img} alt='img' key={index} />
