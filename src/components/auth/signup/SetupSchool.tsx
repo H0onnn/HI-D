@@ -1,7 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { colors } from '../../../constants/colors';
 import MainComment from '../MainComment';
 import Input from '../../public/Input';
 import Button from '../../public/Button';
@@ -31,11 +30,13 @@ const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
           type='school'
           status={schoolStatus}
           {...register('school', schoolValidation)}
+          errorMessage={
+            errors.school && typeof errors.school.message === 'string'
+              ? errors.school.message
+              : undefined
+          }
           placeholder='학교 이름을 검색해주세요.'
         />
-        {errors.school && typeof errors.school.message === 'string' && (
-          <ErrorText>{errors.school.message}</ErrorText>
-        )}
       </InputWrapper>
       <ButtonContainer>
         <Button $isFullWidth onClick={onNext}>
@@ -51,13 +52,6 @@ export default SetupSchool;
 const InputWrapper = styled.div`
   position: relative;
   width: 100%;
-`;
-
-const ErrorText = styled.p`
-  font-size: 12px;
-  color: ${colors.error};
-  position: absolute;
-  bottom: -2rem;
 `;
 
 const ButtonContainer = styled.div`

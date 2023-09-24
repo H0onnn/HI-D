@@ -4,10 +4,7 @@ import Input from '../../public/Input';
 import { LoginDataInterface } from '../../../types/types';
 import Button from '../../public/Button';
 import styled from 'styled-components';
-import { colors } from '../../../constants/colors';
 import { emailValidation, passwordValidation } from '../../../utils/auth/validationRules';
-import CheckIcon from '../../public/UI/CheckIcon';
-import WarningIcon from '../../public/UI/WarningIcon';
 
 const LoginForm = () => {
   const {
@@ -39,35 +36,21 @@ const LoginForm = () => {
         <InputWrapper>
           <Input
             type='email'
-            image={
-              emailError ? (
-                <WarningIcon color={colors.error} />
-              ) : emailValue ? (
-                <CheckIcon color={colors.success} />
-              ) : undefined
-            }
             status={emailStatus}
+            errorMessage={errors.mail ? errors.mail.message : undefined}
             {...register('mail', emailValidation)}
             placeholder='이메일 주소를 입력해주세요.'
           />
-          {errors.mail && <ErrorText>{errors.mail.message}</ErrorText>}
         </InputWrapper>
 
         <InputWrapper>
           <Input
             type='password'
-            image={
-              passwordError ? (
-                <WarningIcon color={colors.error} />
-              ) : passwordValue ? (
-                <CheckIcon color={colors.success} />
-              ) : undefined
-            }
             status={passwordStatus}
+            errorMessage={errors.password ? errors.password.message : undefined}
             {...register('password', passwordValidation)}
             placeholder='비밀번호를 입력해주세요.'
           />
-          {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
         </InputWrapper>
       </InputContainer>
       <ButtonContainer>
@@ -104,11 +87,4 @@ const ButtonContainer = styled.div`
   bottom: 18rem;
   left: 0;
   padding: 0 1rem;
-`;
-
-const ErrorText = styled.p`
-  font-size: 12px;
-  color: ${colors.error};
-  position: absolute;
-  bottom: -2rem;
 `;
