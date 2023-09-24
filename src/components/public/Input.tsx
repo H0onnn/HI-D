@@ -11,6 +11,7 @@ interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
   button?: boolean;
   children?: React.ReactNode;
   status?: 'default' | 'success' | 'error' | 'search';
+  errorMessage?: string;
 }
 
 const colorMap = {
@@ -21,7 +22,7 @@ const colorMap = {
 };
 
 const Input = forwardRef<HTMLInputElement, InputInterface>(
-  ({ image, button, children, status = 'default', ...props }, ref) => {
+  ({ image, button, children, status = 'default', errorMessage, ...props }, ref) => {
     const renderIcon = () => {
       switch (status) {
         case 'error':
@@ -36,15 +37,18 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
     };
 
     return (
-      <InputLayout status={status}>
-        <CustomInput ref={ref} {...props} />
-        {renderIcon()}
-        {button && (
-          <Button variant='textOnly' style={{ color: colors.font }}>
-            {children}
-          </Button>
-        )}
-      </InputLayout>
+      <>
+        <InputLayout status={status}>
+          <CustomInput ref={ref} {...props} />
+          {renderIcon()}
+          {button && (
+            <Button variant='textOnly' style={{ color: colors.font }}>
+              {children}
+            </Button>
+          )}
+        </InputLayout>
+        {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
+      </>
     );
   },
 );
@@ -82,4 +86,11 @@ const CustomInput = styled.input<{ isFocused?: boolean }>`
   &::placeholder {
     color: ${colors.inputFont};
   }
+`;
+
+const ErrorText = styled.p`
+  font-size: 12px;
+  color: ${colors.error};
+  position: absolute;
+  bottom: -2rem;
 `;
