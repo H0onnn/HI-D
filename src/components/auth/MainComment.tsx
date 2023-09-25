@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface MainCommentInterface {
+interface MainCommentInterface extends React.HTMLAttributes<HTMLElement> {
   comment: string;
 }
 
-const MainComment = ({ comment }: MainCommentInterface) => {
+const MainComment = ({ comment, ...props }: MainCommentInterface) => {
   return (
     <MainTextContainer>
-      <MainText>{comment}</MainText>
+      <MainText {...props}>{comment}</MainText>
     </MainTextContainer>
   );
 };
@@ -24,4 +24,5 @@ const MainText = styled.h1`
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 2rem;
+  white-space: pre-line;
 `;
