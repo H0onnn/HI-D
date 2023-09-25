@@ -11,7 +11,6 @@ export interface ProfileSetupDataInterface {
   school: string;
   major: string;
   imageURL: string;
-  agreement: boolean;
 }
 
 export interface SVGIconInterface {
