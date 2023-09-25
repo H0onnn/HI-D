@@ -4,14 +4,14 @@ import { colors } from '../../constants/colors';
 import Button from './Button';
 import CheckIcon from '../public/UI/CheckIcon';
 import WarningIcon from '../public/UI/WarningIcon';
-import SearchIcon from '../../../public/images/input/search.png';
-
+import SearchIcon from '../../public/images/input/search.png';
 interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
   image?: string | React.ReactNode;
   button?: boolean;
   children?: React.ReactNode;
   status?: 'default' | 'success' | 'error' | 'search';
   errorMessage?: string;
+  isVerified?: boolean;
 }
 
 const colorMap = {
@@ -22,8 +22,10 @@ const colorMap = {
 };
 
 const Input = forwardRef<HTMLInputElement, InputInterface>(
-  ({ image, button, children, status = 'default', errorMessage, ...props }, ref) => {
+  ({ image, button, children, status = 'default', errorMessage, isVerified, ...props }, ref) => {
     const renderIcon = () => {
+      if (button) return null;
+
       switch (status) {
         case 'error':
           return <WarningIcon color={colors.error} />;
@@ -42,9 +44,13 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
           <CustomInput ref={ref} {...props} />
           {renderIcon()}
           {button && (
-            <Button variant='textOnly' style={{ color: colors.font }}>
-              {children}
-            </Button>
+            <VerifiedButton
+              variant='primary'
+              isSuccess={status === 'success'}
+              disabled={status !== 'success'}
+            >
+              {isVerified ? '인증 완료' : children || '인증 메일 보내기'}
+            </VerifiedButton>
           )}
         </InputLayout>
         {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
@@ -93,4 +99,15 @@ const ErrorText = styled.p`
   color: ${colors.error};
   position: absolute;
   bottom: -2rem;
+`;
+
+const VerifiedButton = styled(Button)<{ isSuccess: boolean }>`
+  color: ${colors.inputFont};
+  font-size: 12px;
+  border-radius: 900px;
+  width: 10.3rem;
+  height: 2.6rem;
+  position: absolute;
+  right: 1.6rem;
+  padding: 0;
 `;
