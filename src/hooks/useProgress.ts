@@ -5,6 +5,7 @@ type UseProgressReturnType = {
   setCurrentStep: React.Dispatch<React.SetStateAction<string>>;
   progressStep: () => number;
   initialProgress: number;
+  getCurrentStepIndex: () => number;
 };
 
 const useProgress = (steps: string[]): UseProgressReturnType => {
@@ -21,12 +22,6 @@ const useProgress = (steps: string[]): UseProgressReturnType => {
   const progressStep = (): number => {
     const currentStepIndex = getCurrentStepIndex();
     const nextStepIndex = currentStepIndex + 1;
-    console.log('currentStepIndex: ', currentStepIndex);
-    console.log('nextStepIndex: ', nextStepIndex);
-
-    if (nextStepIndex < steps.length) {
-      setCurrentStep(steps[nextStepIndex]);
-    }
 
     const totalSteps = getTotalSteps();
     return ((nextStepIndex + 1) / totalSteps) * 100;
@@ -39,6 +34,7 @@ const useProgress = (steps: string[]): UseProgressReturnType => {
     setCurrentStep,
     progressStep,
     initialProgress,
+    getCurrentStepIndex,
   };
 };
 
