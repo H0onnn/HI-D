@@ -5,6 +5,7 @@ import { LoginDataInterface } from '../../../types/types';
 import Button from '../../public/Button';
 import styled from 'styled-components';
 import { emailValidation, passwordValidation } from '../../../utils/auth/validationRules';
+import { InputWrapper } from '../../../styles/styles';
 
 const LoginForm = () => {
   const {
@@ -71,11 +72,6 @@ const InputContainer = styled.div`
   flex-direction: column;
   gap: 3rem;
   margin-bottom: 4rem;
-`;
-
-const InputWrapper = styled.div`
-  position: relative;
-  width: 100%;
 `;
 
 const ButtonContainer = styled.div`

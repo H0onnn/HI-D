@@ -5,6 +5,8 @@ import { colors } from '../constants/colors';
 import Button from '../components/public/Button';
 import MainPageImage from '../public/images/elephant.png';
 import MainComment from '../components/auth/MainComment';
+import { ButtonContainer } from '../styles/styles';
+import { PageLayout } from '../styles/styles';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ const HomePage = () => {
   };
 
   return (
-    <MainPageLayout>
+    <PageLayout>
       <MainComment comment='전공 고민이 많은 당신께,' />
       <MainComment comment='대학생 매칭 서비스' />
       <ImageBox>
@@ -47,35 +49,15 @@ const HomePage = () => {
           서비스 둘러보기
         </Button>
       </ButtonContainer>
-    </MainPageLayout>
+    </PageLayout>
   );
 };
 
 export default HomePage;
-
-const MainPageLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: 2rem;
-  padding-top: 7rem;
-`;
 
 const ImageBox = styled.div`
   width: 24rem;
   height: 24rem;
   overflow: hidden;
   margin: 0 auto;
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  position: absolute;
-  bottom: 7rem;
-  left: 0;
-  padding: 0 2rem;
 `;

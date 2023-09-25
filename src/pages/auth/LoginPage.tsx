@@ -5,6 +5,8 @@ import { colors } from '../../constants/colors';
 import Button from '../../components/public/Button';
 import MainComment from '../../components/auth/MainComment';
 import LoginForm from '../../components/auth/login/LoginForm';
+import { ButtonContainer } from '../../styles/styles';
+import { PageLayout } from '../../styles/styles';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const LoginPage = () => {
   };
 
   return (
-    <LoginPageLayout>
+    <PageLayout>
       <MainComment comment='전공 고민이 많은 당신께,' />
       <MainComment comment='대학생 매칭 서비스' />
       <LoginForm />
@@ -69,31 +71,11 @@ const LoginPage = () => {
           <ServiceButtonLine />
         </ServiceButtonBox>
       </ButtonContainer>
-    </LoginPageLayout>
+    </PageLayout>
   );
 };
 
 export default LoginPage;
-
-const LoginPageLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: 2rem;
-  padding-top: 7rem;
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  position: absolute;
-  bottom: 7rem;
-  left: 0;
-  padding: 0 2rem;
-`;
 
 const AuthButtonContainer = styled.div`
   width: 29rem;
