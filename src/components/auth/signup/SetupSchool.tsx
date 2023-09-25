@@ -1,18 +1,18 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import styled from 'styled-components';
+import { useFormContext } from 'react-hook-form';
 import MainComment from '../MainComment';
 import Input from '../../public/Input';
 import Button from '../../public/Button';
 import { schoolValidation } from '../../../utils/auth/validationRules';
 import { ProfileSetupStepInterface } from '../../../types/types';
+import { ButtonContainer, InputWrapper } from '../../../styles/styles';
 
 const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
   const {
     register,
     formState: { errors },
     watch,
-  } = useForm({ mode: 'onChange' });
+  } = useFormContext();
 
   const schoolValue = watch('school');
 
@@ -24,7 +24,7 @@ const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
 
   return (
     <>
-      <MainComment comment='학교를 선택해주세요' />
+      <MainComment style={{ fontSize: '20px' }} comment='학교를 선택해주세요' />
       <InputWrapper>
         <Input
           type='school'
@@ -39,7 +39,7 @@ const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
         />
       </InputWrapper>
       <ButtonContainer>
-        <Button $isFullWidth onClick={onNext}>
+        <Button $isFullWidth onClick={onNext} disabled={schoolStatus !== 'success'}>
           다음
         </Button>
       </ButtonContainer>
@@ -48,19 +48,3 @@ const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
 };
 
 export default SetupSchool;
-
-const InputWrapper = styled.div`
-  position: relative;
-  width: 100%;
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  position: absolute;
-  bottom: 7rem;
-  left: 0;
-  padding: 0 2rem;
-`;
