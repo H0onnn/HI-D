@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { colors } from '../constants/colors';
 import Button from '../components/public/Button';
 import MainPageImage from '../public/images/elephant.png';
+import MainComment from '../components/auth/MainComment';
+import { ButtonContainer } from '../styles/styles';
+import { PageLayout } from '../styles/styles';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -17,14 +20,9 @@ const HomePage = () => {
   };
 
   return (
-    <MainPageLayout>
-      <MainPageTextContainer>
-        <MainPageText>
-          전공 고민이 많은 당신께,
-          <br />
-          대학생 매칭 서비스
-        </MainPageText>
-      </MainPageTextContainer>
+    <PageLayout>
+      <MainComment comment='전공 고민이 많은 당신께,' />
+      <MainComment comment='대학생 매칭 서비스' />
       <ImageBox>
         <img
           src={MainPageImage}
@@ -37,11 +35,11 @@ const HomePage = () => {
         />
       </ImageBox>
       <ButtonContainer>
-        <Button isFullWidth onClick={loginClickHandler}>
+        <Button $isFullWidth onClick={loginClickHandler}>
           로그인
         </Button>
         <Button
-          isFullWidth
+          $isFullWidth
           variant='textOnly'
           style={{
             color: colors.gray,
@@ -51,44 +49,15 @@ const HomePage = () => {
           서비스 둘러보기
         </Button>
       </ButtonContainer>
-    </MainPageLayout>
+    </PageLayout>
   );
 };
 
 export default HomePage;
-
-const MainPageLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-`;
-
-const MainPageTextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const MainPageText = styled.h1`
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 2rem;
-`;
 
 const ImageBox = styled.div`
   width: 24rem;
   height: 24rem;
   overflow: hidden;
   margin: 0 auto;
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  position: absolute;
-  bottom: 7rem;
-  left: 0;
-  padding: 0 1rem;
 `;

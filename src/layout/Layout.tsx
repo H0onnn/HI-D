@@ -43,6 +43,5 @@ const PageContentLayout = styled.div`
   max-width: 39rem;
   background: ${colors.white};
   margin: 0 auto;
-  /* padding: 2rem; */
   padding-bottom: 6.5rem;
 `;
