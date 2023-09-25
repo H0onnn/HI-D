@@ -6,4 +6,7 @@ export const LINK = {
   FINDPW: '/findpw',
   FIMDID: '/findid',
   MYPAGE: '/mypage',
-};
+  CHAT: '/chat',
+  SEARCH: '/search',
+  ALERT: '/alert',
+} as const;
