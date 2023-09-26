@@ -24,3 +24,13 @@ export const PageLayout = styled.div`
   padding: 2rem;
   padding-top: 7rem;
 `;
+
+export const PageLayoutWithNav = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  padding-top: 7rem;
+  padding-bottom: 6.5rem;
+`;

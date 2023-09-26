@@ -7,16 +7,17 @@ import MainPageImage from '../public/images/elephant.png';
 import MainComment from '../components/auth/MainComment';
 import { ButtonContainer } from '../styles/styles';
 import { PageLayout } from '../styles/styles';
+import { LINK } from '../constants/links';
 
 const HomePage = () => {
   const navigate = useNavigate();
 
   const loginClickHandler = () => {
-    navigate('/login');
+    navigate(LINK.LOGIN);
   };
 
   const serviceClickHandler = () => {
-    navigate('/main');
+    navigate(LINK.MAIN);
   };
 
   return (

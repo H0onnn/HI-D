@@ -4,6 +4,7 @@ import LoginPage from '../pages/auth/LoginPage';
 import SignUpPage from '../pages/auth/SignUpPage';
 import SearchPage from '../pages/search/SearchPage';
 import ChatPage from '../pages/chat/ChatPage';
+import { LINK } from '../constants/links';
 
 interface AppRoutesInterface {
   name: string;
@@ -17,28 +18,30 @@ interface AppRoutesInterface {
 const routes: AppRoutesInterface[] = [
   {
     name: 'Spalsh',
-    path: '/',
+    path: LINK.SPLASH,
     component: HomePage,
     meta: { hideNavBar: true },
   },
   {
     name: 'Login',
-    path: '/login',
+    path: LINK.LOGIN,
     component: LoginPage,
     meta: { hideNavBar: true },
   },
   {
     name: 'SignUp',
-    path: '/signup',
+    path: LINK.SIGNUP,
     component: SignUpPage,
     meta: { hideNavBar: true },
+  },
+  {
     name: 'Search',
-    path: '/search',
+    path: LINK.SEARCH,
     component: SearchPage,
   },
   {
     name: 'Chat',
-    path: '/chat',
+    path: LINK.CHAT,
     component: ChatPage,
   },
 ];
