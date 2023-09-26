@@ -1,67 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import ChatItem from '../../components/chat/ChatItem';
+import React, { useState } from 'react';
+// import styled from 'styled-components';
 import ChatModal from '../../components/chat/ChatModal';
+import PageHeader from '../../components/public/PageHeader';
+import { PageLayout } from '../../styles/styles';
+import MainComment from '../../components/auth/MainComment';
+import ChatRoomList from '../../components/chat/ChatRoomList';
+import { ChatModalStatusInterface } from '../../types/chat';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 
 const ChatPage = () => {
-  const [chatList, setChatList] = useState([]);
-  const [modal, setModal] = useState(false);
+  const [{ isOpen, roomId }, setChatModal] = useState<ChatModalStatusInterface>({
+    isOpen: false,
+    roomId: 0,
+  });
+  const { lockScroll, openScroll } = useBodyScrollLock();
 
-  useEffect(() => {
-    // fetch
-    setChatList(['톡톡1', '톡톡2', '톡톡3']);
-  }, []);
+  const chatRoomClickHandler = (roomId: number) => {
+    setChatModal({ isOpen: true, roomId: roomId });
+    lockScroll();
+  };
 
   return (
-    <ChatPageLayout>
-      <Title>과끼리 톡톡</Title>
-      <ChatListText>참여 중인 톡톡</ChatListText>
-      <ChatList>
-        {chatList.map((chat, index) => (
-          <ChatItem key={index} chat={chat} onClick={() => setModal(true)} />
-        ))}
-      </ChatList>
-      {modal && <ChatModal setModal={setModal} />}
-    </ChatPageLayout>
+    <>
+      {/* {isLoading && <div style={{ height: '100vh' }}>Loading...</div>} */}
+      {/* {error && <div>Error}</div>} */}
+      {/* 수정여부 */}
+      <PageHeader style={{ background: '#FBFBFB' }} title='과끼리 톡톡' />
+      {/* PageLayoutWithNav 추가 혹은 수정여부 */}
+      <PageLayout style={{ background: '#FBFBFB', paddingBottom: '6.5rem' }}>
+        <MainComment style={{ fontSize: '18px', color: '#696969' }} comment='참여 중인 톡톡' />
+        <ChatRoomList chatRoomClick={chatRoomClickHandler} />
+        {isOpen && (
+          <ChatModal
+            status={{ isOpen, roomId }}
+            setChatModal={setChatModal}
+            openScroll={openScroll}
+          />
+        )}
+      </PageLayout>
+    </>
   );
 };
 
 export default ChatPage;
-
-const ChatPageLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 2rem;
-`;
-const Title = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 48px;
-
-  color: #555353;
-  text-align: center;
-  font-family: SUIT;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%;
-`;
-const ChatListText = styled.div`
-  padding: 25px 0 12px 0;
-
-  color: #696969;
-  font-family: SUIT;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%; /* 27px */
-`;
-const ChatList = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  gap: 0.8rem;
-`;

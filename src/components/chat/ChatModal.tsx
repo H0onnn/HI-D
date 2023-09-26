@@ -1,29 +1,70 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ChatContents from './ChatContents';
+import { InputWrapper } from '../../styles/styles';
+import Input from '../public/Input';
+import { ChatInterface, ChatModalStatusInterface } from '../../types/chat';
 
 type Props = {
-  setModal: (modal: boolean) => void;
+  setChatModal: React.Dispatch<React.SetStateAction<ChatModalStatusInterface>>;
+  status: ChatModalStatusInterface;
+  openScroll: () => void;
 };
-const ChatModal = ({ setModal }: Props) => {
+const ChatModal = ({ setChatModal, status: { roomId }, openScroll }: Props) => {
   const modalBackground = useRef(null);
+  const [chatContentList, setChatContentList] = useState<ChatInterface[]>([]);
 
+  const modalBackgroundClickHandler = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.target === modalBackground.current) {
+      setChatModal({ isOpen: false, roomId: 0 });
+      openScroll();
+    }
+  };
+
+  const getChatByRoomId = async (roomId: number) => {
+    // TODO: roomId로 채팅방 정보 가져오기
+    // /chat-room/:roomId
+    console.log(roomId);
+    const data: ChatInterface[] = await [
+      {
+        nickname: 'nickname',
+        content:
+          'contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent',
+        date: 'date',
+      },
+      { nickname: 'myNickname', content: 'content', date: 'date' },
+      { nickname: 'nickname', content: 'content', date: 'date' },
+      { nickname: 'nickname', content: 'content', date: 'date' },
+      {
+        nickname: 'myNickname',
+        content:
+          'contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentconte',
+        date: 'date',
+      },
+      { nickname: 'nickname', content: 'content', date: 'date' },
+      { nickname: 'nickname', content: 'content', date: 'date' },
+    ];
+    setChatContentList(data);
+  };
+
+  useEffect(() => {
+    getChatByRoomId(roomId);
+  }, [roomId]);
   return (
-    <ChatModalLayout
-      ref={modalBackground}
-      onClick={(e) => {
-        if (e.target === modalBackground.current) {
-          setModal(false);
-        }
-      }}
-    >
+    <ChatModalLayout ref={modalBackground} onClick={modalBackgroundClickHandler}>
       <ChatRoomContainer>
-        <ChatProfileBox>
-          <img src='/src/public/images/elephant.png' alt='profile' />
-        </ChatProfileBox>
-        <ChatContents />
-        {/* chat input */}
-        <input />
+        <ImageWrapper>
+          <img src='/src/public/images/elephant.png' alt='profile' width={68} height={68} />
+        </ImageWrapper>
+        <ChatContents chatContentList={chatContentList} />
+        <InputWrapper>
+          <Input
+            type='text'
+            // status={'search'}
+            placeholder='채팅을 입력해주세요.'
+            image={'/src/public/images/elephant.png'}
+          />
+        </InputWrapper>
       </ChatRoomContainer>
     </ChatModalLayout>
   );
@@ -34,7 +75,6 @@ export default ChatModal;
 const ChatModalLayout = styled.div`
   width: 100%;
   height: 100%;
-
   position: fixed;
   z-index: 999;
   top: 0;
@@ -45,28 +85,20 @@ const ChatModalLayout = styled.div`
 `;
 const ChatRoomContainer = styled.div`
   width: 100%;
-  height: calc(100% - 80px);
-  padding: 60px 30px 30px 30px;
-
+  height: calc(100% - 8rem);
   position: absolute;
-  top: 80px;
+  top: 8rem;
   display: flex;
   flex-direction: column;
-
+  padding: 6rem 3rem 3rem 3rem;
   background: #fff;
-  border-radius: 20px 20px 0px 0px;
+  border-radius: 2rem 2rem 0 0;
 `;
-const ChatProfileBox = styled.div`
+const ImageWrapper = styled.div`
   position: absolute;
-  left: 30px;
-  bottom: calc(100% - 40px);
-
+  left: 3rem;
+  bottom: calc(100% - 4rem);
   background: #f3f2f2;
   border-radius: 68px;
-  box-shadow: 0px 4px 16px 0px rgba(100, 100, 100, 0.1);
-
-  > img {
-    width: 68px;
-    height: 68px;
-  }
+  box-shadow: 0 0.4rem 1.6rem 0 rgba(100, 100, 100, 0.1);
 `;
