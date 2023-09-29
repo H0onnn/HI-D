@@ -20,11 +20,13 @@ const CheckAgreement = ({ onNext }: ProfileSetupStepInterface) => {
     personalInfoAgreement: false,
     overFourteen: false,
   });
+  const [optionalAgreement, setOptionalAgreement] = useState<boolean>(false);
 
   const allCheckedClickHandler = createAllCheckHandler(
     allChecked,
     setAllChecked,
     setRequiredAgreements,
+    setOptionalAgreement,
   );
   const checkboxClickHandler = createCheckboxClickHandler(setRequiredAgreements);
   const areAllRequiredChecked = allRequiredChecked(requiredAgreements);
@@ -78,7 +80,8 @@ const CheckAgreement = ({ onNext }: ProfileSetupStepInterface) => {
         />
         <Checkbox
           text='광고성 정보 및 마케팅 활용에 동의합니다. (선택)'
-          onChange={checkboxClickHandler}
+          onChange={() => setOptionalAgreement((prev) => !prev)}
+          checked={optionalAgreement}
         />
       </CheckBoxContainer>
       <ButtonContainer>
