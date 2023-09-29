@@ -44,7 +44,7 @@ export const majorValidation = {
   required: '학과명은 필수 입력 항목입니다.',
   pattern: {
     // 한글만 허용 (특수문자, 공백 제외)
-    value: /^[가-힣]+$/,
+    value: /^[가-힣]+학$/,
     message: '올바른 학과명을 입력해주세요.',
   },
   validate: {
