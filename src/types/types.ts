@@ -20,3 +20,26 @@ export interface SVGIconInterface {
 export interface ProfileSetupStepInterface {
   onNext: () => void;
 }
+
+export interface KeywordDataInterface {
+  id: number;
+  name: string;
+}
+
+export type setValueFunction = (
+  name: string,
+  value: string,
+  options?: { shouldValidate?: boolean; shouldDirty?: boolean },
+) => void;
+
+export interface KeywordSearchInterface {
+  fieldName: string;
+  keywordSelectHandler: (
+    fieldName: string,
+    keyword: string,
+    setValue: setValueFunction,
+    onBlur: () => void,
+  ) => void;
+  setValue: setValueFunction;
+  onBlur: () => void;
+}

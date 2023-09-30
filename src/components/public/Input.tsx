@@ -41,7 +41,7 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
     return (
       <>
         <InputLayout status={status}>
-          <CustomInput ref={ref} {...props} />
+          <CustomInput ref={ref} {...props} autoComplete='off' />
           {renderIcon()}
           {button && (
             <VerifiedButton
@@ -73,7 +73,8 @@ const InputLayout = styled.div<{ status: 'default' | 'success' | 'error' | 'sear
   display: flex;
   justify-content: space-between;
 
-  box-shadow: ${({ status }) => (status !== 'default' ? `0 0 0 2px ${colorMap[status]}` : 'none')};
+  box-shadow: ${({ status }) =>
+    status !== 'default' && status !== 'search' ? `0 0 0 2px ${colorMap[status]}` : 'none'};
 
   &:focus-within {
     box-shadow: 0 0 0 2px ${({ status }) => colorMap[status]};

@@ -16,7 +16,7 @@ interface AppRoutesInterface {
 
 const routes: AppRoutesInterface[] = [
   {
-    name: 'Spalsh',
+    name: 'splash',
     path: '/',
     component: HomePage,
     meta: { hideNavBar: true },
@@ -32,6 +32,8 @@ const routes: AppRoutesInterface[] = [
     path: '/signup',
     component: SignUpPage,
     meta: { hideNavBar: true },
+  },
+  {
     name: 'Search',
     path: '/search',
     component: SearchPage,
