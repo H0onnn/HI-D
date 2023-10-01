@@ -6,11 +6,12 @@ import BackIcon from '../../public/images/headerBackBtn.png';
 interface PageHeaderInterface {
   title: string;
   onClick?: () => void;
+  style?: React.CSSProperties;
 }
 
-const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
+const PageHeader = ({ title, onClick, style }: PageHeaderInterface) => {
   return (
-    <PageHeaderLayout>
+    <PageHeaderLayout style={style}>
       <BackButtonBox>
         <img
           style={{
@@ -34,7 +35,7 @@ const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
 
 export default PageHeader;
 
-const PageHeaderLayout = styled.div`
+const PageHeaderLayout = styled.div<{ style: string }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,6 +46,7 @@ const PageHeaderLayout = styled.div`
   top: 0;
   padding: 2rem;
   background-color: ${colors.white};
+  ${(props) => props.style};
 `;
 
 const BackButtonBox = styled.div`

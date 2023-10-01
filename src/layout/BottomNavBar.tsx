@@ -2,16 +2,17 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BottomNavButton from './BottomNavButton';
+import { LINK } from '../constants/links';
 
 const BottomNavBar = () => {
   const navigate = useNavigate();
 
   return (
     <BottomNavBarLayout>
-      <BottomNavButton text='홈' onClick={() => navigate('/')} />
-      <BottomNavButton text='채팅' onClick={() => navigate('/')} />
-      <BottomNavButton text='검색' onClick={() => navigate('/')} />
-      <BottomNavButton text='마이페이지' onClick={() => navigate('/')} />
+      <BottomNavButton text='홈' onClick={() => navigate(LINK.MAIN)} />
+      <BottomNavButton text='채팅' onClick={() => navigate(LINK.CHAT)} />
+      <BottomNavButton text='검색' onClick={() => navigate(LINK.SEARCH)} />
+      <BottomNavButton text='마이페이지' onClick={() => navigate(LINK.MYPAGE)} />
     </BottomNavBarLayout>
   );
 };

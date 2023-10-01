@@ -6,31 +6,30 @@ type IObserverCallback = () => void;
 
 const options = {
   root: null,
-  rootMargin: '20px',
-  threshold: 1,
+  rootMargin: '1px',
+  threshold: 0.1,
 };
 
-export default function useObserver(callback: IObserverCallback, status?: status) {
+const useObserver = (callback: IObserverCallback, status?: status) => {
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      const target = entries[0];
-      if (target.isIntersecting && status !== STATUS.LOADING) {
+    if (!contentRef.current) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
         callback();
       }
     }, options);
 
-    if (contentRef.current) {
-      observer.observe(contentRef.current);
-    }
+    observer.observe(contentRef.current);
 
     return () => {
-      if (contentRef.current) {
-        observer.unobserve(contentRef.current);
-      }
+      observer.disconnect();
     };
   }, [callback, contentRef, status]);
 
   return contentRef;
-}
+};
+
+export default useObserver;

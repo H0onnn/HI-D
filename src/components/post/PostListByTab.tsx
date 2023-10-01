@@ -19,7 +19,7 @@ type Tab = {
 const PostListByTab = ({ tabList, getPostListOptions }: Props) => {
   const [showTap, setShowTap] = useState<Tab>({ id: 1, name: '도움이 필요해요', category: 'help' });
   const [postList, setPostList] = useState<Post[]>([]);
-  // const [pages, setPages] = useState<number[]>([]); // 탭마다 페이지를 따로 관리해야 함
+  const [pages, setPages] = useState<number[]>([]); // 탭마다 페이지를 따로 관리해야 함
   // 탭마다 페이지를 따로 관리할 지 -> fetch 로직도 나눠서 관리, 여기에서 관리할지 -> options으로 나눔
 
   const fetchPostList = async (params: getPostListOptions) => {
@@ -132,8 +132,14 @@ const PostListByTab = ({ tabList, getPostListOptions }: Props) => {
 
   const keyword = '내용';
 
-  const callback = () => {};
-  const infiniteRef = useObserver(callback);
+  const callback = () => {
+    setPages((prev) => {
+      const newPages = [...prev];
+      newPages[showTap.id] = newPages[showTap.id] + 1;
+      return newPages;
+    });
+  };
+  const infinityRef = useObserver(callback);
 
   useEffect(() => {
     fetchPostList({ category: showTap.category, keyword, page: pages[showTap.id] });
@@ -143,11 +149,7 @@ const PostListByTab = ({ tabList, getPostListOptions }: Props) => {
     <PostListByTabLayout>
       <TabBox>
         {tabList.map((tab, index) => (
-          <TabText
-            key={index}
-            isseleced={tab.id === showTap.id ? 'true' : 'false'}
-            onClick={() => setShowTap(tab)}
-          >
+          <TabText key={index} $isSeleced={tab.id === showTap.id} onClick={() => setShowTap(tab)}>
             {tab.name}
           </TabText>
         ))}
@@ -167,7 +169,7 @@ const PostListByTab = ({ tabList, getPostListOptions }: Props) => {
             })()}
           </React.Fragment>
         ))}
-        {postList.length !== 0 && <div ref={infiniteRef}></div>}
+        {postList.length !== 0 && <div ref={infinityRef} style={{ height: '1px' }}></div>}
       </PostListContainer>
     </PostListByTabLayout>
   );
@@ -181,11 +183,11 @@ const TabBox = styled.div`
   gap: 1.2rem;
   margin: 0 2rem;
 `;
-const TabText = styled.div<{ isseleced: string }>`
+const TabText = styled.div<{ $isSeleced: boolean }>`
   height: 34px;
 
-  border-bottom: ${({ isseleced }) => (isseleced === 'true' ? '2px solid #000' : 'none')};
-  color: ${({ isseleced }) => (isseleced === 'true' ? '#000' : '##C8C8C8')};
+  border-bottom: ${({ $isSeleced }) => ($isSeleced ? '2px solid #000' : 'none')};
+  color: ${({ $isSeleced }) => ($isSeleced ? '#000' : '##C8C8C8')};
   font-family: SUIT;
   font-size: 20px;
   font-style: normal;

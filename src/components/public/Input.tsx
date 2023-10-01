@@ -18,7 +18,7 @@ const colorMap = {
   default: colors.primary,
   success: colors.success,
   error: colors.error,
-  search: colors.primary,
+  search: colors.paleGray,
 };
 
 const Input = forwardRef<HTMLInputElement, InputInterface>(
