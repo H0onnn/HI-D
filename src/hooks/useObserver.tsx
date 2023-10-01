@@ -10,7 +10,7 @@ const options = {
   threshold: 0.1,
 };
 
-export default function useObserver(callback: IObserverCallback, status?: status) {
+const useObserver = (callback: IObserverCallback, status?: status) => {
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -30,4 +30,6 @@ export default function useObserver(callback: IObserverCallback, status?: status
   }, [callback, contentRef, status]);
 
   return contentRef;
-}
+};
+
+export default useObserver;

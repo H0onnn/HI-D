@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { PostDetail } from '../../types/post';
+import { Post } from '../../types/post';
 import BoldContent from '../../utils/BoldContent';
 import { getContentSnippet } from '../../utils/post';
 
 type Props = {
-  post: PostDetail;
+  post: Post;
   keyword?: string;
 };
 

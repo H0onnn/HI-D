@@ -8,7 +8,7 @@ type Props = {
   chatRoomClick: (roomId: number) => void;
 };
 
-export default function ChatRoomList({ chatRoomClick }: Props) {
+const ChatRoomList = ({ chatRoomClick }: Props) => {
   const [{ page, isNext }, setPage] = useState<PageStatusInterface>({ page: 1, isNext: false });
   const [piledChatRoomList, setPiledChatRoomList] = useState<ChatRoomInterface[]>([]);
   const infinityRef = useObserver(() => nextPageHandler());
@@ -59,7 +59,8 @@ export default function ChatRoomList({ chatRoomClick }: Props) {
       {isNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
     </ChatRoomContainer>
   );
-}
+};
+export default ChatRoomList;
 
 const ChatRoomContainer = styled.div`
   width: 100%;

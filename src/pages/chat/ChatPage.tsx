@@ -4,9 +4,9 @@ import ChatModal from '../../components/chat/ChatModal';
 import PageHeader from '../../components/public/PageHeader';
 import { PageLayout } from '../../styles/styles';
 import MainComment from '../../components/auth/MainComment';
-import ChatRoomList from '../../components/chat/ChatRoomList';
 import { ChatModalStatusInterface } from '../../types/chat';
-import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
+import ChatRoomList from '../../components/chat/ChatRoomList';
+import useBodyScrollLock from '../../hooks/useBodyScrollLock';
 
 const ChatPage = () => {
   const [{ isOpen, roomId }, setChatModal] = useState<ChatModalStatusInterface>({
