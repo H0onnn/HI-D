@@ -9,10 +9,18 @@ export const emailValidation = {
 
 export const passwordValidation = {
   required: '비밀번호는 필수 입력 항목입니다.',
+  minLength: {
+    value: 8,
+    message: '비밀번호는 최소 8글자 이상이어야 합니다.',
+  },
+  maxLength: {
+    value: 16,
+    message: '비밀번호는 최대 16글자 까지 허용됩니다.',
+  },
   pattern: {
     // 비밀번호 형식 검사 : 영어, 숫자, 특수문자 포함 8자에서 16자 사이
     value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/,
-    message: '비밀번호는 영어, 숫자, 특수문자를 포함한 8자에서 16자 사이여야 합니다.',
+    message: '비밀번호는 영어, 숫자, 특수문자를 포함해야 합니다.',
   },
 };
 
@@ -44,7 +52,7 @@ export const majorValidation = {
   required: '학과명은 필수 입력 항목입니다.',
   pattern: {
     // 한글만 허용 (특수문자, 공백 제외)
-    value: /^[가-힣]+$/,
+    value: /^[가-힣]+학$/,
     message: '올바른 학과명을 입력해주세요.',
   },
   validate: {

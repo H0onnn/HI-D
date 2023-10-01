@@ -1,26 +1,26 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import useFocus from '../../../hooks/useFocus';
+import useSetupInput from '../../../hooks/useSetupInput';
+import Modal from './Modal';
 import MainComment from '../MainComment';
 import Input from '../../public/Input';
 import Button from '../../public/Button';
 import { schoolValidation } from '../../../utils/auth/validationRules';
 import { ProfileSetupStepInterface } from '../../../types/types';
 import { ButtonContainer, InputWrapper } from '../../../styles/styles';
+import { keywordSelectHandler } from '../../../services/signupService';
 
 const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
   const {
     register,
-    formState: { errors },
-    watch,
-  } = useFormContext();
+    errors,
+    status: schoolStatus,
+    debouncedValue: debouncedSchoolValue,
+    inputchangeHandler,
+    setValue,
+  } = useSetupInput('school', schoolValidation);
 
-  const schoolValue = watch('school');
-
-  const schoolStatus = errors.school
-    ? 'error'
-    : schoolValue && !errors.school
-    ? 'success'
-    : 'default';
+  const { isFocus, onBlur, onFocus } = useFocus();
 
   return (
     <>
@@ -29,15 +29,28 @@ const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
         <Input
           type='school'
           status={schoolStatus}
-          {...register('school', schoolValidation)}
+          {...register('school')}
           errorMessage={
             errors.school && typeof errors.school.message === 'string'
               ? errors.school.message
               : undefined
           }
           placeholder='학교 이름을 검색해주세요.'
+          onFocus={onFocus}
+          onChange={inputchangeHandler}
         />
+        {isFocus && (
+          <Modal
+            fieldName='school'
+            searchValue={debouncedSchoolValue}
+            keywordSelectHandler={keywordSelectHandler}
+            onBlur={onBlur}
+            onFiltered={() => {}}
+            setValue={setValue}
+          />
+        )}
       </InputWrapper>
+
       <ButtonContainer>
         <Button $isFullWidth onClick={onNext} disabled={schoolStatus !== 'success'}>
           다음

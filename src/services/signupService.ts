@@ -57,6 +57,7 @@ export const createAllCheckHandler = (
   allChecked: boolean,
   setAllChecked: React.Dispatch<React.SetStateAction<boolean>>,
   setRequiredAgreements: React.Dispatch<React.SetStateAction<RequiredAgreementsType>>,
+  setOptionalAgreement: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   return () => {
     const newValue = !allChecked;
@@ -67,6 +68,7 @@ export const createAllCheckHandler = (
       personalInfoAgreement: newValue,
       overFourteen: newValue,
     });
+    setOptionalAgreement(newValue);
   };
 };
 
@@ -83,4 +85,18 @@ export const createCheckboxClickHandler = (
 
 export const allRequiredChecked = (requiredAgreements: RequiredAgreementsType) => {
   return Object.values(requiredAgreements).every((val) => val);
+};
+
+export const keywordSelectHandler = (
+  fieldName: string,
+  keyword: string,
+  setValue: (
+    name: string,
+    value: string,
+    options?: Partial<{ shouldValidate: boolean; shouldDirty: boolean }>,
+  ) => void,
+  onBlur: () => void,
+) => {
+  setValue(fieldName, keyword, { shouldValidate: true });
+  onBlur();
 };
