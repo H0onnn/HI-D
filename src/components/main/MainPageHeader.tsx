@@ -37,8 +37,8 @@ const LogoImageWrpper = styled.div`
   width: 2.4rem;
   height: 2.4rem;
   > img {
-    width: '100%';
-    height: '100%';
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -46,7 +46,7 @@ const AlarmImageWrpper = styled.div`
   width: 2.4rem;
   height: 2.4rem;
   > img {
-    width: '100%';
-    height: '100%';
+    width: 100%;
+    height: 100%;
   }
 `;
