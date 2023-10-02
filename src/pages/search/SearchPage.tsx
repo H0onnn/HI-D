@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 // import styled from 'styled-components';
 import PostListByTab from '../../components/post/PostListByTab';
 import { PageLayout } from '../../styles/styles';
 import SearchHistory from '../../components/search/SearchHistory';
 import SearchBar from '../../components/search/SearchBar';
+import PageHeader from '../../components/public/PageHeader';
 
 const tabList = [
   { id: 1, name: '도움이 필요해요', category: 'help' },
@@ -19,25 +20,23 @@ const SearchPage = () => {
   const [keyword, setKeyword] = useState('');
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
 
-  const searchByKeyword = ({ keyword }) => {
-    if (keyword.trim() === '') return;
+  const searchByKeyword = ({ keyword }: { keyword: string }) => {
+    if (!keyword || keyword.trim() === '') return;
+    console.log(keyword);
     // fetch
     setSearchHistory([keyword, ...searchHistory]);
     setKeyword('');
   };
 
-  useEffect(() => {
-    searchByKeyword({ keyword });
-  }, [keyword]);
-
   return (
-    <PageLayout style={{ padding: '0' }}>
-      <div style={{ padding: '2rem' }}>
-        <SearchBar setKeyword={setKeyword} keyword={keyword} />
+    <>
+      <PageHeader />
+      <PageLayout>
+        <SearchBar setKeyword={setKeyword} keyword={keyword} searchByKeyword={searchByKeyword} />
         <SearchHistory searchHistory={searchHistory} />
-      </div>
-      <PostListByTab tabList={tabList} getPostListOptions={{ keyword }} />
-    </PageLayout>
+        <PostListByTab tabList={tabList} getPostListOptions={{ keyword }} />
+      </PageLayout>
+    </>
   );
 };
 
