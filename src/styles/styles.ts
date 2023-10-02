@@ -34,3 +34,10 @@ export const PageLayoutWithNav = styled.div`
   padding-top: 7rem;
   padding-bottom: 6.5rem;
 `;
+
+export const SearchInputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 3.8rem;
+  bottom: 1rem;
+`;
