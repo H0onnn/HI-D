@@ -4,14 +4,14 @@ import { colors } from '../../constants/colors';
 import BackIcon from '../../public/images/headerBackBtn.png';
 
 interface PageHeaderInterface {
-  title: string;
+  title?: string;
   onClick?: () => void;
-  style?: React.CSSProperties;
+  // style?: React.CSSProperties;
 }
 
-const PageHeader = ({ title, onClick, style }: PageHeaderInterface) => {
+const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
   return (
-    <PageHeaderLayout style={style}>
+    <PageHeaderLayout>
       <BackButtonBox>
         <img
           style={{
@@ -35,7 +35,7 @@ const PageHeader = ({ title, onClick, style }: PageHeaderInterface) => {
 
 export default PageHeader;
 
-const PageHeaderLayout = styled.div<{ style: string }>`
+const PageHeaderLayout = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,7 +46,6 @@ const PageHeaderLayout = styled.div<{ style: string }>`
   top: 0;
   padding: 2rem;
   background-color: ${colors.white};
-  ${(props) => props.style};
 `;
 
 const BackButtonBox = styled.div`
