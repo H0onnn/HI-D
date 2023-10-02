@@ -1,27 +1,45 @@
-import React, { ChangeEvent } from 'react';
-// import styled from 'styled-components';
-import { InputWrapper } from '../../styles/styles';
+import React, { ChangeEvent, useEffect } from 'react';
 import Input from '../public/Input';
+import { SearchInputWrapper } from '../../styles/styles';
 
 const SearchBar = ({
   setKeyword,
   keyword,
+  searchByKeyword,
 }: {
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
   keyword: string;
+  searchByKeyword: ({ keyword }: { keyword: string }) => void;
 }) => {
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      searchByKeyword({ keyword: e.currentTarget.value });
+    }
+  };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+  };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
-    <InputWrapper>
+    <SearchInputWrapper>
       <Input
         type='text'
         status={'search'}
-        placeholder='검색어를 입력해주세요.'
-        image={'/src/public/images/elephant.png'}
+        placeholder='검색'
         value={keyword}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)}
-        // onKeyUp={search}
+        onChange={handleChange}
+        onKeyUp={handleKeyUp}
+        ref={inputRef}
       />
-    </InputWrapper>
+    </SearchInputWrapper>
   );
 };
 export default SearchBar;
