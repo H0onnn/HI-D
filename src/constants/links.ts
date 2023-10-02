@@ -9,4 +9,5 @@ export const LINK = {
   CHAT: '/chat',
   SEARCH: '/search',
   ALERT: '/alert',
+  POST: '/post',
 } as const;
