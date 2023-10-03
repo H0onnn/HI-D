@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import useSchooMajorData from '../../../hooks/useSchoolMajorData';
+import useSchoolMajorData from '../../../hooks/useSchoolMajorData';
 import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
 import KeywordList from './KeywordList';
@@ -18,7 +18,7 @@ const Modal = ({
   onBlur,
   onFiltered,
 }: ModalInterface) => {
-  const { datas, isLoading } = useSchooMajorData(fieldName, searchValue);
+  const { datas, isLoading } = useSchoolMajorData(fieldName, searchValue);
 
   useEffect(() => {
     onFiltered(datas.length);
