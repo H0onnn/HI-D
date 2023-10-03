@@ -22,7 +22,6 @@ export interface ProfileSetupStepInterface {
 }
 
 export interface KeywordDataInterface {
-  id: number;
   name: string;
 }
 
