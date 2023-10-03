@@ -64,6 +64,7 @@ const useSetupInput = (field: string, validationRules: ValidationRulesInterface)
     debouncedValue,
     inputchangeHandler,
     setValue,
+    value,
   };
 };
 
