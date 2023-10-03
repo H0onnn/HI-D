@@ -18,7 +18,7 @@ const Modal = ({
   onBlur,
   onFiltered,
 }: ModalInterface) => {
-  const { datas } = useSchooMajorData(fieldName, searchValue);
+  const { datas, isLoading } = useSchooMajorData(fieldName, searchValue);
 
   useEffect(() => {
     onFiltered(datas.length);
@@ -27,15 +27,20 @@ const Modal = ({
   return (
     <>
       <ModalContainer $isVisible={searchValue.trim().length > 0}>
-        <>
-          <KeywordList
-            fieldName={fieldName}
-            datas={datas}
-            keywordSelectHandler={keywordSelectHandler}
-            setValue={setValue}
-            onBlur={onBlur}
-          />
-        </>
+        {isLoading ? (
+          <LoadingText>검색 중..</LoadingText>
+        ) : (
+          <>
+            <KeywordList
+              fieldName={fieldName}
+              datas={datas}
+              keywordSelectHandler={keywordSelectHandler}
+              setValue={setValue}
+              onBlur={onBlur}
+            />
+            <NoDataCommentBox>{!datas.length && <span>검색어 없음</span>}</NoDataCommentBox>
+          </>
+        )}
       </ModalContainer>
     </>
   );
@@ -60,4 +65,21 @@ const ModalContainer = styled.div<{ $isVisible: boolean }>`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const LoadingText = styled.p`
+  font-weight: bold;
+  font-size: 14px;
+  color: ${colors.gray};
+  padding: 1rem 1.5rem;
+  margin: 0;
+`;
+
+const NoDataCommentBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: ${colors.gray};
+  height: 25rem;
 `;
