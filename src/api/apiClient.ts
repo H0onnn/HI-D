@@ -38,8 +38,8 @@ class AxiosClient {
     try {
       const res = await this.#instance.get(`schools?keyword=${keyword}`);
       return res.data;
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -47,8 +47,8 @@ class AxiosClient {
     try {
       const res = await this.#instance.get(`majors?keyword=${keyword}`);
       return res.data;
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
     }
   }
 }
