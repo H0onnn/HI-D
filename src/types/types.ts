@@ -21,10 +21,6 @@ export interface ProfileSetupStepInterface {
   onNext: () => void;
 }
 
-export interface KeywordDataInterface {
-  name: string;
-}
-
 export type setValueFunction = (
   name: string,
   value: string,
