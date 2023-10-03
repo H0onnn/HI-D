@@ -25,24 +25,23 @@ const Modal = ({
   }, [datas, onFiltered]);
 
   return (
-    <>
-      <ModalContainer $isVisible={searchValue.trim().length > 0}>
-        {isLoading ? (
-          <LoadingText>검색 중..</LoadingText>
-        ) : (
-          <>
-            <KeywordList
-              fieldName={fieldName}
-              datas={datas}
-              keywordSelectHandler={keywordSelectHandler}
-              setValue={setValue}
-              onBlur={onBlur}
-            />
-            <NoDataCommentBox>{!datas.length && <span>검색어 없음</span>}</NoDataCommentBox>
-          </>
-        )}
-      </ModalContainer>
-    </>
+    <ModalContainer $isVisible={searchValue.trim().length > 0}>
+      {isLoading ? (
+        <LoadingText>검색 중..</LoadingText>
+      ) : datas.length ? (
+        <KeywordList
+          fieldName={fieldName}
+          datas={datas}
+          keywordSelectHandler={keywordSelectHandler}
+          setValue={setValue}
+          onBlur={onBlur}
+        />
+      ) : (
+        <NoDataCommentBox>
+          <span>검색어 없음</span>
+        </NoDataCommentBox>
+      )}
+    </ModalContainer>
   );
 };
 
