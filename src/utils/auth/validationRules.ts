@@ -80,3 +80,10 @@ export const nicknameValidation = {
     message: '사용할 수 없는 닉네임입니다.',
   },
 };
+
+// 검색어에 자음 또는 모음만 있는 문자가 있는지 확인하는 정규식 ex) 아ㅏ메
+// 통과되는 검색어: 아메
+// 통과되지 않는 검색어: 아ㅏ메
+export const INCOMPLETE_KOREAN_REGEX = /[ㄱ-ㅎㅏ-ㅣ]/;
+
+export const ENGLISH_ONLY_REGEX = /^[a-zA-Z]+$/;
