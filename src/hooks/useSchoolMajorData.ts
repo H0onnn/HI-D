@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getSchools, getMajors } from '../api/schoolData';
 import { INCOMPLETE_KOREAN_REGEX, ENGLISH_ONLY_REGEX } from '../utils/auth/validationRules';
 
-const useSchooMajorData = (fieldName: string, searchValue: string) => {
+const useSchoolMajorData = (fieldName: string, searchValue: string) => {
   const [datas, setDatas] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -28,4 +28,4 @@ const useSchooMajorData = (fieldName: string, searchValue: string) => {
   return { datas, isLoading };
 };
 
-export default useSchooMajorData;
+export default useSchoolMajorData;
