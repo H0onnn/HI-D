@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useSchoolMajorData from '../../../hooks/useSchoolMajorData';
 import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
@@ -7,7 +7,6 @@ import { KeywordSearchInterface } from '../../../types/types';
 
 interface ModalInterface extends KeywordSearchInterface {
   searchValue: string;
-  onFiltered: (count: number) => void;
 }
 
 const Modal = ({
@@ -16,13 +15,8 @@ const Modal = ({
   keywordSelectHandler,
   setValue,
   onBlur,
-  onFiltered,
 }: ModalInterface) => {
   const { datas, isLoading } = useSchoolMajorData(fieldName, searchValue);
-
-  useEffect(() => {
-    onFiltered(datas.length);
-  }, [datas, onFiltered]);
 
   return (
     <ModalContainer $isVisible={searchValue.trim().length > 0}>

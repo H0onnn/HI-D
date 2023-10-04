@@ -53,7 +53,6 @@ const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
             searchValue={debouncedSchoolValue}
             keywordSelectHandler={keywordSelectHandler}
             onBlur={onBlur}
-            onFiltered={() => {}}
             setValue={setValue}
           />
         )}
