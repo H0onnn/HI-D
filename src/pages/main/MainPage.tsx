@@ -18,6 +18,7 @@ const MainPage = () => {
     setPopularPostList([]);
     setNewPostList([]);
   }, []);
+
   return (
     <>
       <MainPageHeader />

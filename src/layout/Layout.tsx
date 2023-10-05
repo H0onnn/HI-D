@@ -4,6 +4,7 @@ import routes from '../router/AppRoutes';
 import styled from 'styled-components';
 import { colors } from '../constants/colors';
 import BottomNavBar from './BottomNavBar';
+import FloatingNav from '../components/main/FloatingNav';
 
 interface LayoutInterface {
   children: React.ReactNode;
@@ -13,12 +14,14 @@ const Layout = ({ children }: LayoutInterface) => {
   const location = useLocation();
   const currentRoute = routes.find((route) => route.path === location.pathname);
   const hideBottomNav = currentRoute?.meta?.hideNavBar || false;
+  const hideFloatNav = currentRoute?.meta?.hideFloatNav || false;
 
   return (
     <PageLayout>
       <PageContentLayout>
         {children}
         {!hideBottomNav && <BottomNavBar />}
+        {!hideFloatNav && <FloatingNav />}
       </PageContentLayout>
     </PageLayout>
   );
