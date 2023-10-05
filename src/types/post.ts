@@ -2,6 +2,14 @@ export enum Category {
   'help',
   'free',
 }
+export enum FreePostTag {
+  '전체',
+  '연애',
+  '일상',
+  '같이해요',
+  '맛집',
+  '잡담',
+}
 export type PostList = {
   dataList: Post[];
   size: number;
