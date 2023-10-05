@@ -35,6 +35,7 @@ const PopularPost = ({
 export default PopularPost;
 
 const Layout = styled.div`
+  margin: 0 2.5rem;
   width: 33.8rem;
   min-width: 33.8rem;
   height: 17rem;
