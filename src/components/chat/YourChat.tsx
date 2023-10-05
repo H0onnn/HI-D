@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { formatTimeAgo } from '../../utils/post';
 
 type Props = { chatContent: { content: string; date: string; nickname: string } };
 
@@ -10,7 +11,7 @@ const YourChat = ({ chatContent }: Props) => {
     <YourChatLayout>
       <ChatNickname>{nickname}</ChatNickname>
       <ChatText>{content}</ChatText>
-      <ChatDate>{date}</ChatDate>
+      <ChatDate>{formatTimeAgo(date)}</ChatDate>
     </YourChatLayout>
   );
 };

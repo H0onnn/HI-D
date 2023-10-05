@@ -22,7 +22,6 @@ const SearchPage = () => {
 
   const searchByKeyword = ({ keyword }: { keyword: string }) => {
     if (!keyword || keyword.trim() === '') return;
-    console.log(keyword);
     // fetch
     setSearchHistory([keyword, ...searchHistory]);
     setKeyword('');

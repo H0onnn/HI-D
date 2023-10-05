@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Post } from '../../types/post';
-import BoldContent from '../../utils/BoldContent';
+import BoldContent from '../search/BoldContent';
 import { formatTime, getContentSnippet } from '../../utils/post';
 import PostCountBox from './PostCountBox';
 import PostImagesBox from './PostImagesBox';

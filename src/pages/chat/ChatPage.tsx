@@ -22,10 +22,7 @@ const ChatPage = () => {
 
   return (
     <>
-      {/* {isLoading && <div style={{ height: '100vh' }}>Loading...</div>} */}
-      {/* {error && <div>Error}</div>} */}
-      {/* 수정여부 */}
-      <PageHeader style={{ background: '#FBFBFB' }} title='과끼리 톡톡' />
+      <PageHeader title='과끼리 톡톡' />
       {/* PageLayoutWithNav 추가 혹은 수정여부 */}
       <PageLayout style={{ background: '#FBFBFB', paddingBottom: '6.5rem' }}>
         <MainComment style={{ fontSize: '18px', color: '#696969' }} comment='참여 중인 톡톡' />
