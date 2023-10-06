@@ -8,10 +8,10 @@ import SearchIcon from '../../public/images/input/search.png';
 interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
   image?: string | React.ReactNode;
   button?: boolean;
-  children?: React.ReactNode;
+  buttonText?: string;
   status?: 'default' | 'success' | 'error' | 'search';
   errorMessage?: string;
-  isVerified?: boolean;
+  onButtonClick?: () => void;
 }
 
 const colorMap = {
@@ -22,7 +22,10 @@ const colorMap = {
 };
 
 const Input = forwardRef<HTMLInputElement, InputInterface>(
-  ({ image, button, children, status = 'default', errorMessage, isVerified, ...props }, ref) => {
+  (
+    { image, button, status = 'default', errorMessage, buttonText, onButtonClick, ...props },
+    ref,
+  ) => {
     const renderIcon = () => {
       if (button) return null;
 
@@ -46,10 +49,11 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
           {button && (
             <VerifiedButton
               variant='primary'
-              isSuccess={status === 'success'}
               disabled={status !== 'success'}
+              onClick={onButtonClick}
+              type='button'
             >
-              {isVerified ? '인증 완료' : children || '인증 메일 보내기'}
+              {buttonText}
             </VerifiedButton>
           )}
         </InputLayout>
@@ -102,7 +106,7 @@ const ErrorText = styled.p`
   bottom: -2rem;
 `;
 
-const VerifiedButton = styled(Button)<{ isSuccess: boolean }>`
+const VerifiedButton = styled(Button)`
   color: ${colors.inputFont};
   font-size: 12px;
   border-radius: 900px;
