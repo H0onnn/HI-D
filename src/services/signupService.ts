@@ -2,6 +2,8 @@ import { NavigateFunction } from 'react-router-dom';
 import { SubmitHandler } from 'react-hook-form';
 import { ProfileSetupDataInterface } from '../types/types';
 import toast from 'react-hot-toast';
+import { LINK } from '../constants/links';
+import { httpClient } from '../api/apiClient';
 
 // 회원가입 스텝에서 다음 클릭 처리
 export const createNextClickHandler = (
@@ -48,15 +50,17 @@ export const createPrevClickHandler = (
 };
 
 // 최종 스텝에서 회원가입 클릭 처리
-export const signupSubmit: SubmitHandler<ProfileSetupDataInterface> = (data) => {
+export const signupSubmit: SubmitHandler<ProfileSetupDataInterface> = async (data) => {
   try {
+    await httpClient.signUp(data);
     console.log(data);
+    window.location.href = LINK.SIGNUP_SUCCESS;
     toast.success('회원가입이 완료되었습니다!', {
       duration: 1500,
       position: 'top-center',
       id: 'signupSuccess',
     });
-  } catch (error) {
+  } catch (err: unknown) {
     toast.error('회원가입에 실패하였습니다.', {
       duration: 1500,
       position: 'top-center',
