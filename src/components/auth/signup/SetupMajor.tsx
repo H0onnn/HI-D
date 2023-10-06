@@ -22,9 +22,9 @@ const SetupMajor = ({ onNext }: ProfileSetupStepInterface) => {
     value,
   } = useSetupInput('major', majorValidation);
 
-  const { isFocus, onBlur, onFocus } = useFocus();
+  const { datas } = useSchoolMajorData('major', debouncedMajorValue);
 
-  const { datas } = useSchoolMajorData('school', debouncedMajorValue);
+  const { isFocus, onBlur, onFocus } = useFocus();
 
   const isValueInData = datas.includes(value);
 
