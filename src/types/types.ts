@@ -10,7 +10,7 @@ export interface ProfileSetupDataInterface {
   nickname: string;
   school: string;
   major: string;
-  imageURL: string;
+  imageUrl: string;
 }
 
 export interface SVGIconInterface {
