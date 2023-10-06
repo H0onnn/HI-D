@@ -2,6 +2,7 @@ import React from 'react';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/auth/LoginPage';
 import SignUpPage from '../pages/auth/SignUpPage';
+import SignupCompletePage from '../pages/auth/SignupCompletePage';
 import SearchPage from '../pages/search/SearchPage';
 import ChatPage from '../pages/chat/ChatPage';
 import { LINK } from '../constants/links';
@@ -32,6 +33,12 @@ const routes: AppRoutesInterface[] = [
     name: 'SignUp',
     path: LINK.SIGNUP,
     component: SignUpPage,
+    meta: { hideNavBar: true },
+  },
+  {
+    name: 'SignUpComplete',
+    path: LINK.SIGNUP_SUCCESS,
+    component: SignupCompletePage,
     meta: { hideNavBar: true },
   },
   {
