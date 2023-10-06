@@ -1,4 +1,4 @@
-import React, { useState, useRef, ChangeEvent } from 'react';
+import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import MainComment from '../MainComment';
 import Input from '../../public/Input';
@@ -20,6 +20,10 @@ const SetupProfileInfo = () => {
   } = useFormContext();
 
   const [profileImageUrl, setProfileImageUrl] = useState<string>(URL.DEFAULT_PROFILE_IMG);
+
+  useEffect(() => {
+    setValue('imageUrl', URL.DEFAULT_PROFILE_IMG);
+  }, [setValue]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
