@@ -1,4 +1,4 @@
-import React, { useRef, ChangeEvent } from 'react';
+import React, { useState, useRef, ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import MainComment from '../MainComment';
 import Input from '../../public/Input';
@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
 import { URL } from '../../../constants/url';
 import CameraIcon from '../../../public/images/input/photo_camera.png';
+import { httpClient } from '../../../api/apiClient';
 
 const SetupProfileInfo = () => {
   const {
@@ -17,6 +18,8 @@ const SetupProfileInfo = () => {
     watch,
     setValue,
   } = useFormContext();
+
+  const [profileImageUrl, setProfileImageUrl] = useState<string>(URL.DEFAULT_PROFILE_IMG);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -28,22 +31,16 @@ const SetupProfileInfo = () => {
     ? 'success'
     : 'default';
 
-  const imageChangeClickHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const imageChangeClickHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-
-      console.log(file);
-
-      setValue('imageURL', file);
-      //   try {
-      //     const imageUrl = await uploadImage(file);
-
-      //     setProfileImage(imageUrl);
-      //     setProfileData({ ...profileData, user_image_url: imageUrl });
-      //   } catch (error: any) {
-      //     toast.error(error.response.data.message);
-      //   }
-      // }
+      try {
+        const imageUrl = await httpClient.setupImage(file);
+        setValue('imageUrl', imageUrl[0]);
+        setProfileImageUrl(imageUrl[0]);
+      } catch (err: unknown) {
+        console.log(err);
+      }
     }
   };
 
@@ -55,12 +52,12 @@ const SetupProfileInfo = () => {
       />
       <div style={{ position: 'relative' }}>
         <ProfileImageWrapper>
-          <ProfileImage src={URL.DEFAULT_PROFILE_IMG} alt='profile_image' />
+          <ProfileImage src={profileImageUrl} alt='profile_image' />
         </ProfileImageWrapper>
         <EditImageButton onClick={() => fileInputRef.current?.click()}>
           <ProfileImageEditIcon src={CameraIcon} alt='Edit Icon' />
           <ProfileImageInput
-            {...register('imageURL')}
+            {...register('imageUrl')}
             type='file'
             accept='image/*'
             onChange={imageChangeClickHandler}
