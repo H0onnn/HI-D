@@ -20,6 +20,7 @@ const MainPageHeader = () => {
 export default MainPageHeader;
 
 const PageHeaderLayout = styled.div`
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;

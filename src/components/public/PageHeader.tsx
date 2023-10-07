@@ -43,6 +43,7 @@ const PageHeaderLayout = styled.div`
   max-width: 39rem;
   height: 4.8rem;
   position: fixed;
+  z-index: 1;
   top: 0;
   padding: 2rem;
   background-color: ${colors.white};
