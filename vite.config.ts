@@ -8,4 +8,7 @@ export default defineConfig({
     open: true,
     port: 3000,
   },
+  resolve: {
+    alias: [{ find: '@', replacement: '/src' }],
+  },
 });
