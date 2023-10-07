@@ -1,4 +1,4 @@
-import { httpClient } from './apiClient';
+import { httpClient } from '../apiClient';
 
 export const getSchools = async (keyword: string): Promise<string[]> => {
   if (!keyword.trim()) {
