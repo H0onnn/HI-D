@@ -4,7 +4,7 @@ import routes from '../router/AppRoutes';
 import styled from 'styled-components';
 import { colors } from '../constants/colors';
 import BottomNavBar from './BottomNavBar';
-import FloatingNav from '../components/main/FloatingNav';
+import FloatingNav from './FloatingNav';
 
 interface LayoutInterface {
   children: React.ReactNode;
