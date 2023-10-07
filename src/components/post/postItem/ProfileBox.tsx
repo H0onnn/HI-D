@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { RuleSet, css } from 'styled-components';
+import defaultProfile from '@/public/images/elephant.png';
 
 interface Props {
   writer: string;
@@ -10,7 +11,7 @@ export default function ProfileBox({ writer, profileImage, size = 'small' }: Pro
   return (
     <Container>
       <ProfileImageWrapper>
-        <ProfileImage src={profileImage || 'default Image'} alt='profile image' />
+        <ProfileImage src={profileImage || defaultProfile} alt='profile image' />
       </ProfileImageWrapper>
       <Nickname css={nicknameStyles(size)}>{writer || '익명'}</Nickname>
     </Container>

@@ -1,31 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { PageLayout } from '../../styles/styles';
-import { useNavigate } from 'react-router-dom';
-import { LINK } from '../../constants/links';
-import { Post } from '../../types/post';
+import React from 'react';
+import { MainPageLayout } from '../../styles/styles';
 import PageHeader from '../../components/public/PageHeader';
-import HelpPost from '../../components/post/HelpPost';
+import HelpContainer from '@/components/post/HelpContainer';
 
 const HelpPostListPage = () => {
-  const navigate = useNavigate();
-  const [helpPostList, setHelpPostList] = useState<Post[]>([]);
+  const location = 'post';
 
-  useEffect(() => {
-    setHelpPostList([]);
-  }, []);
   return (
     <>
       <PageHeader title='도움이 필요해요' />
-      <PageLayout>
-        {helpPostList.map((post, idx) => (
-          <HelpPost
-            imageSize='medium'
-            post={post}
-            key={idx}
-            onClick={() => navigate(`${LINK.POST}/${post.postId}`)}
-          />
-        ))}
-      </PageLayout>
+      <MainPageLayout>
+        <HelpContainer location={location} />
+      </MainPageLayout>
     </>
   );
 };

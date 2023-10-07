@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProfileBox from '../post/ProfileBox';
+import ProfileBox from '../post/postItem/ProfileBox';
 import { Post } from '../../types/post';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
@@ -35,6 +35,9 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /* &:first-child {
+    margin: 0 0 0 2rem;
+  } */
 `;
 const Title = styled.div`
   height: 100%;

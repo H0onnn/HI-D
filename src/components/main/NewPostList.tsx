@@ -11,7 +11,6 @@ const NewPostList = ({ postList }: { postList: Post[] }) => {
           <NewPost post={post} key={idx} />
         ))}
       </PostListLayout>
-      <div>scroll</div>
     </Layout>
   );
 };
@@ -26,7 +25,7 @@ const Layout = styled.div`
 const PostListLayout = styled.div`
   display: flex;
   gap: 1.2rem;
-  padding: 0 0 2rem 0;
+  padding: 0 2rem 2rem 2rem;
   overflow-x: scroll;
   /* Firefox를 위한 스크롤바 스타일 */
   scrollbar-width: thin;
@@ -42,5 +41,6 @@ const PostListLayout = styled.div`
   &::-webkit-scrollbar-track {
     background-color: #d9d9d9;
     border-radius: 9rem;
+    margin: 0 2rem;
   }
 `;

@@ -1,25 +1,52 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Post } from '../../types/post';
+import { PostProps } from '../../types/post';
 import BoldContent from '../search/BoldContent';
 import { formatTime, getContentSnippet } from '../../utils/post';
-import PostCountBox from './PostCountBox';
-import PostImagesBox from './PostImagesBox';
-
-type Props = {
-  post: Post;
-  keyword?: string;
-  imageSize?: 'small' | 'medium';
-  onClick?: () => void;
-};
+import PostCountBox from './postItem/PostCountBox';
+import PostImagesBoxSmall from './postItem/PostImagesBoxSmall';
+import PostImagesBoxMedium from './postItem/PostImagesBoxMedium';
 
 const HelpPost = ({
   post: { title, content, viewCount, images, recommendCount, replyCount, createAt },
   keyword,
   imageSize = 'small',
   onClick,
-}: Props) => {
+}: PostProps) => {
   const contentSnippet = getContentSnippet(content, keyword);
+  const layoutByImageSize = (imageSize: PostProps['imageSize']) => {
+    switch (imageSize) {
+      case 'small':
+        return (
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <PostImagesBoxSmall images={images} />
+            <PostCountBox
+              recommendCount={recommendCount}
+              replyCount={replyCount}
+              viewCount={viewCount}
+              DarkMode={false}
+            />
+          </div>
+        );
+      case 'medium':
+        return (
+          <>
+            <PostImagesBoxMedium images={images} />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div></div>
+              <PostCountBox
+                recommendCount={recommendCount}
+                replyCount={replyCount}
+                viewCount={viewCount}
+                DarkMode={false}
+              />
+            </div>
+          </>
+        );
+      default:
+        return;
+    }
+  };
 
   return (
     <Layout onClick={onClick}>
@@ -30,33 +57,23 @@ const HelpPost = ({
       <Contents>
         {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
       </Contents>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <PostImagesBox images={images} size={imageSize} />
-        <PostCountBox
-          recommendCount={recommendCount}
-          replyCount={replyCount}
-          viewCount={viewCount}
-          DarkMode={false}
-        />
-      </div>
+      {layoutByImageSize(imageSize)}
     </Layout>
   );
 };
 export default HelpPost;
 
 const Layout = styled.div`
-  width: 35rem;
-  /* width: 100%; */
+  cursor: pointer;
+  width: 100%;
+  /* width: 35rem; */
   /* height: 12.2rem; */
   padding: 1.2rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   border-radius: 0.8rem;
   background: #fff;
-  gap: 0.4rem;
-  display: flex;
-  flex-direction: column;
-  /* justify-content: space-between; */
-  display: flex;
-  flex-direction: column;
 `;
 const Title = styled.div`
   color: #606060;
@@ -65,6 +82,10 @@ const Title = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 150%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 2rem;
 `;
 const TimeBox = styled.div`
   display: flex;

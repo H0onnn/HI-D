@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProfileBox from '../post/ProfileBox';
-import PostCountBox from '../post/PostCountBox';
+import ProfileBox from '../post/postItem/ProfileBox';
+import PostCountBox from '../post/postItem/PostCountBox';
 import { Post } from '../../types/post';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
@@ -35,7 +35,8 @@ const PopularPost = ({
 export default PopularPost;
 
 const Layout = styled.div`
-  margin: 0 2.5rem;
+  cursor: pointer;
+  margin: 0 2rem;
   width: 33.8rem;
   min-width: 33.8rem;
   height: 17rem;

@@ -41,11 +41,11 @@ const Layout = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin: 0 33rem 3.5rem 33rem;
+    margin: 0 33.8rem 3.5rem 33.8rem;
     position: static;
   }
   .slick-list {
-    margin: 0 -33rem;
+    margin: 0 -33.8rem;
   }
   .slick-slide.slick-cloned {
     opacity: 0;

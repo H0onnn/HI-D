@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import RecommendIcon from '../../public/images/favorite.png';
-import ReplyIcon from '../../public/images/reply.png';
-import ViewIcon from '../../public/images/view.png';
+import RecommendIcon from '@/public/images/favorite.png';
+import ReplyIcon from '@/public/images/reply.png';
+import ViewIcon from '@/public/images/view.png';
 
 interface PostCountInterface {
   recommendCount: number;
