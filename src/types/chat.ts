@@ -5,9 +5,11 @@ export interface ChatRoomListInterface {
 }
 export interface ChatRoomInterface {
   roomId: number;
-  members: string[];
-  // createAt: string;
-  // updateAt: string;
+  members: { id: string; nickname: string; profileImage: string }[]; // member[]
+  recentChatContent: string;
+  recentChatTime: string;
+  // unreadChatCount: number;
+  updatedAt: string;
 }
 export interface RequestChatRoomCreateInterface {
   memberId: string;
@@ -19,13 +21,14 @@ export interface RequestChatRoomDeleteInterface {
   roomId: number;
 }
 export interface ChatInterface {
+  nickname: string;
+  content: string;
+  createdAt: string;
+}
+export interface RequestChatCreateInterface {
   roomId: number;
   memberId: string;
   content: string;
-  // 과거 채팅 기록도 가져올지?
-  nickname: string;
-  date: string;
-  chatId: number;
 }
 export interface PageStatusInterface {
   page: number;
