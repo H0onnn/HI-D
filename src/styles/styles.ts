@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 export const ButtonContainer = styled.div`
   width: 100%;
@@ -25,19 +27,21 @@ export const PageLayout = styled.div`
   padding-top: 7rem;
 `;
 
-export const PageLayoutWithNav = styled.div`
+export const MainPageLayout = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   width: 100%;
-  height: 100%;
-  padding: 2rem;
-  padding-top: 7rem;
-  padding-bottom: 6.5rem;
+  height: calc(100% - 4.3rem);
+  max-height: calc(100% - 4.3rem);
+  margin-top: 4.8rem;
+  overflow: hidden;
 `;
 
 export const SearchInputWrapper = styled.div`
-  position: relative;
+  /* position: relative; */
   width: 100%;
-  height: 3.8rem;
-  bottom: 1rem;
+  /* height: 4.8rem; */
+  /* bottom: 3rem; */
+  padding: 1.2rem 2rem;
 `;
