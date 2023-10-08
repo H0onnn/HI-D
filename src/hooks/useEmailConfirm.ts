@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { sendVerificationEmail, sendVerificationCode } from '../api/emailConfirm';
+import { sendVerificationEmail, sendVerificationCode } from '../api/services/emailConfirm';
 import toast from 'react-hot-toast';
 
 const useEmailConfirm = () => {
@@ -39,7 +39,7 @@ const useEmailConfirm = () => {
           duration: 1500,
         });
       } else {
-        toast.error('메일 인증에 실패했습니다.', {
+        toast.error('인증 코드를 확인해주세요.', {
           id: 'email-verify-fail',
           duration: 1500,
         });
