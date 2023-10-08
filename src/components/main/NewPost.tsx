@@ -5,6 +5,7 @@ import { Post } from '../../types/post';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
 import { formatTimeAgo } from '../../utils/post';
+import { colors } from '@/constants/colors';
 
 const NewPost = ({ post: { postId, writer, writerImage, title, createAt } }: { post: Post }) => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const Layout = styled.div`
   flex-direction: column;
   justify-content: space-between;
   border-radius: 1.2rem;
-  background: #fff;
+  background: ${colors.white};
   box-shadow: 0px 4px 16px 0px rgba(100, 100, 100, 0.1);
   /* &:first-child {
     margin: 0 0 0 2rem;
@@ -54,7 +55,7 @@ const TagBox = styled.div`
   padding: 0.3rem 0.8rem;
   border-radius: 0.8rem;
   background: #5061ff;
-  color: #fff;
+  color: ${colors.white};
   font-family: SUIT;
   font-size: 12px;
   font-style: normal;

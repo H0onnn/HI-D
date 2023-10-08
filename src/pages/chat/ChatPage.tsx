@@ -39,7 +39,7 @@ export default ChatPage;
 const MainTextContainer = styled.div`
   display: flex;
   /* flex-direction: column; */
-  padding: 0.8rem 2.6rem;
+  padding: 3.2rem 2.6rem 0.8rem 2.6rem;
 `;
 
 const MainText = styled.h1`

@@ -2,6 +2,7 @@ import React from 'react';
 import { Post } from '../../types/post';
 import styled from 'styled-components';
 import NewPost from './NewPost';
+import { colors } from '@/constants/colors';
 
 const NewPostList = ({ postList }: { postList: Post[] }) => {
   return (
@@ -39,7 +40,7 @@ const PostListLayout = styled.div`
     border-radius: 9rem;
   }
   &::-webkit-scrollbar-track {
-    background-color: #fff;
+    background-color: ${colors.white};
     border-radius: 9rem;
     margin: 0 2rem;
   }

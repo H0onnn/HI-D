@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import RecommendIcon from '@/public/images/favorite.png';
 import ReplyIcon from '@/public/images/reply.png';
 import ViewIcon from '@/public/images/view.png';
+import { colors } from '@/constants/colors';
 
 interface PostCountInterface {
   recommendCount: number;
@@ -56,7 +57,7 @@ const ImageWrapper = styled.div<{ $darkMode?: boolean }>`
   height: 1.4rem;
   overflow: hidden;
   border-radius: 50%;
-  background-color: ${({ $darkMode }) => ($darkMode ? '#FFF' : '#F4F5FF')};
+  background-color: ${({ $darkMode }) => ($darkMode ? colors.white : '#F4F5FF')};
   > img {
     width: 100%;
     height: 100%;

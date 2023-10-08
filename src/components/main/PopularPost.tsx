@@ -5,6 +5,7 @@ import PostCountBox from '../post/postItem/PostCountBox';
 import { Post } from '../../types/post';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
+import { colors } from '@/constants/colors';
 
 const PopularPost = ({
   post: { postId, writer, writerImage, category, title, viewCount, recommendCount, replyCount },
@@ -63,7 +64,7 @@ const Title = styled.div`
   height: 100%;
   width: 100%;
   padding: 0.4rem 0;
-  color: #fff;
+  color: ${colors.white};
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;
@@ -74,7 +75,7 @@ const TagBox = styled.div`
   display: inline-block;
   padding: 0.3rem 0.8rem;
   border-radius: 0.8rem;
-  background: #fff;
+  background: ${colors.white};
   color: #5061ff;
   font-family: SUIT;
   font-size: 12px;

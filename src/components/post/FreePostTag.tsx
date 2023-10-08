@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FreePostTag, FreePostTags } from '../../types/post';
+import { colors } from '@/constants/colors';
 
 type Props = {
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
@@ -44,9 +45,9 @@ const TagBox = styled.div<{ $active: boolean }>`
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
-  color: ${({ $active }) => ($active ? '#fff' : '#A5ADFF')};
+  color: ${({ $active }) => ($active ? colors.white : '#A5ADFF')};
   border: 1px solid ${({ $active }) => ($active ? ' #5061ff' : '#a5adff')};
-  background: ${({ $active }) => ($active ? ' #5061ff' : '#fff')};
+  background: ${({ $active }) => ($active ? ' #5061ff' : colors.white)};
   &:first-child {
     margin: 0 0 0 2rem;
   }

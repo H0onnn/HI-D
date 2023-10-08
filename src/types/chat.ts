@@ -9,7 +9,7 @@ export interface ChatRoomInterface {
   recentChatContent: string;
   recentChatTime: string;
   // unreadChatCount: number;
-  updatedAt: string;
+  // updatedAt: string;
 }
 export interface RequestChatRoomCreateInterface {
   memberId: string;

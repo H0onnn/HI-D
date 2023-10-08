@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { formatTimeAgo } from '../../utils/post';
 import { ChatInterface } from '@/types/chat';
+import { colors } from '@/constants/colors';
 
 type Props = { chatContent: ChatInterface };
 
@@ -31,7 +32,7 @@ const ChatText = styled.div`
   border-radius: 16px 0px 16px 16px;
   background: #9c9c9c;
 
-  color: #fff;
+  color: ${colors.white};
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;

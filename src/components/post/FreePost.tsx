@@ -7,6 +7,7 @@ import PostCountBox from './postItem/PostCountBox';
 import ProfileBox from './postItem/ProfileBox';
 import PostImagesBoxMedium from './postItem/PostImagesBoxMedium';
 import PostImagesBoxSmall from './postItem/PostImagesBoxSmall';
+import { colors } from '@/constants/colors';
 
 const FreePost = ({
   post: {
@@ -90,7 +91,7 @@ const Layout = styled.div`
   flex-direction: column;
   gap: 0.4rem;
   border-radius: 0.8rem;
-  background: #fff;
+  background: ${colors.white};
 `;
 const Title = styled.div`
   color: #1f1f1f;

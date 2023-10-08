@@ -27,6 +27,7 @@ const TabByCategory = ({ tabList, tabClickHandler, selectedTab, location }: Prop
       {location === 'main' && (
         <MoveButton
           onClick={() => {
+            if (!selectedTab.link) return;
             navigate(selectedTab.link);
           }}
         >

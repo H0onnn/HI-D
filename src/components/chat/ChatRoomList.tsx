@@ -32,37 +32,15 @@ const ChatRoomList = ({ chatRoomClick }: Props) => {
           {
             roomId: 1,
             members: [
-              { id: 1, nickname: '상대방닉네임', profileImage: '' },
+              {
+                id: 1,
+                nickname: '상대방닉네임',
+                profileImage: '',
+              },
               { id: 2, nickname: '나의닉네임', profileImage: '' },
             ],
-            recentChatContent: '최근 채팅 내용',
-            recentChatTime: '최근 채팅 시간',
-          },
-          {
-            roomId: 1,
-            members: [
-              { id: 1, nickname: '상대방닉네임', profileImage: '' },
-              { id: 2, nickname: '나의닉네임', profileImage: '' },
-            ],
-            recentChatContent: '최근 채팅 내용',
-            recentChatTime: '최근 채팅 시간',
-          },
-          {
-            roomId: 1,
-            members: [
-              { id: 1, nickname: '상대방닉네임', profileImage: '' },
-              { id: 2, nickname: '나의닉네임', profileImage: '' },
-            ],
-            recentChatContent: '최근 채팅 내용',
-            recentChatTime: '최근 채팅 시간',
-          },
-          {
-            roomId: 1,
-            members: [
-              { id: 1, nickname: '상대방닉네임', profileImage: '' },
-              { id: 2, nickname: '나의닉네임', profileImage: '' },
-            ],
-            recentChatContent: '최근 채팅 내용',
+            recentChatContent:
+              '최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용',
             recentChatTime: '최근 채팅 시간',
           },
         ],

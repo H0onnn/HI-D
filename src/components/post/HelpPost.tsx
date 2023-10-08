@@ -6,6 +6,7 @@ import { formatTime, getContentSnippet } from '../../utils/post';
 import PostCountBox from './postItem/PostCountBox';
 import PostImagesBoxSmall from './postItem/PostImagesBoxSmall';
 import PostImagesBoxMedium from './postItem/PostImagesBoxMedium';
+import { colors } from '@/constants/colors';
 
 const HelpPost = ({
   post: { title, content, viewCount, images, recommendCount, replyCount, createAt },
@@ -70,7 +71,7 @@ const Layout = styled.div`
   flex-direction: column;
   gap: 0.4rem;
   border-radius: 0.8rem;
-  background: #fff;
+  background: ${colors.white};
 `;
 const Title = styled.div`
   color: #252424;

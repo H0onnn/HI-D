@@ -4,6 +4,7 @@ import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import { useNavigate } from 'react-router-dom';
 import closeIcon from '@/public/images/elephant.png';
 import openIcon from '@/public/images/elephant.png';
+import { colors } from '@/constants/colors';
 
 const FloatingNav = () => {
   const { lockScroll, openScroll } = useBodyScrollLock();
@@ -104,7 +105,7 @@ const FloatingItem = styled.div`
 `;
 
 const MeneText = styled.div`
-  color: #fff;
+  color: ${colors.white};
   text-align: right;
   font-family: SUIT;
   font-style: normal;
@@ -122,7 +123,7 @@ const MeneText = styled.div`
 const MenuIcon = styled.div`
   width: 5.2rem;
   height: 5.2rem;
-  background: #fff;
+  background: ${colors.white};
   display: flex;
   align-items: center;
   justify-content: center;
