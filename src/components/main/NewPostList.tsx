@@ -35,11 +35,11 @@ const PostListLayout = styled.div`
     height: 0.5rem;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #c5c5c5;
+    background-color: #a5adff;
     border-radius: 9rem;
   }
   &::-webkit-scrollbar-track {
-    background-color: #d9d9d9;
+    background-color: #fff;
     border-radius: 9rem;
     margin: 0 2rem;
   }

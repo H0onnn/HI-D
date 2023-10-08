@@ -22,17 +22,17 @@ const TabByCategory = ({ tabList, tabClickHandler, selectedTab, location }: Prop
           >
             {tab.name}
           </CategaryTitle>
-          {location === 'main' && (
-            <MoveButton
-              onClick={() => {
-                navigate(tab.link);
-              }}
-            >
-              전체보기
-            </MoveButton>
-          )}
         </>
       ))}
+      {location === 'main' && (
+        <MoveButton
+          onClick={() => {
+            navigate(selectedTab.link);
+          }}
+        >
+          전체보기
+        </MoveButton>
+      )}
     </TabBox>
   );
 };
@@ -45,6 +45,7 @@ const TabBox = styled.div`
   display: flex;
   position: relative;
   gap: 1.2rem;
+  border-bottom: 1px solid #f4f5ff;
 `;
 const CategaryTitle = styled.div<{ $isSeleced: boolean }>`
   cursor: pointer;

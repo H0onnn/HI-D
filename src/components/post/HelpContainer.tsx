@@ -35,6 +35,126 @@ const HelpContainer = ({ location, keyword }: PostContainerProps) => {
         updateAt: '2023-09-17T06:52:38.123Z',
       },
       {
+        postId: 1,
+        writer: 'sjm96',
+        major: '컴퓨터공학과',
+        category: 'free',
+        writerImage: '',
+        title: '안녕하세fefefefefe fefaefaewfaefaefaefaefaef요!',
+        content:
+          '내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다',
+        viewCount: 5,
+        recommendCount: 1,
+        replyCount: 2,
+        images: [
+          '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
+          '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
+          '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
+        ],
+        createAt: '2023-09-17T06:52:38.123Z',
+        updateAt: '2023-09-17T06:52:38.123Z',
+      },
+      {
+        postId: 1,
+        writer: 'sjm96',
+        major: '컴퓨터공학과',
+        category: 'free',
+        writerImage: '',
+        title: '안녕하세fefefefefe fefaefaewfaefaefaefaefaef요!',
+        content:
+          '내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다',
+        viewCount: 5,
+        recommendCount: 1,
+        replyCount: 2,
+        images: [
+          '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
+          '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
+          '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
+        ],
+        createAt: '2023-09-17T06:52:38.123Z',
+        updateAt: '2023-09-17T06:52:38.123Z',
+      },
+      {
+        postId: 1,
+        writer: 'sjm96',
+        major: '컴퓨터공학과',
+        category: 'free',
+        writerImage: '',
+        title: '안녕하세fefefefefe fefaefaewfaefaefaefaefaef요!',
+        content:
+          '내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다',
+        viewCount: 5,
+        recommendCount: 1,
+        replyCount: 2,
+        images: [
+          '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
+          '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
+          '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
+        ],
+        createAt: '2023-09-17T06:52:38.123Z',
+        updateAt: '2023-09-17T06:52:38.123Z',
+      },
+      {
+        postId: 1,
+        writer: 'sjm96',
+        major: '컴퓨터공학과',
+        category: 'free',
+        writerImage: '',
+        title: '안녕하세fefefefefe fefaefaewfaefaefaefaefaef요!',
+        content:
+          '내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다',
+        viewCount: 5,
+        recommendCount: 1,
+        replyCount: 2,
+        images: [
+          '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
+          '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
+          '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
+        ],
+        createAt: '2023-09-17T06:52:38.123Z',
+        updateAt: '2023-09-17T06:52:38.123Z',
+      },
+      {
+        postId: 1,
+        writer: 'sjm96',
+        major: '컴퓨터공학과',
+        category: 'free',
+        writerImage: '',
+        title: '안녕하세fefefefefe fefaefaewfaefaefaefaefaef요!',
+        content:
+          '내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다',
+        viewCount: 5,
+        recommendCount: 1,
+        replyCount: 2,
+        images: [
+          '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
+          '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
+          '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
+        ],
+        createAt: '2023-09-17T06:52:38.123Z',
+        updateAt: '2023-09-17T06:52:38.123Z',
+      },
+      {
+        postId: 1,
+        writer: 'sjm96',
+        major: '컴퓨터공학과',
+        category: 'free',
+        writerImage: '',
+        title: '안녕하세fefefefefe fefaefaewfaefaefaefaefaef요!',
+        content:
+          '내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다',
+        viewCount: 5,
+        recommendCount: 1,
+        replyCount: 2,
+        images: [
+          '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
+          '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
+          '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
+        ],
+        createAt: '2023-09-17T06:52:38.123Z',
+        updateAt: '2023-09-17T06:52:38.123Z',
+      },
+      {
         writerImage: '',
         postId: 1,
         writer: 'sjm96',
@@ -80,7 +200,11 @@ const HelpContainer = ({ location, keyword }: PostContainerProps) => {
 
   return (
     <>
-      {location === 'main' && <NewPostList postList={devideHelpPostList} />}
+      {location === 'main' && (
+        <ScrollPostListWrapper>
+          <NewPostList postList={devideHelpPostList} />
+        </ScrollPostListWrapper>
+      )}
       <PostListWrapper>
         <HelpPostList
           keyword={keyword}
@@ -97,8 +221,12 @@ const HelpContainer = ({ location, keyword }: PostContainerProps) => {
 export default HelpContainer;
 
 const PostListWrapper = styled.div`
-  padding: 0 2rem;
+  padding: 1.6rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+`;
+
+const ScrollPostListWrapper = styled.div`
+  padding: 3.2rem 0 0 0;
 `;

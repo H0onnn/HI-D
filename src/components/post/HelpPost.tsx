@@ -25,7 +25,6 @@ const HelpPost = ({
               recommendCount={recommendCount}
               replyCount={replyCount}
               viewCount={viewCount}
-              DarkMode={false}
             />
           </div>
         );
@@ -39,7 +38,6 @@ const HelpPost = ({
                 recommendCount={recommendCount}
                 replyCount={replyCount}
                 viewCount={viewCount}
-                DarkMode={false}
               />
             </div>
           </>
@@ -75,7 +73,7 @@ const Layout = styled.div`
   background: #fff;
 `;
 const Title = styled.div`
-  color: #606060;
+  color: #252424;
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;
@@ -89,7 +87,7 @@ const Title = styled.div`
 const TimeBox = styled.div`
   display: flex;
   align-items: center;
-  color: #606060;
+  color: #454545;
   font-family: SUIT;
   font-size: 14px;
   font-style: normal;

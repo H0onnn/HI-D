@@ -8,23 +8,23 @@ interface PostCountInterface {
   recommendCount: number;
   replyCount: number;
   viewCount: number;
-  DarkMode?: boolean;
+  darkMode?: boolean;
 }
 const PostCountBox = ({
   recommendCount,
   replyCount,
   viewCount,
-  DarkMode = true,
+  darkMode = false,
 }: PostCountInterface) => {
   const addFavorite = () => {};
   const countBoxStyles = {
-    color: DarkMode ? '#d8d8d8' : '#606060',
+    color: darkMode ? '#d8d8d8' : '#606060',
   };
 
   return (
     <Container>
       <CountBox style={countBoxStyles}>
-        <ImageWrapper>
+        <ImageWrapper $darkMode={darkMode}>
           <img src={RecommendIcon} alt='favorite button' onClick={addFavorite} />
         </ImageWrapper>
         {recommendCount}
@@ -51,18 +51,23 @@ const Container = styled.div`
   gap: 0.8rem;
 `;
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled.div<{ $darkMode?: boolean }>`
   width: 1.4rem;
   height: 1.4rem;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: ${({ $darkMode }) => ($darkMode ? '#FFF' : '#F4F5FF')};
   > img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 `;
-const CountBox = styled.div`
+const CountBox = styled.div<{ $darkMode?: boolean }>`
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  color: ${({ $darkMode }) => ($darkMode ? '#E7E9FF' : '#454545')};
   font-family: SUIT;
   font-size: 12px;
   font-style: normal;

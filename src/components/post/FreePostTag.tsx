@@ -26,7 +26,6 @@ export default FreePostTagContainer;
 const Layout = styled.div`
   display: flex;
   gap: 0.8rem;
-  padding: 0.8rem 0;
   overflow: scroll;
   overflow-y: hidden;
   scrollbar-width: none;
@@ -45,9 +44,9 @@ const TagBox = styled.div<{ $active: boolean }>`
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
-  color: ${({ $active }) => ($active ? '#fff' : 'var(--2, #A5ADFF)')};
-  border: 1px solid ${({ $active }) => ($active ? 'var(--1, #5061ff)' : 'var(--2, #a5adff)')};
-  background: ${({ $active }) => ($active ? 'var(--1, #5061ff)' : ' var(--, #fff)')};
+  color: ${({ $active }) => ($active ? '#fff' : '#A5ADFF')};
+  border: 1px solid ${({ $active }) => ($active ? ' #5061ff' : '#a5adff')};
+  background: ${({ $active }) => ($active ? ' #5061ff' : '#fff')};
   &:first-child {
     margin: 0 0 0 2rem;
   }

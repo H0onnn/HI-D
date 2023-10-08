@@ -33,6 +33,8 @@ const PopularPostList = ({ postList }: { postList: Post[] }) => {
 export default PopularPostList;
 
 const Layout = styled.div`
+  height: 100%;
+  max-height: 21rem;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -55,7 +57,8 @@ const Layout = styled.div`
     position: absolute;
     left: 50%;
     transform: translate(-50%);
-    bottom: 0;
+    /* bottom: 0; */
+    top: 20rem;
   }
   .dots_custom li {
     display: inline-block;

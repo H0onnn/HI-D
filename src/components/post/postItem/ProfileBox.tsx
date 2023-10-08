@@ -6,14 +6,20 @@ interface Props {
   writer: string;
   profileImage: string;
   size?: 'small' | 'medium';
+  darkMode?: boolean;
 }
-export default function ProfileBox({ writer, profileImage, size = 'small' }: Props) {
+export default function ProfileBox({
+  writer,
+  profileImage,
+  size = 'small',
+  darkMode = false,
+}: Props) {
   return (
     <Container>
       <ProfileImageWrapper>
         <ProfileImage src={profileImage || defaultProfile} alt='profile image' />
       </ProfileImageWrapper>
-      <Nickname css={nicknameStyles(size)}>{writer || '익명'}</Nickname>
+      <Nickname css={nicknameStyles(size, darkMode)}>{writer || '익명'}</Nickname>
     </Container>
   );
 }
@@ -40,7 +46,7 @@ const ProfileImage = styled.img`
 `;
 
 const Nickname = styled.div<{ css?: RuleSet<object> }>`
-  color: #d8d8d8;
+  color: #2d2d2d;
   font-family: SUIT;
   font-size: 12px;
   font-style: normal;
@@ -49,11 +55,11 @@ const Nickname = styled.div<{ css?: RuleSet<object> }>`
   ${(props) => props.css}
 `;
 
-const nicknameStyles = (size: Props['size']) => {
+const nicknameStyles = (size: Props['size'], darkMode?: Props['darkMode']) => {
   switch (size) {
     case 'small':
       return css`
-        color: #d8d8d8;
+        color: ${darkMode ? '#E7E9FF' : '#a3a3a3'};
         font-size: 12px;
         font-weight: 400;
       `;

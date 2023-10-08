@@ -32,11 +32,7 @@ const FreeContainer = ({ location, keyword }: PostContainerProps) => {
         viewCount: 5,
         recommendCount: 1,
         replyCount: 2,
-        images: [
-          '/images/2023/09/17/22/becfa5-dba8-4aa5-8456-b4f0dd9dfdb8_abc',
-          '/images/2023/09/17/22/becfa5-db18-42a5-8456-b4f0dd9dfdb8_cdf',
-          '/images/2023/09/17/22/becfa5-dba8-4sda5-8456-b4f0d9dfdb8_fig',
-        ],
+        images: [],
         createAt: '2023-09-17T06:52:38.123Z',
         updateAt: '2023-09-17T06:52:38.123Z',
       },
@@ -85,7 +81,9 @@ const FreeContainer = ({ location, keyword }: PostContainerProps) => {
 
   return (
     <>
-      <FreePostTagContainer onClick={handleTagClick} currentTag={currentTag} />
+      <TagWrapper>
+        <FreePostTagContainer onClick={handleTagClick} currentTag={currentTag} />
+      </TagWrapper>
       <PostListWrapper>
         <FreePostList
           keyword={keyword}
@@ -102,8 +100,11 @@ const FreeContainer = ({ location, keyword }: PostContainerProps) => {
 export default FreeContainer;
 
 const PostListWrapper = styled.div`
-  padding: 0 2rem;
+  padding: 1.6rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+`;
+const TagWrapper = styled.div`
+  padding: 3.2rem 0 0 0;
 `;

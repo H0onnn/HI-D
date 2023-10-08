@@ -36,7 +36,6 @@ const FreePost = ({
               recommendCount={recommendCount}
               replyCount={replyCount}
               viewCount={viewCount}
-              DarkMode={false}
             />
           </div>
         );
@@ -50,7 +49,6 @@ const FreePost = ({
                 recommendCount={recommendCount}
                 replyCount={replyCount}
                 viewCount={viewCount}
-                DarkMode={false}
               />
             </div>
           </>
@@ -95,7 +93,7 @@ const Layout = styled.div`
   background: #fff;
 `;
 const Title = styled.div`
-  color: #606060;
+  color: #1f1f1f;
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;
@@ -109,7 +107,7 @@ const Title = styled.div`
 const TimeBox = styled.div`
   display: flex;
   align-items: center;
-  color: #606060;
+  color: #8f8f8f;
   font-family: SUIT;
   font-size: 14px;
   font-style: normal;
@@ -117,7 +115,7 @@ const TimeBox = styled.div`
   line-height: 150%;
 `;
 const Contents = styled.div`
-  color: #606060;
+  color: #454545;
   font-family: SUIT;
   font-size: 14px;
   font-style: normal;

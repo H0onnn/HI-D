@@ -26,7 +26,7 @@ const Container = styled.div`
 
 const ImageWrapper = styled.div`
   overflow: hidden;
-  background-color: gray;
+  background-color: #d9d9d9;
   width: 100%;
   height: 12rem;
   border-radius: 0.8rem;

@@ -15,6 +15,7 @@ export interface TabInterface {
   id: number;
   name: string;
   category: string;
+  link?: string;
 }
 export interface PageStatusInterface {
   page: number;

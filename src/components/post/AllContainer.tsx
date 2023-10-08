@@ -94,8 +94,9 @@ const AllContainer = ({ location, keyword }: PostContainerProps) => {
 export default AllContainer;
 
 const PostListWrapper = styled.div`
-  padding: 0 2rem;
+  padding: 1.6rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  background: #fbfbff;
 `;
