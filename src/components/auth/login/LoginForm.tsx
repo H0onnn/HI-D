@@ -1,11 +1,13 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import useAuthStore from '../../../store/authStore';
 import Input from '../../public/Input';
 import { LoginDataInterface } from '../../../types/types';
 import Button from '../../public/Button';
 import styled from 'styled-components';
 import { emailValidation, passwordValidation } from '../../../utils/auth/validationRules';
 import { InputWrapper } from '../../../styles/styles';
+import { httpClient } from '../../../api/apiClient';
 
 const LoginForm = () => {
   const {
@@ -14,6 +16,8 @@ const LoginForm = () => {
     formState: { errors },
     watch,
   } = useForm<LoginDataInterface>({ mode: 'onChange' });
+
+  const setToken = useAuthStore((state) => state.setToken);
 
   // TODO : 회원기입 폼에서도 validation에 따른 status 전달이 필요할 것이기 때문에 로직 분리 필요
   const emailError = errors.mail;
@@ -29,7 +33,14 @@ const LoginForm = () => {
     ? 'success'
     : 'default';
 
-  const loginSubmit: SubmitHandler<LoginDataInterface> = (data) => console.log(data);
+  const loginSubmit: SubmitHandler<LoginDataInterface> = async (data) => {
+    const token = await httpClient.login(data);
+
+    if (token) {
+      setToken(token);
+      return;
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(loginSubmit)}>
