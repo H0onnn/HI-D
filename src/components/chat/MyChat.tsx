@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { formatTimeAgo } from '../../utils/post';
+import { ChatInterface } from '@/types/chat';
 
-type Props = { chatContent: { content: string; date: string; nickname: string } };
+type Props = { chatContent: ChatInterface };
 
 const MyChat = ({ chatContent }: Props) => {
-  const { content, date } = chatContent;
+  const { content, createdAt } = chatContent;
   return (
     <MyChatLayout>
       <ChatText>{content}</ChatText>
-      <ChatDate>{formatTimeAgo(date)}</ChatDate>
+      <ChatDate>{formatTimeAgo(createdAt)}</ChatDate>
     </MyChatLayout>
   );
 };
