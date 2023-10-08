@@ -61,6 +61,12 @@ const Title = styled.div`
   line-height: 22px;
   > div:nth-child(2) {
     cursor: pointer;
+    &:hover {
+      color: #252424;
+    }
+    &:active {
+      color: #252424;
+    }
   }
 `;
 
@@ -83,6 +89,10 @@ const SearchHistoryItem = styled.div`
   /* background: #f9f9f9; */
   border-radius: 90rem;
   border: 1px solid var(--2, #a5adff);
+  &:hover {
+  }
+  &:active {
+  }
 `;
 const KeywordText = styled.div`
   cursor: pointer;
@@ -107,5 +117,11 @@ const IconWrapper = styled.div`
   > img {
     width: 100%;
     height: 100%;
+  }
+  &:hover {
+    scale: 1.1;
+  }
+  &:active {
+    scale: 1.1;
   }
 `;

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import { useNavigate } from 'react-router-dom';
 import closeIcon from '@/public/images/elephant.png';
@@ -87,6 +87,15 @@ const BackDrop = styled.div`
   z-index: 99;
   overflow: hidden;
 `;
+const fadeIn = keyframes`
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+
+`;
 const FloatingMenu = styled.div`
   z-index: 100;
   position: absolute;
@@ -96,12 +105,14 @@ const FloatingMenu = styled.div`
   flex-direction: column;
   gap: 1rem;
 `;
+
 const FloatingItem = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: end;
   gap: 1rem;
+  animation: ${fadeIn} 0.3s ease-in-out;
 `;
 
 const MeneText = styled.div`

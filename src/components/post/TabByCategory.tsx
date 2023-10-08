@@ -70,4 +70,10 @@ const MoveButton = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+  &:hover {
+    color: #252424;
+  }
+  &:active {
+    color: #252424;
+  }
 `;
