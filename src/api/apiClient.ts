@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { URL } from '../constants/url';
 import useAuthStore from '../store/authStore';
-import { ProfileSetupDataInterface } from '../types/types';
+import { LoginDataInterface, ProfileSetupDataInterface } from '../types/types';
 
 class AxiosClient {
   #instance;
@@ -12,7 +12,8 @@ class AxiosClient {
     this.#instance = axios.create({
       baseURL: this.#baseURL,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
+        accept: '*/*',
       },
     });
 
@@ -39,7 +40,7 @@ class AxiosClient {
       (config) => {
         const token = useAuthStore.getState().token;
         if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+          config.headers.Authorization = `${token}`;
         }
         return config;
       },
@@ -70,7 +71,7 @@ class AxiosClient {
   async sendEmail(mail: string) {
     try {
       const res = await this.#instance.post('mail/send', { mail });
-      return res;
+      return res.data;
     } catch (err: unknown) {
       console.log(err);
       throw err;
@@ -80,7 +81,7 @@ class AxiosClient {
   async sendCode(mail: string, code: string) {
     try {
       const res = await this.#instance.post('mail/confirm', { mail, code });
-      return res;
+      return res.data;
     } catch (err: unknown) {
       console.log(err);
       throw err;
@@ -106,18 +107,19 @@ class AxiosClient {
 
   async signUp(data: ProfileSetupDataInterface) {
     try {
-      const res = await this.#instance.post('members', { data });
-      return res.data;
+      await this.#instance.post('members', data);
     } catch (err: unknown) {
       console.log('회원가입 에러 : ', err);
       throw err;
     }
   }
 
-  async login(email: string, password: string) {
+  async login(data: LoginDataInterface) {
     try {
-      const res = await this.#instance.post('login', { email, password });
-      return res.data;
+      const res = await this.#instance.post('login', data);
+      const token = res.headers['Authorization'] || res.headers['authorization'];
+      console.log('jwtToken : ', token);
+      return token;
     } catch (err: unknown) {
       console.log('로그인 에러 : ', err);
       throw err;
