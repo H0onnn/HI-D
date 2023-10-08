@@ -100,10 +100,15 @@ export interface PostListProps {
   infiniteScroll?: boolean;
   keyword?: string;
 }
-
 export interface PostProps {
   post: Post;
   keyword?: string;
   imageSize?: 'small' | 'medium';
   onClick?: () => void;
+}
+export interface PostCountInterface {
+  recommendCount: number;
+  replyCount: number;
+  viewCount: number;
+  darkMode?: boolean;
 }
