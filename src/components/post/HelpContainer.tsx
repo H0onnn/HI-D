@@ -73,7 +73,7 @@ const HelpContainer = ({ location, keyword }: PostContainerProps) => {
         updateAt: '2023-09-17T06:52:38.123Z',
       },
     ]);
-  }, [page]);
+  }, [page, keyword]);
 
   const postImgSize = location === 'post' ? 'medium' : 'small';
   const devideHelpPostList = postList.slice(0, 10);

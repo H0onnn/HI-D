@@ -14,6 +14,7 @@ const HelpPost = ({
   onClick,
 }: PostProps) => {
   const contentSnippet = getContentSnippet(content, keyword);
+
   const layoutByImageSize = (imageSize: PostProps['imageSize']) => {
     switch (imageSize) {
       case 'small':
@@ -66,8 +67,6 @@ export default HelpPost;
 const Layout = styled.div`
   cursor: pointer;
   width: 100%;
-  /* width: 35rem; */
-  /* height: 12.2rem; */
   padding: 1.2rem 1.6rem;
   display: flex;
   flex-direction: column;

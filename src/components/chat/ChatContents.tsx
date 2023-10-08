@@ -27,9 +27,14 @@ export default ChatContents;
 
 const ChatContentsLayout = styled.div`
   width: 100%;
+  height: 100%;
   gap: 0.8rem;
-  margin: 0 0 4rem 0;
+  margin: 0 0 1rem 0;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
