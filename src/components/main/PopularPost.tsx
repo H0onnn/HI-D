@@ -59,6 +59,14 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  &:hover {
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    scale: 1.01;
+  }
+  &:active {
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    scale: 1.01;
+  }
 `;
 const Title = styled.div`
   height: 100%;

@@ -73,10 +73,22 @@ const Layout = styled.div`
     cursor: pointer;
     border-radius: 100%;
     padding: 0;
+    &:hover {
+      scale: 1.2;
+    }
+    &:active {
+      scale: 1.2;
+    }
   }
   .dots_custom li.slick-active button {
     width: 2.8rem;
     border-radius: 0.8rem;
     background: var(--1, #5061ff);
+    &:hover {
+      scale: 1;
+    }
+    &:active {
+      scale: 1;
+    }
   }
 `;

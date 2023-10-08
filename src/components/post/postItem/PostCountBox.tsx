@@ -4,13 +4,8 @@ import RecommendIcon from '@/public/images/favorite.png';
 import ReplyIcon from '@/public/images/reply.png';
 import ViewIcon from '@/public/images/view.png';
 import { colors } from '@/constants/colors';
+import { PostCountInterface } from '@/types/post';
 
-interface PostCountInterface {
-  recommendCount: number;
-  replyCount: number;
-  viewCount: number;
-  darkMode?: boolean;
-}
 const PostCountBox = ({
   recommendCount,
   replyCount,
@@ -18,33 +13,25 @@ const PostCountBox = ({
   darkMode = false,
 }: PostCountInterface) => {
   const addFavorite = () => {};
-  const countBoxStyles = {
-    color: darkMode ? '#d8d8d8' : '#606060',
-  };
 
   return (
     <Container>
-      <CountBox style={countBoxStyles}>
-        <ImageWrapper $darkMode={darkMode}>
-          <img src={RecommendIcon} alt='favorite button' onClick={addFavorite} />
-        </ImageWrapper>
-        {recommendCount}
-      </CountBox>
-      <CountBox style={countBoxStyles}>
-        <ImageWrapper>
-          <img src={ReplyIcon} alt='reply Icon' />
-        </ImageWrapper>
-        {replyCount}
-      </CountBox>
-      <CountBox style={countBoxStyles}>
-        <ImageWrapper>
-          <img src={ViewIcon} alt='view Icon' />
-        </ImageWrapper>
-        {viewCount}
-      </CountBox>
+      {countItem(RecommendIcon, recommendCount, darkMode, addFavorite)}
+      {countItem(ReplyIcon, replyCount, darkMode)}
+      {countItem(ViewIcon, viewCount, darkMode)}
     </Container>
   );
 };
+
+const countItem = (icon: string, count: number, darkMode: boolean, clickHandler?: () => void) => (
+  <CountBox $darkMode={darkMode} onClick={clickHandler}>
+    <ImageWrapper $darkMode={darkMode}>
+      <img src={icon} alt='icon' />
+    </ImageWrapper>
+    {count}
+  </CountBox>
+);
+
 export default PostCountBox;
 
 const Container = styled.div`

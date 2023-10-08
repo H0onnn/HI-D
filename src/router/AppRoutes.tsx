@@ -6,7 +6,6 @@ import SignUpPage from '../pages/auth/SignUpPage';
 import SearchPage from '../pages/search/SearchPage';
 import ChatPage from '../pages/chat/ChatPage';
 import MainPage from '../pages/main/MainPage';
-import PostDetailPage from '../pages/post/PostDetailPage';
 import FreePostListPage from '../pages/post/FreePostListPage';
 import HelpPostListPage from '../pages/post/HelpPostListPage';
 
@@ -55,12 +54,6 @@ const routes: AppRoutesInterface[] = [
     path: LINK.POST_HELP,
     component: HelpPostListPage,
     meta: { hideNavBar: true },
-  },
-  {
-    name: 'PostDetail',
-    path: LINK.POST_DETAIL,
-    component: PostDetailPage,
-    meta: { hideFloatNav: true },
   },
   {
     name: 'Search',

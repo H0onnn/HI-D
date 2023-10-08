@@ -25,6 +25,7 @@ const NewPost = ({ post: { postId, writer, writerImage, title, createAt } }: { p
 export default NewPost;
 
 const Layout = styled.div`
+  cursor: pointer;
   width: 22em;
   min-width: 22rem;
   height: 16rem;
@@ -35,9 +36,14 @@ const Layout = styled.div`
   border-radius: 1.2rem;
   background: ${colors.white};
   box-shadow: 0px 4px 16px 0px rgba(100, 100, 100, 0.1);
-  /* &:first-child {
-    margin: 0 0 0 2rem;
-  } */
+  &:hover {
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    scale: 1.01;
+  }
+  &:active {
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    scale: 1.01;
+  }
 `;
 const Title = styled.div`
   height: 100%;

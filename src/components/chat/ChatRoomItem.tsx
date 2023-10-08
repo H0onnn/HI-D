@@ -15,7 +15,7 @@ const ChatRoomItem = ({
   chatRoom: { roomId, members, recentChatContent, recentChatTime },
   chatRoomClick,
 }: Props) => {
-  const myId = 2; // 전역변수
+  const myId = '2'; // 전역변수
   const member = members.filter((member) => member.id !== myId)[0];
   const { lockScroll } = useBodyScrollLock();
   const [modal, setModal] = useState<boolean>(false);
@@ -72,6 +72,14 @@ const ComponentLayout = styled.div`
   gap: 0.8rem;
   border-radius: 0.8rem;
   background: ${colors.white};
+  &:hover {
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    scale: 1.01;
+  }
+  &:active {
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    scale: 1.01;
+  }
 `;
 const ImageWrapper = styled.div`
   flex: none;
@@ -121,6 +129,12 @@ const ChatItemSetting = styled.div`
     width: 100%;
     height: 100%;
     position: relative;
+  }
+  &:hover {
+    scale: 1.2;
+  }
+  &:active {
+    scale: 1.2;
   }
 `;
 

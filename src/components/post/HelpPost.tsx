@@ -72,6 +72,14 @@ const Layout = styled.div`
   gap: 0.4rem;
   border-radius: 0.8rem;
   background: ${colors.white};
+  &:hover {
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    scale: 1.01;
+  }
+  &:active {
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    scale: 1.01;
+  }
 `;
 const Title = styled.div`
   color: #252424;
@@ -84,6 +92,11 @@ const Title = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   padding-right: 2rem;
+  div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 const TimeBox = styled.div`
   display: flex;

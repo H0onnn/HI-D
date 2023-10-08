@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import useBodyScrollLock from '../../hooks/useBodyScrollLock';
 import { colors } from '@/constants/colors';
 
@@ -36,6 +36,15 @@ const SettingModal = ({ position = '', setModal, settingList }: Props) => {
 
 export default SettingModal;
 
+const fadeIn = keyframes`
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+
+`;
 const Layout = styled.div<{ $position: string }>`
   z-index: 50;
   display: flex;
@@ -48,7 +57,9 @@ const Layout = styled.div<{ $position: string }>`
   border: 1px solid #f3f3f3;
   box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
   ${({ $position }) => $position};
+  animation: ${fadeIn} ease-in-out 0.3s;
 `;
+
 const MenuItem = styled.div`
   cursor: pointer;
   display: flex;

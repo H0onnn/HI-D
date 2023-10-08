@@ -25,6 +25,7 @@ const FreePostTagContainer = ({ onClick, currentTag }: Props) => {
 export default FreePostTagContainer;
 
 const Layout = styled.div`
+  cursor: pointer;
   display: flex;
   gap: 0.8rem;
   overflow: scroll;
@@ -46,12 +47,24 @@ const TagBox = styled.div<{ $active: boolean }>`
   font-weight: 400;
   line-height: 150%;
   color: ${({ $active }) => ($active ? colors.white : '#A5ADFF')};
-  border: 1px solid ${({ $active }) => ($active ? ' #5061ff' : '#a5adff')};
-  background: ${({ $active }) => ($active ? ' #5061ff' : colors.white)};
+  border: 0.1rem solid ${({ $active }) => ($active ? ' #5061ff' : '#a5adff')};
+  background-color: ${({ $active }) => ($active ? ' #5061ff' : colors.white)};
   &:first-child {
     margin: 0 0 0 2rem;
   }
   &:last-child {
     margin: 0 2rem 0 0;
+  }
+  &:hover {
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    scale: 1.01;
+  }
+  &:active {
+    color: ${colors.white};
+    font-weight: 500;
+    border: 0.08rem solid #5061ff;
+    background: #5061ff;
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    scale: 1.01;
   }
 `;

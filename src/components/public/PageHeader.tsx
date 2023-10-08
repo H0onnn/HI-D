@@ -6,7 +6,6 @@ import BackIcon from '../../public/images/headerBackBtn.png';
 interface PageHeaderInterface {
   title?: string;
   onClick?: () => void;
-  // style?: React.CSSProperties;
 }
 
 const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
