@@ -43,6 +43,7 @@ const CompleteImgWrapper = styled.div`
   margin: 0 auto;
   overflow: hidden;
   border-radius: 100%;
+  background-color: ${colors.primary};
 `;
 
 const CompleteImg = styled.img`
@@ -61,12 +62,12 @@ const CompleteTextContainer = styled.div`
   & > span {
     font-size: 16px;
     font-weight: 400;
-    color: ${colors.font};
+    color: #252424;
   }
 
   & > p {
     font-size: 14px;
     font-weight: 400;
-    color: ${colors.font};
+    color: #a3a3a3;
   }
 `;
