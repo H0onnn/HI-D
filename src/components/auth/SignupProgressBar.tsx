@@ -39,7 +39,7 @@ const StyledProgressBar = styled.div<SignupProgressBarInterface>`
     width: ${({ progress }) => `${progress}%`};
     transition: width 1s ease-out;
     height: 100%;
-    background: linear-gradient(90deg, #d3d3d3 0%, #808080 100%);
+    background: linear-gradient(90deg, #66aaff 0%, #3588ff 100%);
     animation: ProgressBarfillAnimation 1s ease-out;
   }
 
