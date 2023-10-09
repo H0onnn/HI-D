@@ -1,7 +1,7 @@
 import React from 'react';
 import toast, { ToastBar, Toaster } from 'react-hot-toast';
 import { colors } from '../constants/colors';
-import ErrorIcon from '@/public/images/input/warning.svg';
+import ErrorIcon from '@/public/images/error.svg';
 
 const ToasterContext = () => {
   return (
@@ -13,7 +13,7 @@ const ToasterContext = () => {
           width: '35rem',
           maxWidth: '35rem',
           height: '4rem',
-          fontSize: '16px',
+          fontSize: '14px',
           padding: '1.2rem 1.6rem',
           color: colors.white,
           backgroundColor: colors.primary,
@@ -39,7 +39,7 @@ const ToasterContext = () => {
             primary: colors.white,
             secondary: colors.error,
           },
-          icon: <ErrorIcon />,
+          icon: <img src={ErrorIcon} alt='Error' style={{ marginTop: '0.5rem' }} />,
         },
       }}
     >
