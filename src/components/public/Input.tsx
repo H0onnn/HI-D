@@ -113,7 +113,7 @@ const ErrorText = styled.p`
 `;
 
 const VerifiedButton = styled(Button)`
-  color: ${colors.inputFont};
+  color: ${colors.white};
   font-size: 12px;
   border-radius: 900px;
   width: 10.3rem;
