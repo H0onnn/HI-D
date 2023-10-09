@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { colors } from '@/constants/colors';
 
 interface CheckBoxInterface {
   text: string;
@@ -34,7 +35,7 @@ const StyledInput = styled.input`
     background-size: 100% 100%;
     background-position: 50%;
     background-repeat: no-repeat;
-    background-color: limegreen;
+    background-color: ${colors.primary};
   }
 `;
 
