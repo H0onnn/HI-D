@@ -55,7 +55,6 @@ export default HomePage;
 const ImageBox = styled.div`
   width: 24rem;
   height: 24rem;
-  /* overflow: hidden; */
   margin: 0 auto;
 `;
 
@@ -63,7 +62,7 @@ const CircleDiv = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
-  top: 30%;
+  top: 15%;
   border: 2px solid ${colors.primary};
   border-radius: 50%;
   display: flex;

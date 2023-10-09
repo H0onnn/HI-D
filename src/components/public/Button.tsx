@@ -92,7 +92,7 @@ const StyledButton = styled.button<ButtonInterface>`
   font-family: inherit;
   outline: none;
   line-height: 24px;
-  border-radius: 10px;
+  border-radius: 8px;
   transition: all 0.4s ease;
   width: ${(props) => (props.$isFullWidth ? '100%' : 'auto')};
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};

@@ -1,5 +1,5 @@
 export const colors = {
-  primary: '#3588FF',
+  primary: '#5061FF',
   secondary: '#AED3FF',
   pastel: '#E2EEFF',
   point: '#F44B4B',
@@ -9,6 +9,6 @@ export const colors = {
   paleGray: '#F9F8F8',
   lineGray: '#D6D6D6',
   white: '#FFFFFF',
-  error: '#FF6969',
+  error: '#F44B4B',
   success: '#00C851',
 } as const;

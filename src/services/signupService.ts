@@ -1,7 +1,11 @@
 import { NavigateFunction } from 'react-router-dom';
 import { SubmitHandler } from 'react-hook-form';
 import { ProfileSetupDataInterface } from '../types/types';
+import toast from 'react-hot-toast';
+import { LINK } from '../constants/links';
+import { httpClient } from '../api/httpClient';
 
+// 회원가입 스텝에서 다음 클릭 처리
 export const createNextClickHandler = (
   setStep: (step: string) => void,
   setCurrentStep: (step: string) => void,
@@ -22,6 +26,7 @@ export const createNextClickHandler = (
   };
 };
 
+// 회원가입 스텝에서 이전 클릭 처리
 export const createPrevClickHandler = (
   setStep: (step: string) => void,
   setCurrentStep: (step: string) => void,
@@ -44,7 +49,22 @@ export const createPrevClickHandler = (
   };
 };
 
-export const signupSubmit: SubmitHandler<ProfileSetupDataInterface> = (data) => console.log(data);
+// 최종 스텝에서 회원가입 클릭 처리
+export const signupSubmit: SubmitHandler<ProfileSetupDataInterface> = async (data) => {
+  try {
+    await httpClient.members.post.signUp(data);
+    window.location.href = LINK.SIGNUP_SUCCESS;
+    toast.success('회원가입이 완료되었습니다!', {
+      position: 'top-center',
+      id: 'signupSuccess',
+    });
+  } catch (err: unknown) {
+    toast.error('회원가입에 실패하였습니다.', {
+      position: 'top-center',
+      id: 'signupFail',
+    });
+  }
+};
 
 type RequiredAgreementsType = {
   termsOfService: boolean;
@@ -53,6 +73,7 @@ type RequiredAgreementsType = {
   overFourteen: boolean;
 };
 
+// 약관 동의 스텝의 모두 선택 클릭 처리
 export const createAllCheckHandler = (
   allChecked: boolean,
   setAllChecked: React.Dispatch<React.SetStateAction<boolean>>,
@@ -72,6 +93,7 @@ export const createAllCheckHandler = (
   };
 };
 
+// 약관 동의 스텝의 체크박스 클릭 처리
 export const createCheckboxClickHandler = (
   setRequiredAgreements: React.Dispatch<React.SetStateAction<RequiredAgreementsType>>,
 ) => {
@@ -83,10 +105,12 @@ export const createCheckboxClickHandler = (
   };
 };
 
+// 약관 동의 스텝의 필수 약관 모두 체크 여부 확인
 export const allRequiredChecked = (requiredAgreements: RequiredAgreementsType) => {
   return Object.values(requiredAgreements).every((val) => val);
 };
 
+// 모달의 값 클릭시 Input에 값 적용
 export const keywordSelectHandler = (
   fieldName: string,
   keyword: string,

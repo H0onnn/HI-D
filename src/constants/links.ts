@@ -3,6 +3,7 @@ export const LINK = {
   MAIN: '/main',
   LOGIN: '/login',
   SIGNUP: '/signup',
+  SIGNUP_SUCCESS: '/signup-success',
   FINDPW: '/findpw',
   FIMDID: '/findid',
   MYPAGE: '/mypage',

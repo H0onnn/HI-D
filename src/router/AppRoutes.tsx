@@ -3,6 +3,7 @@ import { LINK } from '../constants/links';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/auth/LoginPage';
 import SignUpPage from '../pages/auth/SignUpPage';
+import SignupCompletePage from '../pages/auth/SignupCompletePage';
 import SearchPage from '../pages/search/SearchPage';
 import ChatPage from '../pages/chat/ChatPage';
 import MainPage from '../pages/main/MainPage';
@@ -53,6 +54,12 @@ const routes: AppRoutesInterface[] = [
     name: 'HelpPost',
     path: LINK.POST_HELP,
     component: HelpPostListPage,
+    meta: { hideNavBar: true },
+  },
+  {
+    name: 'SignUpComplete',
+    path: LINK.SIGNUP_SUCCESS,
+    component: SignupCompletePage,
     meta: { hideNavBar: true },
   },
   {

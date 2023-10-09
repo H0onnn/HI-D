@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
-import { KeywordSearchInterface, KeywordDataInterface } from '../../../types/types';
+import { KeywordSearchInterface } from '../../../types/types';
 
-interface KeywordItemInterface extends KeywordSearchInterface, KeywordDataInterface {}
+interface KeywordItemInterface extends KeywordSearchInterface {
+  name: string;
+}
 
 const KeywordItem = ({
   fieldName,

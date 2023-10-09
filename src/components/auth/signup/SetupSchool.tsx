@@ -1,6 +1,7 @@
 import React from 'react';
 import useFocus from '../../../hooks/useFocus';
 import useSetupInput from '../../../hooks/useSetupInput';
+import useSchoolMajorData from '../../../hooks/useSchoolMajorData';
 import Modal from './Modal';
 import MainComment from '../MainComment';
 import Input from '../../public/Input';
@@ -18,9 +19,16 @@ const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
     debouncedValue: debouncedSchoolValue,
     inputchangeHandler,
     setValue,
+    value,
   } = useSetupInput('school', schoolValidation);
 
+  const { datas } = useSchoolMajorData('school', debouncedSchoolValue);
+
   const { isFocus, onBlur, onFocus } = useFocus();
+
+  const isValueInData = datas.includes(value);
+
+  const isNextButtonActive = isValueInData && schoolStatus === 'success';
 
   return (
     <>
@@ -45,14 +53,13 @@ const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
             searchValue={debouncedSchoolValue}
             keywordSelectHandler={keywordSelectHandler}
             onBlur={onBlur}
-            onFiltered={() => {}}
             setValue={setValue}
           />
         )}
       </InputWrapper>
 
       <ButtonContainer>
-        <Button $isFullWidth onClick={onNext} disabled={schoolStatus !== 'success'}>
+        <Button $isFullWidth onClick={onNext} disabled={!isNextButtonActive}>
           다음
         </Button>
       </ButtonContainer>

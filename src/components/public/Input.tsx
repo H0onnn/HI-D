@@ -4,14 +4,14 @@ import { colors } from '../../constants/colors';
 import Button from './Button';
 import CheckIcon from '../public/UI/CheckIcon';
 import WarningIcon from '../public/UI/WarningIcon';
-import SearchIcon from '../../public/images/input/search.png';
+import SearchIcon from '@/public/images/input/search.png';
 interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
   image?: string | React.ReactNode;
   button?: boolean;
-  children?: React.ReactNode;
+  buttonText?: string;
   status?: 'default' | 'success' | 'error' | 'search';
   errorMessage?: string;
-  isVerified?: boolean;
+  onButtonClick?: () => void;
 }
 
 const colorMap = {
@@ -22,7 +22,10 @@ const colorMap = {
 };
 
 const Input = forwardRef<HTMLInputElement, InputInterface>(
-  ({ image, button, children, status = 'default', errorMessage, isVerified, ...props }, ref) => {
+  (
+    { image, button, status = 'default', errorMessage, buttonText, onButtonClick, ...props },
+    ref,
+  ) => {
     const renderIcon = () => {
       if (button) return null;
 
@@ -32,7 +35,13 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
         case 'success':
           return <CheckIcon color={colors.success} />;
         case 'search':
-          return <img src={SearchIcon} alt='search icon' />;
+          return (
+            <img
+              src={SearchIcon}
+              alt='search icon'
+              style={{ width: '20px', height: '20px', marginTop: '0.3rem' }}
+            />
+          );
         default:
           return typeof image === 'string' ? <img src={image} alt='input icon' /> : image;
       }
@@ -46,10 +55,11 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
           {button && (
             <VerifiedButton
               variant='primary'
-              isSuccess={status === 'success'}
               disabled={status !== 'success'}
+              onClick={onButtonClick}
+              type='button'
             >
-              {isVerified ? '인증 완료' : children || '인증 메일 보내기'}
+              {buttonText}
             </VerifiedButton>
           )}
         </InputLayout>
@@ -102,8 +112,8 @@ const ErrorText = styled.p`
   bottom: -2rem;
 `;
 
-const VerifiedButton = styled(Button)<{ isSuccess: boolean }>`
-  color: ${colors.inputFont};
+const VerifiedButton = styled(Button)`
+  color: ${colors.white};
   font-size: 12px;
   border-radius: 900px;
   width: 10.3rem;

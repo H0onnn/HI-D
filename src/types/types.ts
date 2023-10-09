@@ -10,7 +10,7 @@ export interface ProfileSetupDataInterface {
   nickname: string;
   school: string;
   major: string;
-  imageURL: string;
+  imageUrl: string;
 }
 
 export interface SVGIconInterface {
@@ -19,11 +19,6 @@ export interface SVGIconInterface {
 
 export interface ProfileSetupStepInterface {
   onNext: () => void;
-}
-
-export interface KeywordDataInterface {
-  id: number;
-  name: string;
 }
 
 export type setValueFunction = (

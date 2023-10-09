@@ -1,10 +1,10 @@
 import React from 'react';
 import KeywordItem from './KeywordItem';
 import styled from 'styled-components';
-import { KeywordSearchInterface, KeywordDataInterface } from '../../../types/types';
+import { KeywordSearchInterface } from '../../../types/types';
 
 interface KeywordListInterface extends KeywordSearchInterface {
-  datas: KeywordDataInterface[];
+  datas: string[];
 }
 
 const KeywordList = ({
@@ -18,9 +18,8 @@ const KeywordList = ({
     <KeywordListContainer>
       {datas.map((data, index) => (
         <KeywordItem
-          id={data.id}
           key={index}
-          name={data.name}
+          name={data}
           fieldName={fieldName}
           keywordSelectHandler={keywordSelectHandler}
           setValue={setValue}
