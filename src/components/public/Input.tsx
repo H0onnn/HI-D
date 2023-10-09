@@ -4,7 +4,7 @@ import { colors } from '../../constants/colors';
 import Button from './Button';
 import CheckIcon from '../public/UI/CheckIcon';
 import WarningIcon from '../public/UI/WarningIcon';
-import SearchIcon from '../../public/images/input/search.png';
+import SearchIcon from '@/public/images/input/search.png';
 interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
   image?: string | React.ReactNode;
   button?: boolean;
@@ -35,7 +35,13 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
         case 'success':
           return <CheckIcon color={colors.success} />;
         case 'search':
-          return <img src={SearchIcon} alt='search icon' />;
+          return (
+            <img
+              src={SearchIcon}
+              alt='search icon'
+              style={{ width: '20px', height: '20px', marginTop: '0.3rem' }}
+            />
+          );
         default:
           return typeof image === 'string' ? <img src={image} alt='input icon' /> : image;
       }
