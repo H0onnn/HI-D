@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
 import { URL } from '../../../constants/url';
 import CameraIcon from '../../../public/images/input/photo_camera.png';
-import { httpClient } from '../../../api/apiClient';
+import { httpClient } from '../../../api/httpClient';
 
 const SetupProfileInfo = () => {
   const {
@@ -39,7 +39,7 @@ const SetupProfileInfo = () => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       try {
-        const imageUrl = await httpClient.setupImage(file);
+        const imageUrl = await httpClient.image.post.upload(file);
         setValue('imageUrl', imageUrl[0]);
         setProfileImageUrl(imageUrl[0]);
       } catch (err: unknown) {

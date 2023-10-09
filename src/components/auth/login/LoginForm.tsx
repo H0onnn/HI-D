@@ -7,7 +7,7 @@ import Button from '../../public/Button';
 import styled from 'styled-components';
 import { emailValidation, passwordValidation } from '../../../utils/auth/validationRules';
 import { InputWrapper } from '../../../styles/styles';
-import { httpClient } from '../../../api/apiClient';
+import { httpClient } from '../../../api/httpClient';
 
 const LoginForm = () => {
   const {
@@ -34,7 +34,7 @@ const LoginForm = () => {
     : 'default';
 
   const loginSubmit: SubmitHandler<LoginDataInterface> = async (data) => {
-    const token = await httpClient.login(data);
+    const token = await httpClient.members.post.login(data);
 
     if (token) {
       setToken(token);

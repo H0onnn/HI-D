@@ -1,13 +1,13 @@
-import { httpClient } from '../apiClient';
+import { httpClient } from '../httpClient';
 
 export const getSchools = async (keyword: string): Promise<string[]> => {
   if (!keyword.trim()) {
     return [];
   }
 
-  const data = await httpClient.searchSchool(keyword);
-  console.log(data);
-  return data;
+  const response = await httpClient.search.get.school(keyword);
+  console.log(response);
+  return response.data;
 };
 
 export const getMajors = async (keyword: string): Promise<string[]> => {
@@ -15,7 +15,7 @@ export const getMajors = async (keyword: string): Promise<string[]> => {
     return [];
   }
 
-  const data = await httpClient.searchMajor(keyword);
-  console.log(data);
-  return data;
+  const response = await httpClient.search.get.major(keyword);
+  console.log(response);
+  return response.data;
 };
