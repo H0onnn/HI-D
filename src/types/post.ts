@@ -2,6 +2,26 @@ export enum Category {
   'help',
   'free',
 }
+export enum FreePostTags {
+  '전체' = 0,
+  '연애',
+  '일상',
+  '같이해요',
+  '맛집',
+  '잡담',
+}
+export type FreePostTag = keyof typeof FreePostTags;
+export interface TabInterface {
+  id: number;
+  name: string;
+  category: string;
+  link?: string;
+}
+export interface PageStatusInterface {
+  page: number;
+  isNext: boolean;
+}
+
 export type PostList = {
   dataList: Post[];
   size: number;
@@ -10,6 +30,7 @@ export type PostList = {
 export type Post = {
   postId: number;
   writer: string;
+  writerImage: string | '';
   major: string;
   category: keyof typeof Category;
   title: string;
@@ -66,3 +87,28 @@ export type getPostListOptions = {
   category?: string;
   majorCategory?: string;
 };
+
+export interface PostContainerProps {
+  location: string;
+  keyword?: string;
+}
+export interface PostListProps {
+  postList: Post[];
+  pageStatus: PageStatusInterface;
+  nextPageHandler: () => void;
+  postImgSize?: 'small' | 'medium';
+  infiniteScroll?: boolean;
+  keyword?: string;
+}
+export interface PostProps {
+  post: Post;
+  keyword?: string;
+  imageSize?: 'small' | 'medium';
+  onClick?: () => void;
+}
+export interface PostCountInterface {
+  recommendCount: number;
+  replyCount: number;
+  viewCount: number;
+  darkMode?: boolean;
+}

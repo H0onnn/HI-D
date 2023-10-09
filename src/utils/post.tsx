@@ -37,3 +37,32 @@ export const getContentSnippet = (content: string, keyword?: string, snippetLeng
 export const truncateContent = (content: string, maxLength: number = 6) => {
   return content.length > maxLength ? content.slice(0, maxLength) + '...' : content;
 };
+
+/**
+ * 주어진 시간 문자열을 현재 시간과 비교하여 시간 경과를 표시합니다.
+ * @param timestamp 시간 문자열
+ * @returns 경과된 시간 문자열
+ */
+export const formatTimeAgo = (timestamp: string) => {
+  const currentTime = new Date().getTime();
+  const pastTime = new Date(timestamp).getTime();
+  const timeDifference = currentTime - pastTime;
+
+  if (timeDifference < 3600000) {
+    const minutesAgo = Math.floor(timeDifference / 60000);
+    return `${minutesAgo}분전`;
+  } else if (timeDifference < 10800000) {
+    const hoursAgo = Math.floor(timeDifference / 3600000);
+    return `${hoursAgo}시간전`;
+  } else {
+    return formatTime(timestamp);
+  }
+};
+
+export const formatTime = (timestamp: string) => {
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}.${month}.${day}`;
+};

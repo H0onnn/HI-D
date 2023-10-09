@@ -9,18 +9,19 @@ type Props = {
 };
 
 const ChatRoomList = ({ chatRoomClick }: Props) => {
-  const [{ page, isNext }, setPage] = useState<PageStatusInterface>({ page: 1, isNext: false });
-  const [piledChatRoomList, setPiledChatRoomList] = useState<ChatRoomInterface[]>([]);
+  const [{ page, isNext }, setPage] = useState<PageStatusInterface>({ page: 1, isNext: true });
+  const [ChatRoomList, setChatRoomList] = useState<ChatRoomInterface[]>([]);
   const infinityRef = useObserver(() => nextPageHandler());
 
   const nextPageHandler = () => {
     setPage((prev) => ({ ...prev, page: prev.page + 1 }));
   };
   const piledUpChatRoomList = (data: ChatRoomInterface[]) => {
-    setPiledChatRoomList((prev) => [...prev, ...data]);
+    setChatRoomList((prev) => [...prev, ...data]);
   };
 
   const getChatRoomList = async ({ page = 1 }) => {
+    if (!isNext) return;
     try {
       // setStatus({ loading: true, error: null });
       // const response = await axios('/chat', { params: { page } });
@@ -28,9 +29,20 @@ const ChatRoomList = ({ chatRoomClick }: Props) => {
       console.log(page);
       const data: ChatRoomListInterface = await {
         dataList: [
-          { roomId: 1, members: ['you', 'me'] },
-          { roomId: 2, members: ['you', 'me'] },
-          { roomId: 3, members: ['you', 'me'] },
+          {
+            roomId: 1,
+            members: [
+              {
+                id: '1',
+                nickname: '상대방닉네임',
+                profileImage: '',
+              },
+              { id: '2', nickname: '나의닉네임', profileImage: '' },
+            ],
+            recentChatContent:
+              '최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용',
+            recentChatTime: '최근 채팅 시간',
+          },
         ],
         size: 3,
         next: true,
@@ -48,16 +60,18 @@ const ChatRoomList = ({ chatRoomClick }: Props) => {
   }, [page]);
 
   return (
-    <ChatRoomContainer>
-      {piledChatRoomList.map((chatRoom, index) => (
-        <ChatRoomItem
-          key={index}
-          chatRoom={chatRoom}
-          chatRoomClick={() => chatRoomClick(chatRoom.roomId)}
-        />
-      ))}
-      {isNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
-    </ChatRoomContainer>
+    <>
+      <ChatRoomContainer>
+        {ChatRoomList.map((chatRoom, index) => (
+          <ChatRoomItem
+            key={index}
+            chatRoom={chatRoom}
+            chatRoomClick={() => chatRoomClick(chatRoom.roomId)}
+          />
+        ))}
+        {isNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
+      </ChatRoomContainer>
+    </>
   );
 };
 export default ChatRoomList;
@@ -65,6 +79,8 @@ export default ChatRoomList;
 const ChatRoomContainer = styled.div`
   width: 100%;
   display: flex;
+  /* position: relative; */
   flex-direction: column;
+  padding: 0 2rem;
   gap: 0.8rem;
 `;
