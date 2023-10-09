@@ -10,6 +10,7 @@ import { colors } from '../../../constants/colors';
 import { URL } from '../../../constants/url';
 import CameraIcon from '../../../public/images/input/photo_camera.png';
 import { httpClient } from '../../../api/httpClient';
+import { generateRandomNickname } from '@/utils/randomNick';
 
 const SetupProfileInfo = () => {
   const {
@@ -20,10 +21,16 @@ const SetupProfileInfo = () => {
   } = useFormContext();
 
   const [profileImageUrl, setProfileImageUrl] = useState<string>(URL.DEFAULT_PROFILE_IMG);
+  // eslint-disable-next-line
+  const [nickname, setNickname] = useState<string>(generateRandomNickname());
 
   useEffect(() => {
     setValue('imageUrl', URL.DEFAULT_PROFILE_IMG);
   }, [setValue]);
+
+  useEffect(() => {
+    setValue('nickname', nickname);
+  }, [setValue, nickname]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -74,6 +81,7 @@ const SetupProfileInfo = () => {
           type='nickname'
           status={nicknameStatus}
           {...register('nickname', nicknameValidation)}
+          defaultValue={nickname}
           errorMessage={
             errors.nickname && typeof errors.nickname.message === 'string'
               ? errors.nickname.message
