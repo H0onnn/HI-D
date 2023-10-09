@@ -118,7 +118,7 @@ const EditImageButton = styled.div`
   height: 3rem;
   width: 3rem;
   border-radius: 50%;
-  background: ${colors.white};
+  background: #f4f5ff;
   cursor: pointer;
   z-index: 1;
   bottom: 3rem;
@@ -131,5 +131,5 @@ const ProfileImageInput = styled.input`
 
 const ProfileImageEditIcon = styled.img`
   width: 2rem;
-  height: 2rem;
+  height: 1.5rem;
 `;
