@@ -12,12 +12,16 @@ export const apiMethods = {
     },
   },
   mail: {
+    get: {
+      duplicate: (mail: string) => ({
+        url: `members/mail/duplicate?mail=${mail}`,
+      }),
+    },
     post: {
       send: (mail: string) => ({
         url: 'mail/send',
         data: { mail },
       }),
-
       confirm: (mail: string, code: string) => ({
         url: 'mail/confirm',
         data: { mail, code },
