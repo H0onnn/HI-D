@@ -99,9 +99,10 @@ const StyledButton = styled.button<ButtonInterface>`
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   filter: ${(props) => (props.disabled ? 'opacity(0.5)' : 'none')};
 
-  border: ${(props) => TYPE_VARIANTS[props.variant!].border};
-  background-color: ${(props) => TYPE_VARIANTS[props.variant!].backgroundColor};
-  color: ${(props) => TYPE_VARIANTS[props.variant!].color};
+  border: ${(props) => (props.disabled ? colors.gray1 : TYPE_VARIANTS[props.variant!].border)};
+  background-color: ${(props) =>
+    props.disabled ? colors.gray1 : TYPE_VARIANTS[props.variant!].backgroundColor};
+  color: ${(props) => (props.disabled ? colors.gray5 : TYPE_VARIANTS[props.variant!].color)};
   font-size: ${(props) => TYPE_SIZES[props.size!].fontSize};
   padding: ${(props) => TYPE_SIZES[props.size!].padding};
   font-weight: ${(props) => TYPE_SIZES[props.size!].fontWeight};
