@@ -11,6 +11,7 @@ import {
   createCheckboxClickHandler,
   allRequiredChecked,
 } from '../../../services/signupService';
+import MAIN_LOGO from '@/public/images/main_logo.svg';
 
 const CheckAgreement = ({ onNext }: ProfileSetupStepInterface) => {
   const [allChecked, setAllChecked] = useState<boolean>(false);
@@ -33,10 +34,12 @@ const CheckAgreement = ({ onNext }: ProfileSetupStepInterface) => {
 
   return (
     <>
-      <LogoWrapper />
+      <LogoBox>
+        <LogoImage src={MAIN_LOGO} alt='logo' />
+      </LogoBox>
       <MainComment
-        style={{ fontSize: '20px' }}
-        comment={`과끼리 서비스 이용을
+        style={{ fontSize: '24px' }}
+        comment={`하이디 서비스 이용을
 위한 약관에 동의해주세요`}
       />
       <AgreementComment>정보 매칭 전에 가입 및 정보 제공에 동의해주세요.</AgreementComment>
@@ -102,17 +105,21 @@ const AgreementComment = styled.p`
   margin-bottom: 6rem;
 `;
 
-const LogoWrapper = styled.div`
-  width: 14rem;
-  height: 6rem;
-  background-color: ${colors.primary};
-  border-radius: 100%;
-  margin-bottom: 2rem;
-`;
-
 const CheckBoxContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   margin-top: 1.5rem;
+`;
+
+const LogoBox = styled.div`
+  width: 10rem;
+  height: 6rem;
+  overflow: hidden;
+  margin-bottom: 2rem;
+`;
+
+const LogoImage = styled.img`
+  width: 100%;
+  height: 100%;
 `;
