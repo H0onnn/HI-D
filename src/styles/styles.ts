@@ -45,3 +45,14 @@ export const SearchInputWrapper = styled.div`
   /* bottom: 3rem; */
   padding: 1.2rem 2rem;
 `;
+
+export const LogoBox = styled.div`
+  width: 13.2rem;
+  height: 7.7rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+`;

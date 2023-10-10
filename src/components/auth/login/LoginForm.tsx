@@ -65,11 +65,9 @@ const LoginForm = () => {
           />
         </InputWrapper>
       </InputContainer>
-      <ButtonContainer>
-        <Button $isFullWidth type='submit'>
-          로그인
-        </Button>
-      </ButtonContainer>
+      <Button $isFullWidth type='submit'>
+        로그인
+      </Button>
     </form>
   );
 };
@@ -83,15 +81,4 @@ const InputContainer = styled.div`
   flex-direction: column;
   gap: 3rem;
   margin-bottom: 4rem;
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  position: absolute;
-  bottom: 18rem;
-  left: 0;
-  padding: 0 1rem;
 `;

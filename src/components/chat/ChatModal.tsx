@@ -122,7 +122,7 @@ const ChatModalLayout = styled.div`
   height: calc(100vh - 7.3rem);
   background-color: ${colors.white};
   border-radius: 2rem 2rem 0 0;
-  border-top: 1px solid ${colors.gray};
+  border-top: 1px solid ${colors.gray1};
 `;
 
 const ImageWrapper = styled.div`

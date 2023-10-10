@@ -2,6 +2,7 @@ import React from 'react';
 import toast, { ToastBar, Toaster } from 'react-hot-toast';
 import { colors } from '../constants/colors';
 import ErrorIcon from '@/public/images/error.svg';
+import CloseIcon from '@/public/images/toast_close.svg';
 
 const ToasterContext = () => {
   return (
@@ -23,7 +24,7 @@ const ToasterContext = () => {
           lineHeight: '2.1rem',
           fontWeight: '500',
           borderRadius: '8px',
-          marginBottom: '10.5rem',
+          marginBottom: '11.5rem',
         },
         success: {
           iconTheme: {
@@ -83,7 +84,7 @@ const ToasterContext = () => {
                     fontSize: '16px',
                   }}
                 >
-                  X
+                  <img src={CloseIcon} alt='toast_close' />
                 </button>
               </div>
             </div>

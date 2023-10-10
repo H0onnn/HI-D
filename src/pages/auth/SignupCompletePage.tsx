@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '../../constants/colors';
-import CheckIcon from '../../public/images/input/check.svg';
+import CheckIcon from '@/components/public/UI/CheckIcon';
 import { ButtonContainer } from '../../styles/styles';
 import Button from '../../components/public/Button';
 import { LINK } from '../../constants/links';
@@ -13,7 +13,7 @@ const SignupCompletePage = () => {
   return (
     <SignupCompletePageLayout>
       <CompleteImgWrapper>
-        <CompleteImg src={CheckIcon} alt='complete' />
+        <CheckIcon color={colors.white} />
       </CompleteImgWrapper>
       <CompleteTextContainer>
         <span>회원가입 완료!</span>
@@ -44,12 +44,9 @@ const CompleteImgWrapper = styled.div`
   overflow: hidden;
   border-radius: 100%;
   background-color: ${colors.primary};
-`;
-
-const CompleteImg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const CompleteTextContainer = styled.div`
