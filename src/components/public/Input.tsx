@@ -18,7 +18,7 @@ const colorMap = {
   default: colors.primary,
   success: colors.success,
   error: colors.error,
-  search: colors.paleGray,
+  search: colors.gray1,
 };
 
 const Input = forwardRef<HTMLInputElement, InputInterface>(
@@ -79,7 +79,7 @@ const InputLayout = styled.div<{ status: 'default' | 'success' | 'error' | 'sear
   height: 4.8rem;
   padding: 1rem 1.6rem;
   border-radius: 0.8rem;
-  background: ${colors.paleGray};
+  background: ${colors.gray1};
   display: flex;
   justify-content: space-between;
 
@@ -101,7 +101,7 @@ const CustomInput = styled.input<{ isFocused?: boolean }>`
   background: none;
 
   &::placeholder {
-    color: ${colors.inputFont};
+    color: ${colors.gray5};
   }
 `;
 

@@ -95,6 +95,7 @@ const StyledButton = styled.button<ButtonInterface>`
   border-radius: 8px;
   transition: all 0.4s ease;
   width: ${(props) => (props.$isFullWidth ? '100%' : 'auto')};
+  height: 4.8rem;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   filter: ${(props) => (props.disabled ? 'opacity(0.5)' : 'none')};
 

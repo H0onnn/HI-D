@@ -80,7 +80,7 @@ const ModalContainer = styled.div`
   padding: 0 2rem;
   background-color: ${colors.white};
   border-radius: 20px 20px 0 0;
-  border-top: 1px solid ${colors.gray};
+  border-top: 1px solid ${colors.gray1};
   z-index: 100;
 `;
 
@@ -96,7 +96,7 @@ const WarnigIconWrapper = styled.div`
 
 const ModalComment = styled.span`
   font-size: 16px;
-  color: ${colors.inputFont};
+  color: ${colors.gray5};
   padding-bottom: 4rem;
 `;
 
