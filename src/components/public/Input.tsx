@@ -2,7 +2,6 @@ import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constants/colors';
 import Button from './Button';
-// import CheckIcon from '../public/UI/CheckIcon';
 import CheckIcon from '@/public/images/input/input_check.svg';
 import WarningIcon from '../public/UI/WarningIcon';
 import SearchIcon from '@/public/images/input/search.png';
