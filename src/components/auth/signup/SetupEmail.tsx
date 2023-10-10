@@ -42,7 +42,7 @@ const SetupEmail = ({ onNext }: ProfileSetupStepInterface) => {
           }
           placeholder='이메일을 입력해주세요.'
           button
-          buttonText='인증 메일 보내기'
+          buttonText='이메일 보내기'
           onButtonClick={() => requestEmail(emailValue)}
         />
       </InputWrapper>

@@ -32,7 +32,7 @@ const Modal = ({
         />
       ) : (
         <NoDataCommentBox>
-          <span>검색어 없음</span>
+          <span>검색 결과가 없어요</span>
         </NoDataCommentBox>
       )}
     </ModalContainer>
@@ -63,7 +63,7 @@ const ModalContainer = styled.div<{ $isVisible: boolean }>`
 const LoadingText = styled.p`
   font-weight: bold;
   font-size: 14px;
-  color: ${colors.gray};
+  color: ${colors.gray1};
   padding: 1rem 1.5rem;
   margin: 0;
 `;
@@ -72,7 +72,7 @@ const NoDataCommentBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 40px;
-  color: ${colors.gray};
+  font-size: 16px;
+  color: ${colors.gray6};
   height: 25rem;
 `;
