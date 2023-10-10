@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { LogoBox } from '../../styles/styles';
 import { colors } from '../../constants/colors';
 import Button from '../../components/public/Button';
-import MainComment from '../../components/auth/MainComment';
+import Logo from '@/components/public/UI/Logo';
 import LoginForm from '../../components/auth/login/LoginForm';
-import { ButtonContainer } from '../../styles/styles';
 import { PageLayout } from '../../styles/styles';
+import GoServiceButton from '@/components/public/GoServiceButton';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -19,58 +20,43 @@ const LoginPage = () => {
     navigate('/signup');
   };
 
-  const serviceClickHandler = () => {
-    navigate('/main');
-  };
-
   return (
     <PageLayout>
-      <MainComment comment='전공 고민이 많은 당신께,' />
-      <MainComment comment='대학생 매칭 서비스' />
+      <LogoBox style={{ marginBottom: '4rem' }}>
+        <Logo />
+      </LogoBox>
       <LoginForm />
-      <ButtonContainer>
-        <AuthButtonContainer>
-          <Button
-            variant='textOnly'
-            size='small'
-            style={{ color: colors.font }}
-            onClick={findIdClickHandler}
-          >
-            아이디 찾기
-          </Button>
-          <ButtonContainerLine />
-          <Button
-            variant='textOnly'
-            size='small'
-            style={{ color: colors.font }}
-            onClick={findPasswordClickHandler}
-          >
-            비밀번호 찾기
-          </Button>
-          <ButtonContainerLine />
-          <Button
-            variant='textOnly'
-            size='small'
-            style={{ color: colors.font }}
-            onClick={signUpClickHandler}
-          >
-            회원가입
-          </Button>
-        </AuthButtonContainer>
-        <ServiceButtonBox>
-          <Button
-            variant='textOnly'
-            size='small'
-            style={{
-              color: colors.font,
-            }}
-            onClick={serviceClickHandler}
-          >
-            서비스 둘러보기
-          </Button>
-          <ServiceButtonLine />
-        </ServiceButtonBox>
-      </ButtonContainer>
+      <AuthButtonContainer>
+        <Button
+          variant='textOnly'
+          size='small'
+          style={{ color: colors.font }}
+          onClick={findIdClickHandler}
+        >
+          아이디 찾기
+        </Button>
+        <ButtonContainerLine />
+        <Button
+          variant='textOnly'
+          size='small'
+          style={{ color: colors.font }}
+          onClick={findPasswordClickHandler}
+        >
+          비밀번호 찾기
+        </Button>
+        <ButtonContainerLine />
+        <Button
+          variant='textOnly'
+          size='small'
+          style={{ color: colors.font }}
+          onClick={signUpClickHandler}
+        >
+          회원가입
+        </Button>
+      </AuthButtonContainer>
+      <ServiceButtonBox>
+        <GoServiceButton />
+      </ServiceButtonBox>
     </PageLayout>
   );
 };
@@ -93,16 +79,8 @@ const ButtonContainerLine = styled.div`
 `;
 
 const ServiceButtonBox = styled.div`
-  margin: 0 auto;
-  margin-top: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
-
-const ServiceButtonLine = styled.div`
-  width: 85%;
-  height: 0;
-  border-bottom: 1px solid ${colors.lineGray};
+  width: 100%;
+  position: absolute;
+  bottom: 7rem;
+  left: 0;
 `;
