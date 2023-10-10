@@ -63,12 +63,9 @@ const useEmailConfirm = () => {
       const result = await checkDuplicateEmail(email);
 
       if (result === true) {
-        toast.success('사용 가능한 이메일입니다.', {
-          id: 'duplicate-check-success',
-        });
         return true;
       } else if (result === '중복') {
-        toast.error('이미 가입된 이메일입니다.', {
+        toast.error('이미 가입된 이메일이에요.', {
           id: 'duplicate-check-fail',
         });
         return false;
