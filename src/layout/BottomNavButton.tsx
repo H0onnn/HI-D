@@ -3,16 +3,25 @@ import styled from 'styled-components';
 import { colors } from '../constants/colors';
 
 interface BottomNavButtonInterface {
-  // src: string; // 피그마에 icon 나오면 이미지 text를 이미지로 변경
-  // alt: string;
+  src: string;
+  alt: string;
   text: string;
   onClick: () => void;
+  active?: boolean;
 }
 
-const BottomNavButton = ({ text, onClick, ...props }: BottomNavButtonInterface) => {
+const BottomNavButton = ({
+  text,
+  src,
+  alt,
+  onClick,
+  active,
+  ...props
+}: BottomNavButtonInterface) => {
   return (
     <BottomBtnContainer onClick={onClick} {...props}>
-      <BtnText>{text}</BtnText>
+      <BtnImg src={src} alt={alt} active={active} />
+      <BtnText active={active}>{text}</BtnText>
     </BottomBtnContainer>
   );
 };
@@ -20,11 +29,21 @@ const BottomNavButton = ({ text, onClick, ...props }: BottomNavButtonInterface) 
 export default BottomNavButton;
 
 const BottomBtnContainer = styled.div`
-  padding: 0 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  gap: 0.4rem;
 `;
 
-const BtnText = styled.p`
+const BtnImg = styled.img<{ active?: boolean }>`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const BtnText = styled.p<{ active?: boolean }>`
   font-size: 14px;
   font-weight: bold;
-  color: ${colors.font};
+  color: ${({ active }) => (active ? colors.primary : colors.gray3)};
 `;
