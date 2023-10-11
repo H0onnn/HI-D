@@ -1,7 +1,7 @@
 import React from 'react';
 import toast, { ToastBar, Toaster } from 'react-hot-toast';
 import { colors } from '../constants/colors';
-import ErrorIcon from '@/public/images/error.svg';
+import ErrorIcon from '@/public/images/input/warning.svg';
 import CloseIcon from '@/public/images/toast_close.svg';
 
 const ToasterContext = () => {
