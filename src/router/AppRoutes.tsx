@@ -9,6 +9,7 @@ import ChatPage from '../pages/chat/ChatPage';
 import MainPage from '../pages/main/MainPage';
 import FreePostListPage from '../pages/post/FreePostListPage';
 import HelpPostListPage from '../pages/post/HelpPostListPage';
+import PostingPage from '@/pages/posting/PostingPage';
 
 interface AppRoutesInterface {
   name: string;
@@ -72,6 +73,12 @@ const routes: AppRoutesInterface[] = [
     path: LINK.CHAT,
     component: ChatPage,
     meta: { hideFloatNav: true },
+  },
+  {
+    name: 'Posting',
+    path: LINK.POST,
+    component: PostingPage,
+    meta: { hideNavBar: true, hideFloatNav: true },
   },
 ];
 
