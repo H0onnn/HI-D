@@ -56,3 +56,11 @@ export const LogoBox = styled.div`
   justify-content: center;
   gap: 1rem;
 `;
+
+export const SetupPageLayout = styled.div`
+  width: 100%;
+  max-width: 39rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
