@@ -55,12 +55,10 @@ export const signupSubmit: SubmitHandler<ProfileSetupDataInterface> = async (dat
     await httpClient.members.post.signUp(data);
     window.location.href = LINK.SIGNUP_SUCCESS;
     toast.success('회원가입이 완료되었습니다!', {
-      position: 'top-center',
       id: 'signupSuccess',
     });
   } catch (err: unknown) {
     toast.error('회원가입에 실패하였습니다.', {
-      position: 'top-center',
       id: 'signupFail',
     });
   }
