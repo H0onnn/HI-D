@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import SelectMajorItem from './SelectMajorItem';
+import { MAJORS } from '@/constants/major';
 
 interface SelectMajorListInterface {
   onMajorSelect: (major: string) => void;
@@ -29,15 +30,6 @@ const SelectMajorList = ({ onMajorSelect }: SelectMajorListInterface) => {
 };
 
 export default SelectMajorList;
-
-const MAJORS = [
-  '인문, 경영, 사회 계열',
-  '자연, 컴퓨터, 공학 계열',
-  '교대, 사범대, 교육 계열',
-  '음악, 미술, 체육 예체능 계열',
-  '간호, 의약, 의학 계열',
-  '기타',
-];
 
 const MajorListLayout = styled.div`
   display: flex;
