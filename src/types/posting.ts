@@ -2,7 +2,8 @@ export interface PostingDataInterface {
   major: string;
   title: string;
   content: string;
-  category: string;
-  images?: string[];
+  boardType: string;
+  imageUrls: string[];
   anonymous: boolean;
+  tag?: string;
 }
