@@ -18,7 +18,7 @@ const SelectMajorItem = ({ major, onClick, selectedMajor }: SelectMajorItemInter
 
   return (
     <MajorItemWrapper selected={selectedMajor === major} onClick={itemClickHandler}>
-      <MajorItemInput {...register('major')} type='hidden' value={major} />
+      <MajorItemInput {...register('major')} type='major_hidden' value={major} />
       {major}
     </MajorItemWrapper>
   );
@@ -39,6 +39,13 @@ const MajorItemWrapper = styled.div<{ selected: boolean }>`
   padding: 1rem 1.6rem;
 
   cursor: pointer;
+
+  &:hover {
+    border-color: ${colors.third};
+    background-color: ${colors.pastel};
+    color: ${colors.primary};
+  }
+
   ${({ selected }) =>
     selected &&
     css`
