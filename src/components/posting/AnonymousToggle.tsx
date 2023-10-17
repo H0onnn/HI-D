@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
+import { PostingDataInterface } from '@/types/posting';
 
 const AnonymousToggle = () => {
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const { watch, setValue } = useFormContext<PostingDataInterface>();
+  const isAnonymous = watch('anonymous');
+
+  const toggleHandler = () => {
+    setValue('anonymous', !isAnonymous);
+  };
 
   return (
-    <ToggleContainer onClick={() => setIsActive(!isActive)}>
-      <ToggleCircle isActive={isActive} />
+    <ToggleContainer onClick={toggleHandler}>
+      <ToggleCircle $isActive={isAnonymous} />
     </ToggleContainer>
   );
 };
@@ -20,10 +27,10 @@ const ToggleContainer = styled.div`
   cursor: pointer;
 `;
 
-const ToggleCircle = styled.div<{ isActive: boolean }>`
+const ToggleCircle = styled.div<{ $isActive: boolean }>`
   width: 5.4rem;
   height: 3.1rem;
-  background-color: ${(props) => (props.isActive ? colors.primary : colors.gray4)};
+  background-color: ${(props) => (props.$isActive ? colors.primary : colors.gray4)};
   border-radius: 15px;
   position: relative;
 
@@ -31,7 +38,7 @@ const ToggleCircle = styled.div<{ isActive: boolean }>`
     content: '';
     position: absolute;
     top: 2px;
-    left: ${(props) => (props.isActive ? '25px' : '2px')};
+    left: ${(props) => (props.$isActive ? '25px' : '2px')};
     width: 2.7rem;
     height: 2.7rem;
     background-color: ${colors.white};
