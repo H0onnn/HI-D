@@ -25,4 +25,5 @@ const ModalLayout = styled.div`
   left: -2rem;
   display: flex;
   align-items: center;
+  z-index: 1;
 `;
