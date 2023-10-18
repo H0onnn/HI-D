@@ -46,9 +46,10 @@ const SetupProfileInfo = () => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       try {
-        const imageUrl = await httpClient.image.post.upload(file);
-        setValue('imageUrl', imageUrl[0]);
-        setProfileImageUrl(imageUrl[0]);
+        const image = await httpClient.image.post.upload(file);
+        const imageUrl = image.data[0];
+        setValue('imageUrl', imageUrl);
+        setProfileImageUrl(imageUrl);
       } catch (err: unknown) {
         console.log(err);
       }
