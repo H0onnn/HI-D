@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import Button from '../public/Button';
 import { ButtonContainer } from '@/styles/styles';
 import SelectMajorList from './SelectMajorList';
 
-const SelectMajor = () => {
-  const [currentMajor, setCurrentMajor] = useState<string | null>(null);
+interface SelectMajorInterface {
+  onNext: () => void;
+  currentMajor: string | null;
+  setCurrentMajor: React.Dispatch<React.SetStateAction<string | null>>;
+}
 
+const SelectMajor = ({ onNext, currentMajor, setCurrentMajor }: SelectMajorInterface) => {
   return (
     <>
       <TitleContainer>
@@ -16,7 +20,7 @@ const SelectMajor = () => {
       </TitleContainer>
       <SelectMajorList onMajorSelect={setCurrentMajor} />
       <ButtonContainer>
-        <Button $isFullWidth onClick={() => {}} disabled={!currentMajor}>
+        <Button $isFullWidth onClick={onNext} disabled={!currentMajor}>
           다음
         </Button>
       </ButtonContainer>
