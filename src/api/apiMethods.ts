@@ -1,3 +1,4 @@
+import { PostingDataInterface } from '@/types/posting';
 import { ProfileSetupDataInterface, LoginDataInterface } from '../types/types';
 
 export const apiMethods = {
@@ -67,6 +68,14 @@ export const apiMethods = {
     post: {
       refreshToken: () => ({
         url: 'refresh',
+      }),
+    },
+  },
+  post: {
+    post: {
+      posting: (data: PostingDataInterface) => ({
+        url: 'posts',
+        data,
       }),
     },
   },
