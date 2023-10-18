@@ -75,8 +75,14 @@ const routes: AppRoutesInterface[] = [
     meta: { hideFloatNav: true },
   },
   {
-    name: 'Posting',
-    path: LINK.POST,
+    name: 'PostingHelp',
+    path: LINK.POSTING_HELP,
+    component: PostingPage,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'PostingFree',
+    path: LINK.POSTING_FREE,
     component: PostingPage,
     meta: { hideNavBar: true, hideFloatNav: true },
   },
