@@ -13,22 +13,41 @@ interface AddImageInputInterface {
 }
 
 const AddImageInput = ({ onUpload, uploadedImages }: AddImageInputInterface) => {
-  const { register, setValue } = useFormContext<PostingDataInterface>();
+  const { register, setValue, getValues } = useFormContext<PostingDataInterface>();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const imageChangeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0 && uploadedImages.length < 3) {
-      const file = e.target.files[0];
-      try {
-        const image = await httpClient.image.post.upload(file);
-        const imageUrl = image.data[0];
+  const checkImagesLength = () => {
+    if (uploadedImages.length >= 3) {
+      toast.error('이미지는 최대 3개까지 업로드 할 수 있습니다.', { id: 'imageUploadFail' });
+      return false;
+    }
+    return true;
+  };
 
+  const uploadImage = async (file: File) => {
+    try {
+      const response = await httpClient.image.post.upload(file);
+      return response.data[0];
+    } catch (err: unknown) {
+      console.log(err);
+      toast.error('이미지 업로드에 실패했습니다.', { id: 'imageUploadFail' });
+      return null;
+    }
+  };
+
+  const imageChangeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!checkImagesLength()) return;
+
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const imageUrl = await uploadImage(file);
+
+      if (imageUrl) {
         onUpload(imageUrl);
-        setValue('imageUrls', imageUrl);
-      } catch (err: unknown) {
-        console.log(err);
-        toast.error('이미지 업로드에 실패했습니다.', { id: 'imageUploadFail' });
+        const currentImageUrls: string[] = getValues().imageUrls || [];
+        const updatedImageUrls = [...currentImageUrls, imageUrl];
+        setValue('imageUrls', updatedImageUrls);
       }
     }
   };
