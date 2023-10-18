@@ -42,6 +42,11 @@ export const apiMethods = {
         };
       },
     },
+    delete: {
+      delete: (imageUrl: string) => ({
+        url: `images?imageUrl=${imageUrl}`,
+      }),
+    },
   },
   members: {
     post: {
@@ -52,6 +57,16 @@ export const apiMethods = {
       login: (data: LoginDataInterface) => ({
         url: 'login',
         data,
+      }),
+      logout: () => ({
+        url: 'logout',
+      }),
+    },
+  },
+  auth: {
+    post: {
+      refreshToken: () => ({
+        url: 'refresh',
       }),
     },
   },
