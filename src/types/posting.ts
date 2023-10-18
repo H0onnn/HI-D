@@ -1,5 +1,5 @@
 export interface PostingDataInterface {
-  major: string;
+  major?: string;
   title: string;
   content: string;
   boardType: string;
