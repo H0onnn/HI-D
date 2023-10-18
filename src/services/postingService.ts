@@ -2,7 +2,7 @@ import { NavigateFunction } from 'react-router-dom';
 import { SubmitHandler } from 'react-hook-form';
 import { PostingDataInterface } from '@/types/posting';
 import toast from 'react-hot-toast';
-// import { LINK } from '../constants/links';
+import { LINK } from '../constants/links';
 import { httpClient } from '../api/httpClient';
 
 export const postingNextClickHandler = (setStep: (step: string) => void, steps: string[]) => {
@@ -20,15 +20,23 @@ export const postingPrevClickHandler = (
   setStep: (step: string) => void,
   steps: string[],
   navigate: NavigateFunction,
+  currentRoute: string,
 ) => {
   return (currentStep: string) => {
-    const currentStepIndex = steps.indexOf(currentStep);
-    const prevStepIndex = currentStepIndex - 1;
+    const isHelpPost = currentRoute === LINK.POSTING_HELP;
+    const availableSteps = isHelpPost ? steps : steps.slice(1);
+
+    const currentStepIndex = availableSteps.indexOf(currentStep);
 
     if (currentStepIndex === 0) {
       window.confirm('게시글 작성을 취소하시겠습니까?') && navigate(-1);
-    } else if (prevStepIndex >= 0) {
-      setStep(steps[prevStepIndex]);
+      return;
+    }
+
+    const prevStepIndex = currentStepIndex - 1;
+
+    if (prevStepIndex >= 0) {
+      setStep(availableSteps[prevStepIndex]);
     }
   };
 };
