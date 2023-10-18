@@ -5,13 +5,18 @@ import Button from '../public/Button';
 import { ButtonContainer } from '@/styles/styles';
 import AnonymousToggle from './AnonymousToggle';
 import EditMajorDropBox from './EditMajorDropBox';
+import PostTitle from './PostTitle';
+import PostContent from './PostContent';
+import AddImages from './AddImages';
+import FreePostCategoryTag from './FreePostCategoryTag';
 import POST_ALERT from '@/public/images/posting/posting_alert.svg';
-
 interface WritePostInterface {
   major: string | null;
+  isHelpPost: boolean;
+  isFreePost: boolean;
 }
 
-const WritePost = ({ major }: WritePostInterface) => {
+const WritePost = ({ major, isHelpPost, isFreePost }: WritePostInterface) => {
   return (
     <>
       <TitleContainer>
@@ -21,11 +26,17 @@ const WritePost = ({ major }: WritePostInterface) => {
           <AnonymousToggle />
         </AnonymuseContainer>
       </TitleContainer>
-      <EditMajorDropBox major={major} />
+      {isHelpPost && <EditMajorDropBox major={major} />}
+      <ContentsContainer>
+        <PostTitle />
+        <PostContent />
+        <AddImages />
+      </ContentsContainer>
+      {isFreePost && <FreePostCategoryTag />}
       <PostAlertWrapper>
         <PostAlertImg src={POST_ALERT} alt='post_alert' />
       </PostAlertWrapper>
-      <ButtonContainer>
+      <ButtonContainer style={{ bottom: '2rem' }}>
         <Button $isFullWidth>등록하기</Button>
       </ButtonContainer>
     </>
@@ -46,6 +57,7 @@ const MainTitle = styled.h1`
   font-weight: 700;
   color: ${colors.black};
   line-height: 30px;
+  margin-left: 0.8rem;
 `;
 
 const AnonymuseContainer = styled.div`
@@ -60,6 +72,14 @@ const AnonymousText = styled.p`
   font-size: 16px;
   font-weight: 400;
   color: ${colors.gray5};
+`;
+
+const ContentsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-bottom: 4rem;
 `;
 
 const PostAlertWrapper = styled.div`
