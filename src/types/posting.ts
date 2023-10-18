@@ -3,7 +3,7 @@ export interface PostingDataInterface {
   title: string;
   content: string;
   boardType: string;
-  imageUrls: string[];
+  imageUrls?: string[];
   anonymous: boolean;
   tag?: string;
 }
