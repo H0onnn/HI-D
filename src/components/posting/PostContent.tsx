@@ -34,7 +34,7 @@ const ContentField = styled.textarea`
   outline: none;
 
   &:focus {
-    box-shadow: 0 0 0 2px ${colors.primary};
+    box-shadow: 0 0 0 1px ${colors.secondary};
   }
 
   &::-webkit-scrollbar {
@@ -42,7 +42,7 @@ const ContentField = styled.textarea`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${colors.primary};
+    background-color: ${colors.secondary};
     border-radius: 10px;
   }
 
