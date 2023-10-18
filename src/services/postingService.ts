@@ -2,7 +2,7 @@ import { NavigateFunction } from 'react-router-dom';
 import { SubmitHandler } from 'react-hook-form';
 import { PostingDataInterface } from '@/types/posting';
 import toast from 'react-hot-toast';
-import { LINK } from '../constants/links';
+// import { LINK } from '../constants/links';
 import { httpClient } from '../api/httpClient';
 
 export const postingNextClickHandler = (setStep: (step: string) => void, steps: string[]) => {
@@ -35,8 +35,7 @@ export const postingPrevClickHandler = (
 
 export const postingSubmit: SubmitHandler<PostingDataInterface> = async (data) => {
   try {
-    await httpClient.members.post.signUp(data);
-    window.location.href = LINK.SIGNUP_SUCCESS;
+    await httpClient.post.post.posting(data);
     toast.success('게시물이 등록되었어요.', {
       id: 'postingSuccess',
     });
