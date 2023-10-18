@@ -42,6 +42,7 @@ const MainTitle = styled.h1`
   font-weight: 700;
   color: ${colors.black};
   line-height: 30px;
+  margin-left: 0.8rem;
 `;
 
 const SubTitle = styled.p`
@@ -49,4 +50,5 @@ const SubTitle = styled.p`
   font-weight: 400;
   color: ${colors.gray5};
   line-height: 24px;
+  margin-left: 0.8rem;
 `;
