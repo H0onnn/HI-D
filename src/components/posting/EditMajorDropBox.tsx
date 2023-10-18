@@ -52,6 +52,7 @@ const DropBoxLayout = styled.div`
   justify-content: space-between;
   position: relative;
   margin-left: 2rem;
+  margin-bottom: 1rem;
 `;
 
 const DropBoxText = styled.p`
