@@ -1,21 +1,23 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import { PostingDataInterface } from '@/types/posting';
 
 const AnonymousToggle = () => {
-  const { watch, setValue } = useFormContext<PostingDataInterface>();
-  const isAnonymous = watch('anonymous');
-
-  const toggleHandler = () => {
-    setValue('anonymous', !isAnonymous);
-  };
+  const { control } = useFormContext<PostingDataInterface>();
 
   return (
-    <ToggleContainer onClick={toggleHandler}>
-      <ToggleCircle $isActive={isAnonymous} />
-    </ToggleContainer>
+    <Controller
+      name='anonymous'
+      control={control}
+      defaultValue={false}
+      render={({ field: { value, onChange } }) => (
+        <ToggleContainer onClick={() => onChange(!value)}>
+          <ToggleCircle $isActive={value} />
+        </ToggleContainer>
+      )}
+    />
   );
 };
 
