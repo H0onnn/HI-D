@@ -5,11 +5,7 @@ import { PageLayout } from '@/styles/styles';
 import PageHeader from '@/components/public/PageHeader';
 import PostingForm from '@/components/posting/PostingForm';
 import PostingSetup from '@/components/posting/PostingSetup';
-import {
-  postingNextClickHandler,
-  postingPrevClickHandler,
-  postingSubmit,
-} from '@/services/postingService';
+import { handleNextClick, handlePrevClick, submitPosting } from '@/services/postingService';
 import { LINK } from '@/constants/links';
 
 const PostingPage = () => {
@@ -27,15 +23,15 @@ const PostingPage = () => {
 
   const { Funnel, Step, setStep, currentStep } = useFunnel(defaultStep);
 
-  const nextClickHandler = postingNextClickHandler(setStep, steps);
+  const nextClickHandler = handleNextClick(setStep, steps);
 
-  const prevClickHandler = postingPrevClickHandler(setStep, steps, navigate, currentPath);
+  const prevClickHandler = handlePrevClick(setStep, steps, navigate, currentPath);
 
   return (
     <>
       <PageHeader title='게시글 작성' onClick={() => prevClickHandler(currentStep)} />
       <PageLayout>
-        <PostingForm onSubmit={postingSubmit}>
+        <PostingForm onSubmit={submitPosting}>
           <PostingSetup
             steps={steps}
             Funnel={Funnel}
