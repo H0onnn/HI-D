@@ -15,6 +15,7 @@ interface AppRoutesInterface {
   name: string;
   path: string;
   component: React.ComponentType;
+  isProtected?: boolean;
   meta?: {
     hideNavBar?: boolean;
     hideFloatNav?: boolean;
@@ -61,6 +62,7 @@ const routes: AppRoutesInterface[] = [
     name: 'SignUpComplete',
     path: LINK.SIGNUP_SUCCESS,
     component: SignupCompletePage,
+    isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },
   {
@@ -72,18 +74,21 @@ const routes: AppRoutesInterface[] = [
     name: 'Chat',
     path: LINK.CHAT,
     component: ChatPage,
+    isProtected: true,
     meta: { hideFloatNav: true },
   },
   {
     name: 'PostingHelp',
     path: LINK.POSTING_HELP,
     component: PostingPage,
+    isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },
   {
     name: 'PostingFree',
     path: LINK.POSTING_FREE,
     component: PostingPage,
+    isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },
 ];
