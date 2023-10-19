@@ -5,43 +5,59 @@ import toast from 'react-hot-toast';
 import { LINK } from '../constants/links';
 import { httpClient } from '../api/httpClient';
 
-export const postingNextClickHandler = (setStep: (step: string) => void, steps: string[]) => {
-  return (currentStep: string, nextStep: string) => {
-    const currentStepIndex = steps.indexOf(currentStep);
-    const nextStepIndex = currentStepIndex + 1;
+const getCurrentStepIndex = (currentStep: string, steps: string[]) => {
+  return steps.indexOf(currentStep);
+};
+
+const getNextStepIndex = (currentStep: string, steps: string[]) => {
+  const currentStepIndex = getCurrentStepIndex(currentStep, steps);
+  return currentStepIndex + 1;
+};
+
+const getPrevStepIndex = (currentStep: string, steps: string[]) => {
+  const currentStepIndex = getCurrentStepIndex(currentStep, steps);
+  return currentStepIndex - 1;
+};
+
+const shouldNavigateAway = (currentStep: string, steps: string[], currentRoute: string) => {
+  const isHelpPost = currentRoute === LINK.POSTING_HELP;
+  const availableSteps = isHelpPost ? steps : steps.slice(1);
+  const currentStepIndex = availableSteps.indexOf(currentStep);
+
+  return currentStepIndex === 0 && window.confirm('게시글 작성을 취소하시겠습니까?');
+};
+
+export const handleNextClick = (setStep: (step: string) => void, steps: string[]) => {
+  return (currentStep: string) => {
+    const nextStepIndex = getNextStepIndex(currentStep, steps);
 
     if (nextStepIndex < steps.length) {
-      setStep(nextStep);
+      setStep(steps[nextStepIndex]);
     }
   };
 };
 
-export const postingPrevClickHandler = (
+export const handlePrevClick = (
   setStep: (step: string) => void,
   steps: string[],
   navigate: NavigateFunction,
   currentRoute: string,
 ) => {
   return (currentStep: string) => {
-    const isHelpPost = currentRoute === LINK.POSTING_HELP;
-    const availableSteps = isHelpPost ? steps : steps.slice(1);
-
-    const currentStepIndex = availableSteps.indexOf(currentStep);
-
-    if (currentStepIndex === 0) {
-      window.confirm('게시글 작성을 취소하시겠습니까?') && navigate(-1);
+    if (shouldNavigateAway(currentStep, steps, currentRoute)) {
+      navigate(-1);
       return;
     }
 
-    const prevStepIndex = currentStepIndex - 1;
+    const prevStepIndex = getPrevStepIndex(currentStep, steps);
 
     if (prevStepIndex >= 0) {
-      setStep(availableSteps[prevStepIndex]);
+      setStep(steps[prevStepIndex]);
     }
   };
 };
 
-export const postingSubmit: SubmitHandler<PostingDataInterface> = async (data) => {
+export const submitPosting: SubmitHandler<PostingDataInterface> = async (data) => {
   try {
     await httpClient.post.post.posting(data);
     toast.success('게시물이 등록되었어요.', {
