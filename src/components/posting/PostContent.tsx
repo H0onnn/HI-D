@@ -25,7 +25,7 @@ const ContentField = styled.textarea`
   border-radius: 8px;
   padding: 1rem 1.6rem;
   font-size: 14px;
-  font-family: 'inherit';
+  font-family: 'SUIT';
   line-height: 2.1rem;
   color: ${colors.black};
   background-color: ${colors.gray1};
