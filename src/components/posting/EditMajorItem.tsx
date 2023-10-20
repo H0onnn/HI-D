@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import { useFormContext } from 'react-hook-form';
+import { majorToEnglishMapping, MajorKeys } from '@/constants/major';
 
 interface EditMajorItemInterface {
   major: string;
@@ -10,11 +11,12 @@ interface EditMajorItemInterface {
 
 const EditMajorItem = ({ major, majorChangeHandler }: EditMajorItemInterface) => {
   const { register } = useFormContext();
+  const englishMajor = majorToEnglishMapping[major as MajorKeys];
 
   return (
     <MajorItemWrapper onClick={() => majorChangeHandler(major)}>
-      <MajorItemInput {...register('major')} type='major_edit_hidden' value={major} />
-      {major}
+      <MajorItemInput {...register('major')} type='major_edit_hidden' value={englishMajor} />
+      {englishMajor}
     </MajorItemWrapper>
   );
 };

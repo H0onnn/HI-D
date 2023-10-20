@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { useFormContext } from 'react-hook-form';
 import { colors } from '@/constants/colors';
+import { majorToEnglishMapping, MajorKeys } from '@/constants/major';
 
 interface SelectMajorItemInterface {
   major: string;
@@ -11,6 +12,7 @@ interface SelectMajorItemInterface {
 
 const SelectMajorItem = ({ major, onClick, selectedMajor }: SelectMajorItemInterface) => {
   const { register } = useFormContext();
+  const englishMajor = majorToEnglishMapping[major as MajorKeys];
 
   const itemClickHandler = () => {
     onClick(major);
@@ -18,7 +20,7 @@ const SelectMajorItem = ({ major, onClick, selectedMajor }: SelectMajorItemInter
 
   return (
     <MajorItemWrapper selected={selectedMajor === major} onClick={itemClickHandler}>
-      <MajorItemInput {...register('major')} type='major_hidden' value={major} />
+      <MajorItemInput {...register('major')} type='major_hidden' value={englishMajor} />
       {major}
     </MajorItemWrapper>
   );
