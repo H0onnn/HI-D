@@ -8,13 +8,21 @@ type Props = {
   currentTag: FreePostTag;
   $wrap?: boolean;
   $noneMarginStyles?: boolean;
+  excludeTags?: FreePostTag[];
 };
-const FreePostTagContainer = ({ onClick, currentTag, $wrap, $noneMarginStyles }: Props) => {
+const FreePostTagContainer = ({
+  onClick,
+  currentTag,
+  $wrap,
+  $noneMarginStyles,
+  excludeTags = [],
+}: Props) => {
   return (
     <Layout $wrap={$wrap}>
       {Object.keys(FreePostTags).map(
         (tag, idx) =>
-          isNaN(Number(tag)) && (
+          isNaN(Number(tag)) &&
+          !excludeTags.includes(tag as FreePostTag) && (
             <TagBox
               key={idx}
               onClick={onClick}
