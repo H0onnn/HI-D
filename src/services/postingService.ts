@@ -57,15 +57,23 @@ export const handlePrevClick = (
   };
 };
 
-export const submitPosting: SubmitHandler<PostingDataInterface> = async (data) => {
-  try {
-    await httpClient.post.post.posting(data);
-    toast.success('게시물이 등록되었어요.', {
-      id: 'postingSuccess',
-    });
-  } catch (err: unknown) {
-    toast.error('게시물 등록에 실패했어요.', {
-      id: 'postingFail',
-    });
-  }
+export const submitPosting = (navigate: NavigateFunction): SubmitHandler<PostingDataInterface> => {
+  return async (data) => {
+    try {
+      const response = await httpClient.post.post.posting(data);
+
+      const postId = response.data.postId;
+      toast.success('게시물이 등록되었어요.', {
+        id: 'postingSuccess',
+      });
+
+      navigate(LINK.POST_DETAIL.replace(':id', postId.toString()), {
+        state: { ...response.data },
+      });
+    } catch (err: unknown) {
+      toast.error('게시물 등록에 실패했어요.', {
+        id: 'postingFail',
+      });
+    }
+  };
 };
