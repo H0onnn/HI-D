@@ -4,6 +4,6 @@ export interface PostingDataInterface {
   content: string;
   boardType: string;
   imageUrls?: string[];
-  anonymous: boolean;
+  isAnonymous: boolean;
   tag?: string;
 }
