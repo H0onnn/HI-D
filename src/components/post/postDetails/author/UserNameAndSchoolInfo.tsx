@@ -22,9 +22,7 @@ const UserNameAndSchoolInfoLayout = styled.div`
   width: 12rem;
   height: 100%;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  gap: 1rem;
 `;
 
 const UserName = styled.p`
