@@ -9,7 +9,7 @@ const AnonymousToggle = () => {
 
   return (
     <Controller
-      name='anonymous'
+      name='isAnonymous'
       control={control}
       defaultValue={false}
       render={({ field: { value, onChange } }) => (
