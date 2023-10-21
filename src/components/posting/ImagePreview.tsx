@@ -39,7 +39,7 @@ const ImagePreview = ({ src, alt, deleteImage }: ImagePreviewInterface) => {
   return (
     <PreviewImagesContainer>
       <PreviewImages src={src} alt={alt} />
-      <DeleteButton onClick={() => deleteImageHandler(src)}>
+      <DeleteButton type='button' onClick={() => deleteImageHandler(src)}>
         <DeleteButtonIcon src={DELETE_IMAGE} alt='delete_image' />
       </DeleteButton>
     </PreviewImagesContainer>
