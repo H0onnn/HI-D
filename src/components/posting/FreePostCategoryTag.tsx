@@ -7,9 +7,12 @@ import { FreePostTag } from '@/types/post';
 import { PostingDataInterface } from '@/types/posting';
 
 const FreePostCategoryTag = () => {
-  const [currentTag, setCurrentTag] = useState<FreePostTag>('연애');
+  const [currentTag, setCurrentTag] = useState<FreePostTag>(initialTag);
 
   const { register, setValue } = useFormContext<PostingDataInterface>();
+
+  // 컴포넌트 마운트 후 초기값 'LOVE'로 설정
+  setValue('tag', tagToEnglishMapping[initialTag]);
 
   const tagClickHandler = (e: React.MouseEvent<HTMLElement>) => {
     const clickedTagText = e.currentTarget.textContent as FreePostTag;
@@ -31,12 +34,14 @@ const FreePostCategoryTag = () => {
         $noneMarginStyles={true}
         excludeTags={['전체']}
       />
-      <input {...register('tag')} type='hidden' value={currentTag} />
+      <input {...register('tag')} type='hidden' value={tagToEnglishMapping[currentTag]} />
     </Layout>
   );
 };
 
 export default FreePostCategoryTag;
+
+const initialTag: FreePostTag = '연애';
 
 const tagToEnglishMapping: { [key in FreePostTag]: string } = {
   전체: 'ALL',
