@@ -8,6 +8,7 @@ export const LINK = {
   FIMDID: '/findid',
   MYPAGE: '/mypage',
   CHAT: '/chat',
+  POST: '/post',
   POSTING_HELP: '/posting/help',
   POSTING_FREE: '/posting/free',
   POST_DETAIL: '/post/:id',
