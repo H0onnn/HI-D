@@ -10,6 +10,7 @@ import MainPage from '../pages/main/MainPage';
 import FreePostListPage from '../pages/post/FreePostListPage';
 import HelpPostListPage from '../pages/post/HelpPostListPage';
 import PostingPage from '@/pages/posting/PostingPage';
+import PostDetailPage from '@/pages/post/PostDetailPage';
 
 interface AppRoutesInterface {
   name: string;
@@ -90,6 +91,12 @@ const routes: AppRoutesInterface[] = [
     component: PostingPage,
     isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'PostDetail',
+    path: LINK.POST_DETAIL,
+    component: PostDetailPage,
+    meta: { hideFloatNav: true },
   },
 ];
 
