@@ -15,7 +15,7 @@ const PostTitle = () => {
       <Input
         type='post_title'
         {...register('title', titleValidation)}
-        placeholder='글 제목을 입력해주세요.'
+        placeholder='글 제목을 입력해주세요. (2글자 이상 20글자 미만)'
         onFocus={onFocus}
         onBlur={onBlur}
       />
