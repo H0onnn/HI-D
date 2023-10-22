@@ -1,3 +1,4 @@
+import { PostingDataInterface } from '@/types/posting';
 import { ProfileSetupDataInterface, LoginDataInterface } from '../types/types';
 
 export const apiMethods = {
@@ -42,6 +43,11 @@ export const apiMethods = {
         };
       },
     },
+    delete: {
+      delete: (imageUrl: string) => ({
+        url: `images?imageUrl=${imageUrl}`,
+      }),
+    },
   },
   members: {
     post: {
@@ -51,6 +57,24 @@ export const apiMethods = {
       }),
       login: (data: LoginDataInterface) => ({
         url: 'login',
+        data,
+      }),
+      logout: () => ({
+        url: 'logout',
+      }),
+    },
+  },
+  auth: {
+    post: {
+      refreshToken: () => ({
+        url: 'refresh',
+      }),
+    },
+  },
+  post: {
+    post: {
+      posting: (data: PostingDataInterface) => ({
+        url: 'posts',
         data,
       }),
     },

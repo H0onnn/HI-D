@@ -14,13 +14,6 @@ interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
   onButtonClick?: () => void;
 }
 
-const colorMap = {
-  default: colors.primary,
-  success: colors.success,
-  error: colors.error,
-  search: colors.gray1,
-};
-
 const Input = forwardRef<HTMLInputElement, InputInterface>(
   (
     { image, button, status = 'default', errorMessage, buttonText, onButtonClick, ...props },
@@ -79,15 +72,13 @@ const InputLayout = styled.div<{ status: 'default' | 'success' | 'error' | 'sear
   height: 4.8rem;
   padding: 1rem 1.6rem;
   border-radius: 0.8rem;
-  background: ${({ status }) => (status === 'success' ? colors.pastel : colors.gray1)};
+  background: ${({ status }) =>
+    status === 'success' ? colors.pastel : status === 'error' ? colors.inputError : colors.gray1};
   display: flex;
   justify-content: space-between;
 
-  box-shadow: ${({ status }) =>
-    status !== 'default' && status !== 'search' ? `0 0 0 2px ${colorMap[status]}` : 'none'};
-
   &:focus-within {
-    box-shadow: 0 0 0 2px ${({ status }) => colorMap[status]};
+    box-shadow: 0 0 0 1px ${colors.secondary};
   }
 `;
 

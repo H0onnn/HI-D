@@ -16,6 +16,7 @@ export const colors = {
   white: '#FFFFFF',
   black: '#252424',
   error: '#FF5070',
+  inputError: '#FFF2F5',
   success: '#00C851',
   font: '#6F6F6F',
 } as const;

@@ -5,67 +5,6 @@ import toast from 'react-hot-toast';
 import { LINK } from '../constants/links';
 import { httpClient } from '../api/httpClient';
 
-// 회원가입 스텝에서 다음 클릭 처리
-export const createNextClickHandler = (
-  setStep: (step: string) => void,
-  setCurrentStep: (step: string) => void,
-  getCurrentStepIndex: () => number,
-  steps: string[],
-  setProgress: (progress: number) => void,
-) => {
-  return (nextStep: string) => {
-    const currentStepIndex = getCurrentStepIndex();
-    const nextStepIndex = currentStepIndex + 1;
-
-    if (nextStepIndex < steps.length) {
-      setStep(nextStep);
-      setCurrentStep(steps[nextStepIndex]);
-      const newProgress = ((nextStepIndex + 1) / steps.length) * 100;
-      setProgress(newProgress);
-    }
-  };
-};
-
-// 회원가입 스텝에서 이전 클릭 처리
-export const createPrevClickHandler = (
-  setStep: (step: string) => void,
-  setCurrentStep: (step: string) => void,
-  getCurrentStepIndex: () => number,
-  navigate: NavigateFunction,
-  steps: string[],
-  setProgress: (progress: number) => void,
-) => {
-  return () => {
-    const currentStepIndex = getCurrentStepIndex();
-    const prevStepIndex = currentStepIndex - 1;
-
-    if (currentStepIndex === 0) {
-      window.confirm('정말로 회원가입을 취소하시겠습니까?') && navigate(-1);
-    } else if (prevStepIndex >= 0) {
-      setStep(steps[prevStepIndex]);
-      setCurrentStep(steps[prevStepIndex]);
-      setProgress(((prevStepIndex + 1) / steps.length) * 100);
-    }
-  };
-};
-
-// 최종 스텝에서 회원가입 클릭 처리
-export const signupSubmit: SubmitHandler<ProfileSetupDataInterface> = async (data) => {
-  try {
-    await httpClient.members.post.signUp(data);
-    window.location.href = LINK.SIGNUP_SUCCESS;
-    toast.success('회원가입이 완료되었습니다!', {
-      position: 'top-center',
-      id: 'signupSuccess',
-    });
-  } catch (err: unknown) {
-    toast.error('회원가입에 실패하였습니다.', {
-      position: 'top-center',
-      id: 'signupFail',
-    });
-  }
-};
-
 type RequiredAgreementsType = {
   termsOfService: boolean;
   emailSchoolAgreement: boolean;
@@ -73,45 +12,105 @@ type RequiredAgreementsType = {
   overFourteen: boolean;
 };
 
-// 약관 동의 스텝의 모두 선택 클릭 처리
-export const createAllCheckHandler = (
+const navigateOrSetStep = (
+  index: number,
+  steps: string[],
+  setStep: (step: string) => void,
+  setCurrentStep: (step: string) => void,
+  setProgress: (progress: number) => void,
+  message?: string,
+  navigateFn?: NavigateFunction,
+) => {
+  if (index < 0 && message && navigateFn) {
+    window.confirm(message) && navigateFn(-1);
+    return;
+  }
+
+  if (index >= 0 && index < steps.length) {
+    const nextStep = steps[index];
+    setStep(nextStep);
+    setCurrentStep(nextStep);
+    setProgress(((index + 1) / steps.length) * 100);
+  }
+};
+
+export const handleNextClick =
+  (
+    getCurrentStepIndex: () => number,
+    steps: string[],
+    setStep: (step: string) => void,
+    setCurrentStep: (step: string) => void,
+    setProgress: (progress: number) => void,
+  ) =>
+  () => {
+    const nextIndex = getCurrentStepIndex() + 1;
+    navigateOrSetStep(nextIndex, steps, setStep, setCurrentStep, setProgress);
+  };
+
+export const handlePrevClick =
+  (
+    getCurrentStepIndex: () => number,
+    steps: string[],
+    setStep: (step: string) => void,
+    setCurrentStep: (step: string) => void,
+    setProgress: (progress: number) => void,
+    navigate: NavigateFunction,
+  ) =>
+  () => {
+    const prevIndex = getCurrentStepIndex() - 1;
+    const cancelMessage = '정말로 회원가입을 취소하시겠습니까?';
+    navigateOrSetStep(
+      prevIndex,
+      steps,
+      setStep,
+      setCurrentStep,
+      setProgress,
+      cancelMessage,
+      navigate,
+    );
+  };
+
+const toggleAllAgreements = (
   allChecked: boolean,
-  setAllChecked: React.Dispatch<React.SetStateAction<boolean>>,
   setRequiredAgreements: React.Dispatch<React.SetStateAction<RequiredAgreementsType>>,
   setOptionalAgreement: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
-  return () => {
-    const newValue = !allChecked;
-    setAllChecked(newValue);
-    setRequiredAgreements({
-      termsOfService: newValue,
-      emailSchoolAgreement: newValue,
-      personalInfoAgreement: newValue,
-      overFourteen: newValue,
-    });
-    setOptionalAgreement(newValue);
-  };
+  const newValue = !allChecked;
+  setRequiredAgreements({
+    termsOfService: newValue,
+    emailSchoolAgreement: newValue,
+    personalInfoAgreement: newValue,
+    overFourteen: newValue,
+  });
+  setOptionalAgreement(newValue);
 };
 
-// 약관 동의 스텝의 체크박스 클릭 처리
-export const createCheckboxClickHandler = (
-  setRequiredAgreements: React.Dispatch<React.SetStateAction<RequiredAgreementsType>>,
-) => {
-  return (e: React.ChangeEvent<HTMLInputElement>) => {
+export const handleAllCheckToggle =
+  (
+    allChecked: boolean,
+    setAllChecked: React.Dispatch<React.SetStateAction<boolean>>,
+    setRequiredAgreements: React.Dispatch<React.SetStateAction<RequiredAgreementsType>>,
+    setOptionalAgreement: React.Dispatch<React.SetStateAction<boolean>>,
+  ) =>
+  () => {
+    setAllChecked(!allChecked);
+    toggleAllAgreements(allChecked, setRequiredAgreements, setOptionalAgreement);
+  };
+
+export const handleCheckboxToggle =
+  (setRequiredAgreements: React.Dispatch<React.SetStateAction<RequiredAgreementsType>>) =>
+  (e: React.ChangeEvent<HTMLInputElement>) => {
     setRequiredAgreements((prev) => ({
       ...prev,
       [e.target.name]: e.target.checked,
     }));
   };
-};
 
-// 약관 동의 스텝의 필수 약관 모두 체크 여부 확인
-export const allRequiredChecked = (requiredAgreements: RequiredAgreementsType) => {
+export const allRequiredAgreed = (requiredAgreements: RequiredAgreementsType) => {
   return Object.values(requiredAgreements).every((val) => val);
 };
 
-// 모달의 값 클릭시 Input에 값 적용
-export const keywordSelectHandler = (
+export const applyKeywordToField = (
   fieldName: string,
   keyword: string,
   setValue: (
@@ -123,4 +122,18 @@ export const keywordSelectHandler = (
 ) => {
   setValue(fieldName, keyword, { shouldValidate: true });
   onBlur();
+};
+
+export const signupSubmit: SubmitHandler<ProfileSetupDataInterface> = async (data) => {
+  try {
+    await httpClient.members.post.signUp(data);
+    window.location.href = LINK.SIGNUP_SUCCESS;
+    toast.success('회원가입이 완료되었습니다!', {
+      id: 'signupSuccess',
+    });
+  } catch (err: unknown) {
+    toast.error('회원가입에 실패하였습니다.', {
+      id: 'signupFail',
+    });
+  }
 };

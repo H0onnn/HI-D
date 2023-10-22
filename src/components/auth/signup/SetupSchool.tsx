@@ -9,7 +9,7 @@ import Button from '../../public/Button';
 import { schoolValidation } from '../../../utils/auth/validationRules';
 import { ProfileSetupStepInterface } from '../../../types/types';
 import { ButtonContainer, InputWrapper } from '../../../styles/styles';
-import { keywordSelectHandler } from '../../../services/signupService';
+import { applyKeywordToField } from '../../../services/signupService';
 
 const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
   const {
@@ -51,7 +51,7 @@ const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
           <Modal
             fieldName='school'
             searchValue={debouncedSchoolValue}
-            keywordSelectHandler={keywordSelectHandler}
+            keywordSelectHandler={applyKeywordToField}
             onBlur={onBlur}
             setValue={setValue}
           />

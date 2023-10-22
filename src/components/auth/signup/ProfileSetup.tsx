@@ -1,6 +1,6 @@
 import React from 'react';
 import { FunnelProps, StepProps } from '../../../hooks/useFunnel';
-import styled from 'styled-components';
+import { SetupPageLayout } from '@/styles/styles';
 import SetupSchool from './SetupSchool';
 import SetupMajor from './SetupMajor';
 import SetupProfileInfo from './SetupProfileInfo';
@@ -17,7 +17,7 @@ interface ProfileSetupInterface {
 
 const ProfileSetup = ({ steps, nextClickHandler, Funnel, Step }: ProfileSetupInterface) => {
   return (
-    <ProfileSetupLayout>
+    <SetupPageLayout>
       <Funnel>
         <Step name='약관 동의'>
           <CheckAgreement onNext={() => nextClickHandler(steps[1])} />
@@ -43,16 +43,8 @@ const ProfileSetup = ({ steps, nextClickHandler, Funnel, Step }: ProfileSetupInt
           <SetupProfileInfo />
         </Step>
       </Funnel>
-    </ProfileSetupLayout>
+    </SetupPageLayout>
   );
 };
 
 export default ProfileSetup;
-
-const ProfileSetupLayout = styled.div`
-  width: 100%;
-  max-width: 39rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;

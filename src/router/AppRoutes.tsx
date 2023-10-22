@@ -9,11 +9,14 @@ import ChatPage from '../pages/chat/ChatPage';
 import MainPage from '../pages/main/MainPage';
 import FreePostListPage from '../pages/post/FreePostListPage';
 import HelpPostListPage from '../pages/post/HelpPostListPage';
+import PostingPage from '@/pages/posting/PostingPage';
+import PostDetailPage from '@/pages/post/PostDetailPage';
 
 interface AppRoutesInterface {
   name: string;
   path: string;
   component: React.ComponentType;
+  isProtected?: boolean;
   meta?: {
     hideNavBar?: boolean;
     hideFloatNav?: boolean;
@@ -60,6 +63,7 @@ const routes: AppRoutesInterface[] = [
     name: 'SignUpComplete',
     path: LINK.SIGNUP_SUCCESS,
     component: SignupCompletePage,
+    isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },
   {
@@ -71,6 +75,27 @@ const routes: AppRoutesInterface[] = [
     name: 'Chat',
     path: LINK.CHAT,
     component: ChatPage,
+    isProtected: true,
+    meta: { hideFloatNav: true },
+  },
+  {
+    name: 'PostingHelp',
+    path: LINK.POSTING_HELP,
+    component: PostingPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'PostingFree',
+    path: LINK.POSTING_FREE,
+    component: PostingPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'PostDetail',
+    path: LINK.POST_DETAIL,
+    component: PostDetailPage,
     meta: { hideFloatNav: true },
   },
 ];

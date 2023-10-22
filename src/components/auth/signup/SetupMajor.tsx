@@ -9,7 +9,7 @@ import Button from '../../public/Button';
 import { majorValidation } from '../../../utils/auth/validationRules';
 import { ProfileSetupStepInterface } from '../../../types/types';
 import { ButtonContainer, InputWrapper } from '../../../styles/styles';
-import { keywordSelectHandler } from '../../../services/signupService';
+import { applyKeywordToField } from '../../../services/signupService';
 
 const SetupMajor = ({ onNext }: ProfileSetupStepInterface) => {
   const {
@@ -51,7 +51,7 @@ const SetupMajor = ({ onNext }: ProfileSetupStepInterface) => {
           <Modal
             fieldName='major'
             searchValue={debouncedMajorValue}
-            keywordSelectHandler={keywordSelectHandler}
+            keywordSelectHandler={applyKeywordToField}
             setValue={setValue}
             onBlur={onBlur}
           />
