@@ -7,11 +7,7 @@ import PageHeader from '../../components/public/PageHeader';
 import SignupProgressBar from '../../components/auth/SignupProgressBar';
 import SignUpForm from '../../components/auth/signup/SignUpForm';
 import { PageLayout } from '../../styles/styles';
-import {
-  createNextClickHandler,
-  createPrevClickHandler,
-  signupSubmit,
-} from '../../services/signupService';
+import { handleNextClick, handlePrevClick, signupSubmit } from '../../services/signupService';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -28,21 +24,21 @@ const SignUpPage = () => {
   const { currentStep, setCurrentStep, initialProgress, getCurrentStepIndex } = useProgress(steps);
   const [progress, setProgress] = useState<number>(initialProgress);
 
-  const nextClickHandler = createNextClickHandler(
-    setStep,
-    setCurrentStep,
+  const nextClickHandler = handleNextClick(
     getCurrentStepIndex,
     steps,
+    setStep,
+    setCurrentStep,
     setProgress,
   );
 
-  const prevClickHandler = createPrevClickHandler(
+  const prevClickHandler = handlePrevClick(
+    getCurrentStepIndex,
+    steps,
     setStep,
     setCurrentStep,
-    getCurrentStepIndex,
-    navigate,
-    steps,
     setProgress,
+    navigate,
   );
 
   return (

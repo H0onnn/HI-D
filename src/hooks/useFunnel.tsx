@@ -22,5 +22,5 @@ export const useFunnel = (defaultStep: string) => {
     return <>{targetStep}</>;
   };
 
-  return { Funnel, Step, setStep } as const;
+  return { Funnel, Step, setStep, currentStep: step } as const;
 };

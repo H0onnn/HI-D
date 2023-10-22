@@ -4,7 +4,14 @@ import { debounce } from '../utils/debounce';
 
 interface ValidationRulesInterface {
   required?: string | boolean;
-  maxLength?: number;
+  minLength?: {
+    value: number;
+    message: string;
+  };
+  maxLength?: {
+    value: number;
+    message: string;
+  };
   pattern?: {
     value: RegExp;
     message: string;
@@ -14,7 +21,11 @@ interface ValidationRulesInterface {
   };
 }
 
-const useSetupInput = (field: string, validationRules: ValidationRulesInterface) => {
+const useSetupInput = (
+  field: string,
+  validationRules: ValidationRulesInterface,
+  defaultStatus: 'search' | 'default' = 'search',
+) => {
   const {
     register,
     formState: { errors },
@@ -35,7 +46,7 @@ const useSetupInput = (field: string, validationRules: ValidationRulesInterface)
   } else if (value) {
     status = 'success';
   } else if (!value) {
-    status = 'search';
+    status = defaultStatus;
   } else {
     status = 'default';
   }

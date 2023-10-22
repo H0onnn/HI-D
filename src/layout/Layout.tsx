@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, matchPath } from 'react-router-dom';
 import routes from '../router/AppRoutes';
 import styled from 'styled-components';
 import { colors } from '../constants/colors';
@@ -12,7 +12,7 @@ interface LayoutInterface {
 
 const Layout = ({ children }: LayoutInterface) => {
   const location = useLocation();
-  const currentRoute = routes.find((route) => route.path === location.pathname);
+  const currentRoute = routes.find((route) => matchPath(route.path, location.pathname));
   const hideBottomNav = currentRoute?.meta?.hideNavBar || false;
   const hideFloatNav = currentRoute?.meta?.hideFloatNav || false;
 

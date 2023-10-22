@@ -1,36 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useAgreement from '@/hooks/useAgreement';
 import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
 import Button from '../../public/Button';
-import { ProfileSetupStepInterface } from '../../../types/types';
-import MainComment from '../MainComment';
-import { ButtonContainer } from '../../../styles/styles';
 import Checkbox from '../../public/CheckBox';
-import {
-  createAllCheckHandler,
-  createCheckboxClickHandler,
-  allRequiredChecked,
-} from '../../../services/signupService';
+import MainComment from '../MainComment';
+import { ProfileSetupStepInterface } from '@/types/types';
+import { ButtonContainer } from '../../../styles/styles';
+import { AgreementKeys } from '@/hooks/useAgreement';
 import MAIN_LOGO from '@/public/images/main_logo.svg';
 
 const CheckAgreement = ({ onNext }: ProfileSetupStepInterface) => {
-  const [allChecked, setAllChecked] = useState<boolean>(false);
-  const [requiredAgreements, setRequiredAgreements] = useState({
-    termsOfService: false,
-    emailSchoolAgreement: false,
-    personalInfoAgreement: false,
-    overFourteen: false,
-  });
-  const [optionalAgreement, setOptionalAgreement] = useState<boolean>(false);
-
-  const allCheckedClickHandler = createAllCheckHandler(
+  const {
     allChecked,
     setAllChecked,
-    setRequiredAgreements,
+    agreements,
+    setAgreements,
+    optionalAgreement,
     setOptionalAgreement,
-  );
-  const checkboxClickHandler = createCheckboxClickHandler(setRequiredAgreements);
-  const areAllRequiredChecked = allRequiredChecked(requiredAgreements);
+    allAgreed,
+    agreementsLabels,
+  } = useAgreement();
+
+  const handleAllCheckToggle = () => {
+    const newValue = !allChecked;
+    setAllChecked(newValue);
+    setAgreements({
+      termsOfService: newValue,
+      emailSchoolAgreement: newValue,
+      personalInfoAgreement: newValue,
+      overFourteen: newValue,
+    });
+    setOptionalAgreement(newValue);
+  };
+
+  const handleCheckboxToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setAgreements((prev) => ({ ...prev, [name]: checked }));
+  };
 
   return (
     <>
@@ -40,55 +47,34 @@ const CheckAgreement = ({ onNext }: ProfileSetupStepInterface) => {
       <MainComment
         style={{ fontSize: '24px' }}
         comment={`하이디 서비스 이용을
-위한 약관에 동의해주세요`}
+        위한 약관에 동의해주세요`}
       />
       <AgreementComment>정보 매칭 전에 가입 및 정보 제공에 동의해주세요.</AgreementComment>
-      <div
-        style={{
-          borderBottom: `1px solid ${colors.lineGray}`,
-          padding: '0.5rem 0',
-        }}
-      >
-        <Checkbox
-          text='아래 약관에 모두 동의합니다. (선택 정보 포함)'
-          checked={allChecked}
-          onChange={allCheckedClickHandler}
-          textStyle={{ fontWeight: 'bold' }}
-        />
-      </div>
+      <Checkbox
+        text='아래 약관에 모두 동의합니다. (선택 정보 포함)'
+        checked={allChecked}
+        onChange={handleAllCheckToggle}
+        textStyle={{ fontWeight: 'bold' }}
+      />
+      <Divider />
       <CheckBoxContainer>
-        <Checkbox
-          text='이용 약관에 동의합니다. (필수)'
-          checked={requiredAgreements.termsOfService}
-          onChange={checkboxClickHandler}
-          name='termsOfService'
-        />
-        <Checkbox
-          text='이메일 및 학교 정보 제공에 동의합니다. (필수)'
-          checked={requiredAgreements.emailSchoolAgreement}
-          onChange={checkboxClickHandler}
-          name='emailSchoolAgreement'
-        />
-        <Checkbox
-          text='본인의 정보를 이용해 가입하겠습니다. (필수)'
-          checked={requiredAgreements.personalInfoAgreement}
-          onChange={checkboxClickHandler}
-          name='personalInfoAgreement'
-        />
-        <Checkbox
-          text='만 14세 이상입니다. (필수)'
-          checked={requiredAgreements.overFourteen}
-          onChange={checkboxClickHandler}
-          name='overFourteen'
-        />
+        {Object.entries(agreements).map(([key, value]) => (
+          <Checkbox
+            key={key}
+            text={`${agreementsLabels[key as AgreementKeys]} (필수)`}
+            name={key}
+            checked={value}
+            onChange={handleCheckboxToggle}
+          />
+        ))}
         <Checkbox
           text='광고성 정보 및 마케팅 활용에 동의합니다. (선택)'
-          onChange={() => setOptionalAgreement((prev) => !prev)}
           checked={optionalAgreement}
+          onChange={() => setOptionalAgreement((prev) => !prev)}
         />
       </CheckBoxContainer>
       <ButtonContainer>
-        <Button $isFullWidth onClick={onNext} disabled={!areAllRequiredChecked}>
+        <Button $isFullWidth onClick={onNext} disabled={!allAgreed}>
           동의하기
         </Button>
       </ButtonContainer>
@@ -97,6 +83,11 @@ const CheckAgreement = ({ onNext }: ProfileSetupStepInterface) => {
 };
 
 export default CheckAgreement;
+
+const Divider = styled.div`
+  border-bottom: 1px solid ${colors.lineGray};
+  padding: 0.5rem 0;
+`;
 
 const AgreementComment = styled.p`
   font-size: 16px;
