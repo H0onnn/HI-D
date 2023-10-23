@@ -7,7 +7,7 @@ interface BottomNavButtonInterface {
   alt: string;
   text: string;
   onClick: () => void;
-  active?: boolean;
+  $active?: boolean;
 }
 
 const BottomNavButton = ({
@@ -15,13 +15,13 @@ const BottomNavButton = ({
   src,
   alt,
   onClick,
-  active,
+  $active,
   ...props
 }: BottomNavButtonInterface) => {
   return (
     <BottomBtnContainer onClick={onClick} {...props}>
-      <BtnImg src={src} alt={alt} active={active} />
-      <BtnText active={active}>{text}</BtnText>
+      <BtnImg src={src} alt={alt} $active={$active} />
+      <BtnText $active={$active}>{text}</BtnText>
     </BottomBtnContainer>
   );
 };
@@ -36,14 +36,14 @@ const BottomBtnContainer = styled.div`
   gap: 0.4rem;
 `;
 
-const BtnImg = styled.img<{ active?: boolean }>`
+const BtnImg = styled.img<{ $active?: boolean }>`
   width: 100%;
   height: 100%;
   object-fit: cover;
 `;
 
-const BtnText = styled.p<{ active?: boolean }>`
+const BtnText = styled.p<{ $active?: boolean }>`
   font-size: 14px;
   font-weight: bold;
-  color: ${({ active }) => (active ? colors.primary : colors.gray3)};
+  color: ${({ $active }) => ($active ? colors.primary : colors.gray3)};
 `;

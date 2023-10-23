@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '../../constants/colors';
 import BackIcon from '../../public/images/headerBackBtn.png';
@@ -9,6 +10,16 @@ interface PageHeaderInterface {
 }
 
 const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
+  const navigate = useNavigate();
+
+  const backClickHandler = () => {
+    if (onClick) {
+      onClick();
+      return;
+    }
+    navigate(-1);
+  };
+
   return (
     <PageHeaderLayout>
       <BackButtonBox>
@@ -18,8 +29,8 @@ const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
             height: '100%',
           }}
           src={BackIcon}
-          alt='back button'
-          onClick={onClick}
+          alt='back_button'
+          onClick={backClickHandler}
         />
       </BackButtonBox>
       <HeaderTitle>{title}</HeaderTitle>

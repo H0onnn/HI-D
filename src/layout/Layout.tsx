@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, matchPath } from 'react-router-dom';
-import routes from '../router/AppRoutes';
+import routes from '@/router/routeConfig';
 import styled from 'styled-components';
 import { colors } from '../constants/colors';
 import BottomNavBar from './BottomNavBar';
