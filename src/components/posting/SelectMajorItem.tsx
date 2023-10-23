@@ -20,7 +20,7 @@ const SelectMajorItem = ({ major, onClick, selectedMajor }: SelectMajorItemInter
 
   return (
     <MajorItemWrapper selected={selectedMajor === major} onClick={itemClickHandler}>
-      <MajorItemInput {...register('major')} type='major_hidden' value={englishMajor} />
+      <MajorItemInput {...register('majorCategory')} type='major_hidden' value={englishMajor} />
       {major}
     </MajorItemWrapper>
   );

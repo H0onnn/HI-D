@@ -21,7 +21,7 @@ const PostDetailPage = () => {
         <PostAuthorInfo
           profileImageSrc={writer.imageUrl}
           userName={writer.nickname}
-          schoolName='서울대학교'
+          schoolName={writer.school}
         />
         <PostHeader title={title} />
         <PostBodyText content={content} />
