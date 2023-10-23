@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import BookMarkButton from './BookMarkButton';
-import ReportButton from './ReportButton';
+import IconButton from '@/components/public/IconButton';
+import BOOKMARK_NONE from '@/public/images/ui/bookmark_none.svg';
+import BOOKMARK_ACTIVE from '@/public/images/ui/bookmark_active.svg';
+import REPORT_ICON from '@/public/images/ui/report_icon.svg';
 
 const PostActions = () => {
   const [isBookMarked, setIsBookMarked] = useState<boolean>(false);
@@ -14,8 +16,14 @@ const PostActions = () => {
 
   return (
     <PostActionsLayout>
-      <BookMarkButton isBookMarked={isBookMarked} bookMarkClickHandler={bookMarkClickHandler} />
-      <ReportButton reportClickHandler={reportClickHandler} />
+      <IconButton
+        iconSrc={BOOKMARK_NONE}
+        activeIconSrc={BOOKMARK_ACTIVE}
+        isActive={isBookMarked}
+        onClickHandler={bookMarkClickHandler}
+        alt='bookmark_icon'
+      />
+      <IconButton iconSrc={REPORT_ICON} onClickHandler={reportClickHandler} alt='report_icon' />
     </PostActionsLayout>
   );
 };
