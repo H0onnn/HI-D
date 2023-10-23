@@ -2,7 +2,7 @@ import React from 'react';
 import useFocus from '../../../hooks/useFocus';
 import useSetupInput from '../../../hooks/useSetupInput';
 import useSchoolMajorData from '../../../hooks/useSchoolMajorData';
-import Modal from './Modal';
+import Modal from './SearchModal';
 import MainComment from '../../public/MainComment';
 import Input from '../../public/Input';
 import Button from '../../public/Button';
