@@ -1,28 +1,27 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { colors } from '@/constants/colors';
 import { LINK } from '@/constants/links';
 import Button from './Button';
 
 const GoServiceButton = () => {
-  const navigate = useNavigate();
-
-  const serviceClickHandler = () => {
-    navigate(LINK.MAIN);
-  };
-
   return (
-    <Button
-      $isFullWidth
-      variant='textOnly'
-      style={{
-        color: colors.gray4,
-      }}
-      onClick={serviceClickHandler}
-    >
-      서비스 둘러보기
+    <Button $isFullWidth variant='textOnly'>
+      <StyledLink to={LINK.MAIN} style={{ textDecoration: 'none' }}>
+        서비스 둘러보기
+      </StyledLink>
     </Button>
   );
 };
 
 export default GoServiceButton;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: ${colors.gray4};
+
+  &:visited {
+    color: ${colors.gray4};
+  }
+`;
