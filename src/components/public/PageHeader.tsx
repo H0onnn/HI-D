@@ -15,6 +15,7 @@ const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
   const backClickHandler = () => {
     if (onClick) {
       onClick();
+      return;
     }
     navigate(-1);
   };
