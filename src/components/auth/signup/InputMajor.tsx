@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import useFocus from '../../../hooks/useFocus';
-import MainComment from '../MainComment';
+import MainComment from '../../public/MainComment';
 import Input from '../../public/Input';
 import { majorValidation } from '../../../utils/auth/validationRules';
 import { InputWrapper } from '../../../styles/styles';

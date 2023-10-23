@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
-import MainComment from '../MainComment';
+import MainComment from '../../public/MainComment';
 import Input from '../../public/Input';
 import Button from '../../public/Button';
 import { nicknameValidation } from '../../../utils/auth/validationRules';

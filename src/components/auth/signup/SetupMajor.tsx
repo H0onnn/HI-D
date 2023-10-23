@@ -3,7 +3,7 @@ import useFocus from '../../../hooks/useFocus';
 import useSetupInput from '../../../hooks/useSetupInput';
 import useSchoolMajorData from '../../../hooks/useSchoolMajorData';
 import Modal from './Modal';
-import MainComment from '../MainComment';
+import MainComment from '../../public/MainComment';
 import Input from '../../public/Input';
 import Button from '../../public/Button';
 import { majorValidation } from '../../../utils/auth/validationRules';

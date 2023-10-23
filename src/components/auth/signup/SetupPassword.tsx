@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import useSetupInput from '@/hooks/useSetupInput';
-import MainComment from '../MainComment';
+import MainComment from '../../public/MainComment';
 import Input from '../../public/Input';
 import Button from '../../public/Button';
 import { passwordValidation, passwordConfirmValidation } from '../../../utils/auth/validationRules';

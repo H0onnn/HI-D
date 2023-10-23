@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useEmailConfirm from '../../../hooks/useEmailConfirm';
 import useSetupInput from '../../../hooks/useSetupInput';
-import MainComment from '../MainComment';
+import MainComment from '../../public/MainComment';
 import Input from '../../public/Input';
 import Button from '../../public/Button';
 import { emailValidation } from '../../../utils/auth/validationRules';
