@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import EditMajorModal from './EditMajorModal';
-import EditMajorList from './EditMajorList';
+import MajorCategoryList from './MajorCategoryList';
 import DROP_BUTTON from '@/public/images/posting/drop_btn.svg';
 
 interface EditMajorDropBoxInterface {
@@ -28,13 +28,17 @@ const EditMajorDropBox = ({ major: currentMajor }: EditMajorDropBoxInterface) =>
     <DropBoxLayout>
       <DropBoxText>{changeMajor}</DropBoxText>
       <DropButtonWrapper>
-        <DropButton onClick={dropButtonClickHandler}>
+        <DropButton type='button' onClick={dropButtonClickHandler}>
           <DropButtonImg src={DROP_BUTTON} alt='drop_button' />
         </DropButton>
       </DropButtonWrapper>
       {isModalOpen && (
         <EditMajorModal>
-          <EditMajorList majorChangeHandler={majorChangeHandler} />
+          <MajorCategoryList
+            onMajorSelect={majorChangeHandler}
+            selectedMajor={changeMajor}
+            $isEdit
+          />
         </EditMajorModal>
       )}
     </DropBoxLayout>
