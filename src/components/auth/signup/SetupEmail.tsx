@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
 import useEmailConfirm from '../../../hooks/useEmailConfirm';
-import MainComment from '../MainComment';
+import useSetupInput from '../../../hooks/useSetupInput';
+import MainComment from '../../public/MainComment';
 import Input from '../../public/Input';
 import Button from '../../public/Button';
 import { emailValidation } from '../../../utils/auth/validationRules';
@@ -9,19 +9,15 @@ import { ProfileSetupStepInterface } from '../../../types/types';
 import { ButtonContainer, InputWrapper } from '../../../styles/styles';
 
 const SetupEmail = ({ onNext }: ProfileSetupStepInterface) => {
-  const {
-    register,
-    formState: { errors },
-    watch,
-  } = useFormContext();
-
   const [codeValue, setCodeValue] = useState<string>('');
 
   const { requestEmail, verifyCode, isVerified } = useEmailConfirm();
 
-  const emailValue = watch('mail');
-
-  const emailStatus = errors.mail ? 'error' : emailValue && !errors.mail ? 'success' : 'default';
+  const {
+    register: emailRegister,
+    errors: emailErrors,
+    status: emailStatus,
+  } = useSetupInput('mail', emailValidation);
 
   const codeStatus = codeValue ? 'success' : 'default';
 
@@ -29,21 +25,22 @@ const SetupEmail = ({ onNext }: ProfileSetupStepInterface) => {
     <>
       <MainComment
         style={{ fontSize: '20px' }}
-        comment={`학교계정 이메일을 입력 후
-이메일을 인증해주세요 :)`}
+        comment={`학교계정 이메일을 입력 후\n이메일을 인증해주세요 :)`}
       />
       <InputWrapper style={{ marginBottom: '3rem' }}>
         <Input
           type='email'
           status={emailStatus}
-          {...register('mail', emailValidation)}
+          {...emailRegister('mail')}
           errorMessage={
-            errors.mail && typeof errors.mail.message === 'string' ? errors.mail.message : undefined
+            emailErrors.mail && typeof emailErrors.mail.message === 'string'
+              ? emailErrors.mail.message
+              : undefined
           }
           placeholder='이메일을 입력해주세요.'
           button
           buttonText='이메일 보내기'
-          onButtonClick={() => requestEmail(emailValue)}
+          onButtonClick={() => requestEmail(emailStatus)}
         />
       </InputWrapper>
 
@@ -55,7 +52,7 @@ const SetupEmail = ({ onNext }: ProfileSetupStepInterface) => {
           placeholder='인증번호를 입력해주세요.'
           button
           buttonText='인증 확인'
-          onButtonClick={() => verifyCode(emailValue, codeValue)}
+          onButtonClick={() => verifyCode(emailStatus, codeValue)}
         />
       </InputWrapper>
       <ButtonContainer>

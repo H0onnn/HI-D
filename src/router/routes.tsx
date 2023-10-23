@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import routes from './AppRoutes';
+import routes from './routeConfig';
 import ProtectedRoute from './ProtectedRoute';
 
 const AppRoutes = () => {

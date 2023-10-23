@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import Button from '../public/Button';
 import { ButtonContainer } from '@/styles/styles';
-import SelectMajorList from './SelectMajorList';
+import MajorCategoryList from './MajorCategoryList';
 
 interface SelectMajorInterface {
   onNext: () => void;
@@ -18,7 +18,7 @@ const SelectMajor = ({ onNext, currentMajor, setCurrentMajor }: SelectMajorInter
         <MainTitle>질문과 관련된 전공을 선택해주세요</MainTitle>
         <SubTitle>유용한 정보를 매칭해 드릴게요</SubTitle>
       </TitleContainer>
-      <SelectMajorList onMajorSelect={setCurrentMajor} />
+      <MajorCategoryList onMajorSelect={setCurrentMajor} selectedMajor={currentMajor} />
       <ButtonContainer>
         <Button $isFullWidth onClick={onNext} disabled={!currentMajor}>
           다음

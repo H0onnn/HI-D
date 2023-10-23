@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { colors } from '@/constants/colors';
 import AuthorProfileImage from './AuthorProfileImage';
 import UserNameAndSchoolInfo from './UserNameAndSchoolInfo';
-import LinkChatButton from './LinkChatButton';
+import IconButton from '@/components/public/IconButton';
+import { colors } from '@/constants/colors';
+import CHAT_ICON from '@/public/images/ui/chat_icon.svg';
+import { LINK } from '@/constants/links';
 
 interface PostAuthorInfoInterface {
   profileImageSrc: string;
@@ -12,13 +15,15 @@ interface PostAuthorInfoInterface {
 }
 
 const PostAuthorInfo = ({ profileImageSrc, userName, schoolName }: PostAuthorInfoInterface) => {
+  const navigate = useNavigate();
+
   return (
     <PostAuthorInfoLayout>
       <AuthorInfoContainer>
         <AuthorProfileImage src={profileImageSrc} />
         <UserNameAndSchoolInfo userName={userName} schoolName={schoolName} />
       </AuthorInfoContainer>
-      <LinkChatButton />
+      <IconButton iconSrc={CHAT_ICON} alt='chat_icon' onClickHandler={() => navigate(LINK.CHAT)} />
     </PostAuthorInfoLayout>
   );
 };

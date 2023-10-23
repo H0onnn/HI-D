@@ -45,7 +45,7 @@ const ImageSlider = ({ imageUrls }: ImageSliderInterface) => {
 
 const SliderLayout = styled.div`
   width: 100%;
-  height: 35rem;
+  max-height: 35rem;
   position: relative;
   overflow: hidden;
   border-radius: 12px;

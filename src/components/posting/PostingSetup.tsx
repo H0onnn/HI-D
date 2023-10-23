@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
+import React, { useState } from 'react';
 import { FunnelProps, StepProps } from '@/hooks/useFunnel';
 import { SetupPageLayout } from '@/styles/styles';
 import SelectMajor from './SelectMajor';
 import WritePost from './WritePost';
-import { PostingDataInterface } from '@/types/posting';
 
 interface PostingSetupInterface {
   steps: string[];
@@ -24,11 +22,6 @@ const PostingSetup = ({
   isHelpPost,
 }: PostingSetupInterface) => {
   const [currentMajor, setCurrentMajor] = useState<string | null>(null);
-  const { setValue } = useFormContext<PostingDataInterface>();
-
-  useEffect(() => {
-    setValue('boardType', isHelpPost ? 'NEED_HELP' : 'FREE');
-  }, [isHelpPost, setValue]);
 
   return (
     <SetupPageLayout>

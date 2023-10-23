@@ -57,10 +57,16 @@ export const handlePrevClick = (
   };
 };
 
-export const submitPosting = (navigate: NavigateFunction): SubmitHandler<PostingDataInterface> => {
+export const submitPosting = (
+  type: 'needhelp' | 'free',
+  navigate: NavigateFunction,
+): SubmitHandler<PostingDataInterface> => {
   return async (data) => {
     try {
-      const response = await httpClient.post.post.posting(data);
+      const response =
+        type === 'needhelp'
+          ? await httpClient.post.post.needhelp(data)
+          : await httpClient.post.post.free(data);
 
       const postId = response.data.postId;
       toast.success('게시물이 등록되었어요.', {

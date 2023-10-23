@@ -73,8 +73,12 @@ export const apiMethods = {
   },
   post: {
     post: {
-      posting: (data: PostingDataInterface) => ({
-        url: 'posts',
+      needhelp: (data: PostingDataInterface) => ({
+        url: 'posts/needhelp',
+        data,
+      }),
+      free: (data: PostingDataInterface) => ({
+        url: 'posts/free',
         data,
       }),
     },

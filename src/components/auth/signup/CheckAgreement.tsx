@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
 import Button from '../../public/Button';
 import Checkbox from '../../public/CheckBox';
-import MainComment from '../MainComment';
+import MainComment from '../../public/MainComment';
 import { ProfileSetupStepInterface } from '@/types/types';
 import { ButtonContainer } from '../../../styles/styles';
 import { AgreementKeys } from '@/hooks/useAgreement';
