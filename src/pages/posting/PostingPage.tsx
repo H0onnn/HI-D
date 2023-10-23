@@ -17,6 +17,7 @@ const PostingPage = () => {
 
   const isHelpPost = currentPath === LINK.POSTING_HELP;
   const isFreePost = currentPath === LINK.POSTING_FREE;
+  const submitType = isHelpPost ? 'needhelp' : 'free';
 
   const steps = ['계열 선택', '게시글 작성'];
   const defaultStep = isHelpPost ? steps[0] : steps[1];
@@ -31,7 +32,7 @@ const PostingPage = () => {
     <>
       <PageHeader title='게시글 작성' onClick={() => prevClickHandler(currentStep)} />
       <PageLayout>
-        <PostingForm onSubmit={submitPosting(navigate)}>
+        <PostingForm onSubmit={submitPosting(submitType, navigate)}>
           <PostingSetup
             steps={steps}
             Funnel={Funnel}
