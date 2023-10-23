@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import useSetupInput from '@/hooks/useSetupInput';
 import MainComment from '../MainComment';
 import Input from '../../public/Input';
 import Button from '../../public/Button';
@@ -8,42 +9,36 @@ import { ProfileSetupStepInterface } from '../../../types/types';
 import { ButtonContainer, InputWrapper } from '../../../styles/styles';
 
 const SetupPassword = ({ onNext }: ProfileSetupStepInterface) => {
-  const {
-    register,
-    formState: { errors },
-    watch,
-  } = useFormContext();
+  const { watch } = useFormContext();
 
   const passwordValue = watch('password');
-  const passwordConfirmValue = watch('passwordConfirm');
 
-  const passwordStatus = errors.password
-    ? 'error'
-    : passwordValue && !errors.password
-    ? 'success'
-    : 'default';
+  const {
+    register: passwordRegister,
+    errors: passwordErrors,
+    status: passwordStatus,
+  } = useSetupInput('password', passwordValidation);
 
-  const passwordConfirmStatus = errors.passwordConfirm
-    ? 'error'
-    : passwordConfirmValue && !errors.passwordConfirm
-    ? 'success'
-    : 'default';
+  const {
+    register: passwordConfirmRegister,
+    errors: passwordConfirmErrors,
+    status: passwordConfirmStatus,
+  } = useSetupInput('passwordConfirm', passwordConfirmValidation(passwordValue));
 
   return (
     <>
       <MainComment
         style={{ fontSize: '20px' }}
-        comment={`로그인시 사용할
-비밀번호를 입력해주세요`}
+        comment={`로그인시 사용할\n비밀번호를 입력해주세요`}
       />
       <InputWrapper style={{ marginBottom: '3rem' }}>
         <Input
           type='password'
           status={passwordStatus}
-          {...register('password', passwordValidation)}
+          {...passwordRegister('password')}
           errorMessage={
-            errors.password && typeof errors.password.message === 'string'
-              ? errors.password.message
+            passwordErrors.password && typeof passwordErrors.password.message === 'string'
+              ? passwordErrors.password.message
               : undefined
           }
           placeholder='비밀번호를 입력해주세요.'
@@ -54,10 +49,11 @@ const SetupPassword = ({ onNext }: ProfileSetupStepInterface) => {
         <Input
           type='password'
           status={passwordConfirmStatus}
-          {...register('passwordConfirm', passwordConfirmValidation(passwordValue))}
+          {...passwordConfirmRegister('passwordConfirm')}
           errorMessage={
-            errors.passwordConfirm && typeof errors.passwordConfirm.message === 'string'
-              ? errors.passwordConfirm.message
+            passwordConfirmErrors.passwordConfirm &&
+            typeof passwordConfirmErrors.passwordConfirm.message === 'string'
+              ? passwordConfirmErrors.passwordConfirm.message
               : undefined
           }
           placeholder='비밀번호를 다시 입력해주세요.'
