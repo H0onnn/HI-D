@@ -1,5 +1,5 @@
 export interface PostingDataInterface {
-  major?: string;
+  majorCategory?: string;
   title: string;
   content: string;
   imageUrls?: string[];
