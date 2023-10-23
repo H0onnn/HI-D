@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { useFormContext } from 'react-hook-form';
 import { colors } from '@/constants/colors';
-import { majorToEnglishMapping, MajorKeys } from '@/constants/major';
+import { majorToEnglishMapping, MajorKeys } from '@/constants/majorCategory';
 
 interface SelectMajorItemInterface {
   major: string;

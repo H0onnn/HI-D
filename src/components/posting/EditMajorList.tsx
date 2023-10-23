@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import EditMajorItem from './EditMajorItem';
-import { MAJORS } from '@/constants/major';
+import { MAJORS } from '@/constants/majorCategory';
 
 interface EditMajorListInterface {
   majorChangeHandler: (major: string) => void;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import SelectMajorItem from './SelectMajorItem';
-import { MAJORS } from '@/constants/major';
+import { MAJORS } from '@/constants/majorCategory';
 
 interface SelectMajorListInterface {
   onMajorSelect: (major: string) => void;

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import { useFormContext } from 'react-hook-form';
-import { majorToEnglishMapping, MajorKeys } from '@/constants/major';
+import { majorToEnglishMapping, MajorKeys } from '@/constants/majorCategory';
 
 interface EditMajorItemInterface {
   major: string;
