@@ -2,7 +2,6 @@ import React from 'react';
 import { LINK } from '@/constants/links';
 import { Navigate, Outlet } from 'react-router-dom';
 import useAuthStore from '@/store/authStore';
-import { LINK } from '@/constants/links';
 
 const ProtectedRoute = () => {
   const isAuth = useAuthStore((state) => state.token);
