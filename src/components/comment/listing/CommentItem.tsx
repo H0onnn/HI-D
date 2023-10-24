@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import LIKE_ICON from '@/public/images/ui/like_fill.svg';
 import ActionButtonContainer from '../actionButton/ActionButtonContainer';
+import { timeSince } from '@/utils/caculateDate';
 
 interface CommentItemInterface {
   writer_image: string;
@@ -20,25 +21,33 @@ const CommentItem = ({
   comment_like,
 }: CommentItemInterface) => {
   return (
-    <>
+    <CommentItemLayout>
       <CommentWriterContainer>
         <CommentWriterInfo>
           <CommentWriterImg src={writer_image} alt='comment_writer_img' />
           <CommentWriterName>{writer_name}</CommentWriterName>
-          <CommentCreatedAt>{created_at}</CommentCreatedAt>
+          <CommentCreatedAt>{timeSince(created_at)}</CommentCreatedAt>
         </CommentWriterInfo>
         <ActionButtonContainer />
       </CommentWriterContainer>
-      <CommentContent>{content}</CommentContent>
-      <CommentLikeContainer>
-        <CommentLikeImg src={LIKE_ICON} />
-        <CommentLikeCount>{comment_like}</CommentLikeCount>
-      </CommentLikeContainer>
-    </>
+      <ContentContainer>
+        <CommentContent>{content}</CommentContent>
+        <CommentLikeContainer>
+          <CommentLikeImg src={LIKE_ICON} />
+          <CommentLikeCount>{comment_like}</CommentLikeCount>
+        </CommentLikeContainer>
+      </ContentContainer>
+    </CommentItemLayout>
   );
 };
 
 export default CommentItem;
+
+const CommentItemLayout = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
 
 const CommentWriterContainer = styled.div`
   width: 100%;
@@ -51,7 +60,6 @@ const CommentWriterInfo = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
 `;
 
@@ -66,27 +74,36 @@ const CommentWriterName = styled.p`
   font-size: 14px;
   font-weight: bold;
   color: ${colors.black};
-  line-height: 21px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const ContentContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.7rem;
 `;
 
 const CommentContent = styled.p`
+  width: 100%;
   font-size: 14px;
   color: ${colors.black};
   line-height: 21px;
+  margin-left: 3rem;
 `;
 
 const CommentCreatedAt = styled.p`
   font-size: 12px;
-  color: ${colors.gray3};
+  color: ${colors.gray5};
   line-height: 18px;
 `;
 
 const CommentLikeContainer = styled.div`
-  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  gap: 0.5rem;
 `;
 
 const CommentLikeImg = styled.img`
