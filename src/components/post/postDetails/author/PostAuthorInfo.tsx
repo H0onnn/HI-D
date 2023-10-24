@@ -35,6 +35,7 @@ const PostAuthorInfoLayout = styled.div`
   height: 6rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-bottom: 1.2rem;
   border-bottom: 1px solid ${colors.gray2};
   margin-bottom: 4rem;
