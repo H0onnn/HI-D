@@ -12,16 +12,26 @@ interface PostAuthorInfoInterface {
   profileImageSrc: string;
   userName: string;
   schoolName: string;
+  writerMajor: string;
 }
 
-const PostAuthorInfo = ({ profileImageSrc, userName, schoolName }: PostAuthorInfoInterface) => {
+const PostAuthorInfo = ({
+  profileImageSrc,
+  userName,
+  schoolName,
+  writerMajor,
+}: PostAuthorInfoInterface) => {
   const navigate = useNavigate();
 
   return (
     <PostAuthorInfoLayout>
       <AuthorInfoContainer>
         <AuthorProfileImage src={profileImageSrc} />
-        <UserNameAndSchoolInfo userName={userName} schoolName={schoolName} />
+        <UserNameAndSchoolInfo
+          userName={userName}
+          schoolName={schoolName}
+          writerMajor={writerMajor}
+        />
       </AuthorInfoContainer>
       <IconButton iconSrc={CHAT_ICON} alt='chat_icon' onClickHandler={() => navigate(LINK.CHAT)} />
     </PostAuthorInfoLayout>

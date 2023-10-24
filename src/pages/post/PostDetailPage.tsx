@@ -30,6 +30,7 @@ const PostDetailPage = () => {
           profileImageSrc={postData.writer.imageUrl}
           userName={postData.writer.nickname}
           schoolName={postData.writer.school}
+          writerMajor={postData.writer.major}
         />
         <PostHeader title={postData.title} />
         <PostBodyText content={postData.content} />
