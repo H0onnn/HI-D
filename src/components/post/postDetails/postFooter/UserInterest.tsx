@@ -21,11 +21,11 @@ const UserInterest = ({
   viewCount,
   postActions,
 }: UserInterestInterface) => {
-  const { isLiked, isCommented, toggleLikeHandler, toggleCommentHandler } = postActions;
+  const { isLiked, toggleLikeHandler, toggleCommentHandler } = postActions;
 
   const INTERESTS = [
     { icon: isLiked ? LIKE_FILL : LIKE_NONE, value: likeCount },
-    { icon: isCommented ? COMMENT_FILL : COMMENT_NONE, value: commentCount },
+    { icon: commentCount !== 0 ? COMMENT_FILL : COMMENT_NONE, value: commentCount },
     { icon: VIEW, value: viewCount },
   ];
 
