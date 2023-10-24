@@ -104,8 +104,14 @@ export const apiMethods = {
   },
   comment: {
     get: {
-      replies: (postId: number) => ({
-        url: `posts/${postId}/replies`,
+      replies: (
+        postId: number,
+        page: number,
+        size: number,
+        sortBy = 'createAt',
+        direction = 'DESC',
+      ) => ({
+        url: `posts/${postId}/replies?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
       }),
     },
     post: {
