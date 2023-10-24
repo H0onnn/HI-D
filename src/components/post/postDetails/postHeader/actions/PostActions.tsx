@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import usePostActions from '@/hooks/usePostActions';
 import styled from 'styled-components';
 import IconButton from '@/components/public/IconButton';
 import BOOKMARK_NONE from '@/public/images/ui/bookmark_none.svg';
@@ -6,13 +7,7 @@ import BOOKMARK_ACTIVE from '@/public/images/ui/bookmark_active.svg';
 import REPORT_ICON from '@/public/images/ui/report_icon.svg';
 
 const PostActions = () => {
-  const [isBookMarked, setIsBookMarked] = useState<boolean>(false);
-
-  const bookMarkClickHandler = () => {
-    setIsBookMarked(!isBookMarked);
-  };
-
-  const reportClickHandler = () => {};
+  const { isBookMarked, toggleBookmarkHandler, toggleReportHandler } = usePostActions();
 
   return (
     <PostActionsLayout>
@@ -20,10 +15,10 @@ const PostActions = () => {
         iconSrc={BOOKMARK_NONE}
         activeIconSrc={BOOKMARK_ACTIVE}
         isActive={isBookMarked}
-        onClickHandler={bookMarkClickHandler}
+        onClickHandler={toggleBookmarkHandler}
         alt='bookmark_icon'
       />
-      <IconButton iconSrc={REPORT_ICON} onClickHandler={reportClickHandler} alt='report_icon' />
+      <IconButton iconSrc={REPORT_ICON} onClickHandler={toggleReportHandler} alt='report_icon' />
     </PostActionsLayout>
   );
 };
