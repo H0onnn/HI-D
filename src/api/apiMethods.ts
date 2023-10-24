@@ -72,6 +72,11 @@ export const apiMethods = {
     },
   },
   post: {
+    get: {
+      posts: (postId: number) => ({
+        url: `posts/${postId}`,
+      }),
+    },
     post: {
       needhelp: (data: PostingDataInterface) => ({
         url: 'posts/needhelp',
@@ -80,6 +85,33 @@ export const apiMethods = {
       free: (data: PostingDataInterface) => ({
         url: 'posts/free',
         data,
+      }),
+      report: (postId: number) => ({
+        url: `posts/${postId}/report`,
+      }),
+      bookmark: (postId: number) => ({
+        url: `posts/${postId}/bookmark`,
+      }),
+      like: (postId: number) => ({
+        url: `posts/${postId}/recommend`,
+      }),
+    },
+    delete: {
+      deletePost: (postId: number) => ({
+        url: `posts/${postId}`,
+      }),
+    },
+  },
+  comment: {
+    get: {
+      replies: (postId: number) => ({
+        url: `posts/${postId}/replies`,
+      }),
+    },
+    post: {
+      replies: (postId: number, content: string) => ({
+        url: 'replies',
+        data: { postId, content },
       }),
     },
   },

@@ -1,17 +1,19 @@
 import React from 'react';
+import usePostActions from '@/hooks/usePostActions';
 import styled from 'styled-components';
 import PostTitle from './PostTitle';
 import PostActions from './actions/PostActions';
 
 interface PostHeaderInterface {
   title: string;
+  postActions: ReturnType<typeof usePostActions>;
 }
 
-const PostHeader = ({ title }: PostHeaderInterface) => {
+const PostHeader = ({ title, postActions }: PostHeaderInterface) => {
   return (
     <PostHeaderLayout>
       <PostTitle title={title} />
-      <PostActions />
+      <PostActions postActions={postActions} />
     </PostHeaderLayout>
   );
 };

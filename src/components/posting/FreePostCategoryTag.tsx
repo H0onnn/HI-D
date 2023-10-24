@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
@@ -11,8 +11,10 @@ const FreePostCategoryTag = () => {
 
   const { register, setValue } = useFormContext<PostingDataInterface>();
 
-  // 컴포넌트 마운트 후 초기값 'LOVE'로 설정
-  setValue('tag', tagToEnglishMapping[initialTag]);
+  useEffect(() => {
+    // 컴포넌트 마운트 후 초기값 'LOVE'로 설정
+    setValue('tag', tagToEnglishMapping[initialTag]);
+  }, []);
 
   const tagClickHandler = (e: React.MouseEvent<HTMLElement>) => {
     const clickedTagText = e.currentTarget.textContent as FreePostTag;

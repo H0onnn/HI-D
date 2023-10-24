@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
+import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import styled, { keyframes } from 'styled-components';
-import { colors } from '../../../constants/colors';
-import Button from '../../public/Button';
-import WarningIcon from '../../../public/images/input/warning.svg';
+import { colors } from '../../constants/colors';
+import Button from './Button';
 
 interface NoMajorModalInterface {
-  onInputMode: () => void;
   setModalState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NoMajorModal = ({ onInputMode, setModalState }: NoMajorModalInterface) => {
+const ReportModal = ({ setModalState }: NoMajorModalInterface) => {
+  const { openScroll } = useBodyScrollLock();
+
   // 모달이 떠있을 때 스크롤 방지
   useEffect(() => {
-    document.body.style.overflowY = 'hidden';
-    return () => {
-      document.body.style.overflowY = 'auto';
-    };
+    openScroll();
   }, []);
 
   const closeModalHanlder = () => setModalState(false);
@@ -34,27 +32,14 @@ const NoMajorModal = ({ onInputMode, setModalState }: NoMajorModalInterface) => 
             </svg>
           </CloseButton>
         </CloseButtonWrapper>
-        <WarnigIconWrapper>
-          <img
-            src={WarningIcon}
-            alt='warning'
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-          />
-        </WarnigIconWrapper>
         <ModalComment>검색 결과가 없어요.</ModalComment>
-        <Button $isFullWidth onClick={onInputMode}>
-          직접 입력하기
-        </Button>
+        <Button $isFullWidth>신고하기</Button>
       </ModalContainer>
     </>
   );
 };
 
-export default NoMajorModal;
+export default ReportModal;
 
 const slideUp = keyframes`
     from {
@@ -82,16 +67,6 @@ const ModalContainer = styled.div`
   border-radius: 20px 20px 0 0;
   border-top: 1px solid ${colors.gray1};
   z-index: 100;
-`;
-
-const WarnigIconWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 12rem;
-  height: 7rem;
-  overflow: hidden;
-  margin-top: -2rem;
 `;
 
 const ModalComment = styled.span`

@@ -112,3 +112,24 @@ export interface PostCountInterface {
   viewCount: number;
   darkMode?: boolean;
 }
+
+export interface PostDetailInterface {
+  postId: number;
+  writer: Writer;
+  title: string;
+  content: string;
+  viewCount: number;
+  recommendCount: number;
+  replyCount: number;
+  images: string[];
+  createAt: string;
+  isAnonymous: boolean;
+}
+
+export interface Writer {
+  memberId: number;
+  nickname: string;
+  imageUrl: string;
+  school: string;
+  major: string;
+}

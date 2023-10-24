@@ -63,7 +63,6 @@ const routes: AppRoutesInterface[] = [
     name: 'SignUpComplete',
     path: LINK.SIGNUP_SUCCESS,
     component: SignupCompletePage,
-    isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },
   {

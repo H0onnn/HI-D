@@ -35,7 +35,7 @@ const SetupPassword = ({ onNext }: ProfileSetupStepInterface) => {
         <Input
           type='password'
           status={passwordStatus}
-          {...passwordRegister('password')}
+          {...passwordRegister('password', passwordValidation)}
           errorMessage={
             passwordErrors.password && typeof passwordErrors.password.message === 'string'
               ? passwordErrors.password.message

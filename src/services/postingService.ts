@@ -73,9 +73,7 @@ export const submitPosting = (
         id: 'postingSuccess',
       });
 
-      navigate(LINK.POST_DETAIL.replace(':id', postId.toString()), {
-        state: { ...response.data },
-      });
+      navigate(LINK.POST_DETAIL.replace(':id', postId.toString()));
     } catch (err: unknown) {
       toast.error('게시물 등록에 실패했어요.', {
         id: 'postingFail',
