@@ -17,6 +17,7 @@ const SetupEmail = ({ onNext }: ProfileSetupStepInterface) => {
     register: emailRegister,
     errors: emailErrors,
     status: emailStatus,
+    value: email,
   } = useSetupInput('mail', emailValidation);
 
   const codeStatus = codeValue ? 'success' : 'default';
@@ -31,7 +32,7 @@ const SetupEmail = ({ onNext }: ProfileSetupStepInterface) => {
         <Input
           type='email'
           status={emailStatus}
-          {...emailRegister('mail')}
+          {...emailRegister('mail', emailValidation)}
           errorMessage={
             emailErrors.mail && typeof emailErrors.mail.message === 'string'
               ? emailErrors.mail.message
@@ -40,7 +41,7 @@ const SetupEmail = ({ onNext }: ProfileSetupStepInterface) => {
           placeholder='이메일을 입력해주세요.'
           button
           buttonText='이메일 보내기'
-          onButtonClick={() => requestEmail(emailStatus)}
+          onButtonClick={() => requestEmail(email)}
         />
       </InputWrapper>
 
@@ -52,7 +53,7 @@ const SetupEmail = ({ onNext }: ProfileSetupStepInterface) => {
           placeholder='인증번호를 입력해주세요.'
           button
           buttonText='인증 확인'
-          onButtonClick={() => verifyCode(emailStatus, codeValue)}
+          onButtonClick={() => verifyCode(email, codeValue)}
         />
       </InputWrapper>
       <ButtonContainer>
