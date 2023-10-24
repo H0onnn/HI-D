@@ -86,6 +86,20 @@ export const apiMethods = {
         url: 'posts/free',
         data,
       }),
+      report: (postId: number) => ({
+        url: `posts/${postId}/report`,
+      }),
+      bookmark: (postId: number) => ({
+        url: `posts/${postId}/bookmark`,
+      }),
+      like: (postId: number) => ({
+        url: `posts/${postId}/recommend`,
+      }),
+    },
+    delete: {
+      deletePost: (postId: number) => ({
+        url: `posts/${postId}`,
+      }),
     },
   },
   comment: {
