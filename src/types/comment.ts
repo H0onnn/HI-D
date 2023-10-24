@@ -8,7 +8,7 @@ export interface CommentDataInterface {
   };
   content: string;
   recommendCount: number;
-  createdAt: string;
-  updatedAt: string;
+  createAt: string;
+  updateAt: string;
   anonymous: boolean;
 }
