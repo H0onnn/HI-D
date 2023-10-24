@@ -22,7 +22,7 @@ const CommentList = ({ commentList, postId }: CommentListInterface) => {
             writer_image={comment.writer.imageUrl}
             writer_name={comment.writer.nickname}
             content={comment.content}
-            created_at={comment.createdAt}
+            created_at={comment.createAt}
             comment_like={comment.recommendCount}
           />
         ))}
@@ -45,5 +45,5 @@ const CommentListLayout = styled.div<{ $commentsEmpty: boolean }>`
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 3rem;
 `;
