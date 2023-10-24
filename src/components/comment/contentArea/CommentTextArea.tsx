@@ -52,18 +52,15 @@ const CommentTextAreaLayout = styled.div`
   width: 100%;
   height: 4.8rem;
   border-radius: 8px;
-  padding: 1.2rem 1.6rem 1.2rem 1.6rem;
   background-color: ${colors.gray1};
-
-  &:focus {
-    border-color: ${colors.primary};
-  }
 `;
 
 const CommentTextAreaInput = styled.textarea`
   width: 100%;
   height: 100%;
-  border: none;
+  padding: 1.2rem 1.6rem 1.2rem 1.6rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
   outline: none;
   resize: none;
   font-size: 14px;
@@ -80,6 +77,10 @@ const CommentTextAreaInput = styled.textarea`
   &::-webkit-scrollbar {
     width: 0px;
     background: transparent;
+  }
+
+  &:focus {
+    border-color: ${colors.primary};
   }
 `;
 
