@@ -2,16 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import SUBMIT_ICON from '@/public/images/ui/send_icon.svg';
-import { httpClient } from '@/api/httpClient';
-import toast from 'react-hot-toast';
-import { CommentDataInterface } from '@/types/comment';
 
 interface CommentTextAreaInterface {
-  postId: number;
-  onNewComment: (newComment: CommentDataInterface) => void;
+  onAddComment: (comment: string) => Promise<void>;
 }
 
-const CommentTextArea = ({ postId, onNewComment }: CommentTextAreaInterface) => {
+const CommentTextArea = ({ onAddComment }: CommentTextAreaInterface) => {
   const [comment, setComment] = useState<string>('');
 
   const commentChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -19,28 +15,27 @@ const CommentTextArea = ({ postId, onNewComment }: CommentTextAreaInterface) => 
   };
 
   const commentSubmitHandler = async () => {
-    try {
-      const newComment = await httpClient.comment.post.replies(postId, comment);
-      onNewComment(newComment);
-      setComment('');
-      toast.success('댓글이 등록되었습니다.', { id: 'commentSubmitSuccess' });
-    } catch (err: unknown) {
-      console.log('댓글 작성 에러 : ', err);
-      toast.error('댓글 등록에 실패하였습니다.', { id: 'commentSubmitError' });
-    }
+    await onAddComment(comment);
+    setComment('');
   };
 
   return (
     <CommentTextAreaLayout>
-      <CommentTextAreaInput
-        placeholder='댓글을 입력해주세요.'
-        value={comment}
-        maxLength={500}
-        onChange={commentChangeHandler}
-      />
-      <CommentSubmitButton>
-        <ButtonIcon src={SUBMIT_ICON} alt='comment_submit_button' onClick={commentSubmitHandler} />
-      </CommentSubmitButton>
+      <CommentTextAreaWrapper>
+        <CommentTextAreaInput
+          placeholder='댓글을 입력해주세요.'
+          value={comment}
+          maxLength={500}
+          onChange={commentChangeHandler}
+        />
+        <CommentSubmitButton>
+          <ButtonIcon
+            src={SUBMIT_ICON}
+            alt='comment_submit_button'
+            onClick={commentSubmitHandler}
+          />
+        </CommentSubmitButton>
+      </CommentTextAreaWrapper>
     </CommentTextAreaLayout>
   );
 };
@@ -48,6 +43,18 @@ const CommentTextArea = ({ postId, onNewComment }: CommentTextAreaInterface) => 
 export default CommentTextArea;
 
 const CommentTextAreaLayout = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 39rem;
+  height: 7rem;
+  padding: 1rem 2rem;
+  background-color: ${colors.white};
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+`;
+
+const CommentTextAreaWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 4.8rem;
