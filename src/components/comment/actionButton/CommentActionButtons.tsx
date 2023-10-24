@@ -18,8 +18,11 @@ const CommentActionButtons = ({ text, onClickHandler }: CommentActionButtonsInte
 export default CommentActionButtons;
 
 const CommentActionButtonsLayout = styled.div`
-  width: 3rem;
-  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 2.5rem;
   padding: 0.2rem 0.6rem 0.2rem 0.6rem;
   border-radius: 900px;
   background-color: ${colors.gray2};
