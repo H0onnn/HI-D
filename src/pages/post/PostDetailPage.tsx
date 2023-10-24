@@ -1,5 +1,8 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import usePostActions from '@/hooks/usePostActions';
+import useComments from '@/hooks/useComments';
+import usePostDetailData from '@/hooks/usePostDetailData';
+import { useParams } from 'react-router-dom';
 import { PageLayout } from '@/styles/styles';
 import PageHeader from '@/components/public/PageHeader';
 import PostAuthorInfo from '@/components/post/postDetails/author/PostAuthorInfo';
@@ -7,26 +10,37 @@ import PostHeader from '@/components/post/postDetails/postHeader/PostHeader';
 import PostBodyText from '@/components/post/postDetails/postContents/PostBodyText';
 import ImageSlider from '@/components/post/postDetails/postContents/ImageSlider';
 import UserInterest from '@/components/post/postDetails/postFooter/UserInterest';
+import CommentList from '@/components/comment/listing/CommentList';
 
 const PostDetailPage = () => {
-  const location = useLocation();
-  const postData = location.state;
+  const { id: postIdStr } = useParams<{ id: string }>();
+  const postId = Number(postIdStr);
+  const { postData } = usePostDetailData(postId);
+  const postActions = usePostActions();
+  const { isCommented } = postActions;
+  const { comments } = useComments(postId, isCommented);
 
-  const { writer, title, content, images, viewCount, recommendCount, replyCount } = postData;
+  if (!postData) return null;
 
   return (
     <>
       <PageHeader title='게시글' />
       <PageLayout style={{ gap: '1rem' }}>
         <PostAuthorInfo
-          profileImageSrc={writer.imageUrl}
-          userName={writer.nickname}
-          schoolName={writer.school}
+          profileImageSrc={postData.writer.imageUrl}
+          userName={postData.writer.nickname}
+          schoolName={postData.writer.school}
         />
-        <PostHeader title={title} />
-        <PostBodyText content={content} />
-        <ImageSlider imageUrls={images} />
-        <UserInterest likeCount={recommendCount} commentCount={replyCount} viewCount={viewCount} />
+        <PostHeader title={postData.title} />
+        <PostBodyText content={postData.content} />
+        <ImageSlider imageUrls={postData.images} />
+        <UserInterest
+          likeCount={postData.recommendCount}
+          commentCount={postData.replyCount}
+          viewCount={postData.viewCount}
+          postActions={postActions}
+        />
+        {isCommented && <CommentList commentList={comments} postId={postId} />}
       </PageLayout>
     </>
   );
