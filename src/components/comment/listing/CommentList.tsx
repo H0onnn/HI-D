@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useComments from '@/hooks/useComments';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import CommentItem from './CommentItem';
@@ -10,15 +11,16 @@ interface CommentListInterface {
   postId: number;
 }
 
-const CommentList = ({ commentList, postId }: CommentListInterface) => {
-  const [comments, setComments] = useState<CommentDataInterface[]>(commentList);
+const CommentList = ({ postId }: CommentListInterface) => {
+  const { comments, addCommentHandler, loadMoreRef } = useComments(postId);
 
   return (
     <>
       <CommentListLayout $commentsEmpty={comments.length === 0}>
-        {comments.map((comment) => (
+        {comments.map((comment, index) => (
           <CommentItem
             key={comment.replyId}
+            ref={index === comments.length - 1 ? loadMoreRef : null}
             writer_image={comment.writer.imageUrl}
             writer_name={comment.writer.nickname}
             content={comment.content}
@@ -26,11 +28,8 @@ const CommentList = ({ commentList, postId }: CommentListInterface) => {
             comment_like={comment.recommendCount}
           />
         ))}
+        <CommentTextArea onAddComment={addCommentHandler} />
       </CommentListLayout>
-      <CommentTextArea
-        postId={postId}
-        onNewComment={(newComment) => setComments((prevComments) => [...prevComments, newComment])}
-      />
     </>
   );
 };

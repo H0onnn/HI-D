@@ -18,9 +18,8 @@ const PostDetailPage = () => {
   const postId = Number(postIdStr);
   const { postData } = usePostDetailData(postId);
   const postActions = usePostActions();
-  const { isCommented, isReported, toggleReportHandler } = postActions;
-  const { comments } = useComments(postId, isCommented);
-  console.log(comments);
+  const { isReported, toggleReportHandler } = postActions;
+  const { comments } = useComments(postId);
 
   if (!postData) return null;
 
@@ -43,7 +42,7 @@ const PostDetailPage = () => {
           viewCount={postData.viewCount}
           postActions={postActions}
         />
-        {isCommented && <CommentList commentList={comments} postId={postId} />}
+        <CommentList commentList={comments} postId={postId} />
         {isReported && <ReportModal setModalState={toggleReportHandler} />}
       </PageLayout>
     </>

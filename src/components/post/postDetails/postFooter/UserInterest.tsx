@@ -21,7 +21,7 @@ const UserInterest = ({
   viewCount,
   postActions,
 }: UserInterestInterface) => {
-  const { isLiked, toggleLikeHandler, toggleCommentHandler } = postActions;
+  const { isLiked, toggleLikeHandler } = postActions;
 
   const INTERESTS = [
     { icon: isLiked ? LIKE_FILL : LIKE_NONE, value: likeCount },
@@ -36,7 +36,7 @@ const UserInterest = ({
           key={index}
           icon={interest.icon}
           value={interest.value}
-          onClick={index === 0 ? toggleLikeHandler : index === 1 ? toggleCommentHandler : undefined}
+          onClick={index === 0 ? toggleLikeHandler : undefined}
         />
       ))}
     </UserInterestLayout>

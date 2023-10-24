@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import LIKE_ICON from '@/public/images/ui/like_fill.svg';
@@ -13,33 +13,31 @@ interface CommentItemInterface {
   comment_like: number;
 }
 
-const CommentItem = ({
-  writer_image,
-  writer_name,
-  content,
-  created_at,
-  comment_like,
-}: CommentItemInterface) => {
-  return (
-    <CommentItemLayout>
-      <CommentWriterContainer>
-        <CommentWriterInfo>
-          <CommentWriterImg src={writer_image} alt='comment_writer_img' />
-          <CommentWriterName>{writer_name}</CommentWriterName>
-          <CommentCreatedAt>{timeSince(created_at)}</CommentCreatedAt>
-        </CommentWriterInfo>
-        <ActionButtonContainer />
-      </CommentWriterContainer>
-      <ContentContainer>
-        <CommentContent>{content}</CommentContent>
-        <CommentLikeContainer>
-          <CommentLikeImg src={LIKE_ICON} />
-          <CommentLikeCount>{comment_like}</CommentLikeCount>
-        </CommentLikeContainer>
-      </ContentContainer>
-    </CommentItemLayout>
-  );
-};
+const CommentItem = forwardRef<HTMLDivElement, CommentItemInterface>(
+  ({ writer_image, writer_name, content, created_at, comment_like }, ref) => {
+    return (
+      <CommentItemLayout ref={ref}>
+        <CommentWriterContainer>
+          <CommentWriterInfo>
+            <CommentWriterImg src={writer_image} alt='comment_writer_img' />
+            <CommentWriterName>{writer_name}</CommentWriterName>
+            <CommentCreatedAt>{timeSince(created_at)}</CommentCreatedAt>
+          </CommentWriterInfo>
+          <ActionButtonContainer />
+        </CommentWriterContainer>
+        <ContentContainer>
+          <CommentContent>{content}</CommentContent>
+          <CommentLikeContainer>
+            <CommentLikeImg src={LIKE_ICON} />
+            <CommentLikeCount>{comment_like}</CommentLikeCount>
+          </CommentLikeContainer>
+        </ContentContainer>
+      </CommentItemLayout>
+    );
+  },
+);
+
+CommentItem.displayName = 'CommentItem';
 
 export default CommentItem;
 
