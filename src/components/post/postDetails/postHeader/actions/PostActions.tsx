@@ -6,8 +6,12 @@ import BOOKMARK_NONE from '@/public/images/ui/bookmark_none.svg';
 import BOOKMARK_ACTIVE from '@/public/images/ui/bookmark_active.svg';
 import REPORT_ICON from '@/public/images/ui/report_icon.svg';
 
-const PostActions = () => {
-  const { isBookMarked, toggleBookmarkHandler, toggleReportHandler } = usePostActions();
+interface PostActionsInterface {
+  postActions: ReturnType<typeof usePostActions>;
+}
+
+const PostActions = ({ postActions }: PostActionsInterface) => {
+  const { isBookMarked, toggleBookmarkHandler, toggleReportHandler } = postActions;
 
   return (
     <PostActionsLayout>

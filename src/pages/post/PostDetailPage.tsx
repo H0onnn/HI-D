@@ -11,14 +11,16 @@ import PostBodyText from '@/components/post/postDetails/postContents/PostBodyTex
 import ImageSlider from '@/components/post/postDetails/postContents/ImageSlider';
 import UserInterest from '@/components/post/postDetails/postFooter/UserInterest';
 import CommentList from '@/components/comment/listing/CommentList';
+import ReportModal from '@/components/public/ReportModal';
 
 const PostDetailPage = () => {
   const { id: postIdStr } = useParams<{ id: string }>();
   const postId = Number(postIdStr);
   const { postData } = usePostDetailData(postId);
   const postActions = usePostActions();
-  const { isCommented } = postActions;
+  const { isCommented, isReported, toggleReportHandler } = postActions;
   const { comments } = useComments(postId, isCommented);
+  console.log(comments);
 
   if (!postData) return null;
 
@@ -32,7 +34,7 @@ const PostDetailPage = () => {
           schoolName={postData.writer.school}
           writerMajor={postData.writer.major}
         />
-        <PostHeader title={postData.title} />
+        <PostHeader title={postData.title} postActions={postActions} />
         <PostBodyText content={postData.content} />
         <ImageSlider imageUrls={postData.images} />
         <UserInterest
@@ -42,6 +44,7 @@ const PostDetailPage = () => {
           postActions={postActions}
         />
         {isCommented && <CommentList commentList={comments} postId={postId} />}
+        {isReported && <ReportModal setModalState={toggleReportHandler} />}
       </PageLayout>
     </>
   );
