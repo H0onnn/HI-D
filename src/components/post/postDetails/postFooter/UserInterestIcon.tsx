@@ -46,6 +46,7 @@ const IconImage = styled.img`
 const Value = styled.p`
   font-size: 16px;
   font-weight: 400;
+  font-family: 'SUIT';
   line-height: 24px;
   color: ${colors.primary};
   overflow: hidden;
