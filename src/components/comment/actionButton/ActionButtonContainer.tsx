@@ -20,19 +20,17 @@ export default ActionButtonContainer;
 
 const BUTTON_ACTIONS = [
   {
-    text: '수정',
+    text: '채팅',
     onClickHandler: () => console.log('Edit button clicked'),
   },
   {
-    text: '삭제',
+    text: '신고',
     onClickHandler: () => console.log('Delete button clicked'),
   },
 ];
 
 const Layout = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  align-items: flex-end;
+  gap: 0.5rem;
 `;
