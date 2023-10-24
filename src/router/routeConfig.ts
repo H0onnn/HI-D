@@ -95,7 +95,7 @@ const routes: AppRoutesInterface[] = [
     name: 'PostDetail',
     path: LINK.POST_DETAIL,
     component: PostDetailPage,
-    meta: { hideFloatNav: true },
+    meta: { hideNavBar: true, hideFloatNav: true },
   },
 ];
 
