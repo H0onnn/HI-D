@@ -25,16 +25,16 @@ const ImageSlider = ({ imageUrls }: ImageSliderInterface) => {
       onMouseLeave={() => setShowSliderButton(false)}
     >
       {showSliderButton && currentSlide !== 0 && (
-        <SlideButton left onClick={goPrevSlide}>
+        <SlideButton $left onClick={goPrevSlide}>
           <SlideButtonIcon src={PREV_ICON} alt='prev_icon' />
         </SlideButton>
       )}
       {showSliderButton && currentSlide !== imageUrls.length - 1 && (
-        <SlideButton right onClick={goNextSlide}>
+        <SlideButton $right onClick={goNextSlide}>
           <SlideButtonIcon src={NEXT_ICON} alt='next_icon' />
         </SlideButton>
       )}
-      <SliderContent currentSlide={currentSlide}>
+      <SliderContent $currentSlide={currentSlide}>
         {imageUrls.map((url, index) => (
           <SliderImage key={index} src={url} alt={`post_image_${index}`} />
         ))}
@@ -51,7 +51,7 @@ const SliderLayout = styled.div`
   border-radius: 12px;
 `;
 
-const SlideButton = styled.button<{ left?: boolean; right?: boolean }>`
+const SlideButton = styled.button<{ $left?: boolean; $right?: boolean }>`
   width: 2.4rem;
   height: 2.4rem;
   position: absolute;
@@ -62,8 +62,8 @@ const SlideButton = styled.button<{ left?: boolean; right?: boolean }>`
   cursor: pointer;
   z-index: 1;
 
-  ${(props) => props.left && 'left: 1rem;'}
-  ${(props) => props.right && 'right: 1rem;'}
+  ${(props) => props.$left && 'left: 1rem;'}
+  ${(props) => props.$right && 'right: 1rem;'}
 `;
 
 const SlideButtonIcon = styled.img`
@@ -72,11 +72,11 @@ const SlideButtonIcon = styled.img`
   object-fit: cover;
 `;
 
-const SliderContent = styled.div<{ currentSlide: number }>`
+const SliderContent = styled.div<{ $currentSlide: number }>`
   display: flex;
   width: 100%;
   height: 100%;
-  transform: ${(props) => `translateX(-${props.currentSlide * 100}%)`};
+  transform: ${(props) => `translateX(-${props.$currentSlide * 100}%)`};
   transition: transform 0.5s;
 `;
 

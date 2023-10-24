@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getSchools, getMajors } from '../api/services/schoolData';
 import { INCOMPLETE_KOREAN_REGEX, ENGLISH_ONLY_REGEX } from '../utils/auth/validationRules';
-import localCache from '@/utils/localCache';
+import localCache from '@/utils/search/localCache';
 
 const useSchoolMajorData = (fieldName: string, searchValue: string) => {
   const [datas, setDatas] = useState<string[]>([]);

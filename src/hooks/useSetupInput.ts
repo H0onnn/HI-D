@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { debounce } from '../utils/debounce';
+import { debounce } from '../utils/search/debounce';
 
 interface ValidationRulesInterface {
   required?: string | boolean;

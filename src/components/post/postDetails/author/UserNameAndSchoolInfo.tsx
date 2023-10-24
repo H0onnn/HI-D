@@ -5,13 +5,21 @@ import { colors } from '@/constants/colors';
 interface UserNameAndSchoolInfoInterface {
   userName: string;
   schoolName: string;
+  writerMajor: string;
 }
 
-const UserNameAndSchoolInfo = ({ userName, schoolName }: UserNameAndSchoolInfoInterface) => {
+const UserNameAndSchoolInfo = ({
+  userName,
+  schoolName,
+  writerMajor,
+}: UserNameAndSchoolInfoInterface) => {
   return (
     <UserNameAndSchoolInfoLayout>
       <UserName>{userName}</UserName>
-      <SchoolName>{schoolName}</SchoolName>
+      <SchoolInfoContainer>
+        <SchoolAndMajor>{schoolName}</SchoolAndMajor>
+        <SchoolAndMajor>{writerMajor}</SchoolAndMajor>
+      </SchoolInfoContainer>
     </UserNameAndSchoolInfoLayout>
   );
 };
@@ -19,7 +27,7 @@ const UserNameAndSchoolInfo = ({ userName, schoolName }: UserNameAndSchoolInfoIn
 export default UserNameAndSchoolInfo;
 
 const UserNameAndSchoolInfoLayout = styled.div`
-  width: 12rem;
+  width: 20rem;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -35,7 +43,7 @@ const UserName = styled.p`
   text-overflow: ellipsis;
 `;
 
-const SchoolName = styled.p`
+const SchoolAndMajor = styled.p`
   font-size: 14px;
   font-weight: 400;
   color: ${colors.gray5};
@@ -43,4 +51,10 @@ const SchoolName = styled.p`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+const SchoolInfoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
 `;
