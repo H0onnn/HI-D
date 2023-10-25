@@ -7,11 +7,16 @@ const useSchoolMajorData = (fieldName: string, searchValue: string) => {
   const [datas, setDatas] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const getCacheKey = () => {
+    return fieldName === 'school' ? `school_${searchValue}` : `major_${searchValue}`;
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
 
-      const cachedData = await localCache.readFromCache(searchValue);
+      const cacheKey = getCacheKey();
+      const cachedData = await localCache.readFromCache(cacheKey);
 
       if (cachedData.length > 0) {
         setDatas(cachedData);
@@ -22,11 +27,12 @@ const useSchoolMajorData = (fieldName: string, searchValue: string) => {
       try {
         if (INCOMPLETE_KOREAN_REGEX.test(searchValue) || ENGLISH_ONLY_REGEX.test(searchValue))
           return;
+
         const res =
           fieldName === 'school' ? await getSchools(searchValue) : await getMajors(searchValue);
         setDatas(res);
 
-        localCache.writeToCache(searchValue, res);
+        localCache.writeToCache(cacheKey, res);
       } catch (err) {
         console.log(err);
       } finally {
