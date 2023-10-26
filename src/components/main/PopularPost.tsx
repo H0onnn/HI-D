@@ -9,7 +9,7 @@ import { colors } from '@/constants/colors';
 import { tabList } from '@/constants/post';
 
 const PopularPost = ({
-  post: { postId, writer, title, viewCount, recommendCount, replyCount, category },
+  post: { postId, writer, title, viewCount, recommendCount, replyCount, boardType },
 }: {
   post: Post;
 }) => {
@@ -18,13 +18,15 @@ const PopularPost = ({
 
   return (
     <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
-      <TagBox>
-        {tabList.map((tab) => {
-          if (tab.category === category) {
-            return tab.name;
-          }
-        })}
-      </TagBox>
+      <div>
+        <TagBox>
+          {tabList.map((tab) => {
+            if (tab.category === boardType) {
+              return tab.name;
+            }
+          })}
+        </TagBox>
+      </div>
       <Title>{title}</Title>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <ProfileBox

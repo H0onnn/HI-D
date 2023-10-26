@@ -8,11 +8,13 @@ import { formatTimeAgo } from '../../utils/post';
 import { colors } from '@/constants/colors';
 import { majorToKoreaMapping } from '@/constants/majorCategory';
 
-const NewPost = ({ post: { postId, writer, title, createAt } }: { post: Post }) => {
+const NewPost = ({ post: { postId, writer, title, createAt, majorCategory } }: { post: Post }) => {
   const navigate = useNavigate();
   return (
     <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
-      <TagBox>{majorToKoreaMapping['MEDICAL']}</TagBox>
+      <div>
+        <TagBox>{majorToKoreaMapping[majorCategory || 'undefined']}</TagBox>
+      </div>
       <Title>{title}</Title>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <ProfileBox writer={writer?.nickname} profileImage={writer?.imageUrl} size='small' />

@@ -25,7 +25,8 @@ const Layout = styled.div`
 
 const PostListLayout = styled.div`
   display: flex;
-  height: 18rem; ////
+  min-height: 18.5rem;
+  max-height: 18.5rem;
   gap: 1.2rem;
   padding: 0 2rem 2rem 2rem;
   overflow-x: scroll;

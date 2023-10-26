@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { FreePostTag, Post } from '../../types/post';
-import styled from 'styled-components';
 import FreePostTagContainer from '../post/FreePostTag';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '@/constants/links';
@@ -8,6 +7,7 @@ import FreePost from '../post/FreePost';
 import MoreButton from './MoreButton';
 import { getFreePostListByMain } from '@/api/services/main';
 import { Itag, freePostTagList } from '@/constants/post';
+import { PostListLayout, PostListWrapper, TagWrapper } from '@/styles/post';
 
 const FreeContainerByMain = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const FreeContainerByMain = () => {
   }, [currentTag]);
 
   return (
-    <>
+    <PostListLayout>
       <TagWrapper>
         <FreePostTagContainer
           onClick={handleTagClick}
@@ -41,18 +41,8 @@ const FreeContainerByMain = () => {
         ))}
         <MoreButton onClick={() => navigate(LINK.POST_FREE)} />
       </PostListWrapper>
-    </>
+    </PostListLayout>
   );
 };
 
 export default FreeContainerByMain;
-
-const PostListWrapper = styled.div`
-  padding: 1.6rem 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-`;
-const TagWrapper = styled.div`
-  padding: 3.2rem 0 0 0;
-`;
