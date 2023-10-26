@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../constants/colors';
-import LogoIcon from '../../public/images/elephant.png';
-import AlarmIcon from '../../public/images/alarm.png';
+import LogoIcon from '../../public/images/main_logo.svg';
+import AlarmIcon from '../../public/images/alarm.svg';
 
 const MainPageHeader = () => {
   return (
@@ -31,12 +31,12 @@ const PageHeaderLayout = styled.div`
   top: 0;
   padding: 2rem;
   background-color: ${colors.white};
-  border-bottom: 1px solid #f4f4f4;
+  border-bottom: 1px solid ${colors.gray1};
 `;
 
 const LogoImageWrpper = styled.div`
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 5.8rem;
+  height: 3s.6rem;
   > img {
     width: 100%;
     height: 100%;

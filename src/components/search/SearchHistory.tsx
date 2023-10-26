@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { truncateContent } from '../../utils/post';
-import DeleteIcon from '../../public/images/elephant.png';
+import DeleteIcon from '../../public/images/ui/delete_icon.svg';
+import { colors } from '@/constants/colors';
 
 type Props = {
   searchHistory: string[];
@@ -18,7 +19,7 @@ const SearchHistory = ({
   return (
     <Layout>
       <Title>
-        <div>최근검색어</div>
+        <p>최근검색어</p>
         <div onClick={deleteAllHistory}>전체삭제</div>
       </Title>
       <SearchHistoryContainer>
@@ -53,7 +54,7 @@ const Title = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 1rem;
-  color: #c6c6c6;
+  color: ${colors.gray5};
   font-family: SF Pro Text;
   font-size: 12px;
   font-style: normal;
@@ -62,11 +63,16 @@ const Title = styled.div`
   > div:nth-child(2) {
     cursor: pointer;
     &:hover {
-      color: #252424;
+      color: ${colors.black};
     }
     &:active {
-      color: #252424;
+      color: ${colors.black};
     }
+  }
+  > p {
+    font-weight: 700;
+    font-size: 14px;
+    color: ${colors.black};
   }
 `;
 
@@ -84,11 +90,11 @@ const SearchHistoryContainer = styled.div`
 `;
 const SearchHistoryItem = styled.div`
   position: relative;
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 2.6rem 0.6rem 1.2rem;
   height: 3.3rem;
   /* background: #f9f9f9; */
   border-radius: 90rem;
-  border: 1px solid var(--2, #a5adff);
+  border: 1px solid ${colors.gray3};
   &:hover {
   }
   &:active {
@@ -96,7 +102,7 @@ const SearchHistoryItem = styled.div`
 `;
 const KeywordText = styled.div`
   cursor: pointer;
-  color: var(--2, #a5adff);
+  color: ${colors.gray6};
   font-family: SUIT;
   font-size: 14px;
   font-style: normal;
@@ -108,15 +114,14 @@ const IconWrapper = styled.div`
   z-index: 1;
   cursor: pointer;
   position: absolute;
-  top: -0.3rem;
-  right: 0;
+  top: 0.9rem;
+  right: 0.9rem;
   width: 1.4rem;
   height: 1.4rem;
-  background-color: red;
   border-radius: 50%;
   > img {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
   }
   &:hover {
     scale: 1.1;

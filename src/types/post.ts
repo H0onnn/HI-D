@@ -25,20 +25,23 @@ export interface PageStatusInterface {
 export type PostList = {
   dataList: Post[];
   size: number;
-  next: boolean;
+  hasNext: boolean;
 };
 export type Post = {
   postId: number;
-  writer: string;
-  writerImage: string | '';
-  major: string;
-  category: keyof typeof Category;
   title: string;
   content: string;
+  thumbnailImages: string[] | [];
   viewCount: number;
   recommendCount: number;
   replyCount: number;
-  images: string[] | [];
+  writer: {
+    memberId: number;
+    nickname: string;
+    imageUrl: string;
+  };
+  anonymous: boolean;
+  category: keyof typeof Category;
   createAt: string;
   updateAt: string;
 };

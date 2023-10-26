@@ -7,17 +7,15 @@ import MainSearchBar from '../../components/main/MainSearchBar';
 import MainPageHeader from '../../components/main/MainPageHeader';
 import { TabInterface, Post } from '../../types/post';
 import PopularPostList from '../../components/main/PopularPostList';
-import HotIcon from '../../public/images/elephant.png';
 import TabByCategory from '@/components/post/TabByCategory';
-import FreeContainer from '@/components/post/FreeContainer';
-import HelpContainer from '@/components/post/HelpContainer';
-import AllContainer from '@/components/post/AllContainer';
+import { colors } from '@/constants/colors';
+import HelpContainerByMain from '@/components/main/HelpContainerByMain';
+import FreeContainerByMain from '@/components/main/FreeContainerByMain';
 
 const MainPage = () => {
   const navigate = useNavigate();
   const [popularPostList, setPopularPostList] = useState<Post[]>([]);
   const [selectedTab, setSelectedTab] = useState<TabInterface>(tabList[0]);
-  const location = 'main';
 
   const tabClickHandler = (tab: TabInterface) => {
     setSelectedTab(tab);
@@ -131,18 +129,16 @@ const MainPage = () => {
         <MainSearchBar onClick={() => navigate(LINK.SEARCH)} />
         <Title>
           <p>
-            9월 3주차 <span>인기 게시물</span>
+            9월 3주차 <span>인기 게시물🔥</span>
           </p>
-          <img src={HotIcon} alt='hot_icon' />
         </Title>
         <PopularPostList postList={popularPostList} />
         <TabByCategory
           tabList={tabList}
           selectedTab={selectedTab}
           tabClickHandler={tabClickHandler}
-          location={location}
         />
-        <PostListWrapper>{postListByCategory(selectedTab.category, location)}</PostListWrapper>
+        <PostListWrapper>{postListByCategory(selectedTab.category)}</PostListWrapper>
       </MainPageLayout>
     </>
   );
@@ -155,14 +151,12 @@ const tabList = [
   { id: 2, name: '자유게시판', category: 'free', link: LINK.POST_FREE },
 ];
 
-export const postListByCategory = (category: string, location: string, keyword?: string) => {
+export const postListByCategory = (category: string) => {
   switch (category) {
     case 'help':
-      return <HelpContainer location={location} keyword={keyword} />;
+      return <HelpContainerByMain />;
     case 'free':
-      return <FreeContainer location={location} keyword={keyword} />;
-    case 'all':
-      return <AllContainer location={location} />;
+      return <FreeContainerByMain />;
     default:
       return;
   }
@@ -181,9 +175,9 @@ const Title = styled.div`
     font-style: normal;
     font-weight: 700;
     line-height: 150%;
-    color: #252424;
+    color: ${colors.black};
     > span {
-      color: #5061ff;
+      color: ${colors.primary};
     }
   }
   > img {
@@ -193,5 +187,5 @@ const Title = styled.div`
 `;
 const PostListWrapper = styled.div`
   height: 100%;
-  background-color: #fbfbff;
+  background-color: ${colors.pastel};
 `;
