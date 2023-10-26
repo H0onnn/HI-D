@@ -5,8 +5,8 @@ import SearchBar from '../../components/search/SearchBar';
 import TabByCategory from '@/components/post/TabByCategory';
 import { TabInterface } from '@/types/post';
 import PageHeader from '@/components/public/PageHeader';
-import HelpContainer from '@/components/post/HelpContainer';
-import FreeContainer from '@/components/post/FreeContainer';
+import PostListByCategary from '@/components/post/PostListByCategary';
+import { tabList } from '@/constants/post';
 
 const SearchPage = () => {
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
@@ -64,12 +64,8 @@ const SearchPage = () => {
           />
         ) : (
           <>
-            <TabByCategory
-              tabList={tabList}
-              selectedTab={selectedTab}
-              tabClickHandler={tabClickHandler}
-            />
-            {postListByCategory(selectedTab.category, keyword)}
+            <TabByCategory selectedTab={selectedTab} tabClickHandler={tabClickHandler} />
+            {PostListByCategary(selectedTab.category, keyword)}
           </>
         )}
       </MainPageLayout>
@@ -78,19 +74,3 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
-
-const tabList = [
-  { id: 1, name: '도움이 필요해요', category: 'help' },
-  { id: 2, name: '자유게시판', category: 'free' },
-];
-
-export const postListByCategory = (category: string, keyword: string) => {
-  switch (category) {
-    case 'help':
-      return <HelpContainer keyword={keyword} />;
-    case 'free':
-      return <FreeContainer keyword={keyword} />;
-    default:
-      return;
-  }
-};

@@ -6,7 +6,7 @@ import FreePostList from '../../components/post/FreePostList';
 import { Itag, freePostTagList } from '@/constants/post';
 import { getFreePostList } from '@/api/services/post';
 
-const FreeContainer = ({ location, keyword }: PostContainerProps) => {
+const FreeContainer = ({ keyword }: PostContainerProps) => {
   const [postList, setPostList] = useState<Post[]>([]);
   const [currentTag, setCurrentTag] = useState<Itag>(freePostTagList[0]);
   const [{ page, isNext }, setPage] = useState<PageStatusInterface>({ page: 1, isNext: false });
@@ -28,8 +28,6 @@ const FreeContainer = ({ location, keyword }: PostContainerProps) => {
     });
   }, [currentTag, page]);
 
-  const postImgSize = location === 'post' ? 'medium' : 'small';
-
   return (
     <>
       <TagWrapper>
@@ -44,7 +42,6 @@ const FreeContainer = ({ location, keyword }: PostContainerProps) => {
           postList={postList}
           pageStatus={{ page, isNext }}
           nextPageHandler={nextPageHandler}
-          postImgSize={postImgSize}
         />
       </PostListWrapper>
     </>

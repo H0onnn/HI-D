@@ -92,7 +92,6 @@ export type getPostListOptions = {
 };
 
 export interface PostContainerProps {
-  location: string;
   keyword?: string;
 }
 export interface PostListProps {
