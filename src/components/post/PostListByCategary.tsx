@@ -7,31 +7,30 @@ import FreeContainer from './FreeContainer';
 
 const PostListByCategary = (category: string, keyword?: string) => {
   const location = useLocation();
-
   switch (location.pathname) {
     case '/main':
       switch (category) {
-        case 'help':
+        case 'NEED_HELP':
           return <HelpContainerByMain />;
-        case 'free':
+        case 'FREE':
           return <FreeContainerByMain />;
         default:
           return;
       }
     case '/post':
       switch (category) {
-        case 'help':
+        case 'NEED_HELP':
           return <HelpContainer />;
-        case 'free':
+        case 'FREE':
           return <FreeContainer />;
         default:
           return;
       }
     case '/search':
       switch (category) {
-        case 'help':
+        case 'NEED_HELP':
           return <HelpContainer keyword={keyword} />;
-        case 'free':
+        case 'FREE':
           return <FreeContainer keyword={keyword} />;
         default:
           return;

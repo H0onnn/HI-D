@@ -30,7 +30,7 @@ const MainPage = () => {
         </Title>
         <PopularPostList />
         <TabByCategory selectedTab={selectedTab} tabClickHandler={tabClickHandler} />
-        <PostListWrapper>{PostListByCategary(selectedTab.category)}</PostListWrapper>
+        {PostListByCategary(selectedTab.category)}
       </MainPageLayout>
     </>
   );
@@ -58,8 +58,4 @@ const Title = styled.div`
     width: 1.6rem;
     height: 1.6rem;
   }
-`;
-const PostListWrapper = styled.div`
-  height: 100%;
-  background-color: ${colors.pastel};
 `;

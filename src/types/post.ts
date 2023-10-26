@@ -1,6 +1,6 @@
 export enum Category {
-  'help',
-  'free',
+  'NEED_HELP',
+  'FREE',
 }
 export enum FreePostTags {
   '전체' = 0,
@@ -31,7 +31,7 @@ export type Post = {
   postId: number;
   title: string;
   content: string;
-  thumbnailImages: string[] | [];
+  thumbnailImages?: string[];
   viewCount: number;
   recommendCount: number;
   replyCount: number;
@@ -41,9 +41,10 @@ export type Post = {
     imageUrl: string;
   };
   anonymous: boolean;
-  category: keyof typeof Category;
+  boardType: keyof typeof Category;
+  majorCategory?: string;
   createAt: string;
-  updateAt: string;
+  updateAt?: string;
 };
 export type RequestPostCreate = {
   major: string;

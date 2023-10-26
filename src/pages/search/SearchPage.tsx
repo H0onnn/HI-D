@@ -27,7 +27,6 @@ const SearchPage = () => {
   };
 
   const searchByHistoryKeyword = (keyword: string) => {
-    // fetch
     const updatedHistory = searchHistory.filter((item) => item !== keyword);
     setKeyword(keyword);
     setSearchHistory([keyword, ...updatedHistory]);
@@ -55,14 +54,15 @@ const SearchPage = () => {
           inputRef={inputRef}
           showSearchHistory={() => setShowSearchHistory(true)}
         />
-        {showSearchHistory ? (
+        {showSearchHistory && (
           <SearchHistory
             searchHistory={searchHistory}
             deleteAllHistory={deleteAllHistory}
             deleteHistory={deleteHistory}
             searchByHistoryKeyword={searchByHistoryKeyword}
           />
-        ) : (
+        )}
+        {!showSearchHistory && (
           <>
             <TabByCategory selectedTab={selectedTab} tabClickHandler={tabClickHandler} />
             {PostListByCategary(selectedTab.category, keyword)}
