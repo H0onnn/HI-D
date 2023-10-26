@@ -1,0 +1,21 @@
+import { LINK } from './links';
+
+export const tabList = [
+  { id: 1, name: '도움이 필요해요', category: 'help', link: LINK.POST_HELP },
+  { id: 2, name: '자유게시판', category: 'free', link: LINK.POST_FREE },
+];
+
+export const freePostTagList: Itag[] = [
+  { id: 0, name: '전체', en: 'ALL' },
+  { id: 1, name: '연애', en: 'LOVE' },
+  { id: 2, name: '일상', en: 'DAILY' },
+  { id: 3, name: '같이해요', en: 'TOGETHER' },
+  { id: 4, name: '맛집', en: 'RESTAURANT' },
+  { id: 5, name: '잡담', en: 'CHITCHAT' },
+];
+
+export interface Itag {
+  id: number;
+  name: string;
+  en: string;
+}

@@ -5,77 +5,52 @@ import BoldContent from '../search/BoldContent';
 import { formatTime, getContentSnippet } from '../../utils/post';
 import PostCountBox from './postItem/PostCountBox';
 import ProfileBox from './postItem/ProfileBox';
-import PostImagesBoxMedium from './postItem/PostImagesBoxMedium';
 import PostImagesBoxSmall from './postItem/PostImagesBoxSmall';
 import { colors } from '@/constants/colors';
+import { LINK } from '@/constants/links';
+import { useNavigate } from 'react-router-dom';
 
 const FreePost = ({
   post: {
+    postId,
     writer,
-    writerImage,
     title,
     content,
     viewCount,
-    images,
     recommendCount,
     replyCount,
     createAt,
+    thumbnailImages,
   },
   keyword,
-  imageSize = 'small',
-  onClick,
 }: PostProps) => {
+  const navigate = useNavigate();
   const contentSnippet = getContentSnippet(content, keyword);
 
-  const layoutByImageSize = (imageSize: PostProps['imageSize']) => {
-    switch (imageSize) {
-      case 'small':
-        return (
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <PostImagesBoxSmall images={images} />
-            <PostCountBox
-              recommendCount={recommendCount}
-              replyCount={replyCount}
-              viewCount={viewCount}
-            />
-          </div>
-        );
-      case 'medium':
-        return (
-          <>
-            <PostImagesBoxMedium images={images} />
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <div></div>
-              <PostCountBox
-                recommendCount={recommendCount}
-                replyCount={replyCount}
-                viewCount={viewCount}
-              />
-            </div>
-          </>
-        );
-      default:
-        return;
-    }
-  };
-
   return (
-    <Layout onClick={onClick}>
+    <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
-          borderBottom: '1px solid #EDEDED',
+          borderBottom: `1px solid ${colors.gray2}`,
         }}
       >
-        <ProfileBox writer={writer} profileImage={writerImage} size='medium' />
+        <ProfileBox writer={writer?.nickname} profileImage={writer?.imageUrl} />
         <TimeBox>{formatTime(createAt)}</TimeBox>
       </div>
       <Title>{keyword ? <BoldContent keyword={keyword} content={title} /> : title}</Title>
       <Contents>
         {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
       </Contents>
-      {layoutByImageSize(imageSize)}
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <PostImagesBoxSmall images={thumbnailImages} />
+        <PostCountBox
+          recommendCount={recommendCount}
+          replyCount={replyCount}
+          viewCount={viewCount}
+        />
+      </div>
     </Layout>
   );
 };
@@ -102,7 +77,7 @@ const Layout = styled.div`
   }
 `;
 const Title = styled.div`
-  color: #1f1f1f;
+  color: ${colors.black};
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;
@@ -121,7 +96,7 @@ const Title = styled.div`
 const TimeBox = styled.div`
   display: flex;
   align-items: center;
-  color: #8f8f8f;
+  color: ${colors.gray6};
   font-family: SUIT;
   font-size: 14px;
   font-style: normal;
@@ -129,7 +104,8 @@ const TimeBox = styled.div`
   line-height: 150%;
 `;
 const Contents = styled.div`
-  color: #454545;
+  min-height: 4.4rem;
+  color: ${colors.gray6};
   font-family: SUIT;
   font-size: 14px;
   font-style: normal;

@@ -1,53 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PostProps } from '../../types/post';
-import BoldContent from '../search/BoldContent';
-import { formatTime, getContentSnippet } from '../../utils/post';
+import { formatTime } from '../../utils/post';
 import PostCountBox from './postItem/PostCountBox';
-import PostImagesBoxSmall from './postItem/PostImagesBoxSmall';
+import PostImagesBoxMedium from './postItem/PostImagesBoxMedium';
 import { colors } from '@/constants/colors';
-import { majorToKoreaMapping } from '@/constants/majorCategory';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { LINK } from '@/constants/links';
 
-const HelpPost = ({
-  post: {
-    postId,
-    title,
-    content,
-    viewCount,
-    recommendCount,
-    replyCount,
-    createAt,
-    thumbnailImages,
-  },
-  keyword,
+const HelpPostMedium = ({
+  post: { title, content, viewCount, recommendCount, replyCount, createAt, thumbnailImages },
+  onClick,
 }: PostProps) => {
-  const contentSnippet = getContentSnippet(content, keyword);
-  const location = useLocation();
-  const navigate = useNavigate();
-
   return (
-    <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          borderBottom: `1px solid ${colors.gray2}`,
-        }}
-      >
-        <MajorBox>{majorToKoreaMapping['MEDICAL']}</MajorBox>
-        <div>{location.pathname !== '/main' ? <button /> : null}</div>
-      </div>
+    <Layout onClick={onClick}>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Title>{keyword ? <BoldContent keyword={keyword} content={title} /> : title}</Title>
+        <Title>{title}</Title>
         <TimeBox>{formatTime(createAt)}</TimeBox>
       </div>
-      <Contents>
-        {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
-      </Contents>
+      <Contents>{content}</Contents>
+      <PostImagesBoxMedium images={thumbnailImages} />
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <PostImagesBoxSmall images={thumbnailImages} />
+        <div></div>
         <PostCountBox
           recommendCount={recommendCount}
           replyCount={replyCount}
@@ -57,7 +29,7 @@ const HelpPost = ({
     </Layout>
   );
 };
-export default HelpPost;
+export default HelpPostMedium;
 
 const Layout = styled.div`
   cursor: pointer;
@@ -105,19 +77,10 @@ const TimeBox = styled.div`
   line-height: 150%;
 `;
 const Contents = styled.div`
-  min-height: 4.4rem;
   color: ${colors.gray6};
   font-family: SUIT;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
-`;
-const MajorBox = styled.div`
-  font-family: SUIT;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
-  color: ${colors.gray6};
 `;

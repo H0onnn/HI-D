@@ -1,17 +1,18 @@
 import React from 'react';
 import styled, { RuleSet, css } from 'styled-components';
-import defaultProfile from '@/public/images/elephant.png';
+import defaultProfile from '@/public/images/bottomNav/mypage_fill.svg';
+import { colors } from '@/constants/colors';
 
 interface Props {
-  writer: string;
-  profileImage: string;
+  writer?: string;
+  profileImage?: string;
   size?: 'small' | 'medium';
   darkMode?: boolean;
 }
 export default function ProfileBox({
   writer,
   profileImage,
-  size = 'small',
+  size = 'medium',
   darkMode = false,
 }: Props) {
   return (
@@ -36,7 +37,7 @@ const ProfileImageWrapper = styled.div`
   height: 2rem;
   overflow: hidden;
   border-radius: 100%;
-  background: #d9d9d9;
+  background: ${colors.gray3};
 `;
 
 const ProfileImage = styled.img`
@@ -46,7 +47,7 @@ const ProfileImage = styled.img`
 `;
 
 const Nickname = styled.div<{ css?: RuleSet<object> }>`
-  color: #2d2d2d;
+  color: ${colors.black};
   font-family: SUIT;
   font-size: 12px;
   font-style: normal;
@@ -59,13 +60,13 @@ const nicknameStyles = (size: Props['size'], darkMode?: Props['darkMode']) => {
   switch (size) {
     case 'small':
       return css`
-        color: ${darkMode ? '#E7E9FF' : '#a3a3a3'};
+        color: ${darkMode ? `${colors.white}` : `${colors.black}`};
         font-size: 12px;
         font-weight: 400;
       `;
     case 'medium':
       return css`
-        color: #2d2d2d;
+        color: ${colors.black};
         font-size: 16px;
         font-weight: 700;
       `;
