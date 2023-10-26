@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { FreePostTag, Post, PageStatusInterface, PostContainerProps } from '../../types/post';
+import { FreePostTag, Post } from '../../types/post';
 import styled from 'styled-components';
-import FreePostTagContainer from '../../components/post/FreePostTag';
-import FreePostList from '../../components/post/FreePostList';
+import FreePostTagContainer from '../post/FreePostTag';
+import { useNavigate } from 'react-router-dom';
+import { LINK } from '@/constants/links';
+import FreePost from '../post/FreePost';
+import MoreButton from './MoreButton';
+import { getFreePostListByMain } from '@/api/services/main';
 import { Itag, freePostTagList } from '@/constants/post';
-import { getFreePostList } from '@/api/services/post';
 
-const FreeContainer = ({ location, keyword }: PostContainerProps) => {
+const FreeContainerByMain = () => {
+  const navigate = useNavigate();
   const [postList, setPostList] = useState<Post[]>([]);
   const [currentTag, setCurrentTag] = useState<Itag>(freePostTagList[0]);
-  const [{ page, isNext }, setPage] = useState<PageStatusInterface>({ page: 1, isNext: false });
-
-  const nextPageHandler = () => {
-    setPage((prev) => ({ ...prev, page: prev.page + 1 }));
-  };
 
   const handleTagClick = (e: React.MouseEvent<HTMLElement>) => {
     if (currentTag.name === e.currentTarget.textContent) return;
@@ -23,12 +22,10 @@ const FreeContainer = ({ location, keyword }: PostContainerProps) => {
   };
 
   useEffect(() => {
-    getFreePostList({ tag: currentTag.en, page }).then((response) => {
+    getFreePostListByMain(currentTag.en).then((response) => {
       setPostList(response.dataList);
     });
-  }, [currentTag, page]);
-
-  const postImgSize = location === 'post' ? 'medium' : 'small';
+  }, [currentTag]);
 
   return (
     <>
@@ -39,19 +36,16 @@ const FreeContainer = ({ location, keyword }: PostContainerProps) => {
         />
       </TagWrapper>
       <PostListWrapper>
-        <FreePostList
-          keyword={keyword}
-          postList={postList}
-          pageStatus={{ page, isNext }}
-          nextPageHandler={nextPageHandler}
-          postImgSize={postImgSize}
-        />
+        {postList.map((post) => (
+          <FreePost post={post} key={post.postId} />
+        ))}
+        <MoreButton onClick={() => navigate(LINK.POST_FREE)} />
       </PostListWrapper>
     </>
   );
 };
 
-export default FreeContainer;
+export default FreeContainerByMain;
 
 const PostListWrapper = styled.div`
   padding: 1.6rem 2rem;

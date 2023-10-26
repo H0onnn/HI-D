@@ -51,13 +51,11 @@ const routes: AppRoutesInterface[] = [
     name: 'FreePost',
     path: LINK.POST_FREE,
     component: FreePostListPage,
-    meta: { hideNavBar: true },
   },
   {
     name: 'HelpPost',
     path: LINK.POST_HELP,
     component: HelpPostListPage,
-    meta: { hideNavBar: true },
   },
   {
     name: 'SignUpComplete',
