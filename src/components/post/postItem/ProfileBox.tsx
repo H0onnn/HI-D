@@ -4,15 +4,15 @@ import defaultProfile from '@/public/images/bottomNav/mypage_fill.svg';
 import { colors } from '@/constants/colors';
 
 interface Props {
-  writer: string;
-  profileImage: string;
+  writer?: string;
+  profileImage?: string;
   size?: 'small' | 'medium';
   darkMode?: boolean;
 }
 export default function ProfileBox({
   writer,
   profileImage,
-  size = 'small',
+  size = 'medium',
   darkMode = false,
 }: Props) {
   return (

@@ -1,25 +1,24 @@
 import { colors } from '@/constants/colors';
+import { tabList } from '@/constants/post';
 import { TabInterface } from '@/types/post';
 import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
-  tabList: TabInterface[];
   tabClickHandler: (tab: TabInterface) => void;
   selectedTab: TabInterface;
 };
-const TabByCategory = ({ tabList, tabClickHandler, selectedTab }: Props) => {
+const TabByCategory = ({ tabClickHandler, selectedTab }: Props) => {
   return (
     <TabBox>
-      {tabList.map((tab, index) => (
-        <div key={index}>
-          <CategaryTitle
-            $isSeleced={tab.id === selectedTab.id}
-            onClick={() => tabClickHandler(tab)}
-          >
-            {tab.name}
-          </CategaryTitle>
-        </div>
+      {tabList.map((tab) => (
+        <CategaryTitle
+          key={tab.id}
+          $isSeleced={tab.id === selectedTab.id}
+          onClick={() => tabClickHandler(tab)}
+        >
+          {tab.name}
+        </CategaryTitle>
       ))}
     </TabBox>
   );
