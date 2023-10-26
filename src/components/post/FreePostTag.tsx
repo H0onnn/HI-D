@@ -83,7 +83,7 @@ const TagBox = styled.div<{ $active: boolean; $noneMarginStyles?: boolean }>`
     color: ${colors.white};
     font-weight: 500;
     border: 0.08rem solid ${colors.primary};
-    background: #5061ff;
+    background: ${colors.primary};
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
     scale: 1.01;
   }

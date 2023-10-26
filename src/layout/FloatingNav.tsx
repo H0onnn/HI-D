@@ -2,9 +2,12 @@ import React, { useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import { useNavigate } from 'react-router-dom';
-import closeIcon from '@/public/images/elephant.png';
-import openIcon from '@/public/images/elephant.png';
+import CloseIcon from '@/public/images/floatingNav/close_icon.svg';
+import OpenIcon from '@/public/images/floatingNav/open_icon.svg';
+import FreeIcon from '@/public/images/floatingNav/free_icon.svg';
+import HelpIcon from '@/public/images/floatingNav/help_icon.svg';
 import { colors } from '@/constants/colors';
+import { LINK } from '@/constants/links';
 
 const FloatingNav = () => {
   const { lockScroll, openScroll } = useBodyScrollLock();
@@ -35,35 +38,41 @@ const FloatingNav = () => {
         <>
           <BackDrop ref={modalBackground} onClick={closeModalHanlder} />
           <FloatingMenu>
-            <FloatingItem onClick={() => navigate('')}>
+            <FloatingItem onClick={() => navigate(LINK.POSTING_HELP)}>
               <MeneText id='float_help'>
                 <h3>도움이 필요해요</h3>
                 <p>전공고민 질문하기</p>
               </MeneText>
-              <MenuIcon></MenuIcon>
+              <MenuIcon>
+                <img src={HelpIcon} alt={'help_icon'} />
+              </MenuIcon>
             </FloatingItem>
-            <FloatingItem onClick={() => navigate('')}>
+            <FloatingItem onClick={() => navigate(LINK.POSTING_FREE)}>
               <MeneText id='float_free'>
                 <h3>자유게시판</h3>
                 <p>자유롭게 글쓰기</p>
               </MeneText>
-              <MenuIcon></MenuIcon>
+              <MenuIcon>
+                <img src={FreeIcon} alt={'free_icon'} />
+              </MenuIcon>
             </FloatingItem>
             <FloatingItem>
-              <MenuIcon onClick={modalButtonHandler}>
-                <img src={closeIcon} alt={'close_icon'} />
-              </MenuIcon>
+              <ModalIcon onClick={modalButtonHandler}>
+                <img src={CloseIcon} alt={'close_icon'} />
+              </ModalIcon>
             </FloatingItem>
           </FloatingMenu>
         </>
       )}
-      <FloatingMenu>
-        <FloatingItem>
-          <MenuIcon onClick={modalButtonHandler}>
-            <img src={openIcon} alt={'open_icon'} />
-          </MenuIcon>
-        </FloatingItem>
-      </FloatingMenu>
+      {!modal && (
+        <FloatingMenu>
+          <FloatingItem>
+            <ModalIcon onClick={modalButtonHandler}>
+              <img src={OpenIcon} alt={'open_icon'} />
+            </ModalIcon>
+          </FloatingItem>
+        </FloatingMenu>
+      )}
     </Layout>
   );
 };
@@ -141,9 +150,27 @@ const MenuIcon = styled.div`
   border-radius: 50%;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  padding: 0;
   > img {
-    width: 100%;
-    height: 100%;
+    padding-top: 0.8rem;
+    width: 180%;
+    height: 180%;
+    object-fit: cover;
+  }
+`;
+const ModalIcon = styled.div`
+  width: 5.2rem;
+  height: 5.2rem;
+  background: ${colors.primary};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  > img {
+    width: 40%;
+    height: 40%;
     object-fit: cover;
   }
 `;

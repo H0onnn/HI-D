@@ -6,9 +6,10 @@ import { Post } from '../../types/post';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
 import { colors } from '@/constants/colors';
+import { tabList } from '@/constants/post';
 
 const PopularPost = ({
-  post: { postId, writer, writerImage, category, title, viewCount, recommendCount, replyCount },
+  post: { postId, writer, title, viewCount, recommendCount, replyCount, category },
 }: {
   post: Post;
 }) => {
@@ -17,18 +18,21 @@ const PopularPost = ({
 
   return (
     <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
-      <div>
-        <TagBox>
-          {tabList.map((tab) => {
-            if (tab.category === category) {
-              return tab.name;
-            }
-          })}
-        </TagBox>
-      </div>
+      <TagBox>
+        {tabList.map((tab) => {
+          if (tab.category === category) {
+            return tab.name;
+          }
+        })}
+      </TagBox>
       <Title>{title}</Title>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <ProfileBox writer={writer} profileImage={writerImage} darkMode={darkMode} />
+        <ProfileBox
+          writer={writer?.nickname}
+          profileImage={writer?.imageUrl}
+          darkMode={darkMode}
+          size='small'
+        />
         <PostCountBox
           recommendCount={recommendCount}
           replyCount={replyCount}
@@ -42,11 +46,6 @@ const PopularPost = ({
 
 export default PopularPost;
 
-const tabList = [
-  { id: 1, name: '도움이 필요해요', category: 'help', link: LINK.POST_HELP },
-  { id: 2, name: '자유게시판', category: 'free', link: LINK.POST_FREE },
-];
-
 const Layout = styled.div`
   cursor: pointer;
   margin: 0 2rem;
@@ -55,7 +54,7 @@ const Layout = styled.div`
   height: 17rem;
   padding: 2.4rem 2rem;
   border-radius: 12px;
-  background: #5061ff;
+  background: ${colors.primary};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -84,7 +83,7 @@ const TagBox = styled.div`
   padding: 0.3rem 0.8rem;
   border-radius: 0.8rem;
   background: ${colors.white};
-  color: #5061ff;
+  color: ${colors.primary};
   font-family: SUIT;
   font-size: 12px;
   font-style: normal;

@@ -76,6 +76,52 @@ export const apiMethods = {
       posts: (postId: number) => ({
         url: `posts/${postId}`,
       }),
+      needhelp: ({
+        page = 1,
+        size = 10,
+        sortBy = 'createAt', // 백엔드 예외처리 부족
+        direction = 'DESC',
+        keyword = '',
+        majorCategory = '',
+      }: {
+        page: number;
+        size: number;
+        sortBy: string;
+        direction: string;
+        keyword: string;
+        majorCategory: string;
+      }) => ({
+        url: `posts?boardType=NEED_HELP&majorCategory=${majorCategory}&keyword=${keyword}&page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
+      }),
+      free: ({
+        page = 1,
+        size = 10,
+        sortBy = 'createAt',
+        direction = 'DESC',
+        keyword = '',
+        tag = '',
+      }: {
+        page: number;
+        size: number;
+        sortBy: string;
+        direction: string;
+        keyword: string;
+        tag: string;
+      }) => ({
+        url: `posts?boardType=FREE&tag=${tag}&keyword=${keyword}&page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
+      }),
+      weeklyhot: () => ({
+        url: `posts/weeklyhot`,
+      }),
+      dailyhot: () => ({
+        url: `posts/dailyhot`,
+      }),
+      my: (page: number, boardType: string) => ({
+        url: `posts/my?page=${page}&boardType=${boardType}`,
+      }),
+      bookmark: (page: number, boardType: string) => ({
+        url: `posts/bookmark?page=${page}&boardType=${boardType}`,
+      }),
     },
     post: {
       needhelp: (data: PostingDataInterface) => ({
