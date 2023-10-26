@@ -35,7 +35,7 @@ const ImageSlider = ({ imageUrls }: ImageSliderInterface) => {
         </SlideButton>
       )}
       <SliderContent $currentSlide={currentSlide}>
-        {imageUrls.map((url, index) => (
+        {imageUrls?.map((url, index) => (
           <SliderImage key={index} src={url} alt={`post_image_${index}`} />
         ))}
       </SliderContent>
