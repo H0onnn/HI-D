@@ -7,12 +7,7 @@ import { colors } from '@/constants/colors';
 import { getWeeklyHotPostList } from '@/api/services/main';
 
 const PopularPostList = () => {
-  const [idx, setIdx] = useState(0);
   const [postList, setPostList] = useState<Post[]>([]);
-
-  useEffect(() => {
-    setIdx(1);
-  }, [idx]);
 
   useEffect(() => {
     getWeeklyHotPostList().then((response) => {
@@ -23,8 +18,8 @@ const PopularPostList = () => {
   return (
     <Layout>
       <Slider {...settings}>
-        {postList.map((post, idx) => (
-          <PopularPost post={post} key={idx} />
+        {postList.map((post) => (
+          <PopularPost post={post} key={post.postId} />
         ))}
       </Slider>
     </Layout>

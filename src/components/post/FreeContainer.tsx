@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { FreePostTag, Post, PageStatusInterface, PostContainerProps } from '../../types/post';
-import styled from 'styled-components';
 import FreePostTagContainer from '../../components/post/FreePostTag';
 import FreePostList from '../../components/post/FreePostList';
 import { Itag, freePostTagList } from '@/constants/post';
 import { getFreePostList } from '@/api/services/post';
+import { PostListLayout, PostListWrapper, TagWrapper } from '@/styles/post';
 
 const FreeContainer = ({ keyword }: PostContainerProps) => {
   const [postList, setPostList] = useState<Post[]>([]);
   const [currentTag, setCurrentTag] = useState<Itag>(freePostTagList[0]);
-  const [{ page, isNext }, setPage] = useState<PageStatusInterface>({ page: 1, isNext: false });
+  const [{ page, isNext }, setPage] = useState<PageStatusInterface>({ page: 1, isNext: true });
+  // TODO: 정렬 필터 추가
 
   const nextPageHandler = () => {
     setPage((prev) => ({ ...prev, page: prev.page + 1 }));
@@ -23,19 +24,26 @@ const FreeContainer = ({ keyword }: PostContainerProps) => {
   };
 
   useEffect(() => {
-    getFreePostList({ tag: currentTag.en, page }).then((response) => {
-      setPostList(response.dataList);
+    if (!isNext) return;
+    getFreePostList({ tag: currentTag.en, page, keyword }).then((response) => {
+      if (!response) {
+        setPage({ page: 1, isNext: false });
+      }
+      setPostList((prev) => [...prev, ...response.dataList]);
+      setPage({ page: 1, isNext: response.hasNext });
     });
-  }, [currentTag, page]);
+  }, [page, isNext, currentTag, keyword]);
 
   return (
-    <>
-      <TagWrapper>
-        <FreePostTagContainer
-          onClick={handleTagClick}
-          currentTag={currentTag.name as FreePostTag}
-        />
-      </TagWrapper>
+    <PostListLayout>
+      {['/search', '/post'].some((path) => location.pathname.includes(path)) && (
+        <TagWrapper>
+          <FreePostTagContainer
+            onClick={handleTagClick}
+            currentTag={currentTag.name as FreePostTag}
+          />
+        </TagWrapper>
+      )}
       <PostListWrapper>
         <FreePostList
           keyword={keyword}
@@ -44,18 +52,8 @@ const FreeContainer = ({ keyword }: PostContainerProps) => {
           nextPageHandler={nextPageHandler}
         />
       </PostListWrapper>
-    </>
+    </PostListLayout>
   );
 };
 
 export default FreeContainer;
-
-const PostListWrapper = styled.div`
-  padding: 1.6rem 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-`;
-const TagWrapper = styled.div`
-  padding: 3.2rem 0 0 0;
-`;

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { LINK } from '@/constants/links';
 import MoreButton from './MoreButton';
 import { getDailyHotPostList, getHelpPostListByMain } from '@/api/services/main';
+import { PostListLayout, PostListWrapper } from '@/styles/post';
 
 const HelpContainerByMain = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const HelpContainerByMain = () => {
   }, []);
 
   return (
-    <>
+    <PostListLayout>
       <ScrollPostListWrapper>
         <NewPostList postList={dailyHotPostList} />
       </ScrollPostListWrapper>
@@ -35,18 +36,11 @@ const HelpContainerByMain = () => {
         ))}
         <MoreButton onClick={() => navigate(LINK.POST_HELP)} />
       </PostListWrapper>
-    </>
+    </PostListLayout>
   );
 };
 
 export default HelpContainerByMain;
-
-const PostListWrapper = styled.div`
-  padding: 1.6rem 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-`;
 
 const ScrollPostListWrapper = styled.div`
   padding: 3.2rem 0 0 0;
