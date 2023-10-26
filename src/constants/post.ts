@@ -1,8 +1,8 @@
 import { LINK } from './links';
 
 export const tabList = [
-  { id: 1, name: '도움이 필요해요', category: 'help', link: LINK.POST_HELP },
-  { id: 2, name: '자유게시판', category: 'free', link: LINK.POST_FREE },
+  { id: 1, name: '도움이 필요해요', category: 'NEED_HELP', link: LINK.POST_HELP },
+  { id: 2, name: '자유게시판', category: 'FREE', link: LINK.POST_FREE },
 ];
 
 export const freePostTagList: Itag[] = [
