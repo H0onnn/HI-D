@@ -50,6 +50,11 @@ export const apiMethods = {
     },
   },
   members: {
+    get: {
+      myData: () => ({
+        url: 'members/my',
+      }),
+    },
     post: {
       signUp: (data: ProfileSetupDataInterface) => ({
         url: 'members',
