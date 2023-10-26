@@ -43,8 +43,10 @@ const HelpPost = ({
         <MajorBox>{majorToKoreaMapping[majorCategory || 'undefined']}</MajorBox>
         {location.pathname === '/my' && <EditButton />}
       </Header>
-      <Title>{keyword ? <BoldContent keyword={keyword} content={title} /> : title}</Title>
-      <TimeBox>{formatTime(createAt)}</TimeBox>
+      <Footer>
+        <Title>{keyword ? <BoldContent keyword={keyword} content={title} /> : title}</Title>
+        <TimeBox>{formatTime(createAt)}</TimeBox>
+      </Footer>
       <Contents>
         {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
       </Contents>
