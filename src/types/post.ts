@@ -35,7 +35,7 @@ export type Post = {
   viewCount: number;
   recommendCount: number;
   replyCount: number;
-  writer: {
+  writer?: {
     memberId: number;
     nickname: string;
     imageUrl: string;
