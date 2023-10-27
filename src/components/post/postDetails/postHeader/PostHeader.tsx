@@ -7,13 +7,15 @@ import PostActions from './actions/PostActions';
 interface PostHeaderInterface {
   title: string;
   postActions: ReturnType<typeof usePostActions>;
+  userId?: number;
+  writerId: number;
 }
 
-const PostHeader = ({ title, postActions }: PostHeaderInterface) => {
+const PostHeader = ({ title, postActions, userId, writerId }: PostHeaderInterface) => {
   return (
     <PostHeaderLayout>
       <PostTitle title={title} />
-      <PostActions postActions={postActions} />
+      <PostActions userId={userId} writerId={writerId} postActions={postActions} />
     </PostHeaderLayout>
   );
 };

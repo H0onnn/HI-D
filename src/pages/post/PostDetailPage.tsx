@@ -2,6 +2,7 @@ import React from 'react';
 import usePostActions from '@/hooks/usePostActions';
 import useComments from '@/hooks/useComments';
 import usePostDetailData from '@/hooks/usePostDetailData';
+import useUser from '@/hooks/useUser';
 import { useParams } from 'react-router-dom';
 import { PageLayout } from '@/styles/styles';
 import PageHeader from '@/components/public/PageHeader';
@@ -20,6 +21,7 @@ const PostDetailPage = () => {
   const postActions = usePostActions();
   const { isReported, toggleReportHandler } = postActions;
   const { comments } = useComments(postId);
+  const { user } = useUser();
 
   if (!postData) return null;
 
@@ -33,9 +35,14 @@ const PostDetailPage = () => {
           schoolName={postData.writer.school}
           writerMajor={postData.writer.major}
         />
-        <PostHeader title={postData.title} postActions={postActions} />
+        <PostHeader
+          title={postData.title}
+          postActions={postActions}
+          userId={user?.memberId}
+          writerId={postData.writer.memberId}
+        />
         <PostBodyText content={postData.content} />
-        <ImageSlider imageUrls={postData.images} />
+        {postData.images && <ImageSlider imageUrls={postData.images} />}
         <UserInterest
           likeCount={postData.recommendCount}
           commentCount={postData.replyCount}

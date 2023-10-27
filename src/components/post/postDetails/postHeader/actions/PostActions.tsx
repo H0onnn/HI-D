@@ -5,12 +5,14 @@ import IconButton from '@/components/public/IconButton';
 import BOOKMARK_NONE from '@/public/images/ui/bookmark_none.svg';
 import BOOKMARK_ACTIVE from '@/public/images/ui/bookmark_active.svg';
 import REPORT_ICON from '@/public/images/ui/report_icon.svg';
-
+import MORE_ACTION from '@/public/images/ui/more_active.svg';
 interface PostActionsInterface {
   postActions: ReturnType<typeof usePostActions>;
+  userId?: number;
+  writerId: number;
 }
 
-const PostActions = ({ postActions }: PostActionsInterface) => {
+const PostActions = ({ postActions, userId, writerId }: PostActionsInterface) => {
   const { isBookMarked, toggleBookmarkHandler, toggleReportHandler } = postActions;
 
   return (
@@ -22,7 +24,11 @@ const PostActions = ({ postActions }: PostActionsInterface) => {
         onClickHandler={toggleBookmarkHandler}
         alt='bookmark_icon'
       />
-      <IconButton iconSrc={REPORT_ICON} onClickHandler={toggleReportHandler} alt='report_icon' />
+      <IconButton
+        iconSrc={userId === writerId ? MORE_ACTION : REPORT_ICON}
+        onClickHandler={toggleReportHandler}
+        alt='report_icon'
+      />
     </PostActionsLayout>
   );
 };
