@@ -1,5 +1,4 @@
 import useAuthStore from '@/store/authStore';
-import useUser from './useUser';
 import { useNavigate } from 'react-router-dom';
 import { httpClient } from '@/api/httpClient';
 import { LINK } from '@/constants/links';
@@ -8,7 +7,6 @@ import { LoginDataInterface } from '@/types/types';
 
 const useLogin = () => {
   const setToken = useAuthStore((state) => state.setToken);
-  const { getUserData } = useUser();
   const navigate = useNavigate();
 
   const fetchToken = async (data: LoginDataInterface) => {
@@ -27,7 +25,6 @@ const useLogin = () => {
       const token = useAuthStore.getState().token;
 
       if (token) {
-        await getUserData();
         navigate(LINK.MAIN);
         toast.success('로그인 되었습니다.', { id: 'loginSuccess' });
         return;
