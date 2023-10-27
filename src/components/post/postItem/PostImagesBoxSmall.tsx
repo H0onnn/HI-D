@@ -1,3 +1,4 @@
+import { colors } from '@/constants/colors';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -25,7 +26,7 @@ const Container = styled.div`
 
 const ImageWrapper = styled.div`
   overflow: hidden;
-  background-color: #d9d9d9;
+  background-color: ${colors.gray3};
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 0.4rem;

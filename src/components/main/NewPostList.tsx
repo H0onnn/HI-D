@@ -8,8 +8,8 @@ const NewPostList = ({ postList }: { postList: Post[] }) => {
   return (
     <Layout>
       <PostListLayout>
-        {postList.map((post, idx) => (
-          <NewPost post={post} key={idx} />
+        {postList.map((post) => (
+          <NewPost post={post} key={post.postId} />
         ))}
       </PostListLayout>
     </Layout>
@@ -25,18 +25,20 @@ const Layout = styled.div`
 
 const PostListLayout = styled.div`
   display: flex;
+  min-height: 18.5rem;
+  max-height: 18.5rem;
   gap: 1.2rem;
   padding: 0 2rem 2rem 2rem;
   overflow-x: scroll;
   /* Firefox를 위한 스크롤바 스타일 */
   scrollbar-width: thin;
-  scrollbar-color: #c5c5c5 #d9d9d9;
+  scrollbar-color: ${colors.secondary} ${colors.white};
   /* WebKit 기반 브라우저(Chrome, Safari)를 위한 스크롤바 스타일 */
   &::-webkit-scrollbar {
     height: 0.5rem;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #a5adff;
+    background-color: ${colors.secondary};
     border-radius: 9rem;
   }
   &::-webkit-scrollbar-track {

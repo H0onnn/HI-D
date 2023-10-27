@@ -3,6 +3,30 @@ import { Post } from '../../types/post';
 import PopularPost from './PopularPost';
 import styled from 'styled-components';
 import Slider from 'react-slick';
+import { colors } from '@/constants/colors';
+import { getWeeklyHotPostList } from '@/api/services/main';
+
+const PopularPostList = () => {
+  const [postList, setPostList] = useState<Post[]>([]);
+
+  useEffect(() => {
+    getWeeklyHotPostList().then((response) => {
+      setPostList(response.dataList);
+    });
+  }, []);
+
+  return (
+    <Layout>
+      <Slider {...settings}>
+        {postList.map((post) => (
+          <PopularPost post={post} key={post.postId} />
+        ))}
+      </Slider>
+    </Layout>
+  );
+};
+
+export default PopularPostList;
 
 const settings = {
   dots: true,
@@ -13,27 +37,10 @@ const settings = {
   slidesToScroll: 1,
   arrows: false,
 };
-const PopularPostList = ({ postList }: { postList: Post[] }) => {
-  const [idx, setIdx] = useState(0);
-
-  useEffect(() => {
-    setIdx(1);
-  }, [idx]);
-  return (
-    <Layout>
-      <Slider {...settings}>
-        {postList.map((post, idx) => (
-          <PopularPost post={post} key={idx} />
-        ))}
-      </Slider>
-    </Layout>
-  );
-};
-
-export default PopularPostList;
 
 const Layout = styled.div`
   height: 100%;
+  min-height: 21rem;
   max-height: 21rem;
   display: flex;
   flex-direction: column;
@@ -57,8 +64,7 @@ const Layout = styled.div`
     position: absolute;
     left: 50%;
     transform: translate(-50%);
-    /* bottom: 0; */
-    top: 20rem;
+    top: 19rem;
   }
   .dots_custom li {
     display: inline-block;
@@ -68,7 +74,7 @@ const Layout = styled.div`
     width: 0.6rem;
     height: 0.6rem;
     border: none;
-    background: var(--3, #d3d8ff);
+    background: ${colors.third};
     color: transparent;
     cursor: pointer;
     border-radius: 100%;
@@ -83,7 +89,7 @@ const Layout = styled.div`
   .dots_custom li.slick-active button {
     width: 2.8rem;
     border-radius: 0.8rem;
-    background: var(--1, #5061ff);
+    background: ${colors.primary};
     &:hover {
       scale: 1;
     }

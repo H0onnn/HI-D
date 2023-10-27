@@ -1,12 +1,11 @@
 import React from 'react';
 import { PostProps } from '../../types/post';
-import BoldContent from '../search/BoldContent';
-import { formatTime, getContentSnippet } from '../../utils/post';
+import { formatTime } from '../../utils/post';
 import PostCountBox from './postItem/PostCountBox';
 import ProfileBox from './postItem/ProfileBox';
-import PostImagesBoxSmall from './postItem/PostImagesBoxSmall';
-import { LINK } from '@/constants/links';
+import PostImagesBoxMedium from './postItem/PostImagesBoxMedium';
 import { useNavigate } from 'react-router-dom';
+import { LINK } from '@/constants/links';
 import { Contents, Footer, Header, Layout, TimeBox, Title } from '@/styles/post';
 
 const FreePost = ({
@@ -21,11 +20,8 @@ const FreePost = ({
     createAt,
     thumbnailImages,
   },
-  keyword,
 }: PostProps) => {
   const navigate = useNavigate();
-  const contentSnippet = getContentSnippet(content, keyword);
-  // TODO: mypage edit button OR bookmark button
 
   return (
     <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
@@ -33,12 +29,11 @@ const FreePost = ({
         <ProfileBox writer={writer?.nickname} profileImage={writer?.imageUrl} />
         <TimeBox>{formatTime(createAt)}</TimeBox>
       </Header>
-      <Title>{keyword ? <BoldContent keyword={keyword} content={title} /> : title}</Title>
-      <Contents>
-        {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
-      </Contents>
+      <Title>{title}</Title>
+      <Contents>{content}</Contents>
+      <PostImagesBoxMedium images={thumbnailImages || []} />
       <Footer>
-        <PostImagesBoxSmall images={thumbnailImages || []} />
+        <div></div>
         <PostCountBox
           recommendCount={recommendCount}
           replyCount={replyCount}

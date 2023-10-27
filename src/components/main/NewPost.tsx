@@ -6,17 +6,18 @@ import { useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
 import { formatTimeAgo } from '../../utils/post';
 import { colors } from '@/constants/colors';
+import { majorToKoreaMapping } from '@/constants/majorCategory';
 
-const NewPost = ({ post: { postId, writer, writerImage, title, createAt } }: { post: Post }) => {
+const NewPost = ({ post: { postId, writer, title, createAt, majorCategory } }: { post: Post }) => {
   const navigate = useNavigate();
   return (
     <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
       <div>
-        <TagBox>NEW</TagBox>
+        <TagBox>{majorToKoreaMapping[majorCategory || 'undefined']}</TagBox>
       </div>
       <Title>{title}</Title>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <ProfileBox writer={writer} profileImage={writerImage} />
+        <ProfileBox writer={writer?.nickname} profileImage={writer?.imageUrl} size='small' />
         <TimeAgoBox>{formatTimeAgo(createAt)}</TimeAgoBox>
       </div>
     </Layout>
@@ -48,19 +49,21 @@ const Layout = styled.div`
 const Title = styled.div`
   height: 100%;
   width: 100%;
-  padding: 0.3rem 0;
+  padding: 0.6rem 0;
   color: #252424;
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const TagBox = styled.div`
   display: inline-block;
   padding: 0.3rem 0.8rem;
   border-radius: 0.8rem;
-  background: #5061ff;
+  background: ${colors.primary};
   color: ${colors.white};
   font-family: SUIT;
   font-size: 12px;
@@ -72,7 +75,7 @@ const TagBox = styled.div`
 const TimeAgoBox = styled.div`
   display: flex;
   align-items: center;
-  color: #a5adff;
+  color: ${colors.secondary};
   font-family: SUIT;
   font-size: 12px;
   font-style: normal;
