@@ -1,5 +1,5 @@
 import useAuthStore from '@/store/authStore';
-import useUserStore from '@/store/userStore';
+import useUser from './useUser';
 import { useNavigate } from 'react-router-dom';
 import { httpClient } from '@/api/httpClient';
 import { LINK } from '@/constants/links';
@@ -8,7 +8,7 @@ import { LoginDataInterface } from '@/types/types';
 
 const useLogin = () => {
   const setToken = useAuthStore((state) => state.setToken);
-  const setUser = useUserStore((state) => state.setUser);
+  const { getUserData } = useUser();
   const navigate = useNavigate();
 
   const fetchToken = async (data: LoginDataInterface) => {
@@ -18,18 +18,6 @@ const useLogin = () => {
       setToken(jwt);
     } catch (err: unknown) {
       console.error('토큰 fetching 에러 : ', err);
-    }
-  };
-
-  const getUserData = async () => {
-    try {
-      const response = await httpClient.members.get.myData();
-      const userData = response.data;
-
-      setUser(userData);
-      console.log('유저 데이터 : ', userData);
-    } catch (err: unknown) {
-      console.error('유저 데이터 fetching 에러 : ', err);
     }
   };
 
