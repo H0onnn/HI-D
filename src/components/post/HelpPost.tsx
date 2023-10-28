@@ -9,14 +9,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { LINK } from '@/constants/links';
 import {
   Contents,
-  EditButton,
   Footer,
   Header,
   Layout,
+  LayoutWrapper,
   MajorBox,
   TimeBox,
   Title,
 } from '@/styles/post';
+import PostButtonBox from './postItem/PostButtonBox';
 
 const HelpPost = ({
   post: {
@@ -34,32 +35,37 @@ const HelpPost = ({
 }: PostProps) => {
   const contentSnippet = getContentSnippet(content, keyword);
   const location = useLocation();
-  const isMyPage = location.pathname === '/my';
+  const isMyPage = location.pathname.includes(LINK.MYPAGE);
   const navigate = useNavigate();
-  // TODO: mypage edit button OR bookmark button
+
+  const postClickHandler = () => {
+    navigate(`${LINK.POST}/${postId}`);
+  };
 
   return (
-    <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
-      <Header>
-        <MajorBox>{majorToKoreaMapping[majorCategory]}</MajorBox>
-        {isMyPage && <EditButton />}
-      </Header>
-      <Footer>
-        <Title>{keyword ? <BoldContent keyword={keyword} content={title} /> : title}</Title>
-        <TimeBox>{formatTime(createAt)}</TimeBox>
-      </Footer>
-      <Contents>
-        {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
-      </Contents>
-      <Footer>
-        <PostImagesBoxSmall images={thumbnailImages} />
-        <PostCountBox
-          recommendCount={recommendCount}
-          replyCount={replyCount}
-          viewCount={viewCount}
-        />
-      </Footer>
-    </Layout>
+    <LayoutWrapper>
+      {!isMyPage && <PostButtonBox />}
+      <Layout onClick={postClickHandler}>
+        <Header>
+          <MajorBox>{majorToKoreaMapping[majorCategory]}</MajorBox>
+        </Header>
+        <Footer>
+          <Title>{keyword ? <BoldContent keyword={keyword} content={title} /> : title}</Title>
+          <TimeBox>{formatTime(createAt)}</TimeBox>
+        </Footer>
+        <Contents>
+          {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
+        </Contents>
+        <Footer>
+          <PostImagesBoxSmall images={thumbnailImages} />
+          <PostCountBox
+            recommendCount={recommendCount}
+            replyCount={replyCount}
+            viewCount={viewCount}
+          />
+        </Footer>
+      </Layout>
+    </LayoutWrapper>
   );
 };
 export default HelpPost;

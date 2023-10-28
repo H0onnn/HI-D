@@ -6,8 +6,9 @@ import PostCountBox from './postItem/PostCountBox';
 import ProfileBox from './postItem/ProfileBox';
 import PostImagesBoxSmall from './postItem/PostImagesBoxSmall';
 import { LINK } from '@/constants/links';
-import { useNavigate } from 'react-router-dom';
-import { Contents, Footer, Header, Layout, TimeBox, Title } from '@/styles/post';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Contents, Footer, Header, Layout, LayoutWrapper, TimeBox, Title } from '@/styles/post';
+import PostButtonBox from './postItem/PostButtonBox';
 
 const FreePost = ({
   post: {
@@ -24,28 +25,36 @@ const FreePost = ({
   keyword,
 }: PostProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isMyPage = location.pathname.includes(LINK.MYPAGE);
   const contentSnippet = getContentSnippet(content, keyword);
-  // TODO: mypage edit button OR bookmark button
+
+  const postClickHandler = () => {
+    navigate(`${LINK.POST}/${postId}`);
+  };
 
   return (
-    <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
-      <Header>
-        <ProfileBox writer={writer?.nickname} profileImage={writer?.imageUrl} />
-        <TimeBox>{formatTime(createAt)}</TimeBox>
-      </Header>
-      <Title>{keyword ? <BoldContent keyword={keyword} content={title} /> : title}</Title>
-      <Contents>
-        {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
-      </Contents>
-      <Footer>
-        <PostImagesBoxSmall images={thumbnailImages} />
-        <PostCountBox
-          recommendCount={recommendCount}
-          replyCount={replyCount}
-          viewCount={viewCount}
-        />
-      </Footer>
-    </Layout>
+    <LayoutWrapper>
+      {isMyPage && <PostButtonBox />}
+      <Layout onClick={postClickHandler}>
+        <Header>
+          <ProfileBox writer={writer?.nickname} profileImage={writer?.imageUrl} />
+          {!isMyPage && <TimeBox>{formatTime(createAt)}</TimeBox>}
+        </Header>
+        <Title>{keyword ? <BoldContent keyword={keyword} content={title} /> : title}</Title>
+        <Contents>
+          {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
+        </Contents>
+        <Footer>
+          <PostImagesBoxSmall images={thumbnailImages} />
+          <PostCountBox
+            recommendCount={recommendCount}
+            replyCount={replyCount}
+            viewCount={viewCount}
+          />
+        </Footer>
+      </Layout>
+    </LayoutWrapper>
   );
 };
 export default FreePost;
