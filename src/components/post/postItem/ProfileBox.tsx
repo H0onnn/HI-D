@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { RuleSet, css } from 'styled-components';
-import defaultProfile from '@/public/images/bottomNav/mypage_fill.svg';
 import { colors } from '@/constants/colors';
+import { URL } from '@/constants/url';
 
 interface Props {
   writer?: string;
@@ -18,7 +18,7 @@ export default function ProfileBox({
   return (
     <Container>
       <ProfileImageWrapper>
-        <ProfileImage src={profileImage || defaultProfile} alt='profile image' />
+        <ProfileImage src={profileImage || URL.DEFAULT_PROFILE_IMG} alt='profile image' />
       </ProfileImageWrapper>
       <Nickname css={nicknameStyles(size, darkMode)}>{writer || '익명'}</Nickname>
     </Container>

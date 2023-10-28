@@ -1,10 +1,10 @@
 import React from 'react';
-import { Post } from '../../types/post';
+import { PostInterface } from '../../types/post';
 import styled from 'styled-components';
 import NewPost from './NewPost';
 import { colors } from '@/constants/colors';
 
-const NewPostList = ({ postList }: { postList: Post[] }) => {
+const NewPostList = ({ postList }: { postList: PostInterface[] }) => {
   return (
     <Layout>
       <PostListLayout>

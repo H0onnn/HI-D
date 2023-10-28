@@ -1,21 +1,48 @@
-import { PostList } from '@/types/post';
+import {
+  PostListInterface,
+  RequestFreePostListInterface,
+  RequestHelpPostListInterface,
+} from '@/types/post';
 import { httpClient } from '../httpClient';
 
 export const getHelpPostList = async ({
+  page,
+  majorCategory,
+}: RequestHelpPostListInterface): Promise<PostListInterface> => {
+  const response = await httpClient.post.get.needhelp({
+    page,
+    size: 10,
+    sortBy: 'createAt',
+    direction: 'DESC',
+    majorCategory,
+  });
+  return response.data;
+};
+
+export const getFreePostList = async ({
+  page,
+  tag,
+}: RequestFreePostListInterface): Promise<PostListInterface> => {
+  const response = await httpClient.post.get.free({
+    page,
+    size: 10,
+    sortBy: 'createAt',
+    direction: 'DESC',
+    tag,
+  });
+  return response.data;
+};
+
+export const getHelpPostListByKeyword = async ({
   page,
   sortBy = 'createAt',
   direction = 'DESC',
   keyword = '',
   majorCategory,
-}: {
-  page?: number;
-  sortBy?: string;
-  direction?: string;
-  keyword?: string;
-  majorCategory?: string;
-}): Promise<PostList> => {
+}: RequestHelpPostListInterface): Promise<PostListInterface> => {
   const response = await httpClient.post.get.needhelp({
     page,
+    size: 10,
     sortBy,
     direction,
     keyword,
@@ -24,21 +51,16 @@ export const getHelpPostList = async ({
   return response.data;
 };
 
-export const getFreePostList = async ({
+export const getFreePostListByKeyword = async ({
   page,
   sortBy = 'createAt',
   direction = 'DESC',
   keyword = '',
   tag,
-}: {
-  page?: number;
-  sortBy?: string;
-  direction?: string;
-  keyword?: string;
-  tag?: string;
-}): Promise<PostList> => {
+}: RequestFreePostListInterface): Promise<PostListInterface> => {
   const response = await httpClient.post.get.free({
     page,
+    size: 10,
     sortBy,
     direction,
     keyword,

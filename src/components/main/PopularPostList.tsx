@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Post } from '../../types/post';
+import { PostInterface } from '../../types/post';
 import PopularPost from './PopularPost';
 import styled from 'styled-components';
 import Slider from 'react-slick';
@@ -7,7 +7,7 @@ import { colors } from '@/constants/colors';
 import { getWeeklyHotPostList } from '@/api/services/main';
 
 const PopularPostList = () => {
-  const [postList, setPostList] = useState<Post[]>([]);
+  const [postList, setPostList] = useState<PostInterface[]>([]);
 
   useEffect(() => {
     getWeeklyHotPostList().then((response) => {

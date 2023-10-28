@@ -1,17 +1,17 @@
-import { PostList } from '@/types/post';
+import { PostListInterface } from '@/types/post';
 import { httpClient } from '../httpClient';
 
-export const getWeeklyHotPostList = async (): Promise<PostList> => {
+export const getWeeklyHotPostList = async (): Promise<PostListInterface> => {
   const response = await httpClient.post.get.weeklyhot();
   return response.data;
 };
 
-export const getDailyHotPostList = async (): Promise<PostList> => {
+export const getDailyHotPostList = async (): Promise<PostListInterface> => {
   const response = await httpClient.post.get.dailyhot();
   return response.data;
 };
 
-export const getHelpPostListByMain = async (): Promise<PostList> => {
+export const getHelpPostListByMain = async (): Promise<PostListInterface> => {
   const response = await httpClient.post.get.needhelp({
     page: 1,
     size: 3,
@@ -23,7 +23,7 @@ export const getHelpPostListByMain = async (): Promise<PostList> => {
   return response.data;
 };
 
-export const getFreePostListByMain = async (tag: string): Promise<PostList> => {
+export const getFreePostListByMain = async (tag: string): Promise<PostListInterface> => {
   const response = await httpClient.post.get.free({
     page: 1,
     size: 3,

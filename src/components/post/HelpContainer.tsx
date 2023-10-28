@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Post, PageStatusInterface, PostContainerProps } from '../../types/post';
+import { PageStatusInterface, PostContainerProps, PostInterface } from '../../types/post';
 import styled from 'styled-components';
 import HelpPostList from './HelpPostList';
 import { getHelpPostList } from '@/api/services/post';
@@ -8,8 +8,8 @@ import { useLocation } from 'react-router-dom';
 
 const HelpContainer = ({ keyword }: PostContainerProps) => {
   const location = useLocation();
-  const [postList, setPostList] = useState<Post[]>([]);
-  const [{ page, isNext }, setPage] = useState<PageStatusInterface>({ page: 1, isNext: true });
+  const [postList, setPostList] = useState<PostInterface[]>([]);
+  const [{ page, hasNext }, setPage] = useState<PageStatusInterface>({ page: 1, hasNext: true });
   const [major, setMajor] = useState<string>();
   // TODO: 전공 필터 추가
   // TODO: 정렬 필터 추가
@@ -19,16 +19,16 @@ const HelpContainer = ({ keyword }: PostContainerProps) => {
   };
 
   useEffect(() => {
-    if (!isNext) return;
+    if (!hasNext) return;
     getHelpPostList({ majorCategory: major, page, keyword }).then((response) => {
       if (!response) {
-        setPage({ page: 1, isNext: false });
+        setPage({ page: 1, hasNext: false });
       }
       setPostList((prev) => [...prev, ...response.dataList]);
-      setPage({ page: 1, isNext: response.hasNext });
+      setPage({ page: 1, hasNext: response.hasNext });
     });
     setMajor('');
-  }, [page, isNext, major, keyword]);
+  }, [page, hasNext, major, keyword]);
 
   return (
     <PostListLayout>
@@ -39,7 +39,7 @@ const HelpContainer = ({ keyword }: PostContainerProps) => {
         <HelpPostList
           keyword={keyword}
           postList={postList}
-          pageStatus={{ page, isNext }}
+          pageStatus={{ page, hasNext }}
           nextPageHandler={nextPageHandler}
         />
       </PostListWrapper>

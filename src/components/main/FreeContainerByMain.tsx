@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { FreePostTag, Post } from '../../types/post';
+import { FreePostTag, PostInterface, TagInterface } from '../../types/post';
 import FreePostTagContainer from '../post/FreePostTag';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '@/constants/links';
 import FreePost from '../post/FreePost';
 import MoreButton from './MoreButton';
 import { getFreePostListByMain } from '@/api/services/main';
-import { Itag, freePostTagList } from '@/constants/post';
+import { freePostTagList } from '@/constants/post';
 import { PostListLayout, PostListWrapper, TagWrapper } from '@/styles/post';
 
 const FreeContainerByMain = () => {
   const navigate = useNavigate();
-  const [postList, setPostList] = useState<Post[]>([]);
-  const [currentTag, setCurrentTag] = useState<Itag>(freePostTagList[0]);
+  const [postList, setPostList] = useState<PostInterface[]>([]);
+  const [currentTag, setCurrentTag] = useState<TagInterface>(freePostTagList[0]);
 
   const handleTagClick = (e: React.MouseEvent<HTMLElement>) => {
     if (currentTag.name === e.currentTarget.textContent) return;
-    const selectedTag: Itag =
+    const selectedTag: TagInterface =
       freePostTagList.find((tag) => tag.name === e.currentTarget.textContent) || freePostTagList[0];
     setCurrentTag(selectedTag);
   };

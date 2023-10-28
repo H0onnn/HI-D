@@ -30,7 +30,7 @@ const FreePostList = ({ postList, pageStatus, nextPageHandler, keyword }: PostLi
           />
         ),
       )}
-      {pageStatus.isNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
+      {pageStatus.hasNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
     </>
   );
 };

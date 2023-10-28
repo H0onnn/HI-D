@@ -1,6 +1,14 @@
 import { PostingDataInterface } from '@/types/posting';
 import { ProfileSetupDataInterface, LoginDataInterface } from '../types/types';
+import { RequestFreePostListInterface, RequestHelpPostListInterface } from '@/types/post';
+import {
+  RequestChatRoomCreateInterface,
+  RequestChatRoomDeleteInterface,
+  RequestChatRoomListInterface,
+  RequestMessageListInterface,
+} from '@/types/chat';
 
+// TODO: url(params) object response 가능하도록 바꾸기
 export const apiMethods = {
   search: {
     get: {
@@ -77,37 +85,16 @@ export const apiMethods = {
         url: `posts/${postId}`,
       }),
       needhelp: ({
-        page = 1,
-        size = 10,
-        sortBy = 'createAt', // 백엔드 예외처리 부족
-        direction = 'DESC',
-        keyword = '',
-        majorCategory = '',
-      }: {
-        page: number;
-        size: number;
-        sortBy: string;
-        direction: string;
-        keyword: string;
-        majorCategory: string;
-      }) => ({
+        page,
+        size,
+        sortBy,
+        direction,
+        keyword,
+        majorCategory,
+      }: RequestHelpPostListInterface) => ({
         url: `posts?boardType=NEED_HELP&majorCategory=${majorCategory}&keyword=${keyword}&page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
       }),
-      free: ({
-        page = 1,
-        size = 10,
-        sortBy = 'createAt',
-        direction = 'DESC',
-        keyword = '',
-        tag = '',
-      }: {
-        page: number;
-        size: number;
-        sortBy: string;
-        direction: string;
-        keyword: string;
-        tag: string;
-      }) => ({
+      free: ({ page, size, sortBy, direction, keyword, tag }: RequestFreePostListInterface) => ({
         url: `posts?boardType=FREE&tag=${tag}&keyword=${keyword}&page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
       }),
       weeklyhot: () => ({
@@ -164,6 +151,27 @@ export const apiMethods = {
       replies: (postId: number, content: string) => ({
         url: 'replies',
         data: { postId, content },
+      }),
+    },
+  },
+  chat: {
+    get: {
+      chatrooms: ({ page }: RequestChatRoomListInterface) => ({
+        url: `chat/rooms?page=${page}&size=10&sortBy=createAt&direction=DESC`,
+      }),
+      messages: ({ chatroomId, page }: RequestMessageListInterface) => ({
+        url: `chat/rooms/${chatroomId}/messages?${page}&size=10&sortBy=createAt&direction=DESC`,
+      }),
+    },
+    post: {
+      chatroom: ({ memberId }: RequestChatRoomCreateInterface) => ({
+        url: 'chat/rooms',
+        data: { memberId },
+      }),
+    },
+    delete: {
+      chatroom: ({ chatroomId }: RequestChatRoomDeleteInterface) => ({
+        url: `chat/rooms/${chatroomId}`,
       }),
     },
   },

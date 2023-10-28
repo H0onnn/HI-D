@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProfileBox from '../post/postItem/ProfileBox';
-import { Post } from '../../types/post';
+import { PostInterface } from '../../types/post';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
 import { formatTimeAgo } from '../../utils/post';
 import { colors } from '@/constants/colors';
 import { majorToKoreaMapping } from '@/constants/majorCategory';
 
-const NewPost = ({ post: { postId, writer, title, createAt, majorCategory } }: { post: Post }) => {
+const NewPost = ({
+  post: { postId, writer, title, createAt, majorCategory },
+}: {
+  post: PostInterface;
+}) => {
   const navigate = useNavigate();
   return (
     <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>

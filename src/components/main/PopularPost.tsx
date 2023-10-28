@@ -2,22 +2,38 @@ import React from 'react';
 import styled from 'styled-components';
 import ProfileBox from '../post/postItem/ProfileBox';
 import PostCountBox from '../post/postItem/PostCountBox';
-import { Post } from '../../types/post';
+import { PostInterface } from '../../types/post';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
 import { colors } from '@/constants/colors';
 import { tabList } from '@/constants/post';
 
 const PopularPost = ({
-  post: { postId, writer, title, viewCount, recommendCount, replyCount, boardType },
+  post: {
+    postId,
+    writer,
+    title,
+    viewCount,
+    recommendCount,
+    replyCount,
+    boardType,
+    thumbnailImages,
+  },
 }: {
-  post: Post;
+  post: PostInterface;
 }) => {
   const navigate = useNavigate();
   const darkMode = true;
 
   return (
-    <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
+    <Layout
+      onClick={() => navigate(`${LINK.POST}/${postId}`)}
+      style={{
+        background: thumbnailImages
+          ? `linear-gradient(0deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.70) 100%), url(${thumbnailImages[0]})`
+          : colors.primary,
+      }}
+    >
       <div>
         <TagBox>
           {tabList.map((tab) => {

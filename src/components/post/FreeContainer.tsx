@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { FreePostTag, Post, PageStatusInterface, PostContainerProps } from '../../types/post';
+import {
+  FreePostTag,
+  PageStatusInterface,
+  PostContainerProps,
+  TagInterface,
+  PostInterface,
+} from '../../types/post';
 import FreePostTagContainer from '../../components/post/FreePostTag';
 import FreePostList from '../../components/post/FreePostList';
-import { Itag, freePostTagList } from '@/constants/post';
+import { freePostTagList } from '@/constants/post';
 import { getFreePostList } from '@/api/services/post';
 import { PostListLayout, PostListWrapper, TagWrapper } from '@/styles/post';
 
 const FreeContainer = ({ keyword }: PostContainerProps) => {
-  const [postList, setPostList] = useState<Post[]>([]);
-  const [currentTag, setCurrentTag] = useState<Itag>(freePostTagList[0]);
-  const [{ page, isNext }, setPage] = useState<PageStatusInterface>({ page: 1, isNext: true });
+  const [postList, setPostList] = useState<PostInterface[]>([]);
+  const [currentTag, setCurrentTag] = useState<TagInterface>(freePostTagList[0]);
+  const [{ page, hasNext }, setPage] = useState<PageStatusInterface>({ page: 1, hasNext: true });
   // TODO: 정렬 필터 추가
 
   const nextPageHandler = () => {
@@ -18,21 +24,21 @@ const FreeContainer = ({ keyword }: PostContainerProps) => {
 
   const handleTagClick = (e: React.MouseEvent<HTMLElement>) => {
     if (currentTag.name === e.currentTarget.textContent) return;
-    const selectedTag: Itag =
+    const selectedTag: TagInterface =
       freePostTagList.find((tag) => tag.name === e.currentTarget.textContent) || freePostTagList[0];
     setCurrentTag(selectedTag);
   };
 
   useEffect(() => {
-    if (!isNext) return;
+    if (!hasNext) return;
     getFreePostList({ tag: currentTag.en, page, keyword }).then((response) => {
       if (!response) {
-        setPage({ page: 1, isNext: false });
+        setPage({ page: 1, hasNext: false });
       }
       setPostList((prev) => [...prev, ...response.dataList]);
-      setPage({ page: 1, isNext: response.hasNext });
+      setPage({ page: 1, hasNext: response.hasNext });
     });
-  }, [page, isNext, currentTag, keyword]);
+  }, [page, hasNext, currentTag, keyword]);
 
   return (
     <PostListLayout>
@@ -48,7 +54,7 @@ const FreeContainer = ({ keyword }: PostContainerProps) => {
         <FreePostList
           keyword={keyword}
           postList={postList}
-          pageStatus={{ page, isNext }}
+          pageStatus={{ page, hasNext }}
           nextPageHandler={nextPageHandler}
         />
       </PostListWrapper>

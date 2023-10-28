@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Post } from '../../types/post';
+import { PostInterface } from '../../types/post';
 import styled from 'styled-components';
 import NewPostList from './NewPostList';
 import HelpPost from '../post/HelpPost';
@@ -11,8 +11,8 @@ import { PostListLayout, PostListWrapper } from '@/styles/post';
 
 const HelpContainerByMain = () => {
   const navigate = useNavigate();
-  const [postList, setPostList] = useState<Post[]>([]);
-  const [dailyHotPostList, setDailyHotPostList] = useState<Post[]>([]);
+  const [postList, setPostList] = useState<PostInterface[]>([]);
+  const [dailyHotPostList, setDailyHotPostList] = useState<PostInterface[]>([]);
 
   useEffect(() => {
     getHelpPostListByMain().then((response) => {
