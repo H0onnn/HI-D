@@ -66,6 +66,7 @@ export const PostListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  height: 100%;
 `;
 export const PostListLayout = styled.div`
   height: 100%;

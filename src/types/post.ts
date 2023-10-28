@@ -17,6 +17,12 @@ export interface TagInterface {
   name: string;
   en: string;
 }
+export interface TabInterface {
+  id: number;
+  name: string;
+  category: string;
+  link?: string;
+}
 
 export interface PageStatusInterface {
   page: number;
@@ -73,12 +79,14 @@ export type RequestReplyUpdate = {
 
 export interface PostContainerProps {
   keyword?: string;
+  errorMessage?: string;
 }
 export interface PostListProps {
   postList: PostInterface[];
   pageStatus: PageStatusInterface;
   nextPageHandler: () => void;
   keyword?: string;
+  errorMessage?: string;
 }
 export interface PostProps {
   post: PostInterface;
