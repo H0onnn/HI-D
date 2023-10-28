@@ -5,6 +5,7 @@ import ChatRoomItem from './ChatRoomItem';
 import { ChatRoomInterface, PageStatusInterface } from '../../types/chat';
 import { getChatRoomList } from '@/api/services/chat';
 import { colors } from '@/constants/colors';
+import ErrorContent from '../public/ErrorContent';
 
 type Props = {
   chatRoomClick: (roomId: number) => void;
@@ -17,27 +18,27 @@ const ChatRoomList = ({ chatRoomClick }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const nextPageHandler = () => {
-    if (!hasNext || loading || page === 0) return;
-    setPage((prev) => ({ ...prev, page: prev.page + 1 }));
-  };
-
-  useEffect(() => {
-    if (!hasNext || loading || page === 0) return;
     setLoading(true);
     getChatRoomList({ page })
       .then((data) => {
-        setPage((prev) => ({ ...prev, hasNext: data.hasNext }));
+        setPage((prev) => ({ ...prev, page: prev.page + 1, hasNext: data.hasNext }));
         setChatRoomList((prev) => [...prev, ...data.dataList]);
       })
       .catch(() => {
         setPage({ page: 0, hasNext: false });
       });
-    setLoading(false);
-  }, [page, hasNext]);
+  };
 
+  useEffect(() => {
+    if (!hasNext || loading || page === 0) return;
+    nextPageHandler();
+  }, [page, hasNext, loading]);
+
+  useEffect(() => {}, []);
   return (
     <>
       <ChatRoomContainer>
+        {chatRoomList.length === 0 && <ErrorContent />}
         {chatRoomList.map((chatRoom, index) => (
           <ChatRoomItem
             key={index}
@@ -54,6 +55,7 @@ export default ChatRoomList;
 
 const ChatRoomContainer = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   /* position: relative; */
   flex-direction: column;

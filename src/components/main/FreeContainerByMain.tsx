@@ -8,11 +8,15 @@ import MoreButton from './MoreButton';
 import { getFreePostListByMain } from '@/api/services/main';
 import { freePostTagList } from '@/constants/post';
 import { PostListLayout, PostListWrapper, TagWrapper } from '@/styles/post';
+import ErrorContent from '../public/ErrorContent';
+import LoadingContent from '../public/LoadingContent';
 
 const FreeContainerByMain = () => {
   const navigate = useNavigate();
   const [postList, setPostList] = useState<PostInterface[]>([]);
   const [currentTag, setCurrentTag] = useState<TagInterface>(freePostTagList[0]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   const handleTagClick = (e: React.MouseEvent<HTMLElement>) => {
     if (currentTag.name === e.currentTarget.textContent) return;
@@ -22,9 +26,16 @@ const FreeContainerByMain = () => {
   };
 
   useEffect(() => {
-    getFreePostListByMain(currentTag.en).then((response) => {
-      setPostList(response.dataList);
-    });
+    setLoading(true);
+    setError(false);
+    getFreePostListByMain(currentTag.en)
+      .then((response) => {
+        setPostList(response.dataList);
+      })
+      .catch(() => {
+        setError(true);
+      });
+    setLoading(false);
   }, [currentTag]);
 
   return (
@@ -36,6 +47,8 @@ const FreeContainerByMain = () => {
         />
       </TagWrapper>
       <PostListWrapper>
+        {loading && <LoadingContent />}
+        {!loading && error && <ErrorContent />}
         {postList.map((post) => (
           <FreePost post={post} key={post.postId} />
         ))}

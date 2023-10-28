@@ -8,16 +8,27 @@ import { LINK } from '@/constants/links';
 import MoreButton from './MoreButton';
 import { getDailyHotPostList, getHelpPostListByMain } from '@/api/services/main';
 import { PostListLayout, PostListWrapper } from '@/styles/post';
+import ErrorContent from '../public/ErrorContent';
+import LoadingContent from '../public/LoadingContent';
 
 const HelpContainerByMain = () => {
   const navigate = useNavigate();
   const [postList, setPostList] = useState<PostInterface[]>([]);
   const [dailyHotPostList, setDailyHotPostList] = useState<PostInterface[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    getHelpPostListByMain().then((response) => {
-      setPostList(response.dataList);
-    });
+    setLoading(true);
+    setError(false);
+    getHelpPostListByMain()
+      .then((response) => {
+        setPostList(response.dataList);
+      })
+      .catch(() => {
+        setError(true);
+      });
+    setLoading(false);
   }, []);
   useEffect(() => {
     getDailyHotPostList().then((response) => {
@@ -31,6 +42,8 @@ const HelpContainerByMain = () => {
         <NewPostList postList={dailyHotPostList} />
       </ScrollPostListWrapper>
       <PostListWrapper>
+        {loading && <LoadingContent />}
+        {!loading && error && <ErrorContent />}
         {postList.map((post) => (
           <HelpPost post={post} key={post.postId} />
         ))}
