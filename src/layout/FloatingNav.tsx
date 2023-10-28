@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import { useNavigate } from 'react-router-dom';
 import CloseIcon from '@/public/images/floatingNav/close_icon.svg';
@@ -8,38 +8,31 @@ import FreeIcon from '@/public/images/floatingNav/free_icon.svg';
 import HelpIcon from '@/public/images/floatingNav/help_icon.svg';
 import { colors } from '@/constants/colors';
 import { LINK } from '@/constants/links';
+import ModalLayout, { ModalFloat } from '@/components/public/ModalLayout';
+import useModalStore from '@/store/modalStore';
+import { fadeIn } from '@/styles/styles';
 
 const FloatingNav = () => {
   const { lockScroll, openScroll } = useBodyScrollLock();
-  const [modal, setModal] = useState<boolean>(false);
-  const modalBackground = useRef(null);
+  const { changeModalStatus, isOpen } = useModalStore();
   const navigate = useNavigate();
 
-  const closeModalHanlder = (e: React.MouseEvent<HTMLElement>) => {
-    if (e.target === modalBackground.current) {
-      setModal(false);
-      openScroll();
-    }
+  const openModalHanlder = () => {
+    changeModalStatus({ isOpen: true, info: { type: 'page' } });
+    lockScroll();
   };
-
-  const modalButtonHandler = () => {
-    if (modal) {
-      setModal(false);
-      openScroll();
-    } else {
-      setModal(true);
-      lockScroll();
-    }
+  const closeModalHandler = () => {
+    changeModalStatus({ isOpen: false });
+    openScroll();
   };
 
   return (
-    <Layout>
-      {modal && (
-        <>
-          <BackDrop ref={modalBackground} onClick={closeModalHanlder} />
+    <>
+      {isOpen && (
+        <ModalLayout>
           <FloatingMenu>
             <FloatingItem onClick={() => navigate(LINK.POSTING_HELP)}>
-              <MeneText id='float_help'>
+              <MeneText>
                 <h3>도움이 필요해요</h3>
                 <p>전공고민 질문하기</p>
               </MeneText>
@@ -48,7 +41,7 @@ const FloatingNav = () => {
               </MenuIcon>
             </FloatingItem>
             <FloatingItem onClick={() => navigate(LINK.POSTING_FREE)}>
-              <MeneText id='float_free'>
+              <MeneText>
                 <h3>자유게시판</h3>
                 <p>자유롭게 글쓰기</p>
               </MeneText>
@@ -57,54 +50,30 @@ const FloatingNav = () => {
               </MenuIcon>
             </FloatingItem>
             <FloatingItem>
-              <ModalIcon onClick={modalButtonHandler}>
+              <ModalIcon onClick={closeModalHandler}>
                 <img src={CloseIcon} alt={'close_icon'} />
               </ModalIcon>
             </FloatingItem>
           </FloatingMenu>
-        </>
+        </ModalLayout>
       )}
-      {!modal && (
-        <FloatingMenu>
-          <FloatingItem>
-            <ModalIcon onClick={modalButtonHandler}>
-              <img src={OpenIcon} alt={'open_icon'} />
-            </ModalIcon>
-          </FloatingItem>
-        </FloatingMenu>
+      {!isOpen && (
+        <ModalFloat>
+          <FloatingMenu>
+            <FloatingItem>
+              <ModalIcon onClick={openModalHanlder}>
+                <img src={OpenIcon} alt={'open_icon'} />
+              </ModalIcon>
+            </FloatingItem>
+          </FloatingMenu>
+        </ModalFloat>
       )}
-    </Layout>
+    </>
   );
 };
 
 export default FloatingNav;
 
-const Layout = styled.div`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  max-width: 39rem;
-  z-index: 99;
-`;
-const BackDrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 99;
-  overflow: hidden;
-`;
-const fadeIn = keyframes`
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
-
-`;
 const FloatingMenu = styled.div`
   z-index: 100;
   position: absolute;

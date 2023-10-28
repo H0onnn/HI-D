@@ -41,6 +41,5 @@ export interface PageStatusInterface {
   hasNext: boolean;
 }
 export interface ChatModalStatusInterface {
-  isOpen: boolean;
   roomId: number;
 }

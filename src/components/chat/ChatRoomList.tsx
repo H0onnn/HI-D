@@ -6,11 +6,7 @@ import { getChatRoomList } from '@/api/services/chat';
 import ErrorContent from '../public/ErrorContent';
 import { ChatRoomContainer } from '@/styles/chat';
 
-type Props = {
-  chatRoomClick: (roomId: number) => void;
-};
-
-const ChatRoomList = ({ chatRoomClick }: Props) => {
+const ChatRoomList = () => {
   const [{ page, hasNext }, setPage] = useState<PageStatusInterface>({ page: 1, hasNext: true });
   const [chatRoomList, setChatRoomList] = useState<ChatRoomInterface[]>([]);
   const infinityRef = useObserver(() => nextPageHandler());
@@ -39,11 +35,7 @@ const ChatRoomList = ({ chatRoomClick }: Props) => {
       <ChatRoomContainer>
         {chatRoomList.length === 0 && <ErrorContent />}
         {chatRoomList.map((chatRoom, index) => (
-          <ChatRoomItem
-            key={index}
-            chatRoom={chatRoom}
-            chatRoomClick={() => chatRoomClick(chatRoom.chatRoomId)}
-          />
+          <ChatRoomItem key={index} chatRoom={chatRoom} />
         ))}
         {!loading && hasNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
       </ChatRoomContainer>
