@@ -44,7 +44,7 @@ const HelpPost = ({
 
   return (
     <LayoutWrapper>
-      {!isMyPage && <PostButtonBox />}
+      {isMyPage && <PostButtonBox />}
       <Layout onClick={postClickHandler}>
         <Header>
           <MajorBox>{majorToKoreaMapping[majorCategory]}</MajorBox>

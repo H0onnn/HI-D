@@ -99,7 +99,7 @@ const MessageContent = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-right: 5rem;
+  padding-right: 6.5rem;
   color: ${colors.gray6};
   font-size: 14px;
 `;

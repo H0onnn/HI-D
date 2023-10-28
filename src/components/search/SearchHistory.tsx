@@ -82,17 +82,15 @@ const SearchHistoryContainer = styled.div`
   overflow-x: scroll;
   ${scrollNone};
 `;
+
 const SearchHistoryItem = styled.div`
   position: relative;
   padding: 0.6rem 2.6rem 0.6rem 1.2rem;
   height: 3.3rem;
   border-radius: 90rem;
   border: 1px solid ${colors.gray3};
-  &:hover {
-  }
-  &:active {
-  }
 `;
+
 const KeywordText = styled.div`
   cursor: pointer;
   color: ${colors.gray6};

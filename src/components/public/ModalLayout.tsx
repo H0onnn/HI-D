@@ -20,9 +20,10 @@ const ModalLayout = ({ children }: Props) => {
   return (
     <>
       {isOpen && (
-        <BackDrop onClick={closeModalHandler} style={backDropStyle}>
+        <>
+          <BackDrop onClick={closeModalHandler} style={backDropStyle} />
           <ModalFloat>{children}</ModalFloat>
-        </BackDrop>
+        </>
       )}
     </>
   );

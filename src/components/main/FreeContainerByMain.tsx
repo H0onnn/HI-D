@@ -38,6 +38,10 @@ const FreeContainerByMain = () => {
     setLoading(false);
   }, [currentTag]);
 
+  const moreButtonClickHandler = () => {
+    navigate(`${LINK.POST_FREE}`);
+  };
+
   return (
     <PostListLayout>
       <TagWrapper>
@@ -52,7 +56,7 @@ const FreeContainerByMain = () => {
         {postList.map((post) => (
           <FreePost post={post} key={post.postId} />
         ))}
-        <MoreButton onClick={() => navigate(LINK.POST_FREE)} />
+        <MoreButton onClick={moreButtonClickHandler} />
       </PostListWrapper>
     </PostListLayout>
   );

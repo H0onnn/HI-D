@@ -7,6 +7,10 @@ const textOverflowStyles = css`
   text-overflow: ellipsis;
 `;
 
+export const LayoutWrapper = styled.div`
+  position: relative;
+`;
+
 export const Layout = styled.div`
   cursor: pointer;
   width: 100%;
@@ -53,9 +57,6 @@ export const Contents = styled.div`
 export const MajorBox = styled.div`
   color: ${colors.gray6};
   font-size: 14px;
-`;
-export const EditButton = styled.button`
-  // Edit 버튼 스타일
 `;
 
 export const PostListWrapper = styled.div`

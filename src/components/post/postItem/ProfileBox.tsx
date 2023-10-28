@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { RuleSet, css } from 'styled-components';
 import { colors } from '@/constants/colors';
 import DefaultProfile from '@/public/images/default_profile.svg';
+import { imageStyle } from '@/styles/styles';
 
 interface Props {
   writer?: string;
@@ -18,7 +19,7 @@ export default function ProfileBox({
   return (
     <Container>
       <ProfileImageWrapper>
-        <ProfileImage src={profileImage} alt='profile image' />
+        <img src={profileImage} alt='profile image' />
       </ProfileImageWrapper>
       <Nickname css={nicknameStyles(size, darkMode)}>{writer}</Nickname>
     </Container>
@@ -38,17 +39,10 @@ const ProfileImageWrapper = styled.div`
   overflow: hidden;
   border-radius: 100%;
   background: ${colors.third};
-`;
-
-const ProfileImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  ${imageStyle};
 `;
 
 const Nickname = styled.div<{ css?: RuleSet<object> }>`
-  color: ${colors.black};
-  font-size: 12px;
   ${(props) => props.css}
 `;
 

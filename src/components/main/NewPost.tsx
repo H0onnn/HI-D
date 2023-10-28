@@ -15,14 +15,24 @@ const NewPost = ({
   post: PostInterface;
 }) => {
   const navigate = useNavigate();
+  const profileBoxSize = 'small';
+
+  const postClickHandler = () => {
+    navigate(`${LINK.POST}/${postId}`);
+  };
+
   return (
-    <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
+    <Layout onClick={postClickHandler}>
       <div>
         <TagBox>{majorToKoreaMapping[majorCategory]}</TagBox>
       </div>
       <Title>{title}</Title>
       <Footer>
-        <ProfileBox writer={writer?.nickname} profileImage={writer?.imageUrl} size='small' />
+        <ProfileBox
+          writer={writer?.nickname}
+          profileImage={writer?.imageUrl}
+          size={profileBoxSize}
+        />
         <TimeAgoBox>{formatTimeAgo(createAt)}</TimeAgoBox>
       </Footer>
     </Layout>

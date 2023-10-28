@@ -36,6 +36,10 @@ const HelpContainerByMain = () => {
     });
   }, []);
 
+  const moreButtonClickHandler = () => {
+    navigate(`${LINK.POST_HELP}`);
+  };
+
   return (
     <PostListLayout>
       <ScrollPostListWrapper>
@@ -47,7 +51,7 @@ const HelpContainerByMain = () => {
         {postList.map((post) => (
           <HelpPost post={post} key={post.postId} />
         ))}
-        <MoreButton onClick={() => navigate(LINK.POST_HELP)} />
+        <MoreButton onClick={moreButtonClickHandler} />
       </PostListWrapper>
     </PostListLayout>
   );
