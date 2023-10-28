@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { httpClient } from '../httpClient';
+import { httpClient } from '../api/httpClient';
 
 export const sendVerificationEmail = async (email: string): Promise<boolean> => {
   try {

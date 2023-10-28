@@ -3,7 +3,7 @@ import {
   RequestFreePostListInterface,
   RequestHelpPostListInterface,
 } from '@/types/post';
-import { httpClient } from '../httpClient';
+import { httpClient } from '../api/httpClient';
 
 export const getHelpPostList = async ({
   page,

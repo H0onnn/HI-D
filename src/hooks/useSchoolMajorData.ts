@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getSchools, getMajors } from '../api/services/schoolData';
+import { getSchools, getMajors } from '../services/schoolData';
 import { INCOMPLETE_KOREAN_REGEX, ENGLISH_ONLY_REGEX } from '../utils/auth/validationRules';
 import localCache from '@/utils/search/localCache';
 

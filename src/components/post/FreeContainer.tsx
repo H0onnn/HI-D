@@ -9,7 +9,7 @@ import {
 import FreePostTagContainer from '../../components/post/FreePostTag';
 import FreePostList from '../../components/post/FreePostList';
 import { freePostTagList } from '@/constants/post';
-import { getFreePostList } from '@/api/services/post';
+import { getFreePostList } from '@/services/post';
 import { PostListLayout, PostListWrapper, TagWrapper } from '@/styles/post';
 
 const FreeContainer = ({ keyword }: PostContainerProps) => {

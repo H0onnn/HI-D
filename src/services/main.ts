@@ -1,5 +1,5 @@
 import { PostListInterface } from '@/types/post';
-import { httpClient } from '../httpClient';
+import { httpClient } from '../api/httpClient';
 
 export const getWeeklyHotPostList = async (): Promise<PostListInterface> => {
   const response = await httpClient.post.get.weeklyhot();

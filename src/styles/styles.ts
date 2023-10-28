@@ -39,10 +39,7 @@ export const MainPageLayout = styled.div`
 `;
 
 export const SearchInputWrapper = styled.div`
-  /* position: relative; */
   width: 100%;
-  /* height: 4.8rem; */
-  /* bottom: 3rem; */
   padding: 1.2rem 2rem;
 `;
 

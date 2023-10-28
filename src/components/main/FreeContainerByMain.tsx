@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { LINK } from '@/constants/links';
 import FreePost from '../post/FreePost';
 import MoreButton from './MoreButton';
-import { getFreePostListByMain } from '@/api/services/main';
+import { getFreePostListByMain } from '@/services/main';
 import { freePostTagList } from '@/constants/post';
 import { PostListLayout, PostListWrapper, TagWrapper } from '@/styles/post';
 import ErrorContent from '../public/ErrorContent';

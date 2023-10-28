@@ -3,7 +3,7 @@ import {
   sendVerificationEmail,
   sendVerificationCode,
   checkDuplicateEmail,
-} from '../api/services/emailConfirm';
+} from '../services/emailConfirm';
 import toast from 'react-hot-toast';
 
 const useEmailConfirm = () => {

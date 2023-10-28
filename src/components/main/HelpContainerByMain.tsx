@@ -6,7 +6,7 @@ import HelpPost from '../post/HelpPost';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '@/constants/links';
 import MoreButton from './MoreButton';
-import { getDailyHotPostList, getHelpPostListByMain } from '@/api/services/main';
+import { getDailyHotPostList, getHelpPostListByMain } from '@/services/main';
 import { PostListLayout, PostListWrapper } from '@/styles/post';
 import ErrorContent from '../public/ErrorContent';
 import LoadingContent from '../public/LoadingContent';

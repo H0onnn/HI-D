@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useObserver from '../../hooks/useObserver';
 import ChatRoomItem from './ChatRoomItem';
 import { ChatRoomInterface, PageStatusInterface } from '../../types/chat';
-import { getChatRoomList } from '@/api/services/chat';
+import { getChatRoomList } from '@/services/chat';
 import ErrorContent from '../public/ErrorContent';
 import { ChatRoomContainer } from '@/styles/chat';
 

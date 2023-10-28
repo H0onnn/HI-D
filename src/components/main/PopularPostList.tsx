@@ -4,7 +4,7 @@ import PopularPost from './PopularPost';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import { colors } from '@/constants/colors';
-import { getWeeklyHotPostList } from '@/api/services/main';
+import { getWeeklyHotPostList } from '@/services/main';
 
 const PopularPostList = () => {
   const [postList, setPostList] = useState<PostInterface[]>([]);

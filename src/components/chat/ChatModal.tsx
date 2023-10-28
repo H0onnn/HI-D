@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Input from '../public/Input';
 import { MessageInterface, PageStatusInterface } from '../../types/chat';
 import { colors } from '../../constants/colors';
-import { getMessageList } from '@/api/services/chat';
+import { getMessageList } from '@/services/chat';
 import useObserver from '@/hooks/useObserver';
 import Messages from './Messages';
 import DefaultProfile from '@/public/images/default_profile.svg';

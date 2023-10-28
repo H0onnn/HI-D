@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PageStatusInterface, PostContainerProps, PostInterface } from '../../types/post';
 import styled from 'styled-components';
 import HelpPostList from './HelpPostList';
-import { getHelpPostList } from '@/api/services/post';
+import { getHelpPostList } from '@/services/post';
 import { PostListLayout, PostListWrapper } from '@/styles/post';
 import { useLocation } from 'react-router-dom';
 

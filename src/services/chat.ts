@@ -7,7 +7,7 @@ import {
   RequestChatRoomListInterface,
   RequestMessageListInterface,
 } from '@/types/chat';
-import { httpClient } from '../httpClient';
+import { httpClient } from '../api/httpClient';
 
 export const getChatRoomList = async ({
   page,
