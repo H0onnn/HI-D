@@ -44,18 +44,15 @@ export const TimeBox = styled.div`
   ${textOverflowStyles}
   color: ${colors.gray6};
   font-size: 14px;
-  font-weight: 400;
 `;
 export const Contents = styled.div`
   min-height: 4.4rem;
   color: ${colors.gray6};
   font-size: 14px;
-  font-weight: 400;
 `;
 export const MajorBox = styled.div`
   color: ${colors.gray6};
   font-size: 14px;
-  font-weight: 400;
 `;
 export const EditButton = styled.button`
   // Edit 버튼 스타일

@@ -36,9 +36,6 @@ const TabBox = styled.div`
 `;
 const CategaryTitle = styled.div<{ $isSeleced: boolean }>`
   cursor: pointer;
-  font-family: SUIT;
-  font-style: normal;
-  line-height: 150%;
   font-size: 20px;
   font-weight: 700;
   border-bottom: ${({ $isSeleced }) => ($isSeleced ? `2px solid ${colors.black}` : 'none')};

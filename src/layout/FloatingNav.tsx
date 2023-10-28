@@ -127,9 +127,6 @@ const FloatingItem = styled.div`
 const MeneText = styled.div`
   color: ${colors.white};
   text-align: right;
-  font-family: SUIT;
-  font-style: normal;
-  line-height: 150%;
   > h3 {
     font-size: 16px;
     font-weight: 700;
@@ -137,7 +134,6 @@ const MeneText = styled.div`
   }
   > p {
     font-size: 14px;
-    font-weight: 400;
   }
 `;
 const MenuIcon = styled.div`

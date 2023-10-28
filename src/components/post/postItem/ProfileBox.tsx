@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { RuleSet, css } from 'styled-components';
 import { colors } from '@/constants/colors';
-import { URL } from '@/constants/url';
+import DefaultProfile from '@/public/images/default_profile.svg';
 
 interface Props {
   writer?: string;
@@ -10,17 +10,17 @@ interface Props {
   darkMode?: boolean;
 }
 export default function ProfileBox({
-  writer,
-  profileImage,
+  writer = '익명',
+  profileImage = DefaultProfile,
   size = 'medium',
   darkMode = false,
 }: Props) {
   return (
     <Container>
       <ProfileImageWrapper>
-        <ProfileImage src={profileImage || URL.DEFAULT_PROFILE_IMG} alt='profile image' />
+        <ProfileImage src={profileImage} alt='profile image' />
       </ProfileImageWrapper>
-      <Nickname css={nicknameStyles(size, darkMode)}>{writer || '익명'}</Nickname>
+      <Nickname css={nicknameStyles(size, darkMode)}>{writer}</Nickname>
     </Container>
   );
 }
@@ -37,7 +37,7 @@ const ProfileImageWrapper = styled.div`
   height: 2rem;
   overflow: hidden;
   border-radius: 100%;
-  background: ${colors.gray3};
+  background: ${colors.third};
 `;
 
 const ProfileImage = styled.img`
@@ -48,11 +48,7 @@ const ProfileImage = styled.img`
 
 const Nickname = styled.div<{ css?: RuleSet<object> }>`
   color: ${colors.black};
-  font-family: SUIT;
   font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
   ${(props) => props.css}
 `;
 
@@ -62,7 +58,6 @@ const nicknameStyles = (size: Props['size'], darkMode?: Props['darkMode']) => {
       return css`
         color: ${darkMode ? `${colors.white}` : `${colors.black}`};
         font-size: 12px;
-        font-weight: 400;
       `;
     case 'medium':
       return css`

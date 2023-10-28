@@ -55,11 +55,7 @@ const Title = styled.div`
   justify-content: space-between;
   padding: 0 1rem;
   color: ${colors.gray5};
-  font-family: SF Pro Text;
   font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 22px;
   > div:nth-child(2) {
     cursor: pointer;
     &:hover {
@@ -103,11 +99,7 @@ const SearchHistoryItem = styled.div`
 const KeywordText = styled.div`
   cursor: pointer;
   color: ${colors.gray6};
-  font-family: SUIT;
   font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
 `;
 
 const IconWrapper = styled.div`

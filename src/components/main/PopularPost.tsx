@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
 import { colors } from '@/constants/colors';
 import { tabList } from '@/constants/post';
+import { Footer } from '@/styles/post';
 
 const PopularPost = ({
   post: {
@@ -44,7 +45,7 @@ const PopularPost = ({
         </TagBox>
       </div>
       <Title>{title}</Title>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Footer>
         <ProfileBox
           writer={writer?.nickname}
           profileImage={writer?.imageUrl}
@@ -57,7 +58,7 @@ const PopularPost = ({
           viewCount={viewCount}
           darkMode={darkMode}
         />
-      </div>
+      </Footer>
     </Layout>
   );
 };
@@ -90,11 +91,7 @@ const Title = styled.div`
   width: 100%;
   padding: 0.4rem 0;
   color: ${colors.white};
-  font-family: SUIT;
   font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
 `;
 const TagBox = styled.div`
   display: inline-block;
@@ -102,9 +99,5 @@ const TagBox = styled.div`
   border-radius: 0.8rem;
   background: ${colors.white};
   color: ${colors.primary};
-  font-family: SUIT;
   font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
 `;

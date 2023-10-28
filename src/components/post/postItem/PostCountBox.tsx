@@ -56,9 +56,5 @@ const CountBox = styled.div<{ $darkMode?: boolean }>`
   align-items: center;
   gap: 0.4rem;
   color: ${({ $darkMode }) => ($darkMode ? colors.white : colors.gray6)};
-  font-family: SUIT;
   font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
 `;

@@ -44,9 +44,6 @@ const MainTextContainer = styled.div`
 
 const MainText = styled.h1`
   color: ${colors.black};
-  font-family: SUIT;
   font-size: 18px;
-  font-style: normal;
   font-weight: 700;
-  line-height: 150%;
 `;

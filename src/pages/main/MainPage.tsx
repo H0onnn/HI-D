@@ -46,10 +46,7 @@ const Title = styled.div`
   align-items: center;
   gap: 0.7rem;
   font-size: 20px;
-  font-family: SUIT;
-  font-style: normal;
   font-weight: 700;
-  line-height: 150%;
   color: ${colors.black};
   > span {
     color: ${colors.primary};

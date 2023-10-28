@@ -25,11 +25,7 @@ const Button = styled.div`
   border-radius: 1.2rem;
   border: 1px solid ${colors.gray3};
   background: ${colors.white};
-  font-family: SUIT;
   font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
   color: ${colors.gray6};
   > span {
     color: ${colors.primary};
