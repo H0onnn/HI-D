@@ -2,7 +2,8 @@
   font-family: 'SUIT';
   font-weight: 400;
   line-height: 150%;
-  src: url('/src/assets/fonts/SUIT-Regular.woff2') format('woff2');
+  font-style: normal;
+  src: url('/src/public/fonts/SUIT-Regular.woff2') format('woff2');
 }
 
 * {
@@ -17,7 +18,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'SUIT';
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

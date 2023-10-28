@@ -60,11 +60,7 @@ const TagBox = styled.div<{ $active: boolean; $noneMarginStyles?: boolean }>`
   padding: 0.6rem 1.4rem;
   border-radius: 90rem;
   white-space: nowrap;
-  font-family: SUIT;
   font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
   color: ${({ $active }) => ($active ? colors.white : colors.secondary)};
   border: 0.1rem solid ${({ $active }) => ($active ? colors.primary : colors.secondary)};
   background-color: ${({ $active }) => ($active ? colors.primary : colors.white)};
