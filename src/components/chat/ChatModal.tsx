@@ -1,23 +1,31 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import ChatContents from './ChatContents';
-// import { InputWrapper } from '../../styles/styles';
 import Input from '../public/Input';
-import { ChatInterface, ChatModalStatusInterface } from '../../types/chat';
+import { ChatModalStatusInterface, MessageInterface, PageStatusInterface } from '../../types/chat';
 import useBodyScrollLock from '../../hooks/useBodyScrollLock';
 import { URL } from '../../constants/url';
 import { colors } from '../../constants/colors';
+import { getMessageList } from '@/api/services/chat';
+import useObserver from '@/hooks/useObserver';
+import Messages from './Messages';
 
 type Props = {
   setChatModal: React.Dispatch<React.SetStateAction<ChatModalStatusInterface>>;
   status: ChatModalStatusInterface;
 };
 const ChatModal = ({ setChatModal, status: { roomId } }: Props) => {
+  const [messageList, setMessageList] = useState<MessageInterface[]>([]);
+  const [{ page, hasNext }, setPage] = useState<PageStatusInterface>({ page: 1, hasNext: true });
   const modalBackground = useRef(null);
-  const [chatContentList, setChatContentList] = useState<ChatInterface[]>([]);
   const { openScroll } = useBodyScrollLock();
+  const infinityRef = useObserver(() => nextPageHandler());
+  const [loading, setLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
 
-  const yourProfileImg = '/src/public/images/elephant.png';
+  const nextPageHandler = () => {
+    if (!hasNext || loading || page === 0 || !roomId) return;
+    setPage((prev) => ({ ...prev, page: prev.page + 1 }));
+  };
 
   const closeChatModalHanlder = (e: React.MouseEvent<HTMLElement>) => {
     if (e.target === modalBackground.current) {
@@ -26,46 +34,38 @@ const ChatModal = ({ setChatModal, status: { roomId } }: Props) => {
     }
   };
 
-  const getChatByRoomId = async (roomId: number) => {
-    // TODO: roomId로 채팅방 정보 가져오기
-    // /chat-room/:roomId
-    console.log(roomId);
-    const data: ChatInterface[] = await [
-      {
-        nickname: 'nickname',
-        content:
-          'contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent',
-        createdAt: 'createdAt',
-      },
-      { nickname: 'myNickname', content: 'content', createdAt: 'createdAt' },
-      { nickname: 'nickname', content: 'content', createdAt: 'createdAt' },
-      { nickname: 'nickname', content: 'content', createdAt: 'createdAt' },
-      {
-        nickname: 'myNickname',
-        content:
-          'contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentconte',
-        createdAt: 'createdAt',
-      },
-      { nickname: 'nickname', content: 'content', createdAt: 'createdAt' },
-      { nickname: 'nickname', content: 'content', createdAt: 'createdAt' },
-    ];
-    setChatContentList(data);
-  };
-
   useEffect(() => {
-    getChatByRoomId(roomId);
-  }, [roomId]);
+    if (!hasNext || loading || page === 0 || !roomId) return;
+    setLoading(true);
+    getMessageList({ roomId, page })
+      .then((data) => {
+        setPage((prev) => ({ ...prev, hasNext: data.hasNext }));
+        setMessageList((prev) => [...prev, ...data.dataList]);
+      })
+      .catch(() => {
+        setPage({ page: 0, hasNext: false });
+      });
+    setLoading(false);
+  }, [roomId, page, hasNext]);
+
   return (
     <>
       <BackDrop ref={modalBackground} onClick={closeChatModalHanlder} />
       <ModalWrapper>
         <ChatModalLayout>
+          {/* TODO: reverse infinity scroll */}
+          {!loading && hasNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
           <ImageWrapper>
-            <img src={yourProfileImg || URL.DEFAULT_PROFILE_IMG} alt='profile_img' />
+            <img src={'상대방 이미지' || URL.DEFAULT_PROFILE_IMG} alt='profile_img' />
           </ImageWrapper>
-          <ChatContents chatContentList={chatContentList} />
+          <Messages messageList={messageList} />
           <InputWrapper>
-            <Input type='text' placeholder='채팅을 입력해주세요.' />
+            <Input
+              type='text'
+              placeholder='채팅을 입력해주세요.'
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
           </InputWrapper>
         </ChatModalLayout>
       </ModalWrapper>

@@ -159,8 +159,8 @@ export const apiMethods = {
       chatrooms: ({ page }: RequestChatRoomListInterface) => ({
         url: `chat/rooms?page=${page}&size=10&sortBy=createAt&direction=DESC`,
       }),
-      messages: ({ chatroomId, page }: RequestMessageListInterface) => ({
-        url: `chat/rooms/${chatroomId}/messages?${page}&size=10&sortBy=createAt&direction=DESC`,
+      messages: ({ roomId, page }: RequestMessageListInterface) => ({
+        url: `chat/rooms/${roomId}/messages?${page}&size=10&sortBy=createAt&direction=DESC`,
       }),
     },
     post: {
@@ -170,8 +170,8 @@ export const apiMethods = {
       }),
     },
     delete: {
-      chatroom: ({ chatroomId }: RequestChatRoomDeleteInterface) => ({
-        url: `chat/rooms/${chatroomId}`,
+      chatroom: ({ roomId }: RequestChatRoomDeleteInterface) => ({
+        url: `chat/rooms/${roomId}`,
       }),
     },
   },

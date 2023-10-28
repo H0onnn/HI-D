@@ -12,16 +12,14 @@ type Props = {
 };
 
 const ChatRoomItem = ({
-  chatRoom: { roomId, members, recentChatContent, recentChatTime },
+  chatRoom: { chatRoomId, member, recentChatMessage },
   chatRoomClick,
 }: Props) => {
-  const myId = '2'; // 전역변수
-  const member = members.filter((member) => member.id !== myId)[0];
   const { lockScroll } = useBodyScrollLock();
   const [modal, setModal] = useState<boolean>(false);
 
-  const chatItemSettingHandler = (roomId: number) => {
-    console.log(roomId);
+  const chatItemSettingHandler = (chatRoomId: number) => {
+    console.log(chatRoomId);
     setModal(true);
     lockScroll();
   };
@@ -32,19 +30,20 @@ const ChatRoomItem = ({
       <ModalWrpper>
         <ComponentLayout onClick={chatRoomClick}>
           <ImageWrapper>
-            <ProfileImage src={member.profileImage || URL.DEFAULT_PROFILE_IMG} alt='your_profile' />
+            <ProfileImage src={member.imageUrl || URL.DEFAULT_PROFILE_IMG} alt='your_profile' />
           </ImageWrapper>
           <ContentsContainer>
             <div>
               <Nickname>{member.nickname}</Nickname>
+              <button>삭제</button>
             </div>
             <div>
-              <Chat>{recentChatContent}</Chat>
-              <ChatTime>{recentChatTime}</ChatTime>
+              <Chat>{recentChatMessage.content}</Chat>
+              <ChatTime>{recentChatMessage.createAt}</ChatTime>
             </div>
           </ContentsContainer>
         </ComponentLayout>
-        <ChatItemSetting onClick={() => chatItemSettingHandler(roomId)}>...</ChatItemSetting>
+        <ChatItemSetting onClick={() => chatItemSettingHandler(chatRoomId)}>...</ChatItemSetting>
         {modal && (
           <SettingModal position={position} setModal={setModal} settingList={settingList} />
         )}
@@ -110,7 +109,7 @@ const Nickname = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   padding-right: 5rem;
-  color: var(--, #252424);
+  color: ${colors.black};
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;
@@ -142,7 +141,7 @@ const Chat = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--6, #454545);
+  color: ${colors.gray6};
   font-family: SUIT;
   font-size: 14px;
   font-style: normal;
@@ -151,7 +150,7 @@ const Chat = styled.div`
 `;
 const ChatTime = styled.div`
   flex: none;
-  color: var(--6, #454545);
+  color: ${colors.gray6};
   font-family: SUIT;
   font-size: 12px;
   font-style: normal;

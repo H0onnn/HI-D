@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import ChatModal from '../../components/chat/ChatModal';
 import PageHeader from '../../components/public/PageHeader';
 import { MainPageLayout } from '../../styles/styles';
-// import MainComment from '../../components/auth/MainComment';
 import { ChatModalStatusInterface } from '../../types/chat';
 import ChatRoomList from '../../components/chat/ChatRoomList';
 import useBodyScrollLock from '../../hooks/useBodyScrollLock';
+import { colors } from '@/constants/colors';
 
 const ChatPage = () => {
   const { lockScroll } = useBodyScrollLock();
@@ -43,7 +43,7 @@ const MainTextContainer = styled.div`
 `;
 
 const MainText = styled.h1`
-  color: #555353;
+  color: ${colors.black};
   font-family: SUIT;
   font-size: 18px;
   font-style: normal;

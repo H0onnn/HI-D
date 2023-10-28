@@ -1,38 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
 import { formatTimeAgo } from '../../utils/post';
-import { ChatInterface } from '@/types/chat';
+import { MessageInterface } from '@/types/chat';
 import { colors } from '@/constants/colors';
 
-type Props = { chatContent: ChatInterface };
-
-const MyChat = ({ chatContent }: Props) => {
-  const { content, createdAt } = chatContent;
+const YourMessage = ({ sender, content, createAt }: MessageInterface) => {
   return (
-    <MyChatLayout>
+    <MessageLayout>
+      <ChatNickname>{sender}</ChatNickname>
       <ChatText>{content}</ChatText>
-      <ChatDate>{formatTimeAgo(createdAt)}</ChatDate>
-    </MyChatLayout>
+      <ChatDate>{formatTimeAgo(createAt)}</ChatDate>
+    </MessageLayout>
   );
 };
-export default MyChat;
+export default YourMessage;
 
-const MyChatLayout = styled.div`
+const MessageLayout = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 4px;
+`;
+const ChatNickname = styled.div`
+  color: ${colors.black};
+  font-family: SUIT;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 21px */
 `;
 const ChatText = styled.div`
   max-width: 100%;
   word-wrap: break-word;
   padding: 10px 16px;
   gap: 10px;
-
-  border-radius: 16px 0px 16px 16px;
-  background: #9c9c9c;
-
-  color: ${colors.white};
+  border-radius: 0px 16px 16px 16px;
+  background: ${colors.pastel};
+  color: ${colors.black};
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;
@@ -40,7 +44,7 @@ const ChatText = styled.div`
   line-height: 150%; /* 24px */
 `;
 const ChatDate = styled.div`
-  color: #8f8f8f;
+  color: ${colors.gray3};
   font-family: SUIT;
   font-size: 10px;
   font-style: normal;
