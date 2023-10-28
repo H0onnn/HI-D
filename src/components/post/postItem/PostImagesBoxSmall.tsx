@@ -1,4 +1,5 @@
 import { colors } from '@/constants/colors';
+import { imageStyle } from '@/styles/styles';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -30,9 +31,5 @@ const ImageWrapper = styled.div`
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 0.4rem;
-  > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  ${imageStyle}
 `;

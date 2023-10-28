@@ -2,6 +2,7 @@ import React from 'react';
 import LoadingImage from '@/public/images/loading.svg';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
+import { imageStyle } from '@/styles/styles';
 
 const LoadingContent = () => {
   return (
@@ -27,10 +28,7 @@ const Layout = styled.div`
 `;
 const ImageWrapper = styled.div`
   width: 12rem;
-  > img {
-    width: 100%;
-    height: 100%;
-  }
+  ${imageStyle}
 `;
 const Text = styled.div`
   color: ${colors.secondary};

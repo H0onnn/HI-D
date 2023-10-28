@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import { useLocation } from 'react-router-dom';
 import { errorMessages } from '@/constants/errors';
+import { imageStyle } from '@/styles/styles';
 
 const ErrorContent = () => {
   const location = useLocation();
@@ -34,10 +35,7 @@ const Layout = styled.div`
 `;
 const ImageWrapper = styled.div`
   width: 12rem;
-  > img {
-    width: 100%;
-    height: 100%;
-  }
+  ${imageStyle}
 `;
 const Text = styled.div`
   color: ${colors.gray6};

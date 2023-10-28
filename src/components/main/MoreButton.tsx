@@ -2,13 +2,16 @@ import React from 'react';
 import { colors } from '@/constants/colors';
 import ArrowIcon from '@/public/images/ui/arrow_icon.svg';
 import styled from 'styled-components';
+import { imageStyle } from '@/styles/styles';
 
 const MoreButton = ({ onClick }: { onClick: () => void }) => {
   return (
     <Button onClick={onClick}>
       <span>최신글 </span>
       더보기
-      <img src={ArrowIcon} />
+      <ImageWrapper>
+        <img src={ArrowIcon} />
+      </ImageWrapper>
     </Button>
   );
 };
@@ -30,4 +33,9 @@ const Button = styled.div`
   > span {
     color: ${colors.primary};
   }
+`;
+const ImageWrapper = styled.div`
+  width: 2.4rem;
+  height: 2.4rem;
+  ${imageStyle}
 `;

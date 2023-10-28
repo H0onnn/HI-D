@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import MyMessage from './MyMessage';
 import YourMessage from './YourMessage';
 import { MessageInterface } from '@/types/chat';
+import { scrollNone } from '@/styles/styles';
 
 type Props = {
   messageList: MessageInterface[];
@@ -33,8 +34,5 @@ const MessageListLayout = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${scrollNone};
 `;

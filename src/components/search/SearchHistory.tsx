@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { truncateContent } from '../../utils/post';
 import DeleteIcon from '../../public/images/ui/delete_icon.svg';
 import { colors } from '@/constants/colors';
+import { scrollNone } from '@/styles/styles';
 
 type Props = {
   searchHistory: string[];
@@ -79,16 +80,12 @@ const SearchHistoryContainer = styled.div`
   white-space: nowrap;
   align-items: end;
   overflow-x: scroll;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${scrollNone};
 `;
 const SearchHistoryItem = styled.div`
   position: relative;
   padding: 0.6rem 2.6rem 0.6rem 1.2rem;
   height: 3.3rem;
-  /* background: #f9f9f9; */
   border-radius: 90rem;
   border: 1px solid ${colors.gray3};
   &:hover {
