@@ -3,7 +3,7 @@
   font-weight: 400;
   line-height: 150%;
   font-style: normal;
-  src: url('/src/assets/fonts/SUIT-Regular.woff2') format('woff2');
+  src: url('/src/public/fonts/SUIT-Regular.woff2') format('woff2');
 }
 
 * {
