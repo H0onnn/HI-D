@@ -61,7 +61,6 @@ const ChatRoomItemLayout = styled.div`
   cursor: pointer;
   position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 100%;
   padding: 2rem 1.8rem;

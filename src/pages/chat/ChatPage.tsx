@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ChatModal from '../../components/chat/ChatModal';
 import PageHeader from '../../components/public/PageHeader';
@@ -11,8 +11,13 @@ const ChatPage = () => {
   const {
     isOpen,
     info: { type },
+    changeModalStatus,
   } = useModalStore();
   const modalOpen = isOpen && type === 'page';
+
+  useEffect(() => {
+    changeModalStatus({ isOpen: false });
+  }, []);
 
   return (
     <>
