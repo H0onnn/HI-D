@@ -35,7 +35,7 @@ const PostListByCategary = (category: string, keyword?: string) => {
         default:
           return;
       }
-    default:
+    default: // TODO: mypage 추가
       return;
   }
 };

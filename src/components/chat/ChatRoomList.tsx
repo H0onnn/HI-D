@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import useObserver from '../../hooks/useObserver';
 import ChatRoomItem from './ChatRoomItem';
 import { ChatRoomInterface, PageStatusInterface } from '../../types/chat';
 import { getChatRoomList } from '@/api/services/chat';
-import { colors } from '@/constants/colors';
 import ErrorContent from '../public/ErrorContent';
+import { ChatRoomContainer } from '@/styles/chat';
 
 type Props = {
   chatRoomClick: (roomId: number) => void;
@@ -52,14 +51,3 @@ const ChatRoomList = ({ chatRoomClick }: Props) => {
   );
 };
 export default ChatRoomList;
-
-const ChatRoomContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  /* position: relative; */
-  flex-direction: column;
-  padding: 0 2rem;
-  gap: 0.8rem;
-  background-color: ${colors.pastel};
-`;

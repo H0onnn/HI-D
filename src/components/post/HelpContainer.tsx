@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 
 const HelpContainer = ({ keyword }: PostContainerProps) => {
   const location = useLocation();
+  const needFilter = ['/search', '/post'].some((path) => location.pathname.includes(path));
   const [postList, setPostList] = useState<PostInterface[]>([]);
   const [{ page, hasNext }, setPage] = useState<PageStatusInterface>({ page: 1, hasNext: true });
   const [major, setMajor] = useState<string>();
@@ -32,9 +33,8 @@ const HelpContainer = ({ keyword }: PostContainerProps) => {
 
   return (
     <PostListLayout>
-      {['/search', '/post'].some((path) => location.pathname.includes(path)) && (
-        <TagWrapper></TagWrapper>
-      )}
+      {needFilter && <></>}
+      <TagWrapper></TagWrapper>
       <PostListWrapper>
         <HelpPostList
           keyword={keyword}

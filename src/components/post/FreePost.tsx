@@ -19,7 +19,7 @@ const FreePost = ({
     recommendCount,
     replyCount,
     createAt,
-    thumbnailImages,
+    thumbnailImages = [],
   },
   keyword,
 }: PostProps) => {
@@ -38,7 +38,7 @@ const FreePost = ({
         {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
       </Contents>
       <Footer>
-        <PostImagesBoxSmall images={thumbnailImages || []} />
+        <PostImagesBoxSmall images={thumbnailImages} />
         <PostCountBox
           recommendCount={recommendCount}
           replyCount={replyCount}

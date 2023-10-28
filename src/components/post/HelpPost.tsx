@@ -27,21 +27,22 @@ const HelpPost = ({
     recommendCount,
     replyCount,
     createAt,
-    thumbnailImages,
-    majorCategory,
+    thumbnailImages = [],
+    majorCategory = 'undefined',
   },
   keyword,
 }: PostProps) => {
   const contentSnippet = getContentSnippet(content, keyword);
   const location = useLocation();
+  const isMyPage = location.pathname === '/my';
   const navigate = useNavigate();
   // TODO: mypage edit button OR bookmark button
 
   return (
     <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
       <Header>
-        <MajorBox>{majorToKoreaMapping[majorCategory || 'undefined']}</MajorBox>
-        {location.pathname === '/my' && <EditButton />}
+        <MajorBox>{majorToKoreaMapping[majorCategory]}</MajorBox>
+        {isMyPage && <EditButton />}
       </Header>
       <Footer>
         <Title>{keyword ? <BoldContent keyword={keyword} content={title} /> : title}</Title>
@@ -51,7 +52,7 @@ const HelpPost = ({
         {keyword ? <BoldContent keyword={keyword} content={contentSnippet} /> : contentSnippet}
       </Contents>
       <Footer>
-        <PostImagesBoxSmall images={thumbnailImages || []} />
+        <PostImagesBoxSmall images={thumbnailImages} />
         <PostCountBox
           recommendCount={recommendCount}
           replyCount={replyCount}

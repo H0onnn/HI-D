@@ -18,8 +18,8 @@ const HelpPostMedium = ({
     recommendCount,
     replyCount,
     createAt,
-    thumbnailImages,
-    majorCategory,
+    thumbnailImages = [],
+    majorCategory = 'undefined',
   },
 }: PostProps) => {
   const navigate = useNavigate();
@@ -27,12 +27,12 @@ const HelpPostMedium = ({
   return (
     <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
       <Header>
-        <MajorBox>{majorToKoreaMapping[majorCategory || 'undefined']}</MajorBox>
+        <MajorBox>{majorToKoreaMapping[majorCategory]}</MajorBox>
         <TimeBox style={{ color: colors.gray5 }}>{formatTime(createAt)}</TimeBox>
       </Header>
       <Title>{title}</Title>
       <Contents>{content}</Contents>
-      <PostImagesBoxMedium images={thumbnailImages || []} />
+      <PostImagesBoxMedium images={thumbnailImages} />
       <Footer>
         <div></div>
         <PostCountBox

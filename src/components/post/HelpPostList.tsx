@@ -11,6 +11,7 @@ import LoadingContent from '../public/LoadingContent';
 const HelpPostList = ({ postList, pageStatus, nextPageHandler, keyword }: PostListProps) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const isPostListPage = location.pathname.includes(LINK.POST);
   const infinityRef = useObserver(() => nextPageHandler());
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -25,7 +26,7 @@ const HelpPostList = ({ postList, pageStatus, nextPageHandler, keyword }: PostLi
       {loading && <LoadingContent />}
       {!loading && error && <ErrorContent />}
       {postList.map((post) =>
-        location.pathname.includes(LINK.POST) ? (
+        isPostListPage ? (
           <HelpPostMedium
             post={post}
             key={post.postId}

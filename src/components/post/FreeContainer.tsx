@@ -16,6 +16,7 @@ const FreeContainer = ({ keyword }: PostContainerProps) => {
   const [postList, setPostList] = useState<PostInterface[]>([]);
   const [currentTag, setCurrentTag] = useState<TagInterface>(freePostTagList[0]);
   const [{ page, hasNext }, setPage] = useState<PageStatusInterface>({ page: 1, hasNext: true });
+  const needFilter = ['/search', '/post'].some((path) => location.pathname.includes(path));
   // TODO: 정렬 필터 추가
 
   const nextPageHandler = () => {
@@ -42,14 +43,13 @@ const FreeContainer = ({ keyword }: PostContainerProps) => {
 
   return (
     <PostListLayout>
-      {['/search', '/post'].some((path) => location.pathname.includes(path)) && (
-        <TagWrapper>
-          <FreePostTagContainer
-            onClick={handleTagClick}
-            currentTag={currentTag.name as FreePostTag}
-          />
-        </TagWrapper>
-      )}
+      {needFilter && <></>}
+      <TagWrapper>
+        <FreePostTagContainer
+          onClick={handleTagClick}
+          currentTag={currentTag.name as FreePostTag}
+        />
+      </TagWrapper>
       <PostListWrapper>
         <FreePostList
           keyword={keyword}
