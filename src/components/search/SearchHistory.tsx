@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { truncateContent } from '../../utils/post';
 import DeleteIcon from '../../public/images/ui/delete_icon.svg';
 import { colors } from '@/constants/colors';
+import { scrollNone } from '@/styles/styles';
 
 type Props = {
   searchHistory: string[];
@@ -55,11 +56,7 @@ const Title = styled.div`
   justify-content: space-between;
   padding: 0 1rem;
   color: ${colors.gray5};
-  font-family: SF Pro Text;
   font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 22px;
   > div:nth-child(2) {
     cursor: pointer;
     &:hover {
@@ -83,31 +80,21 @@ const SearchHistoryContainer = styled.div`
   white-space: nowrap;
   align-items: end;
   overflow-x: scroll;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${scrollNone};
 `;
+
 const SearchHistoryItem = styled.div`
   position: relative;
   padding: 0.6rem 2.6rem 0.6rem 1.2rem;
   height: 3.3rem;
-  /* background: #f9f9f9; */
   border-radius: 90rem;
   border: 1px solid ${colors.gray3};
-  &:hover {
-  }
-  &:active {
-  }
 `;
+
 const KeywordText = styled.div`
   cursor: pointer;
   color: ${colors.gray6};
-  font-family: SUIT;
   font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
 `;
 
 const IconWrapper = styled.div`

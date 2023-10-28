@@ -1,25 +1,40 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProfileBox from '../post/postItem/ProfileBox';
-import { Post } from '../../types/post';
+import { PostInterface } from '../../types/post';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
 import { formatTimeAgo } from '../../utils/post';
 import { colors } from '@/constants/colors';
 import { majorToKoreaMapping } from '@/constants/majorCategory';
+import { Footer } from '@/styles/post';
 
-const NewPost = ({ post: { postId, writer, title, createAt, majorCategory } }: { post: Post }) => {
+const NewPost = ({
+  post: { postId, writer, title, createAt, majorCategory = 'undefined' },
+}: {
+  post: PostInterface;
+}) => {
   const navigate = useNavigate();
+  const profileBoxSize = 'small';
+
+  const postClickHandler = () => {
+    navigate(`${LINK.POST}/${postId}`);
+  };
+
   return (
-    <Layout onClick={() => navigate(`${LINK.POST}/${postId}`)}>
+    <Layout onClick={postClickHandler}>
       <div>
-        <TagBox>{majorToKoreaMapping[majorCategory || 'undefined']}</TagBox>
+        <TagBox>{majorToKoreaMapping[majorCategory]}</TagBox>
       </div>
       <Title>{title}</Title>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <ProfileBox writer={writer?.nickname} profileImage={writer?.imageUrl} size='small' />
+      <Footer>
+        <ProfileBox
+          writer={writer?.nickname}
+          profileImage={writer?.imageUrl}
+          size={profileBoxSize}
+        />
         <TimeAgoBox>{formatTimeAgo(createAt)}</TimeAgoBox>
-      </div>
+      </Footer>
     </Layout>
   );
 };
@@ -51,11 +66,7 @@ const Title = styled.div`
   width: 100%;
   padding: 0.6rem 0;
   color: #252424;
-  font-family: SUIT;
   font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
@@ -65,20 +76,12 @@ const TagBox = styled.div`
   border-radius: 0.8rem;
   background: ${colors.primary};
   color: ${colors.white};
-  font-family: SUIT;
   font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
 `;
 
 const TimeAgoBox = styled.div`
   display: flex;
   align-items: center;
   color: ${colors.secondary};
-  font-family: SUIT;
   font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
 `;

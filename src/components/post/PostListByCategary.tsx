@@ -35,6 +35,15 @@ const PostListByCategary = (category: string, keyword?: string) => {
         default:
           return;
       }
+    case '/mypage':
+      switch (category) {
+        case 'NEED_HELP':
+          return <HelpContainer />;
+        case 'FREE':
+          return <FreeContainer />;
+        default:
+          return;
+      }
     default:
       return;
   }

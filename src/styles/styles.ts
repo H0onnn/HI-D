@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -39,10 +39,7 @@ export const MainPageLayout = styled.div`
 `;
 
 export const SearchInputWrapper = styled.div`
-  /* position: relative; */
   width: 100%;
-  /* height: 4.8rem; */
-  /* bottom: 3rem; */
   padding: 1.2rem 2rem;
 `;
 
@@ -63,4 +60,37 @@ export const SetupPageLayout = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+`;
+
+export const fadeIn = keyframes`
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+`;
+export const slideUp = keyframes`
+from {
+  transform: translateY(100%);
+}
+to {
+  transform: translateY(0);
+}
+`;
+
+export const imageStyle = css`
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+export const scrollNone = css`
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;

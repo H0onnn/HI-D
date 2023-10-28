@@ -5,6 +5,7 @@ import ReplyIcon from '@/public/images/ui/comment_fill.svg';
 import ViewIcon from '@/public/images/ui/veiwcount.svg';
 import { colors } from '@/constants/colors';
 import { PostCountInterface } from '@/types/post';
+import { imageStyle } from '@/styles/styles';
 
 const PostCountBox = ({
   recommendCount,
@@ -45,10 +46,9 @@ const ImageWrapper = styled.div<{ $darkMode?: boolean }>`
   overflow: hidden;
   border-radius: 50%;
   background-color: ${colors.pastel};
+  ${imageStyle}
   > img {
     padding: 0.1rem;
-    width: 100%;
-    height: 100%;
   }
 `;
 const CountBox = styled.div<{ $darkMode?: boolean }>`
@@ -56,9 +56,5 @@ const CountBox = styled.div<{ $darkMode?: boolean }>`
   align-items: center;
   gap: 0.4rem;
   color: ${({ $darkMode }) => ($darkMode ? colors.white : colors.gray6)};
-  font-family: SUIT;
   font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
 `;
