@@ -4,8 +4,13 @@ import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import { postContentValidation } from '@/utils/posting/postValidationRules';
 import { PostingDataInterface } from '@/types/posting';
+import { PostDetailInterface } from '@/types/post';
 
-const PostContent = () => {
+interface PostContentInterface {
+  initialContent?: PostDetailInterface['content'];
+}
+
+const PostContent = ({ initialContent }: PostContentInterface) => {
   const { register } = useFormContext<PostingDataInterface>();
 
   return (
@@ -13,6 +18,7 @@ const PostContent = () => {
       {...register('content', postContentValidation)}
       placeholder='고민거리나 질문 내용을 입력해주세요.'
       maxLength={postContentValidation.maxLength.value}
+      defaultValue={initialContent}
     />
   );
 };

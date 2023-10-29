@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import AddImageInput from './AddImageInput';
 import ImagePreview from './ImagePreview';
+import { PostDetailInterface } from '@/types/post';
 
-const AddImages = () => {
-  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+interface AddImagesInterface {
+  initialImages?: PostDetailInterface['images'];
+}
+
+const AddImages = ({ initialImages }: AddImagesInterface) => {
+  const [uploadedImages, setUploadedImages] = useState<string[]>(initialImages || []);
 
   const onUpload = (imageUrl: string) => {
     setUploadedImages([...uploadedImages, imageUrl]);
@@ -33,4 +38,8 @@ const AddImagesLayout = styled.div`
   align-items: center;
   gap: 1rem;
   overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;

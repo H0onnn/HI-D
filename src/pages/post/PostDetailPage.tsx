@@ -40,6 +40,7 @@ const PostDetailPage = () => {
           userId={user?.memberId}
           writerId={postData.writer.memberId}
           postId={postData.postId}
+          postData={postData}
           postStates={postStates}
           postActionHandlers={postActionHandlers}
         />

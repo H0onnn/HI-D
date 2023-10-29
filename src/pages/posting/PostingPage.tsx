@@ -14,13 +14,14 @@ const PostingPage = () => {
   const location = useLocation();
 
   const currentPath = location.pathname;
+  const postToEdit = location.state?.post;
 
-  const isHelpPost = currentPath === LINK.POSTING_HELP;
-  const isFreePost = currentPath === LINK.POSTING_FREE;
+  const isHelpPost = currentPath === LINK.POSTING_HELP || postToEdit?.boardType === 'needhelp';
+  const isFreePost = currentPath === LINK.POSTING_FREE || postToEdit?.boardType === 'free';
   const submitType = isHelpPost ? 'needhelp' : 'free';
 
   const steps = ['계열 선택', '게시글 작성'];
-  const defaultStep = isHelpPost ? steps[0] : steps[1];
+  const defaultStep = isHelpPost && !postToEdit ? steps[0] : steps[1];
 
   const { Funnel, Step, setStep, currentStep } = useFunnel(defaultStep);
 
@@ -40,6 +41,7 @@ const PostingPage = () => {
             nextClickHandler={nextClickHandler}
             isFreePost={isFreePost}
             isHelpPost={isHelpPost}
+            postToEdit={postToEdit}
           />
         </PostingForm>
       </PageLayout>

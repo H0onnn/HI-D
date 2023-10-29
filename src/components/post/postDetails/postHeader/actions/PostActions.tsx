@@ -9,12 +9,14 @@ import BOOKMARK_NONE from '@/public/images/ui/bookmark_none.svg';
 import BOOKMARK_ACTIVE from '@/public/images/ui/bookmark_active.svg';
 import REPORT_ICON from '@/public/images/ui/report_icon.svg';
 import MORE_ACTION from '@/public/images/ui/more_active.svg';
+import { PostDetailInterface } from '@/types/post';
 interface PostActionsInterface {
   postStates: ReturnType<typeof usePostActionState>;
   postActionHandlers: ReturnType<typeof usePostActionHandlers>;
   userId?: number;
   writerId: number;
   postId: number;
+  postData: PostDetailInterface;
 }
 
 const PostActions = ({
@@ -23,9 +25,10 @@ const PostActions = ({
   userId,
   writerId,
   postId,
+  postData,
 }: PostActionsInterface) => {
   const { isBookMarked, isMoreActions, toggleMoreActions, toggleReport } = postStates;
-  const { bookmarkPost, deletePost } = postActionHandlers;
+  const { bookmarkPost, editPost, deletePost } = postActionHandlers;
 
   return (
     <PostActionsLayout>
@@ -50,7 +53,12 @@ const PostActions = ({
       )}
       {isMoreActions && (
         <AuthorActionModal>
-          <AuthorActionButtons postId={postId} deletePostHandler={deletePost} />
+          <AuthorActionButtons
+            postId={postId}
+            postData={postData}
+            deletePostHandler={deletePost}
+            editPostHandler={editPost}
+          />
         </AuthorActionModal>
       )}
     </PostActionsLayout>

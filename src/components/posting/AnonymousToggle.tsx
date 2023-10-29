@@ -4,14 +4,18 @@ import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import { PostingDataInterface } from '@/types/posting';
 
-const AnonymousToggle = () => {
+interface AnonymousToggleInterface {
+  initialAnonymous?: boolean;
+}
+
+const AnonymousToggle = ({ initialAnonymous }: AnonymousToggleInterface) => {
   const { control } = useFormContext<PostingDataInterface>();
 
   return (
     <Controller
       name='isAnonymous'
       control={control}
-      defaultValue={false}
+      defaultValue={initialAnonymous || false}
       render={({ field: { value, onChange } }) => (
         <ToggleContainer onClick={() => onChange(!value)}>
           <ToggleCircle $isActive={value} />

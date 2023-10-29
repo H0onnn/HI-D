@@ -3,6 +3,7 @@ import { FunnelProps, StepProps } from '@/hooks/useFunnel';
 import { SetupPageLayout } from '@/styles/styles';
 import SelectMajor from './SelectMajor';
 import WritePost from './WritePost';
+import { PostDetailInterface } from '@/types/post';
 
 interface PostingSetupInterface {
   steps: string[];
@@ -11,6 +12,7 @@ interface PostingSetupInterface {
   nextClickHandler: (currentStep: string, nextStep: string) => void;
   isHelpPost: boolean;
   isFreePost: boolean;
+  postToEdit?: PostDetailInterface;
 }
 
 const PostingSetup = ({
@@ -20,6 +22,7 @@ const PostingSetup = ({
   nextClickHandler,
   isFreePost,
   isHelpPost,
+  postToEdit,
 }: PostingSetupInterface) => {
   const [currentMajor, setCurrentMajor] = useState<string | null>(null);
 
@@ -38,7 +41,12 @@ const PostingSetup = ({
           <></>
         )}
         <Step name='게시글 작성'>
-          <WritePost major={currentMajor} isHelpPost={isHelpPost} isFreePost={isFreePost} />
+          <WritePost
+            major={currentMajor}
+            isHelpPost={isHelpPost}
+            isFreePost={isFreePost}
+            postToEdit={postToEdit}
+          />
         </Step>
       </Funnel>
     </SetupPageLayout>

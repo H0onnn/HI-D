@@ -7,7 +7,7 @@ import { titleValidation } from '@/utils/posting/postValidationRules';
 import { PostDetailInterface } from '@/types/post';
 
 interface PostTitleInterface {
-  initialTitle: PostDetailInterface['title'];
+  initialTitle?: PostDetailInterface['title'];
 }
 
 const PostTitle = ({ initialTitle }: PostTitleInterface) => {

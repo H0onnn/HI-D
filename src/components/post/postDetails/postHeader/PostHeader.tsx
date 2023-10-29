@@ -4,6 +4,7 @@ import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import styled from 'styled-components';
 import PostTitle from './PostTitle';
 import PostActions from './actions/PostActions';
+import { PostDetailInterface } from '@/types/post';
 
 interface PostHeaderInterface {
   title: string;
@@ -12,6 +13,7 @@ interface PostHeaderInterface {
   userId?: number;
   writerId: number;
   postId: number;
+  postData: PostDetailInterface;
 }
 
 const PostHeader = ({
@@ -21,6 +23,7 @@ const PostHeader = ({
   userId,
   writerId,
   postId,
+  postData,
 }: PostHeaderInterface) => {
   return (
     <PostHeaderLayout>
@@ -31,6 +34,7 @@ const PostHeader = ({
         postStates={postStates}
         postActionHandlers={postActionHandlers}
         postId={postId}
+        postData={postData}
       />
     </PostHeaderLayout>
   );
