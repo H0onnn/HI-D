@@ -1,40 +1,45 @@
 export interface ChatRoomListInterface {
   dataList: ChatRoomInterface[];
   size: number;
-  next: boolean;
+  hasNext: boolean;
 }
 export interface ChatRoomInterface {
-  roomId: number;
-  members: { id: string; nickname: string; profileImage: string }[]; // member[]
-  recentChatContent: string;
-  recentChatTime: string;
-  // unreadChatCount: number;
-  // updatedAt: string;
+  chatRoomId: number;
+  member: { memberId: string; nickname: string; imageUrl: string };
+  recentChatMessage: MessageInterface;
+  notReadCount: boolean;
+}
+
+export interface RequestChatRoomListInterface {
+  page: number;
 }
 export interface RequestChatRoomCreateInterface {
   memberId: string;
 }
-export interface RequestChatRoomUpdateInterface {
-  roomId: number;
-}
 export interface RequestChatRoomDeleteInterface {
   roomId: number;
 }
-export interface ChatInterface {
-  nickname: string;
-  content: string;
-  createdAt: string;
+
+export interface MessageListInterface {
+  dataList: MessageInterface[];
+  size: number;
+  hasNext: boolean;
 }
-export interface RequestChatCreateInterface {
+export interface MessageInterface {
+  chatMessageId: number;
+  sender: string; // nickname
+  content: string;
+  createAt: string;
+}
+export interface RequestMessageListInterface {
   roomId: number;
-  memberId: string;
-  content: string;
+  page: number;
 }
+
 export interface PageStatusInterface {
   page: number;
-  isNext: boolean;
+  hasNext: boolean;
 }
 export interface ChatModalStatusInterface {
-  isOpen: boolean;
   roomId: number;
 }

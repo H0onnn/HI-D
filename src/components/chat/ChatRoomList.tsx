@@ -1,86 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import useObserver from '../../hooks/useObserver';
 import ChatRoomItem from './ChatRoomItem';
-import { ChatRoomInterface, ChatRoomListInterface, PageStatusInterface } from '../../types/chat';
+import { ChatRoomInterface, PageStatusInterface } from '../../types/chat';
+import { getChatRoomList } from '@/services/chat';
+import ErrorContent from '../public/ErrorContent';
+import { ChatRoomContainer } from '@/styles/chat';
 
-type Props = {
-  chatRoomClick: (roomId: number) => void;
-};
-
-const ChatRoomList = ({ chatRoomClick }: Props) => {
-  const [{ page, isNext }, setPage] = useState<PageStatusInterface>({ page: 1, isNext: true });
-  const [ChatRoomList, setChatRoomList] = useState<ChatRoomInterface[]>([]);
+const ChatRoomList = () => {
+  const [{ page, hasNext }, setPage] = useState<PageStatusInterface>({ page: 1, hasNext: true });
+  const [chatRoomList, setChatRoomList] = useState<ChatRoomInterface[]>([]);
   const infinityRef = useObserver(() => nextPageHandler());
+  const [loading, setLoading] = useState<boolean>(false);
 
   const nextPageHandler = () => {
-    setPage((prev) => ({ ...prev, page: prev.page + 1 }));
-  };
-  const piledUpChatRoomList = (data: ChatRoomInterface[]) => {
-    setChatRoomList((prev) => [...prev, ...data]);
-  };
-
-  const getChatRoomList = async ({ page = 1 }) => {
-    if (!isNext) return;
-    try {
-      // setStatus({ loading: true, error: null });
-      // const response = await axios('/chat', { params: { page } });
-      // const data = await response.data;
-      console.log(page);
-      const data: ChatRoomListInterface = await {
-        dataList: [
-          {
-            roomId: 1,
-            members: [
-              {
-                id: '1',
-                nickname: '상대방닉네임',
-                profileImage: '',
-              },
-              { id: '2', nickname: '나의닉네임', profileImage: '' },
-            ],
-            recentChatContent:
-              '최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용최근 채팅 내용',
-            recentChatTime: '최근 채팅 시간',
-          },
-        ],
-        size: 3,
-        next: true,
-      };
-      setPage((prev) => ({ ...prev, isNext: data.next }));
-      piledUpChatRoomList(data.dataList);
-      // setStatus({ loading: false, error: null });
-    } catch (error) {
-      console.error(error);
-    }
+    setLoading(true);
+    getChatRoomList({ page })
+      .then((data) => {
+        setPage((prev) => ({ ...prev, page: prev.page + 1, hasNext: data.hasNext }));
+        setChatRoomList((prev) => [...prev, ...data.dataList]);
+      })
+      .catch(() => {
+        setPage({ page: 0, hasNext: false });
+      });
   };
 
   useEffect(() => {
-    getChatRoomList({ page });
-  }, [page]);
+    if (!hasNext || loading || page === 0) return;
+    nextPageHandler();
+  }, [page, hasNext, loading]);
 
+  useEffect(() => {}, []);
   return (
     <>
       <ChatRoomContainer>
-        {ChatRoomList.map((chatRoom, index) => (
-          <ChatRoomItem
-            key={index}
-            chatRoom={chatRoom}
-            chatRoomClick={() => chatRoomClick(chatRoom.roomId)}
-          />
+        {chatRoomList.length === 0 && <ErrorContent />}
+        {chatRoomList.map((chatRoom, index) => (
+          <ChatRoomItem key={index} chatRoom={chatRoom} />
         ))}
-        {isNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
+        {!loading && hasNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
       </ChatRoomContainer>
     </>
   );
 };
 export default ChatRoomList;
-
-const ChatRoomContainer = styled.div`
-  width: 100%;
-  display: flex;
-  /* position: relative; */
-  flex-direction: column;
-  padding: 0 2rem;
-  gap: 0.8rem;
-`;

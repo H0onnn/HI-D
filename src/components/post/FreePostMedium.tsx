@@ -18,7 +18,7 @@ const FreePost = ({
     recommendCount,
     replyCount,
     createAt,
-    thumbnailImages,
+    thumbnailImages = [],
   },
 }: PostProps) => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const FreePost = ({
       </Header>
       <Title>{title}</Title>
       <Contents>{content}</Contents>
-      <PostImagesBoxMedium images={thumbnailImages || []} />
+      <PostImagesBoxMedium images={thumbnailImages} />
       <Footer>
         <div></div>
         <PostCountBox

@@ -1,4 +1,4 @@
-import { httpClient } from '../httpClient';
+import { httpClient } from '@/api/httpClient';
 import { CommentsDataInterface, CommentDataInterface } from '@/types/comment';
 
 export const getCommentsData = async (

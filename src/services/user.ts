@@ -1,4 +1,4 @@
-import { httpClient } from '../httpClient';
+import { httpClient } from '@/api/httpClient';
 import { LoginDataInterface } from '@/types/types';
 import { UserDataInterface } from '@/types/user';
 

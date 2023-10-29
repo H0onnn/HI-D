@@ -75,11 +75,7 @@ const MenuItem = styled.div`
 `;
 const MenuText = styled.div`
   color: #babfc2;
-  font-family: SUIT;
   font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
 `;
 const MenuIcon = styled.div`
   flex: none;

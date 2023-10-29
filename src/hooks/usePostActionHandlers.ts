@@ -1,6 +1,6 @@
 import usePostActionState from './usePostActionState';
 import { useNavigate } from 'react-router-dom';
-import { postLike, postBookmark, postDelete } from '@/api/services/postActions';
+import { postLike, postBookmark, postDelete } from '@/services/postActions';
 import { LINK } from '@/constants/links';
 import toast from 'react-hot-toast';
 

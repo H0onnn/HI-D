@@ -7,6 +7,10 @@ const textOverflowStyles = css`
   text-overflow: ellipsis;
 `;
 
+export const LayoutWrapper = styled.div`
+  position: relative;
+`;
+
 export const Layout = styled.div`
   cursor: pointer;
   width: 100%;
@@ -44,21 +48,15 @@ export const TimeBox = styled.div`
   ${textOverflowStyles}
   color: ${colors.gray6};
   font-size: 14px;
-  font-weight: 400;
 `;
 export const Contents = styled.div`
   min-height: 4.4rem;
   color: ${colors.gray6};
   font-size: 14px;
-  font-weight: 400;
 `;
 export const MajorBox = styled.div`
   color: ${colors.gray6};
   font-size: 14px;
-  font-weight: 400;
-`;
-export const EditButton = styled.button`
-  // Edit 버튼 스타일
 `;
 
 export const PostListWrapper = styled.div`
@@ -66,6 +64,7 @@ export const PostListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  height: 100%;
 `;
 export const PostListLayout = styled.div`
   height: 100%;

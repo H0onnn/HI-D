@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getPostDetailData } from '@/api/services/post';
+import { getPostDetailData } from '@/services/post';
 import { PostDetailInterface } from '@/types/post';
 import toast from 'react-hot-toast';
 

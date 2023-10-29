@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { colors } from '../../constants/colors';
 import LogoIcon from '../../public/images/main_logo.svg';
 import AlarmIcon from '../../public/images/alarm.svg';
+import { imageStyle } from '@/styles/styles';
 
 const MainPageHeader = () => {
   return (
@@ -37,17 +38,11 @@ const PageHeaderLayout = styled.div`
 const LogoImageWrpper = styled.div`
   width: 5.8rem;
   height: 3s.6rem;
-  > img {
-    width: 100%;
-    height: 100%;
-  }
+  ${imageStyle}
 `;
 
 const AlarmImageWrpper = styled.div`
   width: 2.4rem;
   height: 2.4rem;
-  > img {
-    width: 100%;
-    height: 100%;
-  }
+  ${imageStyle}
 `;
