@@ -18,6 +18,7 @@ const useLogin = () => {
       setToken(token);
     } catch (err: unknown) {
       console.error('토큰 fetching 에러 : ', err);
+      toast.error('회원 정보가 올바르지 않습니다.', { id: 'tokenFetchingError' });
     }
   };
 
