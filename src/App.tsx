@@ -5,7 +5,13 @@ import Layout from './layout/Layout';
 import AppRoutes from './router/routes';
 import ToasterContext from './libs/ToasterContext';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => {
   return (
