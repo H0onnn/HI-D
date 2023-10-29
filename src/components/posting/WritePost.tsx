@@ -28,7 +28,7 @@ const WritePost = ({ major, isHelpPost, isFreePost }: WritePostInterface) => {
       </TitleContainer>
       {isHelpPost && <EditMajorDropBox major={major} />}
       <ContentsContainer>
-        <PostTitle />
+        <PostTitle initialTitle='' />
         <PostContent />
         <AddImages />
       </ContentsContainer>
