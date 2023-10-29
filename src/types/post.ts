@@ -126,6 +126,7 @@ export interface PostDetailInterface {
   replyCount: number;
   images: string[];
   createAt: string;
+  updateAt: string;
   isAnonymous: boolean;
 }
 
