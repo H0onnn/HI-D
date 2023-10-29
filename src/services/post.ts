@@ -2,6 +2,7 @@ import {
   PostListInterface,
   RequestFreePostListInterface,
   RequestHelpPostListInterface,
+  PostDetailInterface,
 } from '@/types/post';
 import { httpClient } from '../api/httpClient';
 
@@ -66,5 +67,10 @@ export const getFreePostListByKeyword = async ({
     keyword,
     tag,
   });
+  return response.data;
+};
+
+export const getPostDetailData = async (postId: number): Promise<PostDetailInterface> => {
+  const response = await httpClient.post.get.posts(postId);
   return response.data;
 };

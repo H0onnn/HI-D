@@ -7,7 +7,7 @@ type InstanceObjectAPI = {
 };
 type GroupedInstanceObjectAPI = Record<string, InstanceObjectAPI>;
 type MethodInstanceObjectAPI = {
-  [key in 'get' | 'post' | 'put' | 'delete']?: InstanceObjectAPI;
+  [key in 'get' | 'post' | 'put' | 'patch' | 'delete']?: InstanceObjectAPI;
 };
 type GroupedMethodInstanceObjectAPI = {
   [key: string]: MethodInstanceObjectAPI;
@@ -40,7 +40,7 @@ export function addInstaceMethod(
   return Object.fromEntries(
     Object.entries(instanceObjectAPI)
       .filter(([method]: [string, any]) =>
-        ['get', 'post', 'put', 'delete'].includes(method.toLowerCase()),
+        ['get', 'post', 'put', 'patch', 'delete'].includes(method.toLowerCase()),
       )
       .map(([method, value]) => {
         const instanceMap = ([key, callback]: [string, Callback]) => [

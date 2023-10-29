@@ -1,5 +1,6 @@
 import React from 'react';
-import usePostActions from '@/hooks/usePostActions';
+import usePostActionState from '@/hooks/usePostActionState';
+import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import styled from 'styled-components';
 import UserInterestIcon from './UserInterestIcon';
 import LIKE_NONE from '@/public/images/ui/like_none.svg';
@@ -9,19 +10,24 @@ import COMMENT_FILL from '@/public/images/ui/comment_fill.svg';
 import VIEW from '@/public/images/ui/veiwcount.svg';
 
 interface UserInterestInterface {
+  postId: number;
   likeCount: number;
   commentCount: number;
   viewCount: number;
-  postActions: ReturnType<typeof usePostActions>;
+  postStates: ReturnType<typeof usePostActionState>;
+  postActionHandlers: ReturnType<typeof usePostActionHandlers>;
 }
 
 const UserInterest = ({
+  postId,
   likeCount,
   commentCount,
   viewCount,
-  postActions,
+  postStates,
+  postActionHandlers,
 }: UserInterestInterface) => {
-  const { isLiked, toggleLikeHandler } = postActions;
+  const { isLiked } = postStates;
+  const { likePost } = postActionHandlers;
 
   const INTERESTS = [
     { icon: isLiked ? LIKE_FILL : LIKE_NONE, value: likeCount },
@@ -33,10 +39,11 @@ const UserInterest = ({
     <UserInterestLayout>
       {INTERESTS.map((interest, index) => (
         <UserInterestIcon
+          postId={postId}
           key={index}
           icon={interest.icon}
           value={interest.value}
-          onClick={index === 0 ? toggleLikeHandler : undefined}
+          likePostHandler={index === 0 ? likePost : () => Promise.resolve()}
         />
       ))}
     </UserInterestLayout>

@@ -4,9 +4,14 @@ import useSetupInput from '@/hooks/useSetupInput';
 import Input from '../public/Input';
 import { InputWrapper } from '@/styles/styles';
 import { titleValidation } from '@/utils/posting/postValidationRules';
+import { PostDetailInterface } from '@/types/post';
 
-const PostTitle = () => {
-  const { register } = useSetupInput('title', titleValidation, 'default');
+interface PostTitleInterface {
+  initialTitle: PostDetailInterface['title'];
+}
+
+const PostTitle = ({ initialTitle }: PostTitleInterface) => {
+  const { register } = useSetupInput('title', titleValidation, 'default', initialTitle);
 
   const { onFocus, onBlur } = useFocus();
 

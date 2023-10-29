@@ -58,6 +58,11 @@ export const apiMethods = {
     },
   },
   members: {
+    get: {
+      myData: () => ({
+        url: 'members/my',
+      }),
+    },
     post: {
       signUp: (data: ProfileSetupDataInterface) => ({
         url: 'members',
@@ -122,11 +127,13 @@ export const apiMethods = {
       report: (postId: number) => ({
         url: `posts/${postId}/report`,
       }),
-      bookmark: (postId: number) => ({
-        url: `posts/${postId}/bookmark`,
-      }),
+    },
+    patch: {
       like: (postId: number) => ({
         url: `posts/${postId}/recommend`,
+      }),
+      bookmark: (postId: number) => ({
+        url: `posts/${postId}/bookmark`,
       }),
     },
     delete: {

@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface IconButtonProps {
-  iconSrc: string; // 아이콘의 이미지 경로
-  isActive?: boolean; // 활성화 여부
-  activeIconSrc?: string; // 활성화 상태일 때의 아이콘 이미지 경로
-  onClickHandler: () => void; // 클릭 핸들러 함수
-  alt?: string; // 이미지 alt
+  iconSrc: string;
+  isActive?: boolean;
+  activeIconSrc?: string;
+  onClickHandler?: () => void;
+  bookmarkPostHandler?: (postId: number) => Promise<void>;
+  alt?: string;
+  postId?: number;
 }
 
 const IconButton = ({
@@ -15,11 +17,25 @@ const IconButton = ({
   activeIconSrc,
   onClickHandler,
   alt = '',
+  bookmarkPostHandler,
+  postId,
 }: IconButtonProps) => {
   const iconToDisplay = isActive && activeIconSrc ? activeIconSrc : iconSrc;
 
+  const handleClick = () => {
+    if (bookmarkPostHandler && postId) {
+      bookmarkPostHandler(postId);
+      return;
+    }
+
+    if (onClickHandler) {
+      onClickHandler();
+      return;
+    }
+  };
+
   return (
-    <IconButtonLayout onClick={onClickHandler}>
+    <IconButtonLayout onClick={handleClick}>
       <IconImage src={iconToDisplay} alt={alt} />
     </IconButtonLayout>
   );
