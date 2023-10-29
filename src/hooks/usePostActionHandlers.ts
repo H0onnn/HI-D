@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { postLike, postBookmark, postDelete } from '@/services/postActions';
 import { LINK } from '@/constants/links';
 import toast from 'react-hot-toast';
+import { PostingDataInterface } from '@/types/posting';
 
 const usePostActionHandlers = () => {
   const { toggleBookmark, toggleLike } = usePostActionState();
@@ -16,6 +17,13 @@ const usePostActionHandlers = () => {
   const bookmarkPost = async (postId: number) => {
     toggleBookmark();
     await postBookmark(postId);
+  };
+
+  const editPost = (post: PostingDataInterface, postId: number) => {
+    navigate(LINK.POST_EDIT.replace(':id', postId.toString())),
+      {
+        state: { post },
+      };
   };
 
   const deletePost = async (postId: number) => {
@@ -34,6 +42,7 @@ const usePostActionHandlers = () => {
   return {
     likePost,
     bookmarkPost,
+    editPost,
     deletePost,
   };
 };
