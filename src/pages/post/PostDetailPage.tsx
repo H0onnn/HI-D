@@ -1,6 +1,6 @@
 import React from 'react';
-import usePostActions from '@/hooks/usePostActions';
-import useComments from '@/hooks/useComments';
+import usePostActionState from '@/hooks/usePostActionState';
+import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import usePostDetailData from '@/hooks/usePostDetailData';
 import useUser from '@/hooks/useUser';
 import { useParams } from 'react-router-dom';
@@ -18,9 +18,9 @@ const PostDetailPage = () => {
   const { id: postIdStr } = useParams<{ id: string }>();
   const postId = Number(postIdStr);
   const { postData } = usePostDetailData(postId);
-  const postActions = usePostActions();
-  const { isReported, toggleReportHandler } = postActions;
-  const { comments } = useComments(postId);
+  const postStates = usePostActionState();
+  const postActionHandlers = usePostActionHandlers();
+  const { isReported, toggleReport } = postStates;
   const { user } = useUser();
 
   if (!postData) return null;
@@ -37,20 +37,24 @@ const PostDetailPage = () => {
         />
         <PostHeader
           title={postData.title}
-          postActions={postActions}
           userId={user?.memberId}
           writerId={postData.writer.memberId}
+          postId={postData.postId}
+          postStates={postStates}
+          postActionHandlers={postActionHandlers}
         />
         <PostBodyText content={postData.content} />
         {postData.images && <ImageSlider imageUrls={postData.images} />}
         <UserInterest
+          postId={postData.postId}
           likeCount={postData.recommendCount}
           commentCount={postData.replyCount}
           viewCount={postData.viewCount}
-          postActions={postActions}
+          postStates={postStates}
+          postActionHandlers={postActionHandlers}
         />
-        <CommentList commentList={comments} postId={postId} />
-        {isReported && <ReportModal setModalState={toggleReportHandler} />}
+        <CommentList postId={postId} />
+        {isReported && <ReportModal setModalState={toggleReport} />}
       </PageLayout>
     </>
   );

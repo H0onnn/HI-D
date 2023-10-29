@@ -1,21 +1,37 @@
 import React from 'react';
-import usePostActions from '@/hooks/usePostActions';
+import usePostActionState from '@/hooks/usePostActionState';
+import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import styled from 'styled-components';
 import PostTitle from './PostTitle';
 import PostActions from './actions/PostActions';
 
 interface PostHeaderInterface {
   title: string;
-  postActions: ReturnType<typeof usePostActions>;
+  postStates: ReturnType<typeof usePostActionState>;
+  postActionHandlers: ReturnType<typeof usePostActionHandlers>;
   userId?: number;
   writerId: number;
+  postId: number;
 }
 
-const PostHeader = ({ title, postActions, userId, writerId }: PostHeaderInterface) => {
+const PostHeader = ({
+  title,
+  postStates,
+  postActionHandlers,
+  userId,
+  writerId,
+  postId,
+}: PostHeaderInterface) => {
   return (
     <PostHeaderLayout>
       <PostTitle title={title} />
-      <PostActions userId={userId} writerId={writerId} postActions={postActions} />
+      <PostActions
+        userId={userId}
+        writerId={writerId}
+        postStates={postStates}
+        postActionHandlers={postActionHandlers}
+        postId={postId}
+      />
     </PostHeaderLayout>
   );
 };
