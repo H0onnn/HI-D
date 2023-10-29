@@ -1,7 +1,7 @@
 import useAuthStore from '@/store/authStore';
 import useUser from './useUser';
 import { useNavigate } from 'react-router-dom';
-import { getToken, getUserData } from '@/api/services/user';
+import { getToken, getUserData } from '@/services/user';
 import { LINK } from '@/constants/links';
 import toast from 'react-hot-toast';
 import { LoginDataInterface } from '@/types/types';

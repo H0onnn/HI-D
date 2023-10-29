@@ -1,6 +1,6 @@
 import useAuthStore from '@/store/authStore';
 import { useQuery, useQueryClient, QueryClient } from '@tanstack/react-query';
-import { getUserData } from '@/api/services/user';
+import { getUserData } from '@/services/user';
 import { UserDataInterface } from '@/types/user';
 
 const useUser = () => {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getCommentsData, postComment } from '@/api/services/comments';
+import { getCommentsData, postComment } from '@/services/comments';
 import { CommentsDataInterface } from '@/types/comment';
 import toast from 'react-hot-toast';
 import useObserver from './useObserver';
