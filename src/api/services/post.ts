@@ -1,4 +1,4 @@
-import { PostList } from '@/types/post';
+import { PostList, PostDetailInterface } from '@/types/post';
 import { httpClient } from '../httpClient';
 
 export const getHelpPostList = async ({
@@ -44,5 +44,10 @@ export const getFreePostList = async ({
     keyword,
     tag,
   });
+  return response.data;
+};
+
+export const getPostDetailData = async (postId: number): Promise<PostDetailInterface> => {
+  const response = await httpClient.post.get.posts(postId);
   return response.data;
 };
