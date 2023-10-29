@@ -1,19 +1,31 @@
 import React from 'react';
-import usePostActions from '@/hooks/usePostActions';
+import usePostActionState from '@/hooks/usePostActionState';
+import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import styled from 'styled-components';
 import IconButton from '@/components/public/IconButton';
+import AuthorActionModal from './author/AuthorActionModal';
+import AuthorActionButtons from './author/AuthorActionButtons';
 import BOOKMARK_NONE from '@/public/images/ui/bookmark_none.svg';
 import BOOKMARK_ACTIVE from '@/public/images/ui/bookmark_active.svg';
 import REPORT_ICON from '@/public/images/ui/report_icon.svg';
 import MORE_ACTION from '@/public/images/ui/more_active.svg';
 interface PostActionsInterface {
-  postActions: ReturnType<typeof usePostActions>;
+  postStates: ReturnType<typeof usePostActionState>;
+  postActionHandlers: ReturnType<typeof usePostActionHandlers>;
   userId?: number;
   writerId: number;
+  postId: number;
 }
 
-const PostActions = ({ postActions, userId, writerId }: PostActionsInterface) => {
-  const { isBookMarked, toggleBookmarkHandler, toggleReportHandler } = postActions;
+const PostActions = ({
+  postStates,
+  postActionHandlers,
+  userId,
+  writerId,
+  postId,
+}: PostActionsInterface) => {
+  const { isBookMarked, isMoreActions, toggleMoreActions, toggleReport } = postStates;
+  const { bookmarkPost, deletePost } = postActionHandlers;
 
   return (
     <PostActionsLayout>
@@ -21,14 +33,26 @@ const PostActions = ({ postActions, userId, writerId }: PostActionsInterface) =>
         iconSrc={BOOKMARK_NONE}
         activeIconSrc={BOOKMARK_ACTIVE}
         isActive={isBookMarked}
-        onClickHandler={toggleBookmarkHandler}
+        bookmarkPostHandler={bookmarkPost}
         alt='bookmark_icon'
+        postId={postId}
       />
-      <IconButton
-        iconSrc={userId === writerId ? MORE_ACTION : REPORT_ICON}
-        onClickHandler={toggleReportHandler}
-        alt='report_icon'
-      />
+      {userId === writerId ? (
+        <>
+          <IconButton
+            iconSrc={MORE_ACTION}
+            onClickHandler={toggleMoreActions}
+            alt='author_actions_icon'
+          />
+        </>
+      ) : (
+        <IconButton iconSrc={REPORT_ICON} onClickHandler={toggleReport} alt='more_or_report_icon' />
+      )}
+      {isMoreActions && (
+        <AuthorActionModal>
+          <AuthorActionButtons postId={postId} deletePostHandler={deletePost} />
+        </AuthorActionModal>
+      )}
     </PostActionsLayout>
   );
 };
@@ -42,4 +66,5 @@ const PostActionsLayout = styled.div`
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
+  position: relative;
 `;
