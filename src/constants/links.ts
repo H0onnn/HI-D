@@ -14,6 +14,7 @@ export const LINK = {
   POST_DETAIL: '/post/:id',
   POST_HELP: '/post/help',
   POST_FREE: '/post/free',
+  POST_EDIT: '/post/edit/:id',
   SEARCH: '/search',
   ALERT: '/alert',
 } as const;
