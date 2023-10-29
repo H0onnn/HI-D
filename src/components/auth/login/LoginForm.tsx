@@ -1,16 +1,12 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import useAuthStore from '../../../store/authStore';
-import { useNavigate } from 'react-router-dom';
+import useLogin from '@/hooks/useLogin';
 import Input from '../../public/Input';
-import { LoginDataInterface } from '../../../types/types';
 import Button from '../../public/Button';
 import styled from 'styled-components';
+import { LoginDataInterface } from '../../../types/types';
 import { emailValidation, passwordValidation } from '../../../utils/auth/validationRules';
 import { InputWrapper } from '../../../styles/styles';
-import { httpClient } from '../../../api/httpClient';
-import { LINK } from '@/constants/links';
-import toast from 'react-hot-toast';
 
 const LoginForm = () => {
   const {
@@ -20,9 +16,7 @@ const LoginForm = () => {
     watch,
   } = useForm<LoginDataInterface>({ mode: 'onChange' });
 
-  const setToken = useAuthStore((state) => state.setToken);
-
-  const navigate = useNavigate();
+  const { loginHandler } = useLogin();
 
   // TODO : 회원기입 폼에서도 validation에 따른 status 전달이 필요할 것이기 때문에 로직 분리 필요
   const emailError = errors.mail;
@@ -39,21 +33,7 @@ const LoginForm = () => {
     : 'default';
 
   const loginSubmit: SubmitHandler<LoginDataInterface> = async (data) => {
-    try {
-      const res = await httpClient.members.post.login(data);
-      const token = res.headers['authorization'];
-
-      if (token) {
-        setToken(token);
-        navigate(LINK.MAIN);
-        toast.success('로그인 되었습니다.', { id: 'login-success' });
-        return;
-      }
-
-      toast.error('로그인에 실패하였습니다.', { id: 'login-fail' });
-    } catch (err: unknown) {
-      toast.error('로그인 중 오류가 발생했습니다.', { id: 'login-server-fail' });
-    }
+    await loginHandler(data);
   };
 
   return (

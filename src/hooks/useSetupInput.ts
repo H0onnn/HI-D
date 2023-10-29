@@ -25,6 +25,7 @@ const useSetupInput = (
   field: string,
   validationRules: ValidationRulesInterface,
   defaultStatus: 'search' | 'default' = 'search',
+  initialValue?: string,
 ) => {
   const {
     register,
@@ -37,6 +38,10 @@ const useSetupInput = (
   const { onChange } = register(field, { ...validationRules });
 
   const value = watch(field);
+
+  if (initialValue !== undefined && value === undefined) {
+    setValue(field, initialValue);
+  }
 
   // Input status 처리 로직
   let status: 'error' | 'success' | 'search' | 'default' | undefined;
