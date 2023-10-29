@@ -1,19 +1,21 @@
 import useAuthStore from '@/store/authStore';
+import useUser from './useUser';
 import { useNavigate } from 'react-router-dom';
-import { httpClient } from '@/api/httpClient';
+import { getToken, getUserData } from '@/api/services/user';
 import { LINK } from '@/constants/links';
 import toast from 'react-hot-toast';
 import { LoginDataInterface } from '@/types/types';
+import { UserDataInterface } from '@/types/user';
 
 const useLogin = () => {
   const setToken = useAuthStore((state) => state.setToken);
+  const { queryClient } = useUser();
   const navigate = useNavigate();
 
   const fetchToken = async (data: LoginDataInterface) => {
     try {
-      const response = await httpClient.members.post.login(data);
-      const jwt = response.headers['authorization'];
-      setToken(jwt);
+      const token = await getToken(data);
+      setToken(token);
     } catch (err: unknown) {
       console.error('토큰 fetching 에러 : ', err);
     }
@@ -25,6 +27,12 @@ const useLogin = () => {
       const token = useAuthStore.getState().token;
 
       if (token) {
+        const userData = queryClient.getQueryData<UserDataInterface>(['currentUser']);
+
+        if (!userData) {
+          await getUserData();
+        }
+
         navigate(LINK.MAIN);
         toast.success('로그인 되었습니다.', { id: 'loginSuccess' });
         return;
