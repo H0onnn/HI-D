@@ -1,11 +1,11 @@
-import useAuthStore from '@/store/authStore';
+import { useAuthToken } from '@/store/authStore';
 import { useQuery, useQueryClient, QueryClient } from '@tanstack/react-query';
 import { getUserData } from '@/services/user';
 import { UserDataInterface } from '@/types/user';
 
 const useUser = () => {
   const queryClient: QueryClient = useQueryClient();
-  const token = useAuthStore((state) => state.token);
+  const token = useAuthToken();
 
   const { data: user } = useQuery<UserDataInterface, Error>({
     queryKey: ['currnetUser'],
