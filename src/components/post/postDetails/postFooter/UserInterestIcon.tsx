@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 
 interface UserInterestIconInterface {
+  postId: number;
   icon: string;
   value: number;
-  onClick?: () => void;
+  likePostHandler: (postId: number) => Promise<void>;
 }
 
-const UserInterestIcon = ({ icon, value, onClick }: UserInterestIconInterface) => {
+const UserInterestIcon = ({ postId, icon, value, likePostHandler }: UserInterestIconInterface) => {
   return (
-    <UserInterestIconLayout onClick={onClick}>
+    <UserInterestIconLayout onClick={() => likePostHandler(postId)}>
       <IconWrapper>
         <IconImage src={icon} alt='interest_button_icon' />
       </IconWrapper>
