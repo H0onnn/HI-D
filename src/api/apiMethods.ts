@@ -129,6 +129,10 @@ export const apiMethods = {
       }),
     },
     patch: {
+      edit: (postId: number, data: PostingDataInterface) => ({
+        url: `posts/${postId}`,
+        data,
+      }),
       like: (postId: number) => ({
         url: `posts/${postId}/recommend`,
       }),
