@@ -2,44 +2,42 @@ import React from 'react';
 import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import styled, { css } from 'styled-components';
 import useModalStore from '@/store/modalStore';
-import ModalLayout from './ModalLayout';
-import { Footer } from '@/styles/post';
 import { colors } from '@/constants/colors';
+import { IModalProps } from '@/types/modal';
 
-const AlertModal = () => {
-  const {
-    info: { title, content, onConfirm, confirmText = '확인' },
-    changeModalStatus,
-  } = useModalStore();
+const AlertModal = ({ title, content, onConfirmHandler, confirmText = '확인' }: IModalProps) => {
+  const { closeModal } = useModalStore();
   const { openScroll } = useBodyScrollLock();
 
   const closeModalHandler = () => {
-    changeModalStatus({ isOpen: false });
+    closeModal();
     openScroll();
   };
 
   return (
-    <ModalLayout>
-      <Container>
-        <Title>{title}</Title>
-        <Content>{content}</Content>
-        <Footer>
-          <CancleButton onClick={closeModalHandler}>취소</CancleButton>
-          <ConfirmButton onClick={onConfirm}>{confirmText}</ConfirmButton>
-        </Footer>
-      </Container>
-    </ModalLayout>
+    <Layout>
+      <Title>{title}</Title>
+      <Content>{content}</Content>
+      <Footer>
+        <CancleButton onClick={closeModalHandler}>취소</CancleButton>
+        <ConfirmButton onClick={onConfirmHandler}>{confirmText}</ConfirmButton>
+      </Footer>
+    </Layout>
   );
 };
 
 export default AlertModal;
 
-const Container = styled.div`
-  width: 100%;
-  height: 20rem;
-  margin: 1.6rem auto;
+const Layout = styled.div`
+  position: absolute;
+  bottom: 50vh;
+  left: 50%;
+  transform: translate(-50%);
+  width: 90%;
+  height: 18rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 4rem 2rem 2.4rem 2rem;
   background-color: ${colors.white};
   border-radius: 1.2rem;
@@ -53,8 +51,9 @@ const Title = styled.h1`
 
 const Content = styled.p`
   height: 100%;
-  color: ${colors.gray3};
+  color: ${colors.gray5};
   font-size: 14px;
+  margin: 0.4rem 0;
 `;
 
 const ButtonStyle = css`
@@ -63,6 +62,7 @@ const ButtonStyle = css`
   border-radius: 0.8rem;
   font-size: 16px;
   font-weight: 700;
+  border: none;
 `;
 const CancleButton = styled.button`
   ${ButtonStyle};
@@ -73,4 +73,10 @@ const ConfirmButton = styled.button`
   ${ButtonStyle};
   background-color: ${colors.primary};
   color: ${colors.white};
+`;
+export const Footer = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  justify-content: space-between;
 `;

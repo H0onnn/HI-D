@@ -1,85 +1,46 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import useBodyScrollLock from '@/hooks/useBodyScrollLock';
-import { useNavigate } from 'react-router-dom';
 import CloseIcon from '@/public/images/floatingNav/close_icon.svg';
 import OpenIcon from '@/public/images/floatingNav/open_icon.svg';
-import FreeIcon from '@/public/images/floatingNav/free_icon.svg';
-import HelpIcon from '@/public/images/floatingNav/help_icon.svg';
 import { colors } from '@/constants/colors';
-import { LINK } from '@/constants/links';
-import ModalLayout, { ModalFloat } from '@/components/public/ModalLayout';
 import useModalStore from '@/store/modalStore';
 import { fadeIn } from '@/styles/styles';
+import { ModalFloat } from '@/components/public/modal/GlobalModal';
+import { MODAL_TYPES } from '@/types/modal';
 
 const FloatingNav = () => {
   const { lockScroll, openScroll } = useBodyScrollLock();
-  const { changeModalStatus, isOpen } = useModalStore();
-  const navigate = useNavigate();
+  const { openModal, modalOpen, closeModal } = useModalStore();
 
   const openModalHanlder = () => {
-    changeModalStatus({ isOpen: true, info: { type: 'page' } });
+    openModal({ modalType: MODAL_TYPES.FLOAT });
     lockScroll();
   };
   const closeModalHandler = () => {
-    changeModalStatus({ isOpen: false });
+    closeModal();
     openScroll();
   };
 
-  useEffect(() => {
-    changeModalStatus({ isOpen: false });
-  }, []);
-
   return (
-    <>
-      {isOpen && (
-        <ModalLayout>
-          <FloatingMenu>
-            <FloatingItem onClick={() => navigate(LINK.POSTING_HELP)}>
-              <MeneText>
-                <h3>도움이 필요해요</h3>
-                <p>전공고민 질문하기</p>
-              </MeneText>
-              <MenuIcon>
-                <img src={HelpIcon} alt={'help_icon'} />
-              </MenuIcon>
-            </FloatingItem>
-            <FloatingItem onClick={() => navigate(LINK.POSTING_FREE)}>
-              <MeneText>
-                <h3>자유게시판</h3>
-                <p>자유롭게 글쓰기</p>
-              </MeneText>
-              <MenuIcon>
-                <img src={FreeIcon} alt={'free_icon'} />
-              </MenuIcon>
-            </FloatingItem>
-            <FloatingItem>
-              <ModalIcon onClick={closeModalHandler}>
-                <img src={CloseIcon} alt={'close_icon'} />
-              </ModalIcon>
-            </FloatingItem>
-          </FloatingMenu>
-        </ModalLayout>
-      )}
-      {!isOpen && (
-        <ModalFloat>
-          <FloatingMenu>
-            <FloatingItem>
-              <ModalIcon onClick={openModalHanlder}>
-                <img src={OpenIcon} alt={'open_icon'} />
-              </ModalIcon>
-            </FloatingItem>
-          </FloatingMenu>
-        </ModalFloat>
-      )}
-    </>
+    <ModalFloat>
+      <FloatingMenu>
+        <FloatingItem onClick={modalOpen ? closeModalHandler : openModalHanlder}>
+          <ModalIcon>
+            <img
+              src={modalOpen ? CloseIcon : OpenIcon}
+              alt={modalOpen ? 'close_icon' : 'open_icon'}
+            />
+          </ModalIcon>
+        </FloatingItem>
+      </FloatingMenu>
+    </ModalFloat>
   );
 };
 
 export default FloatingNav;
 
-const FloatingMenu = styled.div`
-  z-index: 100;
+export const FloatingMenu = styled.div`
   position: absolute;
   bottom: 9rem;
   right: 2rem;
@@ -88,7 +49,7 @@ const FloatingMenu = styled.div`
   gap: 1rem;
 `;
 
-const FloatingItem = styled.div`
+export const FloatingItem = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -97,36 +58,6 @@ const FloatingItem = styled.div`
   animation: ${fadeIn} 0.3s ease-in-out;
 `;
 
-const MeneText = styled.div`
-  color: ${colors.white};
-  text-align: right;
-  > h3 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-  > p {
-    font-size: 14px;
-  }
-`;
-const MenuIcon = styled.div`
-  width: 5.2rem;
-  height: 5.2rem;
-  background: ${colors.white};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  padding: 0;
-  > img {
-    padding-top: 0.8rem;
-    width: 180%;
-    height: 180%;
-    object-fit: cover;
-  }
-`;
 const ModalIcon = styled.div`
   width: 5.2rem;
   height: 5.2rem;

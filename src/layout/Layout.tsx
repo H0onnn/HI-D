@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { colors } from '../constants/colors';
 import BottomNavBar from './BottomNavBar';
 import FloatingNav from './FloatingNav';
+import GlobalModal from '@/components/public/modal/GlobalModal';
 
 interface LayoutInterface {
   children: React.ReactNode;
@@ -23,6 +24,7 @@ const Layout = ({ children }: LayoutInterface) => {
         {!hideBottomNav && <BottomNavBar />}
         {!hideFloatNav && <FloatingNav />}
       </PageContentLayout>
+      <GlobalModal />
     </PageLayout>
   );
 };
