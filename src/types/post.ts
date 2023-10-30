@@ -112,6 +112,7 @@ export interface PostDetailInterface {
   createAt: string;
   updateAt: string;
   isAnonymous: boolean;
+  boardType: string;
 }
 
 export interface Writer {

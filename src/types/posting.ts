@@ -5,4 +5,5 @@ export interface PostingDataInterface {
   imageUrls?: string[];
   isAnonymous: boolean;
   tag?: string;
+  boardType?: string;
 }
