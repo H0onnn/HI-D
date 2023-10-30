@@ -1,4 +1,4 @@
-import { useAuthActions, useAuthToken } from '@/store/authStore';
+import useAuthStore, { useAuthActions } from '@/store/authStore';
 import useUser from './useUser';
 import { useNavigate } from 'react-router-dom';
 import { getToken, getUserData } from '@/services/user';
@@ -9,7 +9,6 @@ import { UserDataInterface } from '@/types/user';
 
 const useLogin = () => {
   const { setToken } = useAuthActions();
-  const token = useAuthToken();
   const { queryClient } = useUser();
   const navigate = useNavigate();
 
@@ -26,7 +25,7 @@ const useLogin = () => {
   const loginHandler = async (data: LoginDataInterface) => {
     try {
       await fetchToken(data);
-
+      const token = useAuthStore.getState().token;
       if (token) {
         const userData = queryClient.getQueryData<UserDataInterface>(['currentUser']);
 
