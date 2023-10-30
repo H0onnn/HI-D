@@ -20,10 +20,10 @@ const usePostActionHandlers = () => {
   };
 
   const editPost = (post: PostingDataInterface, postId: number) => {
-    navigate(LINK.POST_EDIT.replace(':id', postId.toString())),
-      {
-        state: { post },
-      };
+    navigate(LINK.POST_EDIT.replace(':id', postId.toString()), {
+      state: { post },
+    }),
+      console.log(post);
   };
 
   const deletePost = async (postId: number) => {
