@@ -9,7 +9,7 @@ import Button from '../../public/Button';
 import { majorValidation } from '../../../utils/auth/validationRules';
 import { ProfileSetupStepInterface } from '../../../types/types';
 import { ButtonContainer, InputWrapper } from '../../../styles/styles';
-import { applyKeywordToField } from '../../../services/signupService';
+import { applyKeywordToField } from '../../../services/signup';
 
 const SetupMajor = ({ onNext }: ProfileSetupStepInterface) => {
   const {
