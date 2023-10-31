@@ -1,4 +1,5 @@
 import { Category } from './post';
+import { reportToKoreanMapping } from '@/constants/report';
 
 enum ReportType {
   '욕설',
@@ -49,3 +50,8 @@ export type ReportReplyList = {
   size: number;
   next: boolean;
 };
+
+export interface ReportDataInterface {
+  type: keyof typeof reportToKoreanMapping;
+  content: string;
+}
