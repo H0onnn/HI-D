@@ -11,7 +11,7 @@ interface PostingFormInterface {
 
 const PostingForm = ({ children, onSubmit, postToEdit }: PostingFormInterface) => {
   const methods = useForm<PostingDataInterface>({
-    mode: 'onChange',
+    mode: 'onSubmit',
     shouldUnregister: false,
     defaultValues: { boardType: postToEdit ? postToEdit.boardType : undefined },
   });
