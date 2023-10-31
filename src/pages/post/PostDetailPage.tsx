@@ -12,7 +12,8 @@ import PostBodyText from '@/components/post/postDetails/postContents/PostBodyTex
 import ImageSlider from '@/components/post/postDetails/postContents/ImageSlider';
 import UserInterest from '@/components/post/postDetails/postFooter/UserInterest';
 import CommentList from '@/components/comment/listing/CommentList';
-import ReportModal from '@/components/public/ReportModal';
+import SlideUpModal from '@/components/public/SlideUpModal';
+import SetupReport from '@/components/post/postDetails/postHeader/actions/report/SetupReport';
 
 const PostDetailPage = () => {
   const { id: postIdStr } = useParams<{ id: string }>();
@@ -55,7 +56,11 @@ const PostDetailPage = () => {
           postActionHandlers={postActionHandlers}
         />
         <CommentList postId={postId} />
-        {isReported && <ReportModal setModalState={toggleReport} />}
+        {isReported && (
+          <SlideUpModal setModalState={toggleReport}>
+            <SetupReport postId={postData.postId} />
+          </SlideUpModal>
+        )}
       </PageLayout>
     </>
   );
