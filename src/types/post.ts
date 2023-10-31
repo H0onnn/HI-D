@@ -83,7 +83,7 @@ export interface PostContainerProps {
 }
 export interface PostListProps {
   postList: PostInterface[];
-  pageStatus: PageStatusInterface;
+  pageStatus?: PageStatusInterface;
   nextPageHandler: () => void;
   keyword?: string;
   errorMessage?: string;
