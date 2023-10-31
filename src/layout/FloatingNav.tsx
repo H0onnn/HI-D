@@ -13,13 +13,13 @@ import useModalStore from '@/store/modalStore';
 import { fadeIn } from '@/styles/styles';
 
 const FloatingNav = () => {
-  const { lockScroll, openScroll } = useBodyScrollLock();
+  const { openScroll } = useBodyScrollLock();
   const { changeModalStatus, isOpen } = useModalStore();
   const navigate = useNavigate();
 
   const openModalHanlder = () => {
     changeModalStatus({ isOpen: true, info: { type: 'page' } });
-    lockScroll();
+    // lockScroll();
   };
   const closeModalHandler = () => {
     changeModalStatus({ isOpen: false });
