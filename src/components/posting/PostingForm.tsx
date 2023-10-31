@@ -3,20 +3,18 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { PostingDataInterface } from '@/types/posting';
 import { PostDetailInterface } from '@/types/post';
 
-interface SignUpFormInterface {
+interface PostingFormInterface {
   children: React.ReactNode;
   onSubmit: SubmitHandler<PostingDataInterface>;
   postToEdit?: PostDetailInterface;
 }
 
-const PostingForm = ({ children, onSubmit, postToEdit }: SignUpFormInterface) => {
+const PostingForm = ({ children, onSubmit, postToEdit }: PostingFormInterface) => {
   const methods = useForm<PostingDataInterface>({
     mode: 'onChange',
     shouldUnregister: false,
     defaultValues: { boardType: postToEdit ? postToEdit.boardType : undefined },
   });
-
-  console.log(postToEdit?.boardType);
 
   return (
     <FormProvider {...methods}>
