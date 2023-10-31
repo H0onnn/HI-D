@@ -112,7 +112,12 @@ export interface PostDetailInterface {
   createAt: string;
   updateAt: string;
   isAnonymous: boolean;
+  isMine: boolean;
+  isBookmarked: boolean;
+  isRecommended: boolean;
   boardType: string;
+  tag?: FreePostTag;
+  majorCategory?: string;
 }
 
 export interface Writer {
