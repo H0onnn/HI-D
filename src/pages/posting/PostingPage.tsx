@@ -13,7 +13,7 @@ import { PostingDataInterface } from '@/types/posting';
 const PostingPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { submitPost, editPostMutation } = useSubmitPost();
+  const { submitPost, editPost } = useSubmitPost();
 
   const currentPath = location.pathname;
   const postToEdit = location.state?.post;
@@ -30,19 +30,19 @@ const PostingPage = () => {
   const nextClickHandler = handleNextClick(setStep, steps);
   const prevClickHandler = handlePrevClick(setStep, steps, navigate, currentPath);
 
+  const submitPostHandler = (data: PostingDataInterface) => {
+    if (postToEdit) {
+      editPost({ postId: postToEdit.postId, data });
+      return;
+    }
+    submitPost(submitType, data);
+  };
+
   return (
     <>
       <PageHeader title='게시글 작성' onClick={() => prevClickHandler(currentStep)} />
       <PageLayout>
-        <PostingForm
-          postToEdit={postToEdit}
-          onSubmit={
-            postToEdit
-              ? (data: PostingDataInterface) =>
-                  editPostMutation.mutate({ postId: postToEdit.postId, data })
-              : submitPost(submitType)
-          }
-        >
+        <PostingForm postToEdit={postToEdit} onSubmit={submitPostHandler}>
           <PostingSetup
             steps={steps}
             Funnel={Funnel}

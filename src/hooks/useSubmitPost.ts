@@ -6,35 +6,36 @@ import { LINK } from '@/constants/links';
 import { PostingDataInterface } from '@/types/posting';
 
 interface UseSubmitPostReturnType {
-  submitPost: (type: 'needhelp' | 'free') => (data: PostingDataInterface) => Promise<void>;
-  editPostMutation: UseMutationResult<
+  submitPost: (type: 'needhelp' | 'free', data: PostingDataInterface) => Promise<void>;
+  editPost: UseMutationResult<
     void,
     unknown,
     { postId: number; data: PostingDataInterface },
     { postId: number }
-  >;
+  >['mutate'];
 }
 
 const useSubmitPost = (): UseSubmitPostReturnType => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const submitPost =
-    (type: 'needhelp' | 'free') =>
-    async (data: PostingDataInterface): Promise<void> => {
-      try {
-        const postId = type === 'needhelp' ? await postNeedHelp(data) : await postFree(data);
-        toast.success('게시물이 등록되었어요.', {
-          id: 'postingSuccess',
-        });
+  const submitPost = async (
+    type: 'needhelp' | 'free',
+    data: PostingDataInterface,
+  ): Promise<void> => {
+    try {
+      const postId = type === 'needhelp' ? await postNeedHelp(data) : await postFree(data);
+      toast.success('게시물이 등록되었어요.', {
+        id: 'postingSuccess',
+      });
 
-        navigate(LINK.POST_DETAIL.replace(':id', postId.toString()));
-      } catch (err: unknown) {
-        toast.error('게시물 등록에 실패했어요.', {
-          id: 'postingFail',
-        });
-      }
-    };
+      navigate(LINK.POST_DETAIL.replace(':id', postId.toString()));
+    } catch (err: unknown) {
+      toast.error('게시물 등록에 실패했어요.', {
+        id: 'postingFail',
+      });
+    }
+  };
 
   const editPostMutation = useMutation<
     void,
@@ -59,9 +60,11 @@ const useSubmitPost = (): UseSubmitPostReturnType => {
     },
   });
 
+  const editPost = editPostMutation.mutate;
+
   return {
     submitPost,
-    editPostMutation,
+    editPost,
   };
 };
 
