@@ -37,7 +37,7 @@ const SetupMajor = ({ onNext }: ProfileSetupStepInterface) => {
         <Input
           type='major'
           status={majorStatus}
-          {...register('major', majorValidation)}
+          {...register('major')}
           errorMessage={
             errors.major && typeof errors.major.message === 'string'
               ? errors.major.message

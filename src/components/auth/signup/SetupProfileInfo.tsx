@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
-import { useFormContext } from 'react-hook-form';
+import useSetupInput from '@/hooks/useSetupInput';
 import MainComment from '../../public/MainComment';
 import Input from '../../public/Input';
 import Button from '../../public/Button';
@@ -13,32 +13,34 @@ import { httpClient } from '../../../api/httpClient';
 import { generateRandomNickname } from '@/utils/randomNick';
 
 const SetupProfileInfo = () => {
+  const { register: imageUrlRegister, setValue: setImageUrlValue } = useSetupInput('imageUrl');
+
   const {
-    register,
-    formState: { errors },
-    watch,
-    setValue,
-  } = useFormContext();
+    register: nicknameRegister,
+    errors: nicknameErrors,
+    watch: nicknameWatch,
+    setValue: setNicknameValue,
+  } = useSetupInput('nickname', nicknameValidation);
 
   const [profileImageUrl, setProfileImageUrl] = useState<string>(URL.DEFAULT_PROFILE_IMG);
   // eslint-disable-next-line
   const [nickname, setNickname] = useState<string>(generateRandomNickname());
 
   useEffect(() => {
-    setValue('imageUrl', URL.DEFAULT_PROFILE_IMG);
-  }, [setValue]);
+    setImageUrlValue('imageUrl', URL.DEFAULT_PROFILE_IMG);
+  }, [setImageUrlValue]);
 
   useEffect(() => {
-    setValue('nickname', nickname);
-  }, [setValue, nickname]);
+    setNicknameValue('nickname', nickname);
+  }, [setNicknameValue, nickname]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const nicknameValue = watch('nickname');
+  const nicknameValue = nicknameWatch('nickname');
 
-  const nicknameStatus = errors.nickname
+  const nicknameStatus = nicknameErrors
     ? 'error'
-    : nicknameValue && !errors.nickname
+    : nicknameValue && !nicknameErrors
     ? 'success'
     : 'default';
 
@@ -48,7 +50,7 @@ const SetupProfileInfo = () => {
       try {
         const image = await httpClient.image.post.upload(file);
         const imageUrl = image.data[0];
-        setValue('imageUrl', imageUrl);
+        setImageUrlValue('imageUrl', imageUrl);
         setProfileImageUrl(imageUrl);
       } catch (err: unknown) {
         console.log(err);
@@ -69,7 +71,7 @@ const SetupProfileInfo = () => {
         <EditImageButton onClick={() => fileInputRef.current?.click()}>
           <ProfileImageEditIcon src={CameraIcon} alt='Edit Icon' />
           <ProfileImageInput
-            {...register('imageUrl')}
+            {...imageUrlRegister('imageUrl')}
             type='file'
             accept='image/*'
             onChange={imageChangeClickHandler}
@@ -81,11 +83,11 @@ const SetupProfileInfo = () => {
         <Input
           type='nickname'
           status={nicknameStatus}
-          {...register('nickname', nicknameValidation)}
+          {...nicknameRegister('nickname')}
           defaultValue={nickname}
           errorMessage={
-            errors.nickname && typeof errors.nickname.message === 'string'
-              ? errors.nickname.message
+            nicknameErrors.nickname && typeof nicknameErrors.nickname.message === 'string'
+              ? nicknameErrors.nickname.message
               : undefined
           }
           placeholder='사용하실 닉네임을 입력해주세요.'
