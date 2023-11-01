@@ -1,5 +1,4 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import usePostActionState from './usePostActionState';
 import useModalStore from '@/store/modalStore';
 import { useNavigate } from 'react-router-dom';
 import { postLike, postBookmark, postReport, postDelete } from '@/services/postActions';
@@ -11,7 +10,6 @@ import { MODAL_TYPES } from '@/types/modal';
 import toast from 'react-hot-toast';
 
 const usePostActionHandlers = () => {
-  const { toggleReport } = usePostActionState();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { openModal, closeModal } = useModalStore();
@@ -70,10 +68,10 @@ const usePostActionHandlers = () => {
   const reportPost = async (postId: number, data: ReportDataInterface) => {
     try {
       await postReport(postId, data);
-      toggleReport();
       toast.success('신고가 접수되었어요.', { id: 'postReportSuccess' });
+      navigate(LINK.POST_DETAIL.replace(':id', postId.toString()));
     } catch (err: unknown) {
-      toast.error('신고 접수 중 오류가 발생했습니다.', { id: 'postReportFail' });
+      toast.error('이미 신고 처리된 게시글이에요.', { id: 'postReportFail' });
     }
   };
 
@@ -89,10 +87,10 @@ const usePostActionHandlers = () => {
     try {
       await postDelete(postId);
       navigate(LINK.MAIN);
-      toast.success('게시글이 삭제되었습니다.', { id: 'postDeleteSuccess' });
+      toast.success('게시글이 삭제되었어요.', { id: 'postDeleteSuccess' });
     } catch (err: unknown) {
       console.error('게시글 삭제 오류 : ', err);
-      toast.error('게시글 삭제 중 오류가 발생했습니다.', { id: 'postDeleteFail' });
+      toast.error('게시글 삭제 중 오류가 발생했어요.', { id: 'postDeleteFail' });
     }
   };
 
