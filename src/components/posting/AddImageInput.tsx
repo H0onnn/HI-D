@@ -1,20 +1,27 @@
 import React, { useRef, ChangeEvent } from 'react';
-import useSetupInput from '@/hooks/useSetupInput';
+import { UseFormRegister, FieldValues, UseFormSetValue } from 'react-hook-form';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import ADD_IMAGE_ICON from '@/public/images/posting/add_image_camera.svg';
-import { httpClient } from '@/api/httpClient';
 import toast from 'react-hot-toast';
 
 interface AddImageInputInterface {
   onUpload: (imageUrl: string) => void;
   uploadedImages: string[];
-  deleteImage: (imageUrl: string) => void;
+  uploadImageHandler: (e: ChangeEvent<HTMLInputElement>) => Promise<string | undefined>;
+  register: UseFormRegister<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
+  currentImageUrls: string[];
 }
 
-const AddImageInput = ({ onUpload, uploadedImages }: AddImageInputInterface) => {
-  const { register, setValue, getValues } = useSetupInput('imageUrls');
-
+const AddImageInput = ({
+  onUpload,
+  uploadedImages,
+  uploadImageHandler,
+  register,
+  setValue,
+  currentImageUrls,
+}: AddImageInputInterface) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const checkImagesLength = () => {
@@ -25,30 +32,15 @@ const AddImageInput = ({ onUpload, uploadedImages }: AddImageInputInterface) => 
     return true;
   };
 
-  const uploadImage = async (file: File) => {
-    try {
-      const response = await httpClient.image.post.upload(file);
-      return response.data[0];
-    } catch (err: unknown) {
-      console.log(err);
-      toast.error('이미지 업로드에 실패했습니다.', { id: 'imageUploadFail' });
-      return null;
-    }
-  };
-
   const imageChangeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!checkImagesLength()) return;
 
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      const imageUrl = await uploadImage(file);
+    const imageUrl = await uploadImageHandler(e);
 
-      if (imageUrl) {
-        onUpload(imageUrl);
-        const currentImageUrls: string[] = getValues().imageUrls || [];
-        const updatedImageUrls = [...currentImageUrls, imageUrl];
-        setValue('imageUrls', updatedImageUrls);
-      }
+    if (imageUrl) {
+      onUpload(imageUrl);
+      const updatedImageUrls = [...currentImageUrls, imageUrl];
+      setValue('imageUrls', updatedImageUrls);
     }
   };
 

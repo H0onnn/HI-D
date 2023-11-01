@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
+import useImageService from '@/hooks/useImageService';
 import useSetupInput from '@/hooks/useSetupInput';
 import MainComment from '../../public/MainComment';
 import Input from '../../public/Input';
@@ -9,10 +10,10 @@ import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
 import { URL } from '../../../constants/url';
 import CameraIcon from '../../../public/images/input/photo_camera.png';
-import { httpClient } from '../../../api/httpClient';
 import { generateRandomNickname } from '@/utils/randomNick';
 
 const SetupProfileInfo = () => {
+  const { uploadImage } = useImageService();
   const { register: imageUrlRegister, setValue: setImageUrlValue } = useSetupInput('imageUrl');
 
   const {
@@ -22,7 +23,9 @@ const SetupProfileInfo = () => {
     setValue: setNicknameValue,
   } = useSetupInput('nickname', nicknameValidation);
 
-  const [profileImageUrl, setProfileImageUrl] = useState<string>(URL.DEFAULT_PROFILE_IMG);
+  const [profileImageUrl, setProfileImageUrl] = useState<string | undefined>(
+    URL.DEFAULT_PROFILE_IMG,
+  );
   // eslint-disable-next-line
   const [nickname, setNickname] = useState<string>(generateRandomNickname());
 
@@ -45,17 +48,9 @@ const SetupProfileInfo = () => {
     : 'default';
 
   const imageChangeClickHandler = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      try {
-        const image = await httpClient.image.post.upload(file);
-        const imageUrl = image.data[0];
-        setImageUrlValue('imageUrl', imageUrl);
-        setProfileImageUrl(imageUrl);
-      } catch (err: unknown) {
-        console.log(err);
-      }
-    }
+    const imageUrl = await uploadImage(e);
+    setImageUrlValue('imageUrl', imageUrl);
+    setProfileImageUrl(imageUrl);
   };
 
   return (

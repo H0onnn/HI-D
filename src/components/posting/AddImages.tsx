@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
+import useImageService from '@/hooks/useImageService';
+import useSetupInput from '@/hooks/useSetupInput';
 import styled from 'styled-components';
 import AddImageInput from './AddImageInput';
 import ImagePreview from './ImagePreview';
 import { PostDetailInterface } from '@/types/post';
-import { imageDelete } from '@/services/image';
-import toast from 'react-hot-toast';
 interface AddImagesInterface {
   initialImages?: PostDetailInterface['images'];
 }
 
 const AddImages = ({ initialImages }: AddImagesInterface) => {
+  const { register, setValue, getValues } = useSetupInput('imageUrls');
+  const { uploadImage, deleteImage } = useImageService();
   const [uploadedImages, setUploadedImages] = useState<string[]>(initialImages || []);
+
+  const currentImageUrls: string[] = getValues().imageUrls || [];
 
   const onUpload = (imageUrl: string) => {
     setUploadedImages([...uploadedImages, imageUrl]);
@@ -20,14 +24,10 @@ const AddImages = ({ initialImages }: AddImagesInterface) => {
     setUploadedImages(uploadedImages.filter((image) => image !== imageUrl));
   };
 
-  const deleteImage = async (imageUrl: string) => {
+  const deleteImageHandler = async (imageUrl: string) => {
     deleteLocalImage(imageUrl);
 
-    try {
-      await imageDelete(imageUrl);
-    } catch (err: unknown) {
-      toast.error('이미지 삭제에 실패했어요.', { id: 'imageDeleteFail' });
-    }
+    await deleteImage(imageUrl);
   };
 
   return (
@@ -35,10 +35,20 @@ const AddImages = ({ initialImages }: AddImagesInterface) => {
       <AddImageInput
         onUpload={onUpload}
         uploadedImages={uploadedImages}
-        deleteImage={deleteImage}
+        uploadImageHandler={uploadImage}
+        register={register}
+        setValue={setValue}
+        currentImageUrls={currentImageUrls}
       />
       {uploadedImages.map((imageUrl, index) => (
-        <ImagePreview key={index} src={imageUrl} alt='image_preview' deleteImage={deleteImage} />
+        <ImagePreview
+          key={index}
+          src={imageUrl}
+          alt='image_preview'
+          setValue={setValue}
+          currentImageUrls={currentImageUrls}
+          deleteImageHandler={deleteImageHandler}
+        />
       ))}
     </AddImagesLayout>
   );
