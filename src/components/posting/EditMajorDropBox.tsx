@@ -3,17 +3,23 @@ import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import EditMajorModal from './EditMajorModal';
 import MajorCategoryList from './MajorCategoryList';
+import { majorToKoreaMapping } from '@/constants/majorCategory';
 import DROP_BUTTON from '@/public/images/posting/drop_btn.svg';
 
 interface EditMajorDropBoxInterface {
   major: string | null;
+  initialMajorCategory?: string;
 }
 
-const EditMajorDropBox = ({ major: currentMajor }: EditMajorDropBoxInterface) => {
+const EditMajorDropBox = ({
+  major: currentMajor,
+  initialMajorCategory,
+}: EditMajorDropBoxInterface) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  // eslint-disable-next-line
-  const [changeMajor, setChangeMajor] = useState<string | null>(currentMajor);
+  const [changeMajor, setChangeMajor] = useState<string | null>(
+    initialMajorCategory ? majorToKoreaMapping[initialMajorCategory] : currentMajor,
+  );
 
   const majorChangeHandler = (major: string) => {
     setChangeMajor(major);
@@ -38,6 +44,7 @@ const EditMajorDropBox = ({ major: currentMajor }: EditMajorDropBoxInterface) =>
             onMajorSelect={majorChangeHandler}
             selectedMajor={changeMajor}
             $isEdit
+            initialMajorCategory={initialMajorCategory}
           />
         </EditMajorModal>
       )}

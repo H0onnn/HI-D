@@ -28,13 +28,15 @@ const WritePost = ({ major, isHelpPost, isFreePost, postToEdit }: WritePostInter
           <AnonymousToggle initialAnonymous={postToEdit?.isAnonymous} />
         </AnonymuseContainer>
       </TitleContainer>
-      {isHelpPost && <EditMajorDropBox major={major} />}
+      {isHelpPost && (
+        <EditMajorDropBox major={major} initialMajorCategory={postToEdit?.majorCategory} />
+      )}
       <ContentsContainer>
         <PostTitle initialTitle={postToEdit?.title} />
         <PostContent initialContent={postToEdit?.content} />
         <AddImages initialImages={postToEdit?.images} />
       </ContentsContainer>
-      {isFreePost && <FreePostCategoryTag />}
+      {isFreePost && <FreePostCategoryTag initialTag={postToEdit?.tag} />}
       <PostAlertWrapper>
         <PostAlertImg src={POST_ALERT} alt='post_alert' />
       </PostAlertWrapper>

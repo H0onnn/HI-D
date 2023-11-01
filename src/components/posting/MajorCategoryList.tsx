@@ -7,12 +7,14 @@ export interface MajorCategoryListInterface {
   onMajorSelect: (major: string) => void;
   selectedMajor?: string | null;
   $isEdit?: boolean;
+  initialMajorCategory?: string;
 }
 
 const MajorCategoryList = ({
   onMajorSelect,
   selectedMajor,
   $isEdit,
+  initialMajorCategory,
 }: MajorCategoryListInterface) => {
   return (
     <CommonListLayout $isEdit={$isEdit}>
@@ -25,6 +27,7 @@ const MajorCategoryList = ({
           $isEdit={$isEdit}
           $first={index === 0}
           $last={index === array.length - 1}
+          initialMajorCategory={initialMajorCategory}
         />
       ))}
     </CommonListLayout>
