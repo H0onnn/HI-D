@@ -28,7 +28,6 @@ const ModalLayout = styled.div`
   right: 0.5rem;
   background-color: ${colors.white};
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid ${colors.gray3};
   padding: 1rem 1.6rem 1rem 1.6rem;
 `;
 
