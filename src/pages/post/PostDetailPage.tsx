@@ -2,7 +2,6 @@ import React from 'react';
 import usePostActionState from '@/hooks/usePostActionState';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import usePostDetailData from '@/hooks/usePostDetailData';
-import useUser from '@/hooks/useUser';
 import { useParams } from 'react-router-dom';
 import { PageLayout } from '@/styles/styles';
 import PageHeader from '@/components/public/PageHeader';
@@ -22,7 +21,6 @@ const PostDetailPage = () => {
   const postStates = usePostActionState();
   const postActionHandlers = usePostActionHandlers();
   const { isReported, toggleReport } = postStates;
-  const { user } = useUser();
 
   if (!postData) return null;
 
@@ -38,10 +36,9 @@ const PostDetailPage = () => {
         />
         <PostHeader
           title={postData.title}
-          userId={user?.memberId}
-          writerId={postData.writer.memberId}
           postId={postData.postId}
           postData={postData}
+          isBookmarked={postData.isBookmarked}
           postStates={postStates}
           postActionHandlers={postActionHandlers}
         />
@@ -52,7 +49,7 @@ const PostDetailPage = () => {
           likeCount={postData.recommendCount}
           commentCount={postData.replyCount}
           viewCount={postData.viewCount}
-          postStates={postStates}
+          isRecommended={postData.isRecommended}
           postActionHandlers={postActionHandlers}
         />
         <CommentList postId={postId} />

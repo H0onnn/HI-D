@@ -42,7 +42,7 @@ const PostingPage = () => {
     <>
       <PageHeader title='게시글 작성' onClick={() => prevClickHandler(currentStep)} />
       <PageLayout>
-        <PostingForm postToEdit={postToEdit} onSubmit={submitPostHandler}>
+        <PostingForm onSubmit={submitPostHandler}>
           <PostingSetup
             steps={steps}
             Funnel={Funnel}
