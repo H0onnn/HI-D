@@ -1,60 +1,26 @@
-// import { create } from 'zustand';
-
-// interface ModalStateInterface<D> {
-//   isOpen: boolean;
-//   info?: D;
-// }
-// interface ModalActionsInterface<D> {
-//   changeModalStatus: (props: ModalStateInterface<D>) => void;
-// }
-// interface ModalStoreInterface<D> extends ModalStateInterface<D>, ModalActionsInterface<D> {}
-
-// const useModalStore = <D>() =>
-//   create<ModalStoreInterface<D>>((set) => ({
-//     isOpen: false,
-//     changeModalStatus: (props: ModalStateInterface<D>) =>
-//       set((state: ModalStoreInterface<D>) => ({
-//         ...state,
-//         ...props,
-//       })),
-//   }));
-
-// export default useModalStore;
-
+import { IModalProps, ModalType } from '@/types/modal';
 import { create } from 'zustand';
-interface ModalInfoInterface {
-  type?: 'alert' | 'page' | 'setting';
-  url?: string | number;
-  title?: string;
-  content?: string;
-  confirmText?: string;
-  onConfirm?: () => void;
-}
 
 interface ModalStateInterface {
-  isOpen: boolean;
-  info: ModalInfoInterface;
+  modalType: ModalType;
+  modalOpen: boolean;
+  modalProps: IModalProps;
 }
 interface ModalActionsInterface {
-  changeModalStatus: (props: Partial<ModalStateInterface>) => void;
+  openModal: (props: Partial<ModalStateInterface>) => void;
+  closeModal: () => void;
 }
-interface ModalStoreInterface extends ModalStateInterface, ModalActionsInterface {}
 
-const useModalStore = create<ModalStoreInterface>((set) => ({
-  isOpen: false,
-  info: {
-    type: 'alert',
-    url: '',
-    title: '',
-    content: '',
-    confirmText: '',
-    onConfirm: () => {},
-  },
-  changeModalStatus: (props: Partial<ModalStateInterface>) =>
-    set((state: ModalStoreInterface) => ({
-      ...state,
+const useModalStore = create<ModalStateInterface & ModalActionsInterface>((set) => ({
+  modalType: '',
+  modalOpen: false,
+  modalProps: {},
+  openModal: (props: Partial<ModalStateInterface>) =>
+    set(() => ({
+      modalOpen: true,
       ...props,
     })),
+  closeModal: () => set(() => ({ modalOpen: false })),
 }));
 
 export default useModalStore;

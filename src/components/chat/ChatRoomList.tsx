@@ -22,6 +22,7 @@ const ChatRoomList = () => {
       .catch(() => {
         setPage({ page: 0, hasNext: false });
       });
+    setLoading(false);
   };
 
   useEffect(() => {

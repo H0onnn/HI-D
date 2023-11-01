@@ -7,19 +7,15 @@ import { getMessageList } from '@/services/chat';
 import useObserver from '@/hooks/useObserver';
 import Messages from './Messages';
 import DefaultProfile from '@/public/images/default_profile.svg';
-import useModalStore from '@/store/modalStore';
-import ModalLayout from '../public/ModalLayout';
 import { imageStyle, slideUp } from '@/styles/styles';
+import { IModalProps } from '@/types/modal';
 
-const ChatModal = () => {
+const ChatModal = ({ url: roomId }: IModalProps) => {
   const [messageList, setMessageList] = useState<MessageInterface[]>([]);
   const [{ page, hasNext }, setPage] = useState<PageStatusInterface>({ page: 1, hasNext: true });
   const infinityRef = useObserver(() => nextPageHandler());
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-  const {
-    info: { url: roomId },
-  } = useModalStore();
 
   const nextPageHandler = () => {
     if (!hasNext || loading || page === 0 || !roomId) return;
@@ -41,31 +37,28 @@ const ChatModal = () => {
   }, [roomId, page, hasNext]);
 
   return (
-    <ModalLayout>
-      <ChatModalLayout>
-        {/* TODO: reverse infinity scroll */}
-        {!loading && hasNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
-        <ImageWrapper>
-          <img src={DefaultProfile} alt='profile_img' />
-        </ImageWrapper>
-        <Messages messageList={messageList} />
-        <InputWrapper>
-          <Input
-            type='text'
-            placeholder='채팅을 입력해주세요.'
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-        </InputWrapper>
-      </ChatModalLayout>
-    </ModalLayout>
+    <ChatModalLayout>
+      {/* TODO: reverse infinity scroll */}
+      {!loading && hasNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
+      <ImageWrapper>
+        <img src={DefaultProfile} alt='profile_img' />
+      </ImageWrapper>
+      <Messages messageList={messageList} />
+      <InputWrapper>
+        <Input
+          type='text'
+          placeholder='채팅을 입력해주세요.'
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+      </InputWrapper>
+    </ChatModalLayout>
   );
 };
 
 export default ChatModal;
 
 const ChatModalLayout = styled.div`
-  z-index: 100;
   position: absolute;
   width: 100%;
   padding: 6rem 3rem 2rem 3rem;

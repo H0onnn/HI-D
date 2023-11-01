@@ -22,8 +22,15 @@ export const postChatRoom = async ({
   return response.data;
 };
 
-export const deleteChatRoom = async ({ roomId }: RequestChatRoomDeleteInterface): Promise<void> => {
-  await httpClient.chat.delete.chatroom({ roomId });
+export const deleteChatRoom = async ({
+  roomId,
+}: RequestChatRoomDeleteInterface): Promise<boolean> => {
+  const response = await httpClient.chat.delete.chatroom({ roomId });
+  if (response.status === 204) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export const getMessageList = async ({
