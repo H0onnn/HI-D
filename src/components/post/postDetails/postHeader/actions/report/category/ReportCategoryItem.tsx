@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useFormContext } from 'react-hook-form';
+import useSetupInput from '@/hooks/useSetupInput';
 import { reportToEnglishMapping, ReportKeys } from '@/constants/report';
 import { CommonItemWrapper } from '@/styles/selectableItem';
 import { ReportCategoryListInterface } from './ReportCategoryList';
+import { reportCategoryValidation } from '@/utils/posting/postValidationRules';
 
 interface ReportCategoryItemInterface extends ReportCategoryListInterface {
   value: string;
@@ -11,7 +12,7 @@ interface ReportCategoryItemInterface extends ReportCategoryListInterface {
 }
 
 const ReportCategoryItem = ({ value, onValueSelect, $isSelected }: ReportCategoryItemInterface) => {
-  const { register, setValue } = useFormContext();
+  const { register, setValue } = useSetupInput('type', reportCategoryValidation);
   const englishReport = reportToEnglishMapping[value as ReportKeys];
 
   const reportSelectHandler = () => {

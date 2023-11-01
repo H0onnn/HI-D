@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
-import { useFormContext } from 'react-hook-form';
+import useSetupInput from '@/hooks/useSetupInput';
 import { Title, Layout } from '@/styles/reportForm';
+import { reportContentValidation } from '@/utils/posting/postValidationRules';
 
 const ReportContent = () => {
-  const { register } = useFormContext();
+  const { register } = useSetupInput('content', reportContentValidation);
 
   return (
     <Layout>
@@ -13,7 +14,7 @@ const ReportContent = () => {
       <ReportContentInput
         {...register('content')}
         placeholder='상세 신고 내용을 입력해주세요'
-        maxLength={300}
+        maxLength={reportContentValidation.maxLength.value}
       />
     </Layout>
   );
