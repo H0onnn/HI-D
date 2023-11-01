@@ -1,9 +1,8 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import useSetupInput from '@/hooks/useSetupInput';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import { postContentValidation } from '@/utils/posting/postValidationRules';
-import { PostingDataInterface } from '@/types/posting';
 import { PostDetailInterface } from '@/types/post';
 
 interface PostContentInterface {
@@ -11,14 +10,13 @@ interface PostContentInterface {
 }
 
 const PostContent = ({ initialContent }: PostContentInterface) => {
-  const { register } = useFormContext<PostingDataInterface>();
+  const { register } = useSetupInput('content', postContentValidation, 'default', initialContent);
 
   return (
     <ContentField
-      {...register('content', postContentValidation)}
+      {...register('content')}
       placeholder='고민거리나 질문 내용을 입력해주세요.'
       maxLength={postContentValidation.maxLength.value}
-      defaultValue={initialContent}
     />
   );
 };
