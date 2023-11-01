@@ -12,14 +12,13 @@ interface PostTitleInterface {
 
 const PostTitle = ({ initialTitle }: PostTitleInterface) => {
   const { register } = useSetupInput('title', titleValidation, 'default', initialTitle);
-
   const { onFocus, onBlur } = useFocus();
 
   return (
     <InputWrapper>
       <Input
         type='post_title'
-        {...register('title', titleValidation)}
+        {...register('title')}
         placeholder='글 제목을 입력해주세요. (2글자 이상 20글자 미만)'
         onFocus={onFocus}
         onBlur={onBlur}
