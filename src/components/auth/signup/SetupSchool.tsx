@@ -26,7 +26,7 @@ const SetupSchool = ({ onNext }: ProfileSetupStepInterface) => {
 
   const { isFocus, onBlur, onFocus } = useFocus();
 
-  const isValueInData = datas.includes(value);
+  const isValueInData = datas.some((data) => data === value);
 
   const isNextButtonActive = isValueInData && schoolStatus === 'success';
 
