@@ -43,8 +43,10 @@ export default CommentItem;
 
 const CommentItemLayout = styled.div`
   width: 100%;
+  padding: 1rem 0 1rem 0;
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid ${colors.gray3};
 `;
 
 const CommentWriterContainer = styled.div`
