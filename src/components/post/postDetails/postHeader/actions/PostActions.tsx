@@ -13,21 +13,19 @@ import { PostDetailInterface } from '@/types/post';
 interface PostActionsInterface {
   postStates: ReturnType<typeof usePostActionState>;
   postActionHandlers: ReturnType<typeof usePostActionHandlers>;
-  userId?: number;
-  writerId: number;
   postId: number;
+  isBookMarked: boolean;
   postData: PostDetailInterface;
 }
 
 const PostActions = ({
   postStates,
   postActionHandlers,
-  userId,
-  writerId,
   postId,
+  isBookMarked,
   postData,
 }: PostActionsInterface) => {
-  const { isBookMarked, isMoreActions, toggleMoreActions, toggleReport } = postStates;
+  const { isMoreActions, toggleMoreActions, toggleReport } = postStates;
   const { bookmarkPost, editPost, deletePost } = postActionHandlers;
 
   return (
@@ -40,7 +38,7 @@ const PostActions = ({
         alt='bookmark_icon'
         postId={postId}
       />
-      {userId === writerId ? (
+      {postData.isMine ? (
         <>
           <IconButton
             iconSrc={MORE_ACTION}

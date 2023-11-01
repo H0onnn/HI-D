@@ -10,9 +10,8 @@ interface PostHeaderInterface {
   title: string;
   postStates: ReturnType<typeof usePostActionState>;
   postActionHandlers: ReturnType<typeof usePostActionHandlers>;
-  userId?: number;
-  writerId: number;
   postId: number;
+  isBookmarked: boolean;
   postData: PostDetailInterface;
 }
 
@@ -20,20 +19,18 @@ const PostHeader = ({
   title,
   postStates,
   postActionHandlers,
-  userId,
-  writerId,
   postId,
+  isBookmarked,
   postData,
 }: PostHeaderInterface) => {
   return (
     <PostHeaderLayout>
       <PostTitle title={title} />
       <PostActions
-        userId={userId}
-        writerId={writerId}
         postStates={postStates}
         postActionHandlers={postActionHandlers}
         postId={postId}
+        isBookMarked={isBookmarked}
         postData={postData}
       />
     </PostHeaderLayout>
