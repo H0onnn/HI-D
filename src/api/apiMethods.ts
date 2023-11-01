@@ -7,6 +7,7 @@ import {
   RequestChatRoomListInterface,
   RequestMessageListInterface,
 } from '@/types/chat';
+import { ReportDataInterface } from '@/types/report';
 
 // TODO: url(params) object response 가능하도록 바꾸기
 export const apiMethods = {
@@ -124,11 +125,16 @@ export const apiMethods = {
         url: 'posts/free',
         data,
       }),
-      report: (postId: number) => ({
+      report: (postId: number, data: ReportDataInterface) => ({
         url: `posts/${postId}/report`,
+        data,
       }),
     },
     patch: {
+      edit: (postId: number, data: PostingDataInterface) => ({
+        url: `posts/${postId}`,
+        data,
+      }),
       like: (postId: number) => ({
         url: `posts/${postId}/recommend`,
       }),

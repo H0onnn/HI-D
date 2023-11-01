@@ -1,4 +1,4 @@
-import { TagInterface } from '@/types/post';
+import { TagInterface, FreePostTag } from '@/types/post';
 import { LINK } from './links';
 
 export const tabList = [
@@ -14,3 +14,23 @@ export const freePostTagList: TagInterface[] = [
   { id: 4, name: '맛집', en: 'RESTAURANT' },
   { id: 5, name: '잡담', en: 'CHITCHAT' },
 ];
+
+export const tagToEnglishMapping: { [key in FreePostTag]: string } = {
+  전체: 'ALL',
+  연애: 'LOVE',
+  일상: 'DAILY',
+  같이해요: 'TOGETHER',
+  맛집: 'RESTAURANT',
+  잡담: 'CHITCHAT',
+};
+
+export const englishToTagMapping: { [key: string]: FreePostTag } = {
+  ALL: '전체',
+  LOVE: '연애',
+  DAILY: '일상',
+  TOGETHER: '같이해요',
+  RESTAURANT: '맛집',
+  CHITCHAT: '잡담',
+};
+
+export const DEAFAULT_TAG: FreePostTag = '연애';

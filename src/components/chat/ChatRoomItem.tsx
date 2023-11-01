@@ -9,10 +9,12 @@ import DeleteIcon from '@/public/images/ui/delete_fill.svg';
 import useModalStore from '@/store/modalStore';
 import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import { imageStyle } from '@/styles/styles';
+import { MODAL_TYPES } from '@/types/modal';
+import { deleteChatRoom } from '@/services/chat';
 
-type Props = {
+interface Props {
   chatRoom: ChatRoomInterface;
-};
+}
 
 const ChatRoomItem = ({
   chatRoom: {
@@ -22,14 +24,33 @@ const ChatRoomItem = ({
   },
 }: Props) => {
   const { lockScroll } = useBodyScrollLock();
+  const { openModal, closeModal } = useModalStore();
 
-  const deleteChatRoomHandler = () => {
-    changeModalStatus({ isOpen: true, info: { url: chatRoomId, type: 'alert' } });
+  const deleteChatRoomHandler = async () => {
+    closeModal();
+    const resposne = await deleteChatRoom({ roomId: chatRoomId });
+    if (resposne) {
+      // TODO: toast alert
+    } else {
+      // TODO: toast alert
+    }
   };
 
-  const { changeModalStatus } = useModalStore();
+  const deleteChatModalHandler = () => {
+    openModal({
+      modalType: MODAL_TYPES.ALERT,
+      modalProps: {
+        title: `${nickname}님과의 채팅을 삭제하시겠습니까?`,
+        content: '삭제하면 채팅 내역이 모두 사라지며 복구할 수 없어요',
+        confirmText: '삭제',
+        onConfirmHandler: deleteChatRoomHandler,
+      },
+    });
+    lockScroll();
+  };
+
   const openChatModalHandler = () => {
-    changeModalStatus({ isOpen: true, info: { url: chatRoomId, type: 'page' } });
+    openModal({ modalType: MODAL_TYPES.CHAT, modalProps: { url: chatRoomId } });
     lockScroll();
   };
 
@@ -45,7 +66,7 @@ const ChatRoomItem = ({
           <ChatTime>{formatTimeAgo(createAt)}</ChatTime>
         </MessageContainer>
       </ChatRoomItemLayout>
-      <DeleteButton onClick={deleteChatRoomHandler}>
+      <DeleteButton onClick={deleteChatModalHandler}>
         <img src={DeleteIcon} alt='delete_icon' />
       </DeleteButton>
     </Layout>

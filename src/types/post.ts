@@ -83,7 +83,7 @@ export interface PostContainerProps {
 }
 export interface PostListProps {
   postList: PostInterface[];
-  pageStatus: PageStatusInterface;
+  pageStatus?: PageStatusInterface;
   nextPageHandler: () => void;
   keyword?: string;
   errorMessage?: string;
@@ -112,6 +112,12 @@ export interface PostDetailInterface {
   createAt: string;
   updateAt: string;
   isAnonymous: boolean;
+  isMine: boolean;
+  isBookmarked: boolean;
+  isRecommended: boolean;
+  boardType: string;
+  tag?: FreePostTag;
+  majorCategory?: string;
 }
 
 export interface Writer {

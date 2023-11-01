@@ -1,9 +1,42 @@
 import { NavigateFunction } from 'react-router-dom';
-import { SubmitHandler } from 'react-hook-form';
 import { PostingDataInterface } from '@/types/posting';
-import toast from 'react-hot-toast';
-import { LINK } from '../constants/links';
 import { httpClient } from '../api/httpClient';
+import { LINK } from '@/constants/links';
+
+export const postNeedHelp = async (data: PostingDataInterface) => {
+  try {
+    const response = await httpClient.post.post.needhelp(data);
+
+    const postId = response.data.postId;
+
+    return postId;
+  } catch (err: unknown) {
+    console.error('게시글 등록 오류 : ', err);
+    throw err;
+  }
+};
+
+export const postFree = async (data: PostingDataInterface) => {
+  try {
+    const response = await httpClient.post.post.free(data);
+
+    const postId = response.data.postId;
+
+    return postId;
+  } catch (err: unknown) {
+    console.error('게시글 등록 오류 : ', err);
+    throw err;
+  }
+};
+
+export const patchPost = async (postId: number, data: PostingDataInterface) => {
+  try {
+    await httpClient.post.patch.edit(postId, data);
+  } catch (err: unknown) {
+    console.error('게시글 수정 오류 : ', err);
+    throw err;
+  }
+};
 
 const getCurrentStepIndex = (currentStep: string, steps: string[]) => {
   return steps.indexOf(currentStep);
@@ -45,7 +78,7 @@ export const handlePrevClick = (
 ) => {
   return (currentStep: string) => {
     if (shouldNavigateAway(currentStep, steps, currentRoute)) {
-      navigate(-1);
+      navigate(LINK.MAIN);
       return;
     }
 
@@ -53,31 +86,6 @@ export const handlePrevClick = (
 
     if (prevStepIndex >= 0) {
       setStep(steps[prevStepIndex]);
-    }
-  };
-};
-
-export const submitPosting = (
-  type: 'needhelp' | 'free',
-  navigate: NavigateFunction,
-): SubmitHandler<PostingDataInterface> => {
-  return async (data) => {
-    try {
-      const response =
-        type === 'needhelp'
-          ? await httpClient.post.post.needhelp(data)
-          : await httpClient.post.post.free(data);
-
-      const postId = response.data.postId;
-      toast.success('게시물이 등록되었어요.', {
-        id: 'postingSuccess',
-      });
-
-      navigate(LINK.POST_DETAIL.replace(':id', postId.toString()));
-    } catch (err: unknown) {
-      toast.error('게시물 등록에 실패했어요.', {
-        id: 'postingFail',
-      });
     }
   };
 };

@@ -12,14 +12,14 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
           const newAccessToken = response.headers['authorization'];
 
           if (newAccessToken && error.config) {
-            useAuthStore.getState().setToken(newAccessToken);
+            useAuthStore.getState().actions.setToken(newAccessToken);
 
             error.config.headers['Authorization'] = newAccessToken;
             return instance(error.config);
           }
           return Promise.reject(error);
         } catch (refreshError) {
-          useAuthStore.getState().logout();
+          useAuthStore.getState().actions.logout();
           console.log('refresh token err : ', refreshError);
           return Promise.reject(error);
         }

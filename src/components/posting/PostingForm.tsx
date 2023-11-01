@@ -2,13 +2,16 @@ import React from 'react';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { PostingDataInterface } from '@/types/posting';
 
-interface SignUpFormInterface {
+interface PostingFormInterface {
   children: React.ReactNode;
   onSubmit: SubmitHandler<PostingDataInterface>;
 }
 
-const PostingForm = ({ children, onSubmit }: SignUpFormInterface) => {
-  const methods = useForm<PostingDataInterface>({ mode: 'onChange' });
+const PostingForm = ({ children, onSubmit }: PostingFormInterface) => {
+  const methods = useForm<PostingDataInterface>({
+    mode: 'onSubmit',
+    shouldUnregister: false,
+  });
 
   return (
     <FormProvider {...methods}>

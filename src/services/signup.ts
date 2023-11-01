@@ -1,8 +1,5 @@
 import { NavigateFunction } from 'react-router-dom';
-import { SubmitHandler } from 'react-hook-form';
-import { ProfileSetupDataInterface } from '../types/types';
-import toast from 'react-hot-toast';
-import { LINK } from '../constants/links';
+import { ProfileSetupDataInterface } from '@/types/types';
 import { httpClient } from '../api/httpClient';
 
 type RequiredAgreementsType = {
@@ -10,6 +7,15 @@ type RequiredAgreementsType = {
   emailSchoolAgreement: boolean;
   personalInfoAgreement: boolean;
   overFourteen: boolean;
+};
+
+export const requestSignup = async (data: ProfileSetupDataInterface) => {
+  try {
+    await httpClient.members.post.signUp(data);
+  } catch (err: unknown) {
+    console.error('회원가입 에러 : ', err);
+    throw err;
+  }
 };
 
 const navigateOrSetStep = (
@@ -122,18 +128,4 @@ export const applyKeywordToField = (
 ) => {
   setValue(fieldName, keyword, { shouldValidate: true });
   onBlur();
-};
-
-export const signupSubmit: SubmitHandler<ProfileSetupDataInterface> = async (data) => {
-  try {
-    await httpClient.members.post.signUp(data);
-    window.location.href = LINK.SIGNUP_SUCCESS;
-    toast.success('회원가입이 완료되었습니다!', {
-      id: 'signupSuccess',
-    });
-  } catch (err: unknown) {
-    toast.error('회원가입에 실패하였습니다.', {
-      id: 'signupFail',
-    });
-  }
 };

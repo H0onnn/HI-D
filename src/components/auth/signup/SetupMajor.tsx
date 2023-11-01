@@ -9,7 +9,7 @@ import Button from '../../public/Button';
 import { majorValidation } from '../../../utils/auth/validationRules';
 import { ProfileSetupStepInterface } from '../../../types/types';
 import { ButtonContainer, InputWrapper } from '../../../styles/styles';
-import { applyKeywordToField } from '../../../services/signupService';
+import { applyKeywordToField } from '../../../services/signup';
 
 const SetupMajor = ({ onNext }: ProfileSetupStepInterface) => {
   const {
@@ -37,7 +37,7 @@ const SetupMajor = ({ onNext }: ProfileSetupStepInterface) => {
         <Input
           type='major'
           status={majorStatus}
-          {...register('major', majorValidation)}
+          {...register('major')}
           errorMessage={
             errors.major && typeof errors.major.message === 'string'
               ? errors.major.message

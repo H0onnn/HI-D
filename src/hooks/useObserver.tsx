@@ -1,16 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { STATUS } from '../constants/server';
 
-type status = keyof typeof STATUS;
-type IObserverCallback = () => void;
-
-const options = {
-  root: null,
-  rootMargin: '1px',
-  threshold: 0.1,
-};
-
-const useObserver = (callback: IObserverCallback, status?: status) => {
+const useObserver = (callback: () => void) => {
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -27,9 +17,15 @@ const useObserver = (callback: IObserverCallback, status?: status) => {
     return () => {
       observer.disconnect();
     };
-  }, [callback, contentRef, status]);
+  }, [callback, contentRef]);
 
   return contentRef;
 };
 
 export default useObserver;
+
+const options = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0,
+};

@@ -90,6 +90,13 @@ const routes: AppRoutesInterface[] = [
     meta: { hideNavBar: true, hideFloatNav: true },
   },
   {
+    name: 'PostEdit',
+    path: LINK.POST_EDIT,
+    component: PostingPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
     name: 'PostDetail',
     path: LINK.POST_DETAIL,
     component: PostDetailPage,

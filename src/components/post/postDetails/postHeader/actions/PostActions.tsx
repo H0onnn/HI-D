@@ -9,23 +9,24 @@ import BOOKMARK_NONE from '@/public/images/ui/bookmark_none.svg';
 import BOOKMARK_ACTIVE from '@/public/images/ui/bookmark_active.svg';
 import REPORT_ICON from '@/public/images/ui/report_icon.svg';
 import MORE_ACTION from '@/public/images/ui/more_active.svg';
+import { PostDetailInterface } from '@/types/post';
 interface PostActionsInterface {
   postStates: ReturnType<typeof usePostActionState>;
   postActionHandlers: ReturnType<typeof usePostActionHandlers>;
-  userId?: number;
-  writerId: number;
   postId: number;
+  isBookMarked: boolean;
+  postData: PostDetailInterface;
 }
 
 const PostActions = ({
   postStates,
   postActionHandlers,
-  userId,
-  writerId,
   postId,
+  isBookMarked,
+  postData,
 }: PostActionsInterface) => {
-  const { isBookMarked, isMoreActions, toggleMoreActions, toggleReport } = postStates;
-  const { bookmarkPost, deletePost } = postActionHandlers;
+  const { isMoreActions, toggleMoreActions, toggleReport } = postStates;
+  const { bookmarkPost, editPost, deletePost } = postActionHandlers;
 
   return (
     <PostActionsLayout>
@@ -37,7 +38,7 @@ const PostActions = ({
         alt='bookmark_icon'
         postId={postId}
       />
-      {userId === writerId ? (
+      {postData.isMine ? (
         <>
           <IconButton
             iconSrc={MORE_ACTION}
@@ -50,7 +51,12 @@ const PostActions = ({
       )}
       {isMoreActions && (
         <AuthorActionModal>
-          <AuthorActionButtons postId={postId} deletePostHandler={deletePost} />
+          <AuthorActionButtons
+            postId={postId}
+            postData={postData}
+            deletePostHandler={deletePost}
+            editPostHandler={editPost}
+          />
         </AuthorActionModal>
       )}
     </PostActionsLayout>

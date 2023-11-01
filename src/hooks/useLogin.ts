@@ -1,4 +1,4 @@
-import useAuthStore from '@/store/authStore';
+import useAuthStore, { useAuthActions } from '@/store/authStore';
 import useUser from './useUser';
 import { useNavigate } from 'react-router-dom';
 import { getToken, getUserData } from '@/services/user';
@@ -8,7 +8,7 @@ import { LoginDataInterface } from '@/types/types';
 import { UserDataInterface } from '@/types/user';
 
 const useLogin = () => {
-  const setToken = useAuthStore((state) => state.setToken);
+  const { setToken } = useAuthActions();
   const { queryClient } = useUser();
   const navigate = useNavigate();
 
@@ -18,6 +18,7 @@ const useLogin = () => {
       setToken(token);
     } catch (err: unknown) {
       console.error('토큰 fetching 에러 : ', err);
+      toast.error('회원 정보가 올바르지 않습니다.', { id: 'tokenFetchingError' });
     }
   };
 
@@ -25,7 +26,6 @@ const useLogin = () => {
     try {
       await fetchToken(data);
       const token = useAuthStore.getState().token;
-
       if (token) {
         const userData = queryClient.getQueryData<UserDataInterface>(['currentUser']);
 

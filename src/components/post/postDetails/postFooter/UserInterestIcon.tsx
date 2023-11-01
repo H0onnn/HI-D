@@ -6,7 +6,7 @@ interface UserInterestIconInterface {
   postId: number;
   icon: string;
   value: number;
-  likePostHandler: (postId: number) => Promise<void>;
+  likePostHandler: (postId: number) => void;
 }
 
 const UserInterestIcon = ({ postId, icon, value, likePostHandler }: UserInterestIconInterface) => {

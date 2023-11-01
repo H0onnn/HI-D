@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { debounce } from '../utils/search/debounce';
 
@@ -23,7 +23,7 @@ interface ValidationRulesInterface {
 
 const useSetupInput = (
   field: string,
-  validationRules: ValidationRulesInterface,
+  validationRules?: ValidationRulesInterface,
   defaultStatus: 'search' | 'default' = 'search',
   initialValue?: string,
 ) => {
@@ -31,6 +31,7 @@ const useSetupInput = (
     register,
     formState: { errors },
     watch,
+    getValues,
     setValue,
   } = useFormContext();
 
@@ -39,9 +40,12 @@ const useSetupInput = (
 
   const value = watch(field);
 
-  if (initialValue !== undefined && value === undefined) {
-    setValue(field, initialValue);
-  }
+  // 초기값 설정
+  useEffect(() => {
+    if (initialValue !== undefined && value === undefined) {
+      setValue(field, initialValue);
+    }
+  }, [initialValue, value, field, setValue]);
 
   // Input status 처리 로직
   let status: 'error' | 'success' | 'search' | 'default' | undefined;
@@ -80,7 +84,9 @@ const useSetupInput = (
     debouncedValue,
     inputchangeHandler,
     setValue,
+    getValues,
     value,
+    watch,
   };
 };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import usePostActionState from '@/hooks/usePostActionState';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import styled from 'styled-components';
 import UserInterestIcon from './UserInterestIcon';
@@ -14,7 +13,7 @@ interface UserInterestInterface {
   likeCount: number;
   commentCount: number;
   viewCount: number;
-  postStates: ReturnType<typeof usePostActionState>;
+  isRecommended: boolean;
   postActionHandlers: ReturnType<typeof usePostActionHandlers>;
 }
 
@@ -23,14 +22,13 @@ const UserInterest = ({
   likeCount,
   commentCount,
   viewCount,
-  postStates,
+  isRecommended,
   postActionHandlers,
 }: UserInterestInterface) => {
-  const { isLiked } = postStates;
   const { likePost } = postActionHandlers;
 
   const INTERESTS = [
-    { icon: isLiked ? LIKE_FILL : LIKE_NONE, value: likeCount },
+    { icon: isRecommended ? LIKE_FILL : LIKE_NONE, value: likeCount },
     { icon: commentCount !== 0 ? COMMENT_FILL : COMMENT_NONE, value: commentCount },
     { icon: VIEW, value: viewCount },
   ];

@@ -3,16 +3,24 @@ import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import EDIT_ICON from '@/public/images/ui/post_edit_icon.svg';
 import DELETE_ICON from '@/public/images/ui/post_delete_icon.svg';
+import { PostDetailInterface } from '@/types/post';
 
 interface AuthorActionButtonsInterface {
   postId: number;
+  postData: PostDetailInterface;
+  editPostHandler: (post: PostDetailInterface, postId: number) => void;
   deletePostHandler: (postId: number) => Promise<void>;
 }
 
-const AuthorActionButtons = ({ postId, deletePostHandler }: AuthorActionButtonsInterface) => {
+const AuthorActionButtons = ({
+  postId,
+  postData,
+  editPostHandler,
+  deletePostHandler,
+}: AuthorActionButtonsInterface) => {
   return (
     <ActionButtonsContainer>
-      <ActionButton>
+      <ActionButton onClick={() => editPostHandler(postData, postId)}>
         <ButtonIcon src={EDIT_ICON} alt='post_edit_icon' />
         <ButtonText>수정하기</ButtonText>
       </ActionButton>

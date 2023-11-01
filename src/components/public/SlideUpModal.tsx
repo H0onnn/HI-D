@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react';
 import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import styled, { keyframes } from 'styled-components';
-import { colors } from '../../constants/colors';
-import Button from './Button';
+import { colors } from '@/constants/colors';
 
-interface NoMajorModalInterface {
+interface SlideUpModalInterface {
   setModalState: React.Dispatch<React.SetStateAction<boolean>>;
+  children: React.ReactNode;
+  subContent?: React.ReactNode;
 }
 
-const ReportModal = ({ setModalState }: NoMajorModalInterface) => {
-  const { openScroll } = useBodyScrollLock();
+const SlideUpModal = ({ setModalState, children }: SlideUpModalInterface) => {
+  const { lockScroll } = useBodyScrollLock();
 
   // 모달이 떠있을 때 스크롤 방지
   useEffect(() => {
-    openScroll();
+    lockScroll();
   }, []);
 
   const closeModalHanlder = () => setModalState(false);
@@ -32,14 +33,13 @@ const ReportModal = ({ setModalState }: NoMajorModalInterface) => {
             </svg>
           </CloseButton>
         </CloseButtonWrapper>
-        <ModalComment>검색 결과가 없어요.</ModalComment>
-        <Button $isFullWidth>신고하기</Button>
+        {children}
       </ModalContainer>
     </>
   );
 };
 
-export default ReportModal;
+export default SlideUpModal;
 
 const slideUp = keyframes`
     from {
@@ -55,24 +55,27 @@ const ModalContainer = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 2rem;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 35rem;
-  padding: 0 2rem;
+  height: 100%;
+
+  @media (min-height: 880px) {
+    height: 70%;
+  }
+
+  padding: 2rem 2rem;
   background-color: ${colors.white};
   border-radius: 20px 20px 0 0;
   border-top: 1px solid ${colors.gray1};
+  overflow-y: scroll;
   z-index: 100;
-`;
 
-const ModalComment = styled.span`
-  font-size: 16px;
-  color: ${colors.gray5};
-  padding-bottom: 4rem;
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
 `;
 
 const BackDrop = styled.div`
@@ -97,6 +100,7 @@ const CloseButtonWrapper = styled.div`
 `;
 
 const CloseButton = styled.button`
+  position: fixed;
   background-color: transparent;
   display: flex;
   justify-content: center;
