@@ -1,14 +1,14 @@
 import React from 'react';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
-import { PostingDataInterface } from '@/types/posting';
+import { ReportDataInterface } from '@/types/report';
 
-interface PostingFormInterface {
+interface ReportFormInterface {
   children: React.ReactNode;
-  onSubmit: SubmitHandler<PostingDataInterface>;
+  onSubmit: SubmitHandler<ReportDataInterface>;
 }
 
-const PostingForm = ({ children, onSubmit }: PostingFormInterface) => {
-  const methods = useForm<PostingDataInterface>({
+const ReportForm = ({ children, onSubmit }: ReportFormInterface) => {
+  const methods = useForm<ReportDataInterface>({
     mode: 'onSubmit',
     shouldUnregister: false,
   });
@@ -20,4 +20,4 @@ const PostingForm = ({ children, onSubmit }: PostingFormInterface) => {
   );
 };
 
-export default PostingForm;
+export default ReportForm;

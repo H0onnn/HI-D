@@ -1,5 +1,9 @@
 export interface AuthStateInterface {
   token: string | null;
-  setToken: (token: string | null) => void;
+  actions: AuthActionsInterface;
+}
+
+export interface AuthActionsInterface {
+  setToken: (token: string) => void;
   logout: () => void;
 }

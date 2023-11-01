@@ -2,7 +2,6 @@ import React from 'react';
 import usePostActionState from '@/hooks/usePostActionState';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import usePostDetailData from '@/hooks/usePostDetailData';
-import useUser from '@/hooks/useUser';
 import { useParams } from 'react-router-dom';
 import { PageLayout } from '@/styles/styles';
 import PageHeader from '@/components/public/PageHeader';
@@ -12,7 +11,8 @@ import PostBodyText from '@/components/post/postDetails/postContents/PostBodyTex
 import ImageSlider from '@/components/post/postDetails/postContents/ImageSlider';
 import UserInterest from '@/components/post/postDetails/postFooter/UserInterest';
 import CommentList from '@/components/comment/listing/CommentList';
-import ReportModal from '@/components/public/ReportModal';
+import SlideUpModal from '@/components/public/SlideUpModal';
+import SetupReport from '@/components/post/postDetails/postHeader/actions/report/SetupReport';
 
 const PostDetailPage = () => {
   const { id: postIdStr } = useParams<{ id: string }>();
@@ -21,7 +21,6 @@ const PostDetailPage = () => {
   const postStates = usePostActionState();
   const postActionHandlers = usePostActionHandlers();
   const { isReported, toggleReport } = postStates;
-  const { user } = useUser();
 
   if (!postData) return null;
 
@@ -37,9 +36,9 @@ const PostDetailPage = () => {
         />
         <PostHeader
           title={postData.title}
-          userId={user?.memberId}
-          writerId={postData.writer.memberId}
           postId={postData.postId}
+          postData={postData}
+          isBookmarked={postData.isBookmarked}
           postStates={postStates}
           postActionHandlers={postActionHandlers}
         />
@@ -50,11 +49,15 @@ const PostDetailPage = () => {
           likeCount={postData.recommendCount}
           commentCount={postData.replyCount}
           viewCount={postData.viewCount}
-          postStates={postStates}
+          isRecommended={postData.isRecommended}
           postActionHandlers={postActionHandlers}
         />
         <CommentList postId={postId} />
-        {isReported && <ReportModal setModalState={toggleReport} />}
+        {isReported && (
+          <SlideUpModal setModalState={toggleReport}>
+            <SetupReport postId={postData.postId} />
+          </SlideUpModal>
+        )}
       </PageLayout>
     </>
   );

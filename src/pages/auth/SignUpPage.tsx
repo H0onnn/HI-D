@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useProgress from '../../hooks/useProgress';
-import { useFunnel } from '../../hooks/useFunnel';
-import ProfileSetup from '../../components/auth/signup/ProfileSetup';
-import PageHeader from '../../components/public/PageHeader';
-import SignupProgressBar from '../../components/auth/SignupProgressBar';
-import SignUpForm from '../../components/auth/signup/SignUpForm';
-import { PageLayout } from '../../styles/styles';
-import { handleNextClick, handlePrevClick, signupSubmit } from '../../services/signupService';
+import useProgress from '@/hooks/useProgress';
+import { useFunnel } from '@/hooks/useFunnel';
+import useSignup from '@/hooks/useSignup';
+import ProfileSetup from '@/components/auth/signup/ProfileSetup';
+import PageHeader from '@/components/public/PageHeader';
+import SignupProgressBar from '@/components/auth/SignupProgressBar';
+import SignUpForm from '@/components/auth/signup/SignUpForm';
+import { PageLayout } from '@/styles/styles';
+import { handleNextClick, handlePrevClick } from '@/services/signup';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-
+  const { submitSignup } = useSignup();
   const steps = [
     '약관 동의',
     '학교 선택',
@@ -45,7 +46,7 @@ const SignUpPage = () => {
     <>
       <PageHeader title='회원가입' onClick={prevClickHandler} />
       <PageLayout>
-        <SignUpForm onSubmit={signupSubmit}>
+        <SignUpForm onSubmit={submitSignup}>
           {currentStep !== '약관 동의' && <SignupProgressBar progress={progress} />}
           <ProfileSetup
             steps={steps}

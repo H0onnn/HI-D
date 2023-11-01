@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
+import useSetupInput from '@/hooks/useSetupInput';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import FreePostTagContainer from '../post/FreePostTag';
+import { tagToEnglishMapping, englishToTagMapping, DEAFAULT_TAG } from '@/constants/post';
 import { FreePostTag } from '@/types/post';
-import { PostingDataInterface } from '@/types/posting';
+import { PostDetailInterface } from '@/types/post';
+interface FreePostCategoryTagInterface {
+  initialTag?: PostDetailInterface['tag'];
+}
 
-const FreePostCategoryTag = () => {
-  const [currentTag, setCurrentTag] = useState<FreePostTag>(initialTag);
+const FreePostCategoryTag = ({ initialTag }: FreePostCategoryTagInterface) => {
+  const [currentTag, setCurrentTag] = useState<FreePostTag>(
+    initialTag ? englishToTagMapping[initialTag] : DEAFAULT_TAG,
+  );
 
-  const { register, setValue } = useFormContext<PostingDataInterface>();
+  const { register, setValue } = useSetupInput('tag', undefined, 'default', initialTag);
 
   useEffect(() => {
     // 컴포넌트 마운트 후 초기값 'LOVE'로 설정
-    setValue('tag', tagToEnglishMapping[initialTag]);
+    setValue('tag', tagToEnglishMapping[DEAFAULT_TAG]);
   }, []);
 
   const tagClickHandler = (e: React.MouseEvent<HTMLElement>) => {
@@ -42,17 +48,6 @@ const FreePostCategoryTag = () => {
 };
 
 export default FreePostCategoryTag;
-
-const initialTag: FreePostTag = '연애';
-
-const tagToEnglishMapping: { [key in FreePostTag]: string } = {
-  전체: 'ALL',
-  연애: 'LOVE',
-  일상: 'DAILY',
-  같이해요: 'TOGETHER',
-  맛집: 'RESTAURANT',
-  잡담: 'CHITCHAT',
-};
 
 const Layout = styled.div`
   width: 100%;

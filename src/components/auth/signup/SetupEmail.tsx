@@ -32,7 +32,7 @@ const SetupEmail = ({ onNext }: ProfileSetupStepInterface) => {
         <Input
           type='email'
           status={emailStatus}
-          {...emailRegister('mail', emailValidation)}
+          {...emailRegister('mail')}
           errorMessage={
             emailErrors.mail && typeof emailErrors.mail.message === 'string'
               ? emailErrors.mail.message

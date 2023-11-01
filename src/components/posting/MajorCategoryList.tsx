@@ -1,21 +1,23 @@
 import React from 'react';
-import { styled, css } from 'styled-components';
 import { MAJORS } from '@/constants/majorCategory';
 import MajorCategoryItem from './MajorCategoryItem';
+import { CommonListLayout } from '@/styles/selectableItem';
 
 export interface MajorCategoryListInterface {
   onMajorSelect: (major: string) => void;
   selectedMajor?: string | null;
   $isEdit?: boolean;
+  initialMajorCategory?: string;
 }
 
 const MajorCategoryList = ({
   onMajorSelect,
   selectedMajor,
   $isEdit,
+  initialMajorCategory,
 }: MajorCategoryListInterface) => {
   return (
-    <ListLayout $isEdit={$isEdit}>
+    <CommonListLayout $isEdit={$isEdit}>
       {MAJORS.map((major, index, array) => (
         <MajorCategoryItem
           key={major}
@@ -25,24 +27,11 @@ const MajorCategoryList = ({
           $isEdit={$isEdit}
           $first={index === 0}
           $last={index === array.length - 1}
+          initialMajorCategory={initialMajorCategory}
         />
       ))}
-    </ListLayout>
+    </CommonListLayout>
   );
 };
 
 export default MajorCategoryList;
-
-const ListLayout = styled.div<{ $isEdit?: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 1rem;
-
-  ${({ $isEdit }) =>
-    $isEdit &&
-    css`
-      gap: 0;
-    `}
-`;

@@ -1,19 +1,19 @@
 import React, { useRef, ChangeEvent } from 'react';
-import { useFormContext } from 'react-hook-form';
+import useSetupInput from '@/hooks/useSetupInput';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import ADD_IMAGE_ICON from '@/public/images/posting/add_image_camera.svg';
-import { PostingDataInterface } from '@/types/posting';
 import { httpClient } from '@/api/httpClient';
 import toast from 'react-hot-toast';
 
 interface AddImageInputInterface {
   onUpload: (imageUrl: string) => void;
   uploadedImages: string[];
+  deleteImage: (imageUrl: string) => void;
 }
 
 const AddImageInput = ({ onUpload, uploadedImages }: AddImageInputInterface) => {
-  const { register, setValue, getValues } = useFormContext<PostingDataInterface>();
+  const { register, setValue, getValues } = useSetupInput('imageUrls');
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 

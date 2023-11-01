@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '../../constants/colors';
 import BackIcon from '../../public/images/headerBackBtn.png';
+import { LINK } from '@/constants/links';
 
 interface PageHeaderInterface {
   title?: string;
@@ -17,7 +18,7 @@ const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
       onClick();
       return;
     }
-    navigate(-1);
+    navigate(LINK.MAIN);
   };
 
   return (
