@@ -3,9 +3,10 @@ import { useFormContext, Controller } from 'react-hook-form';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import { PostingDataInterface } from '@/types/posting';
+import { PostDetailInterface } from '@/types/post';
 
 interface AnonymousToggleInterface {
-  initialAnonymous?: boolean;
+  initialAnonymous?: PostDetailInterface['isAnonymous'];
 }
 
 const AnonymousToggle = ({ initialAnonymous }: AnonymousToggleInterface) => {
