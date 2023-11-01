@@ -9,7 +9,7 @@ interface AuthorActionButtonsInterface {
   postId: number;
   postData: PostDetailInterface;
   editPostHandler: (post: PostDetailInterface, postId: number) => void;
-  deletePostHandler: (postId: number) => Promise<void>;
+  deletePostHandler: (postId: number) => void;
 }
 
 const AuthorActionButtons = ({

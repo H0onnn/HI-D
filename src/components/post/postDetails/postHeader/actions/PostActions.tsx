@@ -26,7 +26,7 @@ const PostActions = ({
   postData,
 }: PostActionsInterface) => {
   const { isMoreActions, toggleMoreActions, toggleReport } = postStates;
-  const { bookmarkPost, editPost, deletePost } = postActionHandlers;
+  const { bookmarkPost, editPost, deletePostHandler } = postActionHandlers;
 
   return (
     <PostActionsLayout>
@@ -54,7 +54,7 @@ const PostActions = ({
           <AuthorActionButtons
             postId={postId}
             postData={postData}
-            deletePostHandler={deletePost}
+            deletePostHandler={deletePostHandler}
             editPostHandler={editPost}
           />
         </AuthorActionModal>
