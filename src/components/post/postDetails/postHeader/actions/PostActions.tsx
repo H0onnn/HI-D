@@ -50,7 +50,7 @@ const PostActions = ({
         <IconButton iconSrc={REPORT_ICON} onClickHandler={toggleReport} alt='more_or_report_icon' />
       )}
       {isMoreActions && (
-        <AuthorActionModal>
+        <AuthorActionModal setModalState={toggleMoreActions}>
           <AuthorActionButtons
             postId={postId}
             postData={postData}
