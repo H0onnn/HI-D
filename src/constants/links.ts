@@ -18,8 +18,8 @@ export const LINK = {
   SEARCH: '/search',
   ALERT: '/alert',
   ADMIN_DECLARE: '/admin/declare',
-  ADMIN_DECLARE_POST: '/admin/declare/post',
-  ADMIN_DECLARE_REPLY: '/admin/declare/reply',
+  ADMIN_DECLARE_POST: '/admin/declare/post/:postId',
+  ADMIN_DECLARE_REPLY: '/admin/declare/reply/:replyId',
   ADMIN_ACCOUNT: '/admin/account',
   ADMIN_LOGOUT: '/admin/logout',
 } as const;
