@@ -11,6 +11,10 @@ import FreePostListPage from '../pages/post/FreePostListPage';
 import HelpPostListPage from '../pages/post/HelpPostListPage';
 import PostingPage from '@/pages/posting/PostingPage';
 import PostDetailPage from '@/pages/post/PostDetailPage';
+import DeclarePage from '@/pages/admin/declare/DeclarePage';
+import AccountPage from '@/pages/admin/account/AccountPage';
+import DecalrePostPage from '@/pages/admin/declare/DeclarePostPage';
+import DeclareReplyPage from '@/pages/admin/declare/DeclareReplyPage';
 
 interface AppRoutesInterface {
   name: string;
@@ -94,6 +98,30 @@ const routes: AppRoutesInterface[] = [
     path: LINK.POST_DETAIL,
     component: PostDetailPage,
     meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'AdminDeclare',
+    path: LINK.ADMIN_DECLARE,
+    component: DeclarePage,
+    meta: { hideFloatNav: true },
+  },
+  {
+    name: 'AdminDeclarePost',
+    path: LINK.ADMIN_DECLARE_POST,
+    component: DecalrePostPage,
+    meta: { hideFloatNav: true },
+  },
+  {
+    name: 'AdminDeclareReply',
+    path: LINK.ADMIN_DECLARE_REPLY,
+    component: DeclareReplyPage,
+    meta: { hideFloatNav: true },
+  },
+  {
+    name: 'AdminAccount',
+    path: LINK.ADMIN_ACCOUNT,
+    component: AccountPage,
+    meta: { hideFloatNav: true },
   },
 ];
 
