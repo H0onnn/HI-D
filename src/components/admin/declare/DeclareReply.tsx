@@ -1,41 +1,43 @@
 import { colors } from '@/constants/colors';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import DeclareDetailContent from './DeclareDetailContent';
+import DeclareItemContent from './DeclareDetailContent';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { LINK } from '@/constants/links';
-import { ReportDetailPostInterface } from '@/types/admin';
-import { MODAL_TYPES } from '@/types/modal';
-import useBodyScrollLock from '@/hooks/useBodyScrollLock';
+import { ReportDetailReplyInterface } from '@/types/admin';
 import useModalStore from '@/store/modalStore';
+import useBodyScrollLock from '@/hooks/useBodyScrollLock';
+import { MODAL_TYPES } from '@/types/modal';
 
-const DeclarePost = () => {
+const DeclareReply = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const postContent = searchParams.get('postContent');
-  const { postId } = useParams();
-  const [dataList, setDataList] = useState<ReportDetailPostInterface[]>([]);
+  const replyContent = searchParams.get('replyContent');
+  const postId = searchParams.get('postId');
+  const { replyId } = useParams();
+  const [dataList, setDataList] = useState<ReportDetailReplyInterface[]>([]);
   const { lockScroll } = useBodyScrollLock();
   const { openModal, closeModal } = useModalStore();
 
-  const deleteReportPostHandler = () => {
+  const deleteReportReplyHandler = async () => {
     closeModal();
-    // const resposne = await deleteReportPost();
-    // if (resposne) {
-    //   // TODO: toast alert
-    // } else {
-    //   // TODO: toast alert
-    // }
+    const resposne = await deleteReportReply();
+    if (resposne) {
+      // TODO: toast alert
+    } else {
+      // TODO: toast alert
+    }
   };
 
   const deleteModalHandler = () => {
     openModal({
       modalType: MODAL_TYPES.ALERT,
       modalProps: {
-        title: `해당 게시물을 삭제하시겠습니까?`,
-        content: '삭제하면 해당 글이 사라지며 복구할 수 없어요',
+        title: `해당 댓글을 삭제하시겠습니까?`,
+        content: '삭제하면 해당 댓글이 사라지며 복구할 수 없어요',
         confirmText: '삭제',
-        onConfirmHandler: deleteReportPostHandler,
+        onConfirmHandler: deleteReportReplyHandler,
       },
     });
     lockScroll();
@@ -48,8 +50,8 @@ const DeclarePost = () => {
   const fetchData = () => {
     setDataList([
       {
-        postReportId: 1,
-        postId: 1,
+        replyReportId: 1,
+        replyId: 1,
         content: '신고내용',
         reporter: '신고자',
         type: '신고유형',
@@ -63,26 +65,28 @@ const DeclarePost = () => {
 
   return (
     <Layout>
-      <Title>신고 게시글 보기</Title>
+      <Title>게시글 보기</Title>
       <Content onClick={movePostPageHandler}>{postContent}</Content>
+      <Title>신고 댓글 보기</Title>
+      <Content onClick={movePostPageHandler}>{replyContent}</Content>
       <Title>신고 내역</Title>
       <ListWrapper>
         {dataList.map((data) => (
-          <DeclareDetailContent
-            key={postId}
+          <DeclareItemContent
+            key={replyId}
             {...data}
-            id={data.postId}
-            reportId={data.postReportId}
-            category='post'
+            id={data.replyId}
+            reportId={data.replyReportId}
+            category={'reply'}
           />
         ))}
       </ListWrapper>
-      <DeleteButton onClick={deleteModalHandler}>글 삭제하기</DeleteButton>
+      <DeleteButton onClick={deleteModalHandler}>댓글 삭제하기</DeleteButton>
     </Layout>
   );
 };
 
-export default DeclarePost;
+export default DeclareReply;
 
 const Layout = styled.div`
   display: flex;
@@ -114,7 +118,6 @@ const ListWrapper = styled.div`
 `;
 
 const DeleteButton = styled.div`
-  background: red;
   cursor: pointer;
   margin: 2rem 0;
   height: 4.8rem;
