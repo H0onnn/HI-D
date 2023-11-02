@@ -32,8 +32,8 @@ export const MainPageLayout = styled.div`
   position: relative;
   flex-direction: column;
   width: 100%;
-  height: calc(100% - 4.3rem);
-  max-height: calc(100% - 4.3rem);
+  height: calc(100% - 6rem);
+  max-height: calc(100% - 6rem);
   margin-top: 4.8rem;
   overflow: hidden;
 `;

@@ -2,15 +2,17 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import BottomNavButton from './BottomNavButton';
-import { NAV_ITEMS } from '@/constants/bottomNavItem';
+import { NAV_ITEMS, NAV_ITEMS_ADMIN } from '@/constants/bottomNavItem';
 
 const BottomNavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const isAdmin = location.pathname.includes('/admin'); // todo: check if user is admin
+  const navItems = isAdmin ? NAV_ITEMS_ADMIN : NAV_ITEMS;
 
   return (
     <BottomNavBarLayout>
-      {NAV_ITEMS.map((item) => (
+      {navItems.map((item) => (
         <BottomNavButton
           key={item.link}
           text={item.text}
