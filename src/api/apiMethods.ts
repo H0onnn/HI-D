@@ -7,6 +7,7 @@ import {
   RequestChatRoomListInterface,
   RequestMessageListInterface,
 } from '@/types/chat';
+import { RequestReportDetailInterface, RequestReportListInterface } from '@/types/admin';
 
 // TODO: url(params) object response 가능하도록 바꾸기
 export const apiMethods = {
@@ -179,6 +180,22 @@ export const apiMethods = {
     delete: {
       chatroom: ({ roomId }: RequestChatRoomDeleteInterface) => ({
         url: `chat/rooms/${roomId}`,
+      }),
+    },
+  },
+  report: {
+    get: {
+      postList: ({ page, size, sortBy, direction }: Partial<RequestReportListInterface>) => ({
+        url: `posts/report?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
+      }),
+      replyList: ({ page, size, sortBy, direction }: Partial<RequestReportListInterface>) => ({
+        url: `replies/report?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
+      }),
+      post: ({ id, page, size, sortBy, direction }: Partial<RequestReportDetailInterface>) => ({
+        url: `posts/${id}/report?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
+      }),
+      reply: ({ id, page, size, sortBy, direction }: Partial<RequestReportDetailInterface>) => ({
+        url: `reports/${id}/report?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
       }),
     },
   },
