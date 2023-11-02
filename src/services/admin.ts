@@ -100,3 +100,23 @@ export const getReportReplyDetail = async ({
     throw new Error();
   }
 };
+
+export const deleteReportDetail = async ({
+  reportId,
+  id,
+  category,
+}: {
+  reportId: number;
+  id: number;
+  category: 'post' | 'reply';
+}): Promise<void> => {
+  try {
+    if (category === 'post') {
+      await httpClient.report.delete.post({ reportId, id });
+    } else {
+      await httpClient.report.delete.reply({ reportId, id });
+    }
+  } catch (e) {
+    throw new Error();
+  }
+};

@@ -198,5 +198,13 @@ export const apiMethods = {
         url: `reports/${id}/report?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
       }),
     },
+    delete: {
+      post: (id: number, reportId: number) => ({
+        url: `posts/${id}/report/${reportId}`,
+      }),
+      reply: (id: number, reportId: number) => ({
+        url: `replies/${id}/report/${reportId}`,
+      }),
+    },
   },
 };
