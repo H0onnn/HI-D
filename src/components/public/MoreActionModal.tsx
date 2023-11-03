@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 
-interface AuthorActionModalInterface {
+interface MoreActionModalInterface {
   children: React.ReactNode;
   setModalState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AuthorActionModal = ({ children, setModalState }: AuthorActionModalInterface) => {
+const MoreActionModal = ({ children, setModalState }: MoreActionModalInterface) => {
   return (
     <>
       <BackDrop onClick={() => setModalState(false)} />
@@ -16,7 +16,7 @@ const AuthorActionModal = ({ children, setModalState }: AuthorActionModalInterfa
   );
 };
 
-export default AuthorActionModal;
+export default MoreActionModal;
 
 const ModalLayout = styled.div`
   position: absolute;
