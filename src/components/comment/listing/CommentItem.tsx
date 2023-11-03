@@ -1,20 +1,28 @@
 import React, { forwardRef } from 'react';
+import usePostActionState from '@/hooks/usePostActionState';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import LIKE_ICON from '@/public/images/ui/like_fill.svg';
-import ActionButtonContainer from '../actionButton/ActionButtonContainer';
+import MORE_ACTION from '@/public/images/ui/more_active.svg';
+import IconButton from '@/components/public/IconButton';
+import AuthorActionModal from '@/components/public/MoreActionModal';
+import AuthorActionButtons from '@/components/public/MoreActionButtons';
 import { timeSince } from '@/utils/caculateDate';
 
 interface CommentItemInterface {
+  commentId: number;
   writer_image: string;
   writer_name: string;
   content: string;
   created_at: string;
   comment_like: number;
+  isMine: boolean;
 }
 
 const CommentItem = forwardRef<HTMLDivElement, CommentItemInterface>(
-  ({ writer_image, writer_name, content, created_at, comment_like }, ref) => {
+  ({ commentId, writer_image, writer_name, content, created_at, comment_like, isMine }, ref) => {
+    const { isMoreActions, toggleMoreActions } = usePostActionState();
+
     return (
       <CommentItemLayout ref={ref}>
         <CommentWriterContainer>
@@ -23,7 +31,20 @@ const CommentItem = forwardRef<HTMLDivElement, CommentItemInterface>(
             <CommentWriterName>{writer_name}</CommentWriterName>
             <CommentCreatedAt>{timeSince(created_at)}</CommentCreatedAt>
           </CommentWriterInfo>
-          <ActionButtonContainer />
+          <IconButton iconSrc={MORE_ACTION} onClickHandler={toggleMoreActions} />
+          {isMoreActions && (
+            <AuthorActionModal setModalState={toggleMoreActions}>
+              <AuthorActionButtons
+                id={commentId}
+                type='COMMENT'
+                isOwnContent={isMine}
+                editHandler={() => {}}
+                deleteHandler={() => {}}
+                chatHandler={() => {}}
+                reportHandler={() => {}}
+              />
+            </AuthorActionModal>
+          )}
         </CommentWriterContainer>
         <ContentContainer>
           <CommentContent>{content}</CommentContent>
@@ -54,6 +75,7 @@ const CommentWriterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 `;
 
 const CommentWriterInfo = styled.div`
@@ -83,7 +105,9 @@ const ContentContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 0.7rem;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  gap: 0.5rem;
 `;
 
 const CommentContent = styled.p`
@@ -104,6 +128,7 @@ const CommentLikeContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-left: 2.8rem;
 `;
 
 const CommentLikeImg = styled.img`

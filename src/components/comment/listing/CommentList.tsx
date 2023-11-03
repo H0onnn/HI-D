@@ -20,11 +20,13 @@ const CommentList = ({ postId }: CommentListInterface) => {
             <CommentItem
               key={comment.replyId}
               ref={index === comments.dataList.length - 1 ? loadMoreRef : null}
+              commentId={comment.replyId}
               writer_image={comment.writer.imageUrl}
               writer_name={comment.writer.nickname}
               content={comment.content}
               created_at={comment.createAt}
               comment_like={comment.recommendCount}
+              isMine={comment.mine}
             />
           ))}
         </CommentItemWrapper>
