@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const usePostActionState = () => {
+const useActionState = () => {
   const [isReported, setIsReported] = useState<boolean>(false);
   const [isMoreActions, setIsMoreActions] = useState<boolean>(false);
 
@@ -15,4 +15,4 @@ const usePostActionState = () => {
   };
 };
 
-export default usePostActionState;
+export default useActionState;

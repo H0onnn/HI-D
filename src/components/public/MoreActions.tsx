@@ -1,5 +1,5 @@
 import React from 'react';
-import usePostActionState from '@/hooks/usePostActionState';
+import useActionState from '@/hooks/useActionState';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import styled from 'styled-components';
 import IconButton from '@/components/public/IconButton';
@@ -10,26 +10,26 @@ import BOOKMARK_ACTIVE from '@/public/images/ui/bookmark_active.svg';
 import REPORT_ICON from '@/public/images/ui/report_icon.svg';
 import MORE_ACTION from '@/public/images/ui/more_active.svg';
 import { PostDetailInterface } from '@/types/post';
-interface PostActionsInterface {
-  postStates: ReturnType<typeof usePostActionState>;
+interface MoreActionsInterface {
+  postStates: ReturnType<typeof useActionState>;
   postActionHandlers: ReturnType<typeof usePostActionHandlers>;
   postId: number;
   isBookMarked: boolean;
   postData: PostDetailInterface;
 }
 
-const PostActions = ({
+const MoreActions = ({
   postStates,
   postActionHandlers,
   postId,
   isBookMarked,
   postData,
-}: PostActionsInterface) => {
+}: MoreActionsInterface) => {
   const { isMoreActions, toggleMoreActions, toggleReport } = postStates;
   const { bookmarkPost, editPost, deletePostHandler } = postActionHandlers;
 
   return (
-    <PostActionsLayout>
+    <MoreActionsLayout>
       <IconButton
         iconSrc={BOOKMARK_NONE}
         activeIconSrc={BOOKMARK_ACTIVE}
@@ -60,13 +60,13 @@ const PostActions = ({
           />
         </MoreActionModal>
       )}
-    </PostActionsLayout>
+    </MoreActionsLayout>
   );
 };
 
-export default PostActions;
+export default MoreActions;
 
-const PostActionsLayout = styled.div`
+const MoreActionsLayout = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

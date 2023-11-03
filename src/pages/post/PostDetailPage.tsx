@@ -1,5 +1,5 @@
 import React from 'react';
-import usePostActionState from '@/hooks/usePostActionState';
+import usePostActionState from '@/hooks/useActionState';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import usePostDetailData from '@/hooks/usePostDetailData';
 import { useParams } from 'react-router-dom';

@@ -1,14 +1,14 @@
 import React from 'react';
-import usePostActionState from '@/hooks/usePostActionState';
+import useActionState from '@/hooks/useActionState';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import styled from 'styled-components';
 import PostTitle from './PostTitle';
-import PostActions from './actions/PostActions';
+import MoreActions from '../../../public/MoreActions';
 import { PostDetailInterface } from '@/types/post';
 
 interface PostHeaderInterface {
   title: string;
-  postStates: ReturnType<typeof usePostActionState>;
+  postStates: ReturnType<typeof useActionState>;
   postActionHandlers: ReturnType<typeof usePostActionHandlers>;
   postId: number;
   isBookmarked: boolean;
@@ -26,7 +26,7 @@ const PostHeader = ({
   return (
     <PostHeaderLayout>
       <PostTitle title={title} />
-      <PostActions
+      <MoreActions
         postStates={postStates}
         postActionHandlers={postActionHandlers}
         postId={postId}

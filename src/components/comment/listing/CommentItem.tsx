@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import usePostActionState from '@/hooks/usePostActionState';
+import useActionState from '@/hooks/useActionState';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import LIKE_ICON from '@/public/images/ui/like_fill.svg';
@@ -21,7 +21,7 @@ interface CommentItemInterface {
 
 const CommentItem = forwardRef<HTMLDivElement, CommentItemInterface>(
   ({ commentId, writer_image, writer_name, content, created_at, comment_like, isMine }, ref) => {
-    const { isMoreActions, toggleMoreActions } = usePostActionState();
+    const { isMoreActions, toggleMoreActions } = useActionState();
 
     return (
       <CommentItemLayout ref={ref}>
