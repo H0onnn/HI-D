@@ -15,4 +15,7 @@ export interface CommentDataInterface {
   recommendCount: number;
   createAt: string;
   updateAt: string;
+  recommend: boolean;
+  mine: boolean;
+  anonymous: boolean;
 }
