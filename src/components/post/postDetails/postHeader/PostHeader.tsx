@@ -3,7 +3,7 @@ import useActionState from '@/hooks/useActionState';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import styled from 'styled-components';
 import PostTitle from './PostTitle';
-import MoreActions from '../../../public/MoreActions';
+import MoreActions from './actions/author/MoreActions';
 import { PostDetailInterface } from '@/types/post';
 
 interface PostHeaderInterface {
