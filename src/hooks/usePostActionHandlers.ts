@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import useModalStore from '@/store/modalStore';
 import { useNavigate } from 'react-router-dom';
+import { QUERY_KEY as postQueryKey } from './usePostDetailData';
 import { postLike, postBookmark, postReport, postDelete } from '@/services/postActions';
 import { LINK } from '@/constants/links';
 import { PostingDataInterface } from '@/types/posting';
@@ -19,12 +20,12 @@ const usePostActionHandlers = () => {
       await postLike(postId);
     },
     onSuccess: (_, postId) => {
-      queryClient.invalidateQueries({ queryKey: ['postDetailData', postId] });
+      queryClient.invalidateQueries({ queryKey: [postQueryKey, postId] });
     },
   });
 
   const likePost = (postId: number) => {
-    const currentData = queryClient.getQueryData(['postDetailData', postId]) as
+    const currentData = queryClient.getQueryData([postQueryKey, postId]) as
       | PostDetailInterface
       | undefined;
     if (currentData) {
@@ -35,7 +36,7 @@ const usePostActionHandlers = () => {
           : currentData.recommendCount + 1,
         isLiked: !currentData.isRecommended,
       };
-      queryClient.setQueryData(['postDetailData', postId], updatedData);
+      queryClient.setQueryData([postQueryKey, postId], updatedData);
     }
 
     likePostMutation.mutate(postId);
@@ -46,12 +47,12 @@ const usePostActionHandlers = () => {
       await postBookmark(postId);
     },
     onSuccess: (_, postId) => {
-      queryClient.invalidateQueries({ queryKey: ['postDetailData', postId] });
+      queryClient.invalidateQueries({ queryKey: [postQueryKey, postId] });
     },
   });
 
   const bookmarkPost = (postId: number) => {
-    const currentData = queryClient.getQueryData(['postDetailData', postId]) as
+    const currentData = queryClient.getQueryData([postQueryKey, postId]) as
       | PostDetailInterface
       | undefined;
     if (currentData) {
@@ -59,7 +60,7 @@ const usePostActionHandlers = () => {
         ...currentData,
         isBookmarked: !currentData.isBookmarked,
       };
-      queryClient.setQueryData(['postDetailData', postId], updatedData);
+      queryClient.setQueryData([postQueryKey, postId], updatedData);
     }
 
     bookmarkPostMutation.mutate(postId);
