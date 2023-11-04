@@ -1,4 +1,5 @@
 import { useQueryClient, useMutation, UseMutationResult } from '@tanstack/react-query';
+import { QUERY_KEY as postQueryKey } from './usePostDetailData';
 import { postNeedHelp, postFree, patchPost } from '@/services/posting';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -56,7 +57,7 @@ const useSubmitPost = (): UseSubmitPostReturnType => {
         id: 'editSuccess',
       });
       navigate(LINK.POST_DETAIL.replace(':id', postData.postId.toString()));
-      queryClient.invalidateQueries({ queryKey: ['postDetailData', postData.postId] });
+      queryClient.invalidateQueries({ queryKey: [postQueryKey, postData.postId] });
     },
   });
 
