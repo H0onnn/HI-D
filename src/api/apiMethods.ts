@@ -7,7 +7,11 @@ import {
   RequestChatRoomListInterface,
   RequestMessageListInterface,
 } from '@/types/chat';
-import { RequestReportDetailInterface, RequestReportListInterface } from '@/types/admin';
+import {
+  RequestAccountListInterface,
+  RequestReportDetailInterface,
+  RequestReportListInterface,
+} from '@/types/admin';
 
 // TODO: url(params) object response 가능하도록 바꾸기
 export const apiMethods = {
@@ -204,6 +208,23 @@ export const apiMethods = {
       }),
       reply: (id: number, reportId: number) => ({
         url: `replies/${id}/report/${reportId}`,
+      }),
+    },
+  },
+  account: {
+    get: {
+      accountList: ({ keyword, page, size, sortBy, direction }: RequestAccountListInterface) => ({
+        url: `members?keyword=${keyword}&page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
+      }),
+    },
+    delete: {
+      account: (memberId: number) => ({
+        url: `members/${memberId}`,
+      }),
+    },
+    patch: {
+      account: (memberId: number) => ({
+        url: `members/${memberId}/lock`,
       }),
     },
   },

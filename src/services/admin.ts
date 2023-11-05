@@ -1,9 +1,11 @@
 import { httpClient } from '@/api/httpClient';
 import {
+  AccountListInterface,
   ReportDetailPostInterface,
   ReportDetailReplyInterface,
   ReportListInterface,
   ReportPostInterface,
+  RequestAccountListInterface,
   RequestReportDetailInterface,
   RequestReportListInterface,
 } from '@/types/admin';
@@ -116,6 +118,51 @@ export const deleteReportDetail = async ({
     } else {
       await httpClient.report.delete.reply({ reportId, id });
     }
+  } catch (e) {
+    throw new Error();
+  }
+};
+
+export const getAccountList = async ({
+  keyword,
+  page,
+  size = 10,
+  sortBy = 'createAt',
+  direction = 'DESC',
+}: Partial<RequestAccountListInterface>): Promise<AccountListInterface> => {
+  try {
+    const response = await httpClient.account.get.userList({
+      keyword,
+      page,
+      size,
+      sortBy,
+      direction,
+    });
+    return response.data;
+  } catch (e) {
+    throw new Error();
+  }
+};
+
+export const lockAccount = async (memberId: number): Promise<boolean> => {
+  try {
+    const response = await httpClient.account.patch.account(memberId);
+    if (response.status === 200) {
+      return true;
+    }
+    return false;
+  } catch (e) {
+    throw new Error();
+  }
+};
+
+export const deleteAccount = async (memberId: number): Promise<boolean> => {
+  try {
+    const response = await httpClient.account.delete.account(memberId);
+    if (response.status === 204) {
+      return true;
+    }
+    return false;
   } catch (e) {
     throw new Error();
   }

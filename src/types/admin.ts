@@ -79,3 +79,28 @@ export interface PageStatusInterface {
   size?: number;
   hasNext: boolean;
 }
+
+export interface RequestAccountListInterface {
+  page: number;
+  keyword?: string;
+  size?: number;
+  sortBy?: string;
+  direction?: string;
+}
+
+export interface AccountListInterface {
+  dataList: AccountInterface[];
+  size: 0;
+  hasNext: true;
+}
+
+export interface AccountInterface {
+  memberId: number;
+  mail: string;
+  nickname: string;
+  roles: 'ROLE_USER';
+  imageUrl: string;
+  createAt: string;
+  updateAt: string;
+  locked: true;
+}
