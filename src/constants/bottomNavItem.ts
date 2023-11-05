@@ -12,7 +12,7 @@ import DECLARE_FILL from '@/public/images/bottomNav/admin/declare_fill.svg';
 import ACCOUNT_ICON from '@/public/images/bottomNav/admin/account.svg';
 import ACCOUNT_FILL from '@/public/images/bottomNav/admin/account_fill.svg';
 import LOGOUT_ICON from '@/public/images/bottomNav/admin/logout.svg';
-// import LOGOUT_FILL from '@/public/images/bottomNav/admin/logout_fill.svg';
+import { MODAL_TYPES } from '@/types/modal';
 
 export const NAV_ITEMS = [
   {
@@ -71,7 +71,7 @@ export const NAV_ITEMS_ADMIN = [
     text: '로그아웃',
     defaultIcon: LOGOUT_ICON,
     activeIcon: LOGOUT_ICON,
-    link: LINK.ADMIN_LOGOUT, // TODO: 모달 페이지로 만들기
+    link: MODAL_TYPES.ALERT,
     alt: 'logout',
   },
 ] as const;
