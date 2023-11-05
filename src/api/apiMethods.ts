@@ -161,9 +161,26 @@ export const apiMethods = {
       }),
     },
     post: {
-      replies: (postId: number, content: string) => ({
+      reply: (postId: number, content: string) => ({
         url: 'replies',
         data: { postId, content },
+      }),
+    },
+    patch: {
+      reply: (replyId: number, content: string) => ({
+        url: `replies/${replyId}`,
+        data: { content },
+      }),
+    },
+    delete: {
+      reply: (replyId: number) => ({
+        url: `replies/${replyId}`,
+      }),
+    },
+    report: {
+      reply: (replyId: number, data: ReportDataInterface) => ({
+        url: `replies/${replyId}/report`,
+        data,
       }),
     },
   },
