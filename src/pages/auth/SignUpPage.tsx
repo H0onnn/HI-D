@@ -5,7 +5,7 @@ import { useFunnel } from '@/hooks/useFunnel';
 import useSignup from '@/hooks/useSignup';
 import ProfileSetup from '@/components/auth/signup/ProfileSetup';
 import PageHeader from '@/components/public/PageHeader';
-import SignupProgressBar from '@/components/auth/SignupProgressBar';
+import SignupProgressBar from '@/components/auth/signup/SignupProgressBar';
 import SignUpForm from '@/components/auth/signup/SignUpForm';
 import { PageLayout } from '@/styles/styles';
 import { handleNextClick, handlePrevClick } from '@/services/signup';

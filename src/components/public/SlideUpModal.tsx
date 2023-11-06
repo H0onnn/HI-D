@@ -10,11 +10,15 @@ interface SlideUpModalInterface {
 }
 
 const SlideUpModal = ({ setModalState, children }: SlideUpModalInterface) => {
-  const { lockScroll } = useBodyScrollLock();
+  const { lockScroll, openScroll } = useBodyScrollLock();
 
   // 모달이 떠있을 때 스크롤 방지
   useEffect(() => {
     lockScroll();
+
+    return () => {
+      openScroll();
+    };
   }, []);
 
   const closeModalHanlder = () => setModalState(false);

@@ -11,6 +11,7 @@ const useLogin = () => {
   const { setToken } = useAuthActions();
   const { queryClient } = useUser();
   const navigate = useNavigate();
+  const USER_QUERY_KEY = 'currentUser';
 
   const fetchToken = async (data: LoginDataInterface) => {
     try {
@@ -27,7 +28,7 @@ const useLogin = () => {
       await fetchToken(data);
       const token = useAuthStore.getState().token;
       if (token) {
-        const userData = queryClient.getQueryData<UserDataInterface>(['currentUser']);
+        const userData = queryClient.getQueryData<UserDataInterface>([USER_QUERY_KEY]);
 
         if (!userData) {
           await getUserData();
@@ -46,7 +47,7 @@ const useLogin = () => {
     }
   };
 
-  return { loginHandler };
+  return { loginHandler, USER_QUERY_KEY };
 };
 
 export default useLogin;
