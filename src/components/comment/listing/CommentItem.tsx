@@ -1,27 +1,69 @@
 import React, { forwardRef } from 'react';
 import useActionState from '@/hooks/useActionState';
+import useCommentMutation from '@/hooks/useCommentMutation';
+import useCommentActionHandler from '@/hooks/useCommentActionHandler';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import LIKE_ICON from '@/public/images/ui/like_fill.svg';
+import LIKE_NONE from '@/public/images/ui/like_none.svg';
 import MORE_ACTION from '@/public/images/ui/more_active.svg';
 import IconButton from '@/components/public/IconButton';
-import AuthorActionModal from '@/components/public/MoreActionModal';
-import AuthorActionButtons from '@/components/public/MoreActionButtons';
+import MoreActionModal from '@/components/public/MoreActionModal';
+import MoreActionButtons from '@/components/public/MoreActionButtons';
+import SlideUpModal from '@/components/public/SlideUpModal';
+import SetupReport from '@/components/post/postDetails/postHeader/actions/report/SetupReport';
+import CommentTextArea from '../contentArea/CommentTextArea';
 import { timeSince } from '@/utils/caculateDate';
 
 interface CommentItemInterface {
-  commentId: number;
+  replyId: number;
+  postId: number;
   writer_image: string;
   writer_name: string;
   content: string;
   created_at: string;
   comment_like: number;
   isMine: boolean;
+  isRecommended: boolean;
 }
 
 const CommentItem = forwardRef<HTMLDivElement, CommentItemInterface>(
-  ({ commentId, writer_image, writer_name, content, created_at, comment_like, isMine }, ref) => {
-    const { isMoreActions, toggleMoreActions } = useActionState();
+  (
+    {
+      postId,
+      replyId,
+      writer_image,
+      writer_name,
+      content,
+      created_at,
+      comment_like,
+      isMine,
+      isRecommended,
+    },
+    ref,
+  ) => {
+    const {
+      isMoreActions,
+      isReported,
+      isEditing,
+      toggleMoreActions,
+      toggleReport,
+      toggleIsEditing,
+    } = useActionState();
+    const { editComment, deleteComment } = useCommentMutation();
+    const { likeComment } = useCommentActionHandler();
+
+    const editCommentHandler = (editedContent: string) => {
+      editComment({ replyId, content: editedContent });
+    };
+
+    const deleteCommentHandler = () => {
+      deleteComment(replyId, postId);
+    };
+
+    const likeCommentHandler = () => {
+      likeComment(replyId, postId);
+    };
 
     return (
       <CommentItemLayout ref={ref}>
@@ -33,26 +75,44 @@ const CommentItem = forwardRef<HTMLDivElement, CommentItemInterface>(
           </CommentWriterInfo>
           <IconButton iconSrc={MORE_ACTION} onClickHandler={toggleMoreActions} />
           {isMoreActions && (
-            <AuthorActionModal setModalState={toggleMoreActions}>
-              <AuthorActionButtons
-                id={commentId}
+            <MoreActionModal setModalState={toggleMoreActions}>
+              <MoreActionButtons
+                id={replyId}
                 type='COMMENT'
                 isOwnContent={isMine}
-                editHandler={() => {}}
-                deleteHandler={() => {}}
+                editHandler={toggleIsEditing}
+                deleteHandler={deleteCommentHandler}
                 chatHandler={() => {}}
-                reportHandler={() => {}}
+                reportHandler={toggleReport}
               />
-            </AuthorActionModal>
+            </MoreActionModal>
           )}
         </CommentWriterContainer>
         <ContentContainer>
-          <CommentContent>{content}</CommentContent>
+          {isEditing ? (
+            <CommentTextArea
+              $isEditing={isEditing}
+              content={content}
+              replyId={replyId}
+              onEditComment={(editedComment) => editCommentHandler(editedComment.content)}
+              onEditCancel={toggleIsEditing}
+            />
+          ) : (
+            <CommentContent>{content}</CommentContent>
+          )}
           <CommentLikeContainer>
-            <CommentLikeImg src={LIKE_ICON} />
+            <CommentLikeImg
+              src={isRecommended ? LIKE_ICON : LIKE_NONE}
+              onClick={likeCommentHandler}
+            />
             <CommentLikeCount>{comment_like}</CommentLikeCount>
           </CommentLikeContainer>
         </ContentContainer>
+        {isReported && (
+          <SlideUpModal setModalState={toggleReport}>
+            <SetupReport postId={postId} replyId={replyId} type='COMMENT' />
+          </SlideUpModal>
+        )}
       </CommentItemLayout>
     );
   },
@@ -116,6 +176,7 @@ const CommentContent = styled.p`
   color: ${colors.black};
   line-height: 21px;
   margin-left: 3rem;
+  padding-right: 3rem;
 `;
 
 const CommentCreatedAt = styled.p`
