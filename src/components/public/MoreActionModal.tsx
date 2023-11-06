@@ -29,6 +29,7 @@ const ModalLayout = styled.div`
   background-color: ${colors.white};
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   padding: 1rem 1.6rem 1rem 1.6rem;
+  z-index: 10;
 `;
 
 const BackDrop = styled.div`
@@ -38,5 +39,5 @@ const BackDrop = styled.div`
   width: 100%;
   height: 100%;
   background-color: transparent;
-  z-index: 1;
+  z-index: 2;
 `;
