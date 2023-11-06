@@ -2,36 +2,37 @@ import { NavigateFunction } from 'react-router-dom';
 import { PostingDataInterface } from '@/types/posting';
 import { httpClient } from '../api/httpClient';
 import { LINK } from '@/constants/links';
+import { PostDetailInterface } from '@/types/post';
 
-export const postNeedHelp = async (data: PostingDataInterface) => {
+export const postNeedHelp = async (data: PostingDataInterface): Promise<PostDetailInterface> => {
   try {
     const response = await httpClient.post.post.needhelp(data);
 
-    const postId = response.data.postId;
-
-    return postId;
+    return response.data;
   } catch (err: unknown) {
     console.error('게시글 등록 오류 : ', err);
     throw err;
   }
 };
 
-export const postFree = async (data: PostingDataInterface) => {
+export const postFree = async (data: PostingDataInterface): Promise<PostDetailInterface> => {
   try {
     const response = await httpClient.post.post.free(data);
 
-    const postId = response.data.postId;
-
-    return postId;
+    return response.data;
   } catch (err: unknown) {
     console.error('게시글 등록 오류 : ', err);
     throw err;
   }
 };
 
-export const patchPost = async (postId: number, data: PostingDataInterface) => {
+export const patchPost = async (
+  postId: number,
+  data: PostingDataInterface,
+): Promise<PostDetailInterface> => {
   try {
-    await httpClient.post.patch.edit(postId, data);
+    const response = await httpClient.post.patch.edit(postId, data);
+    return response.data;
   } catch (err: unknown) {
     console.error('게시글 수정 오류 : ', err);
     throw err;

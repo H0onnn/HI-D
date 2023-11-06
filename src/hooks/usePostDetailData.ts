@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 const usePostDetailData = (postId: number) => {
   const { data: postData, error } = useQuery<PostDetailInterface>({
-    queryKey: ['postDetailData', postId],
+    queryKey: [QUERY_KEY, postId],
     queryFn: () => getPostDetailData(postId),
     staleTime: 1000 * 60 * 5, // 5분
   });
@@ -17,5 +17,7 @@ const usePostDetailData = (postId: number) => {
 
   return { postData };
 };
+
+export const QUERY_KEY = 'postDetailData';
 
 export default usePostDetailData;
