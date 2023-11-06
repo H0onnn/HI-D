@@ -26,7 +26,7 @@ const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
   };
 
   return (
-    <PageHeaderLayout isWhite={isWhite}>
+    <PageHeaderLayout $isWhite={isWhite}>
       <BackButtonBox>
         <img
           style={{
@@ -38,7 +38,7 @@ const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
           onClick={backClickHandler}
         />
       </BackButtonBox>
-      <HeaderTitle isWhite={isWhite}>{title}</HeaderTitle>
+      <HeaderTitle $isWhite={isWhite}>{title}</HeaderTitle>
       <div
         style={{
           width: '2.4rem',
@@ -50,7 +50,7 @@ const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
 
 export default PageHeader;
 
-const PageHeaderLayout = styled.div<{ isWhite: boolean }>`
+const PageHeaderLayout = styled.div<{ $isWhite: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -61,7 +61,7 @@ const PageHeaderLayout = styled.div<{ isWhite: boolean }>`
   z-index: 1;
   top: 0;
   padding: 2rem;
-  background-color: ${({ isWhite }) => (isWhite ? 'transparent' : colors.white)};
+  background-color: ${({ $isWhite }) => ($isWhite ? 'transparent' : colors.white)};
 `;
 
 const BackButtonBox = styled.div`
@@ -69,8 +69,8 @@ const BackButtonBox = styled.div`
   height: 2.4rem;
 `;
 
-const HeaderTitle = styled.div<{ isWhite: boolean }>`
+const HeaderTitle = styled.div<{ $isWhite: boolean }>`
   font-size: 18px;
   font-weight: bold;
-  color: ${({ isWhite }) => (isWhite ? colors.white : colors.black)};
+  color: ${({ $isWhite }) => ($isWhite ? colors.white : colors.black)};
 `;
