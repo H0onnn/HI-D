@@ -165,22 +165,23 @@ export const apiMethods = {
         url: 'replies',
         data: { postId, content },
       }),
+      report: (replyId: number, data: ReportDataInterface) => ({
+        url: `replies/${replyId}/report`,
+        data,
+      }),
     },
     patch: {
       reply: (replyId: number, content: string) => ({
         url: `replies/${replyId}`,
         data: { content },
       }),
+      like: (replyId: number) => ({
+        url: `replies/${replyId}/recommend`,
+      }),
     },
     delete: {
       reply: (replyId: number) => ({
         url: `replies/${replyId}`,
-      }),
-    },
-    report: {
-      reply: (replyId: number, data: ReportDataInterface) => ({
-        url: `replies/${replyId}/report`,
-        data,
       }),
     },
   },
