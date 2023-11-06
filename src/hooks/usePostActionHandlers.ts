@@ -15,62 +15,54 @@ const usePostActionHandlers = () => {
   const navigate = useNavigate();
   const { openModal, closeModal } = useModalStore();
 
-  const likePostMutation = useMutation<void, unknown, number, { postId: number }>({
+  const likePostMutation = useMutation<void, Error, number, { postId: number }>({
     mutationFn: async (postId) => {
       await postLike(postId);
     },
     onSuccess: (_, postId) => {
-      queryClient.invalidateQueries({ queryKey: [postQueryKey, postId] });
+      const currentData = queryClient.getQueryData([postQueryKey, postId]) as
+        | PostDetailInterface
+        | undefined;
+
+      if (currentData) {
+        const updatedData = {
+          ...currentData,
+          recommendCount: currentData.isRecommended
+            ? currentData.recommendCount - 1
+            : currentData.recommendCount + 1,
+          isRecommended: !currentData.isRecommended,
+        };
+        queryClient.setQueryData([postQueryKey, postId], updatedData);
+      }
     },
   });
 
-  const likePost = (postId: number) => {
-    const currentData = queryClient.getQueryData([postQueryKey, postId]) as
-      | PostDetailInterface
-      | undefined;
-    if (currentData) {
-      const updatedData = {
-        ...currentData,
-        likesCount: currentData.isRecommended
-          ? currentData.recommendCount - 1
-          : currentData.recommendCount + 1,
-        isLiked: !currentData.isRecommended,
-      };
-      queryClient.setQueryData([postQueryKey, postId], updatedData);
-    }
+  const likePost = (postId: number) => likePostMutation.mutate(postId);
 
-    likePostMutation.mutate(postId);
-  };
-
-  const bookmarkPostMutation = useMutation<void, unknown, number, { postId: number }>({
+  const bookmarkPostMutation = useMutation<void, Error, number, { postId: number }>({
     mutationFn: async (postId) => {
       await postBookmark(postId);
     },
     onSuccess: (_, postId) => {
-      queryClient.invalidateQueries({ queryKey: [postQueryKey, postId] });
+      const currentData = queryClient.getQueryData([postQueryKey, postId]) as
+        | PostDetailInterface
+        | undefined;
+      if (currentData) {
+        const updatedData = {
+          ...currentData,
+          isBookmarked: !currentData.isBookmarked,
+        };
+        queryClient.setQueryData([postQueryKey, postId], updatedData);
+      }
     },
   });
 
-  const bookmarkPost = (postId: number) => {
-    const currentData = queryClient.getQueryData([postQueryKey, postId]) as
-      | PostDetailInterface
-      | undefined;
-    if (currentData) {
-      const updatedData = {
-        ...currentData,
-        isBookmarked: !currentData.isBookmarked,
-      };
-      queryClient.setQueryData([postQueryKey, postId], updatedData);
-    }
-
-    bookmarkPostMutation.mutate(postId);
-  };
+  const bookmarkPost = (postId: number) => bookmarkPostMutation.mutate(postId);
 
   const reportPost = async (postId: number, data: ReportDataInterface) => {
     try {
       await postReport(postId, data);
       toast.success('신고가 접수되었어요.', { id: 'postReportSuccess' });
-      navigate(LINK.POST_DETAIL.replace(':id', postId.toString()));
     } catch (err: unknown) {
       toast.error('이미 신고 처리된 게시글이에요.', { id: 'postReportFail' });
     }
