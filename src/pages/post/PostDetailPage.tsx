@@ -55,7 +55,7 @@ const PostDetailPage = () => {
         <CommentList postId={postId} />
         {isReported && (
           <SlideUpModal setModalState={toggleReport}>
-            <SetupReport postId={postData.postId} />
+            <SetupReport postId={postData.postId} type='POST' />
           </SlideUpModal>
         )}
       </PageLayout>
