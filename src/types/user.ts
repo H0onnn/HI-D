@@ -1,7 +1,7 @@
 export interface UserDataInterface {
   memberId: number;
   mail: string;
-  nicknamr: string;
+  nickname: string;
   school: string;
   major: string;
   roles: string;
