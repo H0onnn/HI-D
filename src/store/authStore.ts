@@ -1,6 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { AuthStateInterface } from '@/types/auth';
+interface AuthStateInterface {
+  token: string | null;
+  actions: AuthActionsInterface;
+}
+
+interface AuthActionsInterface {
+  setToken: (token: string | null) => void;
+  logout: () => void;
+}
 
 const useAuthStore = create(
   persist<AuthStateInterface>(
