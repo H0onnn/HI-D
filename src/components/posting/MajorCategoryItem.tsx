@@ -4,14 +4,14 @@ import useSetupInput from '@/hooks/useSetupInput';
 import { majorToEnglishMapping, MajorKeys } from '@/constants/majorCategory';
 import { MajorCategoryListInterface } from './MajorCategoryList';
 import { CommonItemWrapper } from '@/styles/selectableItem';
-import { PostDetailInterface } from '@/types/post';
 
 interface MajorCategoryItemInterface extends MajorCategoryListInterface {
   major: string;
   $isSelected?: boolean;
   $first?: boolean;
   $last?: boolean;
-  initialMajorCategory?: PostDetailInterface['majorCategory'];
+  register: ReturnType<typeof useSetupInput>['register'];
+  setValue: ReturnType<typeof useSetupInput>['setValue'];
 }
 
 const MajorItem = ({
@@ -21,16 +21,10 @@ const MajorItem = ({
   $isEdit,
   $first,
   $last,
-  initialMajorCategory,
+  register,
+  setValue,
 }: MajorCategoryItemInterface) => {
   const englishMajor = majorToEnglishMapping[major as MajorKeys];
-
-  const { register, setValue } = useSetupInput(
-    'majorCategory',
-    undefined,
-    'default',
-    initialMajorCategory,
-  );
 
   const majorSelectHandler = () => {
     onMajorSelect(major);
