@@ -77,6 +77,11 @@ export const apiMethods = {
         url: 'logout',
       }),
     },
+    delete: {
+      member: () => ({
+        url: 'members/my',
+      }),
+    },
   },
   auth: {
     post: {
