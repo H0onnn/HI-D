@@ -20,3 +20,7 @@ export const getUserData = async (): Promise<UserDataInterface> => {
 
   return userData;
 };
+
+export const deleteUser = async (): Promise<void> => {
+  await httpClient.members.delete.member();
+};
