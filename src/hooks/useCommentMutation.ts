@@ -37,7 +37,7 @@ const useCommentMutation = (): UseCommentMutationReturnType => {
     },
     onSuccess: (data) => {
       toast.success('댓글이 등록되었어요.', { id: 'commentSubmitSuccess' });
-      queryClient.invalidateQueries({ queryKey: [commentQueryKey, data.postId] });
+      queryClient.removeQueries({ queryKey: [commentQueryKey, data.postId] });
     },
   });
 

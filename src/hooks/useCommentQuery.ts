@@ -1,4 +1,10 @@
-import { useInfiniteQuery, InfiniteData, InfiniteQueryObserverResult } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import {
+  useQueryClient,
+  useInfiniteQuery,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from '@tanstack/react-query';
 import { getCommentsData } from '@/services/comments';
 import { CommentsDataInterface } from '@/types/comment';
 
@@ -17,6 +23,15 @@ const COMMENTS_PER_PAGE = 10;
 export const QUERY_KEY = 'comments';
 
 const useCommentQuery = (postId: number): UseCommentQueryReturnType => {
+  const queryClient = useQueryClient();
+
+  // 컴포넌트가 언마운트 되는 시점에 쿼리 삭제
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({ queryKey: [QUERY_KEY, postId] });
+    };
+  }, [postId, queryClient]);
+
   const fetchComments = async (pageParam = 1) => {
     const response = await getCommentsData(postId, pageParam, COMMENTS_PER_PAGE);
 

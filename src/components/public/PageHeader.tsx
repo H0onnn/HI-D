@@ -1,8 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { colors } from '../../constants/colors';
-import BackIcon from '../../public/images/headerBackBtn.png';
+import { colors } from '@/constants/colors';
+import BACK_ICON from '@/public/images/headerBackBtn.png';
+import BACK_WHITE from '@/public/images/ui/headerBackBtn_white.svg';
 import { LINK } from '@/constants/links';
 
 interface PageHeaderInterface {
@@ -12,6 +13,9 @@ interface PageHeaderInterface {
 
 const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isWhite = location.pathname === LINK.MYPAGE;
 
   const backClickHandler = () => {
     if (onClick) {
@@ -22,19 +26,19 @@ const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
   };
 
   return (
-    <PageHeaderLayout>
+    <PageHeaderLayout $isWhite={isWhite}>
       <BackButtonBox>
         <img
           style={{
             width: '100%',
             height: '100%',
           }}
-          src={BackIcon}
+          src={isWhite ? BACK_WHITE : BACK_ICON}
           alt='back_button'
           onClick={backClickHandler}
         />
       </BackButtonBox>
-      <HeaderTitle>{title}</HeaderTitle>
+      <HeaderTitle $isWhite={isWhite}>{title}</HeaderTitle>
       <div
         style={{
           width: '2.4rem',
@@ -46,7 +50,7 @@ const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
 
 export default PageHeader;
 
-const PageHeaderLayout = styled.div`
+const PageHeaderLayout = styled.div<{ $isWhite: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,7 +61,7 @@ const PageHeaderLayout = styled.div`
   z-index: 1;
   top: 0;
   padding: 2rem;
-  background-color: ${colors.white};
+  background-color: ${({ $isWhite }) => ($isWhite ? 'transparent' : colors.white)};
 `;
 
 const BackButtonBox = styled.div`
@@ -65,7 +69,8 @@ const BackButtonBox = styled.div`
   height: 2.4rem;
 `;
 
-const HeaderTitle = styled.div`
+const HeaderTitle = styled.div<{ $isWhite: boolean }>`
   font-size: 18px;
   font-weight: bold;
+  color: ${({ $isWhite }) => ($isWhite ? colors.white : colors.black)};
 `;

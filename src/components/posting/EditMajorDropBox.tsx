@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useSetupInput from '@/hooks/useSetupInput';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import EditMajorModal from './EditMajorModal';
@@ -19,6 +20,13 @@ const EditMajorDropBox = ({
 
   const [changeMajor, setChangeMajor] = useState<string | null>(
     initialMajorCategory ? majorToKoreaMapping[initialMajorCategory] : currentMajor,
+  );
+
+  const { register, setValue } = useSetupInput(
+    'majorCategory',
+    undefined,
+    'default',
+    initialMajorCategory,
   );
 
   const majorChangeHandler = (major: string) => {
@@ -44,7 +52,8 @@ const EditMajorDropBox = ({
             onMajorSelect={majorChangeHandler}
             selectedMajor={changeMajor}
             $isEdit
-            initialMajorCategory={initialMajorCategory}
+            register={register}
+            setValue={setValue}
           />
         </EditMajorModal>
       )}

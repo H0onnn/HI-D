@@ -7,6 +7,7 @@ export const LINK = {
   FINDPW: '/findpw',
   FIMDID: '/findid',
   MYPAGE: '/mypage',
+  DELETE_ACCOUNT: '/delete',
   CHAT: '/chat',
   POST: '/post',
   POSTING_HELP: '/posting/help',

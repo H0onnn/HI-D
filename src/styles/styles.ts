@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 export const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 1rem;
   position: absolute;
