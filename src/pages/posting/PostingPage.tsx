@@ -10,6 +10,9 @@ import { handleNextClick, handlePrevClick } from '@/services/posting';
 import { LINK } from '@/constants/links';
 import { PostingDataInterface } from '@/types/posting';
 
+const steps = ['계열 선택', '게시글 작성'];
+const confirmMessage = '게시글 작성을 취소하시겠어요?';
+
 const PostingPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,13 +25,12 @@ const PostingPage = () => {
   const isFreePost = currentPath === LINK.POSTING_FREE || postToEdit?.boardType === 'FREE';
   const submitType = isHelpPost ? 'needhelp' : 'free';
 
-  const steps = ['계열 선택', '게시글 작성'];
   const defaultStep = isHelpPost && !postToEdit ? steps[0] : steps[1];
 
   const { Funnel, Step, setStep, currentStep } = useFunnel(defaultStep);
 
   const nextClickHandler = handleNextClick(setStep, steps);
-  const prevClickHandler = handlePrevClick(setStep, steps, navigate, currentPath);
+  const prevClickHandler = handlePrevClick(setStep, steps, confirmMessage, navigate, currentPath);
 
   const submitPostHandler = (data: PostingDataInterface) => {
     if (postToEdit) {
