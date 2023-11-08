@@ -1,7 +1,7 @@
 export interface UserDataInterface {
   memberId: number;
   mail: string;
-  nicknamr: string;
+  nickname: string;
   school: string;
   major: string;
   roles: string;
@@ -11,4 +11,8 @@ export interface UserDataInterface {
   bookmarkCount: number;
   postCount: number;
   replyCount: number;
+}
+
+export interface DeleteUserInterface {
+  password: string;
 }

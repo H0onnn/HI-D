@@ -10,7 +10,7 @@ const useUser = () => {
   const { data: user } = useQuery<UserDataInterface>({
     queryKey: ['currnetUser'],
     queryFn: getUserData,
-    enabled: token === null,
+    enabled: !!token,
     staleTime: 1000 * 60 * 60, // 1시간
   });
 

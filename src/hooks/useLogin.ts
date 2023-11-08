@@ -1,4 +1,4 @@
-import useAuthStore, { useAuthActions } from '@/store/authStore';
+import useSetAuthToken from '@/store/authStore';
 import useUser from './useUser';
 import { useNavigate } from 'react-router-dom';
 import { getToken, getUserData } from '@/services/user';
@@ -7,37 +7,29 @@ import toast from 'react-hot-toast';
 import { LoginDataInterface } from '@/types/types';
 import { UserDataInterface } from '@/types/user';
 
-const useLogin = () => {
-  const { setToken } = useAuthActions();
-  const { queryClient } = useUser();
-  const navigate = useNavigate();
-  const USER_QUERY_KEY = 'currentUser';
+export const QUERY_KEY = 'currentUser';
 
-  const fetchToken = async (data: LoginDataInterface) => {
-    try {
-      const token = await getToken(data);
-      setToken(token);
-    } catch (err: unknown) {
-      console.error('토큰 fetching 에러 : ', err);
-      toast.error('회원 정보가 올바르지 않습니다.', { id: 'tokenFetchingError' });
-    }
+const useLogin = () => {
+  const navigate = useNavigate();
+  const { setToken } = useSetAuthToken();
+  const { queryClient } = useUser();
+
+  const fetchAndSetUserData = async () => {
+    const userData = queryClient.getQueryData<UserDataInterface>([QUERY_KEY]);
+
+    if (!userData) await getUserData();
   };
 
-  const loginHandler = async (data: LoginDataInterface) => {
+  const loginHandler = async (loginData: LoginDataInterface) => {
     try {
-      await fetchToken(data);
-      const token = useAuthStore.getState().token;
-      if (token) {
-        const userData = queryClient.getQueryData<UserDataInterface>([USER_QUERY_KEY]);
+      const newToken = await getToken(loginData);
+      setToken(newToken);
 
-        if (!userData) {
-          await getUserData();
-        }
+      await fetchAndSetUserData();
 
-        navigate(LINK.MAIN);
-        toast.success('로그인 되었습니다.', { id: 'loginSuccess' });
-        return;
-      }
+      navigate(LINK.MAIN);
+      toast.success('로그인 되었습니다.', { id: 'loginSuccess' });
+      return;
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message, { id: 'loginError' });
@@ -47,7 +39,7 @@ const useLogin = () => {
     }
   };
 
-  return { loginHandler, USER_QUERY_KEY };
+  return { loginHandler };
 };
 
 export default useLogin;

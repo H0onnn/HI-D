@@ -8,7 +8,7 @@ import SetupEmail from './SetupEmail';
 import SetupPassword from './SetupPassword';
 import CheckAgreement from './CheckAgreement';
 
-interface ProfileSetupInterface {
+export interface ProfileSetupInterface {
   steps: string[];
   nextClickHandler: (nextStep: string) => void;
   Funnel: React.ComponentType<FunnelProps>;

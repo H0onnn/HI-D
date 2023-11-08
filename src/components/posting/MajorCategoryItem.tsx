@@ -1,17 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
 import useSetupInput from '@/hooks/useSetupInput';
+import styled from 'styled-components';
 import { majorToEnglishMapping, MajorKeys } from '@/constants/majorCategory';
 import { MajorCategoryListInterface } from './MajorCategoryList';
 import { CommonItemWrapper } from '@/styles/selectableItem';
-import { PostDetailInterface } from '@/types/post';
 
 interface MajorCategoryItemInterface extends MajorCategoryListInterface {
   major: string;
   $isSelected?: boolean;
   $first?: boolean;
   $last?: boolean;
-  initialMajorCategory?: PostDetailInterface['majorCategory'];
+  register?: ReturnType<typeof useSetupInput>['register'];
+  setValue?: ReturnType<typeof useSetupInput>['setValue'];
 }
 
 const MajorItem = ({
@@ -21,16 +21,19 @@ const MajorItem = ({
   $isEdit,
   $first,
   $last,
-  initialMajorCategory,
+  register: propRegister,
+  setValue: propSetValue,
 }: MajorCategoryItemInterface) => {
   const englishMajor = majorToEnglishMapping[major as MajorKeys];
-
-  const { register, setValue } = useSetupInput(
+  const { register: localRegister, setValue: localSetValue } = useSetupInput(
     'majorCategory',
     undefined,
     'default',
-    initialMajorCategory,
+    englishMajor,
   );
+
+  const register = propRegister || localRegister;
+  const setValue = propSetValue || localSetValue;
 
   const majorSelectHandler = () => {
     onMajorSelect(major);
