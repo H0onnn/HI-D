@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import useSetupInput from '@/hooks/useSetupInput';
+import styled from 'styled-components';
 import { majorToEnglishMapping, MajorKeys } from '@/constants/majorCategory';
 import { MajorCategoryListInterface } from './MajorCategoryList';
 import { CommonItemWrapper } from '@/styles/selectableItem';
@@ -21,10 +21,19 @@ const MajorItem = ({
   $isEdit,
   $first,
   $last,
-  register,
-  setValue,
+  register: propRegister,
+  setValue: propSetValue,
 }: MajorCategoryItemInterface) => {
   const englishMajor = majorToEnglishMapping[major as MajorKeys];
+  const { register: localRegister, setValue: localSetValue } = useSetupInput(
+    'majorCategory',
+    undefined,
+    'default',
+    englishMajor,
+  );
+
+  const register = propRegister || localRegister;
+  const setValue = propSetValue || localSetValue;
 
   const majorSelectHandler = () => {
     onMajorSelect(major);
