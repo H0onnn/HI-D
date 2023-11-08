@@ -1,6 +1,6 @@
 import { httpClient } from '@/api/httpClient';
 import { LoginDataInterface } from '@/types/types';
-import { UserDataInterface } from '@/types/user';
+import { DeleteUserInterface, UserDataInterface } from '@/types/user';
 
 export const getToken = async (data: LoginDataInterface) => {
   const response = await httpClient.members.post.login(data);
@@ -21,6 +21,6 @@ export const getUserData = async (): Promise<UserDataInterface> => {
   return userData;
 };
 
-export const deleteUser = async (): Promise<void> => {
-  await httpClient.members.delete.member();
+export const deleteUser = async (data: DeleteUserInterface): Promise<void> => {
+  await httpClient.members.delete.member(data);
 };
