@@ -1,13 +1,15 @@
 import React from 'react';
+import useUser from '@/hooks/useUser';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
-import SPLASH_IMG from '@/public/images/splash.svg';
 
 const Background = () => {
+  const { user } = useUser();
+
   return (
     <Layout>
       <ImageWrapper>
-        <BackgroundImage src={SPLASH_IMG} alt='mypage_splash' />
+        <BackgroundImage src={user?.imageUrl} alt='myprofile_img' />
       </ImageWrapper>
     </Layout>
   );
@@ -38,8 +40,8 @@ const Layout = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: 35rem;
-  height: 31rem;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 `;
 
