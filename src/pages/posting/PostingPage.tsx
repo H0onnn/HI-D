@@ -6,7 +6,7 @@ import { PageLayout } from '@/styles/styles';
 import PageHeader from '@/components/public/PageHeader';
 import PostingForm from '@/components/posting/PostingForm';
 import PostingSetup from '@/components/posting/PostingSetup';
-import { handleNextClick, handlePrevClick } from '@/services/posting';
+import { handleNextClick, handlePrevClick } from '@/services/setupStep';
 import { LINK } from '@/constants/links';
 import { PostingDataInterface } from '@/types/posting';
 
