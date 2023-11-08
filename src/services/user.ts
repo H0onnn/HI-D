@@ -9,6 +9,10 @@ export const getToken = async (data: LoginDataInterface) => {
   return token;
 };
 
+export const postLogout = async () => {
+  await httpClient.members.post.logout();
+};
+
 export const getUserData = async (): Promise<UserDataInterface> => {
   const response = await httpClient.members.get.myData();
   const userData: UserDataInterface = response.data;
