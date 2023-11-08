@@ -53,9 +53,8 @@ const useSubmitPost = (): UseSubmitPostReturnType => {
     { postId: number }
   >({
     mutationFn: (variables) => patchPost(variables.postId, variables.data),
-    onError: (err) => {
+    onError: () => {
       toast.error('게시물 수정에 실패했어요.', { id: 'editFail' });
-      console.log(err);
     },
     onSuccess: (_, variables) => {
       toast.success('게시물이 수정되었어요.', { id: 'editSuccess' });
