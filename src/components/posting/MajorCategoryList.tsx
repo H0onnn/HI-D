@@ -8,8 +8,8 @@ export interface MajorCategoryListInterface {
   onMajorSelect: (major: string) => void;
   selectedMajor?: string | null;
   $isEdit?: boolean;
-  register: ReturnType<typeof useSetupInput>['register'];
-  setValue: ReturnType<typeof useSetupInput>['setValue'];
+  register?: ReturnType<typeof useSetupInput>['register'];
+  setValue?: ReturnType<typeof useSetupInput>['setValue'];
 }
 
 const MajorCategoryList = ({

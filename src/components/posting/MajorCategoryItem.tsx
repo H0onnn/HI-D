@@ -10,8 +10,8 @@ interface MajorCategoryItemInterface extends MajorCategoryListInterface {
   $isSelected?: boolean;
   $first?: boolean;
   $last?: boolean;
-  register: ReturnType<typeof useSetupInput>['register'];
-  setValue: ReturnType<typeof useSetupInput>['setValue'];
+  register?: ReturnType<typeof useSetupInput>['register'];
+  setValue?: ReturnType<typeof useSetupInput>['setValue'];
 }
 
 const MajorItem = ({
