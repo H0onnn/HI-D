@@ -13,7 +13,7 @@ interface UseSubmitPostReturnType {
     data: PostingDataInterface,
   ) => Promise<PostDetailInterface>;
   editPost: UseMutationResult<
-    PostDetailInterface,
+    void,
     Error,
     { postId: number; data: PostingDataInterface },
     { postId: number }
@@ -47,19 +47,20 @@ const useSubmitPost = (): UseSubmitPostReturnType => {
   };
 
   const editPostMutation = useMutation<
-    PostDetailInterface,
+    void,
     Error,
     { postId: number; data: PostingDataInterface },
     { postId: number }
   >({
     mutationFn: (variables) => patchPost(variables.postId, variables.data),
-    onError: () => {
+    onError: (err) => {
       toast.error('게시물 수정에 실패했어요.', { id: 'editFail' });
+      console.log(err);
     },
-    onSuccess: (data) => {
+    onSuccess: (_, variables) => {
       toast.success('게시물이 수정되었어요.', { id: 'editSuccess' });
-      navigate(LINK.POST_DETAIL.replace(':id', data.postId.toString()));
-      queryClient.invalidateQueries({ queryKey: [postQueryKey, data.postId] });
+      navigate(LINK.POST_DETAIL.replace(':id', variables.postId.toString()));
+      queryClient.invalidateQueries({ queryKey: [postQueryKey, variables.postId] });
     },
   });
 

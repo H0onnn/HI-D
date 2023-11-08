@@ -26,13 +26,9 @@ export const postFree = async (data: PostingDataInterface): Promise<PostDetailIn
   }
 };
 
-export const patchPost = async (
-  postId: number,
-  data: PostingDataInterface,
-): Promise<PostDetailInterface> => {
+export const patchPost = async (postId: number, data: PostingDataInterface): Promise<void> => {
   try {
-    const response = await httpClient.post.patch.edit(postId, data);
-    return response.data;
+    await httpClient.post.patch.edit(postId, data);
   } catch (err: unknown) {
     console.error('게시글 수정 오류 : ', err);
     throw err;
