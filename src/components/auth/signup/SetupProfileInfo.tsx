@@ -18,8 +18,8 @@ const SetupProfileInfo = () => {
 
   const {
     register: nicknameRegister,
-    errors: nicknameErrors,
-    watch: nicknameWatch,
+    errors,
+    status: nicknameStatus,
     setValue: setNicknameValue,
   } = useSetupInput('nickname', nicknameValidation);
 
@@ -38,14 +38,6 @@ const SetupProfileInfo = () => {
   }, [setNicknameValue, nickname]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const nicknameValue = nicknameWatch('nickname');
-
-  const nicknameStatus = nicknameErrors
-    ? 'error'
-    : nicknameValue && !nicknameErrors
-    ? 'success'
-    : 'default';
 
   const imageChangeClickHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     const imageUrl = await uploadImage(e);
@@ -76,13 +68,13 @@ const SetupProfileInfo = () => {
       </div>
       <InputWrapper>
         <Input
-          type='nickname'
+          type='text'
           status={nicknameStatus}
           {...nicknameRegister('nickname')}
           defaultValue={nickname}
           errorMessage={
-            nicknameErrors.nickname && typeof nicknameErrors.nickname.message === 'string'
-              ? nicknameErrors.nickname.message
+            errors.nickname && typeof errors.nickname.message === 'string'
+              ? errors.nickname.message
               : undefined
           }
           placeholder='사용하실 닉네임을 입력해주세요.'
