@@ -1,4 +1,4 @@
-import { useAuthActions } from '@/store/authStore';
+import useSetAuthToken from '@/store/authStore';
 import useUser from './useUser';
 import { useNavigate } from 'react-router-dom';
 import { getToken, getUserData } from '@/services/user';
@@ -11,7 +11,7 @@ export const QUERY_KEY = 'currentUser';
 
 const useLogin = () => {
   const navigate = useNavigate();
-  const { setToken } = useAuthActions();
+  const { setToken } = useSetAuthToken();
   const { queryClient } = useUser();
 
   const fetchAndSetUserData = async () => {
