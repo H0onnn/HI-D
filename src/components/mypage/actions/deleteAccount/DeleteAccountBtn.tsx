@@ -6,7 +6,7 @@ import { colors } from '@/constants/colors';
 
 const DeleteAccountBtn = () => {
   return (
-    <StyledLink to={LINK.MAIN} style={{ textDecoration: 'none' }}>
+    <StyledLink to={LINK.DELETE_ACCOUNT} style={{ textDecoration: 'none' }}>
       계정 탈퇴
     </StyledLink>
   );
