@@ -35,54 +35,57 @@ export const patchPost = async (postId: number, data: PostingDataInterface): Pro
   }
 };
 
-const getCurrentStepIndex = (currentStep: string, steps: string[]) => {
-  return steps.indexOf(currentStep);
-};
+const getCurrentStepIndex = (currentStep: string, steps: string[]) => steps.indexOf(currentStep);
 
-const getNextStepIndex = (currentStep: string, steps: string[]) => {
-  const currentStepIndex = getCurrentStepIndex(currentStep, steps);
-  return currentStepIndex + 1;
-};
+const getNextStepIndex = (currentStep: string, steps: string[]) =>
+  getCurrentStepIndex(currentStep, steps) + 1;
 
-const getPrevStepIndex = (currentStep: string, steps: string[]) => {
-  const currentStepIndex = getCurrentStepIndex(currentStep, steps);
-  return currentStepIndex - 1;
-};
+const getPrevStepIndex = (currentStep: string, steps: string[]) =>
+  getCurrentStepIndex(currentStep, steps) - 1;
 
-const shouldNavigateAway = (currentStep: string, steps: string[], currentRoute: string) => {
-  const isHelpPost = currentRoute === LINK.POSTING_HELP;
+const shouldNavigateAway = (
+  currentStep: string,
+  steps: string[],
+  confirmMessage: string,
+  navigate: NavigateFunction,
+  currentPath?: string,
+) => {
+  const isHelpPost = currentPath === LINK.POSTING_HELP;
   const availableSteps = isHelpPost ? steps : steps.slice(1);
   const currentStepIndex = availableSteps.indexOf(currentStep);
+  const isFirstStep = currentStepIndex === 0;
 
-  return currentStepIndex === 0 && window.confirm('게시글 작성을 취소하시겠습니까?');
+  if (isFirstStep && window.confirm(confirmMessage)) {
+    navigate(LINK.MAIN);
+    return true;
+  }
+
+  return false;
 };
 
-export const handleNextClick = (setStep: (step: string) => void, steps: string[]) => {
-  return (currentStep: string) => {
+export const handleNextClick =
+  (setStep: (step: string) => void, steps: string[]) => (currentStep: string) => {
     const nextStepIndex = getNextStepIndex(currentStep, steps);
-
     if (nextStepIndex < steps.length) {
       setStep(steps[nextStepIndex]);
     }
   };
-};
 
-export const handlePrevClick = (
-  setStep: (step: string) => void,
-  steps: string[],
-  navigate: NavigateFunction,
-  currentRoute: string,
-) => {
-  return (currentStep: string) => {
-    if (shouldNavigateAway(currentStep, steps, currentRoute)) {
-      navigate(LINK.MAIN);
+export const handlePrevClick =
+  (
+    setStep: (step: string) => void,
+    steps: string[],
+    confirmMessage: string,
+    navigate: NavigateFunction,
+    currentPath?: string,
+  ) =>
+  (currentStep: string) => {
+    if (shouldNavigateAway(currentStep, steps, confirmMessage, navigate, currentPath)) {
       return;
     }
 
     const prevStepIndex = getPrevStepIndex(currentStep, steps);
-
     if (prevStepIndex >= 0) {
       setStep(steps[prevStepIndex]);
     }
   };
-};
