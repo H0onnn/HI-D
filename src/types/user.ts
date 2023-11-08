@@ -12,3 +12,7 @@ export interface UserDataInterface {
   postCount: number;
   replyCount: number;
 }
+
+export interface DeleteUserInterface {
+  password: string;
+}
