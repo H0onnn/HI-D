@@ -1,6 +1,6 @@
 import { httpClient } from '@/api/httpClient';
 import { LoginDataInterface } from '@/types/types';
-import { DeleteUserInterface, UserDataInterface } from '@/types/user';
+import { DeleteUserInterface, EditUserInterface, UserDataInterface } from '@/types/user';
 
 export const getToken = async (data: LoginDataInterface) => {
   const response = await httpClient.members.post.login(data);
@@ -19,6 +19,13 @@ export const getUserData = async (): Promise<UserDataInterface> => {
   console.log('유저 데이터 : ', userData);
 
   return userData;
+};
+
+export const patchUserInfo = async (data: EditUserInterface): Promise<EditUserInterface> => {
+  const response = await httpClient.members.patch.myInfo(data);
+  const updatedUserInfo: EditUserInterface = response.data;
+
+  return updatedUserInfo;
 };
 
 export const deleteUser = async (data: DeleteUserInterface): Promise<void> => {
