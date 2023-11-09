@@ -1,5 +1,5 @@
 import React from 'react';
-import useMyPageActions from '@/hooks/useDeleteAccount';
+import useMyPageActions from '@/hooks/useMyPageActions';
 import styled from 'styled-components';
 import { ButtonContainer } from '@/styles/styles';
 import Button from '@/components/public/Button';
