@@ -1,6 +1,11 @@
 import { httpClient } from '@/api/httpClient';
 import { LoginDataInterface } from '@/types/types';
-import { DeleteUserInterface, EditUserInterface, UserDataInterface } from '@/types/user';
+import {
+  DeleteUserInterface,
+  EditUserInterface,
+  UserDataInterface,
+  EditPasswordInterface,
+} from '@/types/user';
 
 export const getToken = async (data: LoginDataInterface) => {
   const response = await httpClient.members.post.login(data);
@@ -26,6 +31,10 @@ export const patchUserInfo = async (data: EditUserInterface): Promise<EditUserIn
   const updatedUserInfo: EditUserInterface = response.data;
 
   return updatedUserInfo;
+};
+
+export const patchPassword = async (data: EditPasswordInterface): Promise<void> => {
+  await httpClient.members.patch.password(data);
 };
 
 export const deleteUser = async (data: DeleteUserInterface): Promise<void> => {
