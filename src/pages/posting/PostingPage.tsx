@@ -4,8 +4,8 @@ import { useFunnel } from '@/hooks/useFunnel';
 import useSubmitPost from '@/hooks/useSubmitPost';
 import { PageLayout } from '@/styles/styles';
 import PageHeader from '@/components/public/PageHeader';
-import PostingForm from '@/components/posting/PostingForm';
 import PostingSetup from '@/components/posting/PostingSetup';
+import GenericForm from '@/components/public/form/GenericForm';
 import { handleNextClick, handlePrevClick } from '@/services/setupStep';
 import { LINK } from '@/constants/links';
 import { PostingDataInterface } from '@/types/posting';
@@ -44,7 +44,10 @@ const PostingPage = () => {
     <>
       <PageHeader title='게시글 작성' onClick={() => prevClickHandler(currentStep)} />
       <PageLayout>
-        <PostingForm onSubmit={submitPostHandler}>
+        <GenericForm<PostingDataInterface>
+          formOptions={{ mode: 'onChange' }}
+          onSubmit={submitPostHandler}
+        >
           <PostingSetup
             steps={steps}
             Funnel={Funnel}
@@ -54,7 +57,7 @@ const PostingPage = () => {
             isHelpPost={isHelpPost}
             postToEdit={postToEdit}
           />
-        </PostingForm>
+        </GenericForm>
       </PageLayout>
     </>
   );
