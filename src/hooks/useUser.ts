@@ -13,18 +13,18 @@ const useUser = () => {
   const token = useAuthToken();
   const location = useLocation();
 
-  useEffect(() => {
-    if (location.pathname === LINK.MYPAGE) {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY, token] });
-    }
-  }, [location.pathname, queryClient, token]);
-
-  const { data: user } = useQuery<UserDataInterface>({
-    queryKey: [QUERY_KEY, token],
+  const { data: user, refetch } = useQuery<UserDataInterface>({
+    queryKey: [QUERY_KEY],
     queryFn: getUserData,
     enabled: !!token,
     staleTime: 1000 * 60 * 60, // 1시간
   });
+
+  useEffect(() => {
+    if (location.pathname === LINK.MYPAGE) {
+      refetch();
+    }
+  }, [location.pathname, refetch]);
 
   return { queryClient, user };
 };
