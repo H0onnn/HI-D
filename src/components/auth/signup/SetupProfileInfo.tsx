@@ -128,7 +128,7 @@ const EditImageButton = styled.div`
   background: #f4f5ff;
   cursor: pointer;
   z-index: 1;
-  bottom: 3rem;
+  bottom: 2rem;
   right: 10rem;
 `;
 
