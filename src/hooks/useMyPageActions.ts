@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { QUERY_KEY as userQueryKey } from './useUser';
 import { deleteUser } from '@/services/user';
 import { useLogout } from '@/store/authStore';
-import { postLogout } from '@/services/user';
+import { postLogout, patchPassword } from '@/services/user';
 import useModalStore from '@/store/modalStore';
 import { LINK } from '@/constants/links';
 import { MODAL_TYPES } from '@/types/modal';
 import toast from 'react-hot-toast';
-import { DeleteUserInterface } from '@/types/user';
+import { DeleteUserInterface, EditPasswordInterface } from '@/types/user';
 
 const useMyPageActions = () => {
   const queryClient = useQueryClient();
@@ -73,9 +73,25 @@ const useMyPageActions = () => {
     });
   };
 
+  const editPasswordHandler = async (data: EditPasswordInterface) => {
+    try {
+      await patchPassword(data);
+      logout();
+      navigate(LINK.LOGIN);
+      toast.success('변경된 비밀번호로 로그인 해주세요.', { id: 'editPasswordSuccess' });
+    } catch (err: unknown) {
+      if (err instanceof Error && err.message.includes('400')) {
+        toast.error('비밀번호를 확인 해주세요.', { id: 'editPasswordError' });
+        return;
+      }
+      toast.error('비밀번호 변경 중 오류가 발생했어요.', { id: 'editPasswordServerError' });
+    }
+  };
+
   return {
     logoutModalHandler,
     deleteAccountHandler,
+    editPasswordHandler,
   };
 };
 
