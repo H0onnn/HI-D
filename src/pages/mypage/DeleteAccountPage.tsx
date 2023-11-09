@@ -1,5 +1,5 @@
 import React from 'react';
-import useDeleteAccount from '@/hooks/useDeleteAccount';
+import useDeleteAccount from '@/hooks/useMyPageActions';
 import { useNavigate } from 'react-router-dom';
 import { useFunnel } from '@/hooks/useFunnel';
 import { handleNextClick, handlePrevClick } from '@/services/setupStep';
