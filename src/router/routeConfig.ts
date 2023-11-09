@@ -13,6 +13,7 @@ import PostingPage from '@/pages/posting/PostingPage';
 import PostDetailPage from '@/pages/post/PostDetailPage';
 import MyPage from '@/pages/mypage/MyPage';
 import DeleteAccountPage from '@/pages/mypage/DeleteAccountPage';
+import EditProfileInfoPage from '@/pages/mypage/editProfile/EditProfileInfoPage';
 
 interface AppRoutesInterface {
   name: string;
@@ -115,6 +116,13 @@ const routes: AppRoutesInterface[] = [
     name: 'DeleteAccount',
     path: LINK.DELETE_ACCOUNT,
     component: DeleteAccountPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'EditProfileInfo',
+    path: LINK.EDIT_PROFILE,
+    component: EditProfileInfoPage,
     isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },
