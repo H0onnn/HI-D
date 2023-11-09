@@ -1,14 +1,17 @@
 import React from 'react';
+import useUser from '@/hooks/useUser';
 import styled from 'styled-components';
 import MyUserInfo from '../userInfo/MyUserInfo';
 import MyPosts from '../userInfo/MyPosts';
 import MyPageActions from '../actions/MyPageActions';
 
 const Contents = () => {
+  const { user } = useUser();
+
   return (
     <Layout>
-      <MyUserInfo />
-      <MyPosts />
+      <MyUserInfo user={user} />
+      <MyPosts user={user} />
       <MyPageActions />
     </Layout>
   );

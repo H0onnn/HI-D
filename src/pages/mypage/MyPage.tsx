@@ -1,5 +1,5 @@
 import React from 'react';
-import useMyPageActions from '@/hooks/useDeleteAccount';
+import useMyPageActions from '@/hooks/useMyPageActions';
 import styled from 'styled-components';
 import { ButtonContainer } from '@/styles/styles';
 import Button from '@/components/public/Button';
@@ -17,12 +17,12 @@ const MyPage = () => {
       <MyPageLayout>
         <Background />
         <Contents />
-        <StyledButtonContainer>
+        <ButtonContainer $isRelative>
           <Button $isFullWidth onClick={logoutModalHandler}>
             로그아웃
           </Button>
           <DeleteAccountBtn />
-        </StyledButtonContainer>
+        </ButtonContainer>
       </MyPageLayout>
     </>
   );
@@ -36,10 +36,4 @@ const MyPageLayout = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-`;
-
-const StyledButtonContainer = styled(ButtonContainer)`
-  @media (max-width: 768px) {
-    bottom: 3rem;
-  }
 `;
