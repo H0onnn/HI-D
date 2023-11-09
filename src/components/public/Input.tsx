@@ -61,7 +61,7 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
               disabled={status !== 'success'}
               onClick={onButtonClick}
               type='button'
-              buttonStyle={buttonStyle}
+              $buttonStyle={buttonStyle}
             >
               {buttonText}
             </VerifiedButton>
@@ -115,11 +115,11 @@ const ErrorText = styled.p`
   bottom: -2rem;
 `;
 
-const VerifiedButton = styled(Button)<{ buttonStyle?: React.CSSProperties }>`
+const VerifiedButton = styled(Button)<{ $buttonStyle?: React.CSSProperties }>`
   color: ${colors.white};
   font-size: 12px;
   border-radius: 900px;
-  width: ${({ buttonStyle }) => buttonStyle?.width || '10.3rem'};
+  width: ${({ $buttonStyle }) => $buttonStyle?.width || '10.3rem'};
   height: 2.6rem;
   position: absolute;
   right: 1.6rem;
