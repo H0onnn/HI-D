@@ -8,7 +8,7 @@ import {
   RequestMessageListInterface,
 } from '@/types/chat';
 import { ReportDataInterface } from '@/types/report';
-import { DeleteUserInterface } from '@/types/user';
+import { DeleteUserInterface, EditUserInterface } from '@/types/user';
 
 // TODO: url(params) object response 가능하도록 바꾸기
 export const apiMethods = {
@@ -76,6 +76,12 @@ export const apiMethods = {
       }),
       logout: () => ({
         url: 'logout',
+      }),
+    },
+    patch: {
+      myInfo: (data: EditUserInterface) => ({
+        url: 'members/my/image',
+        data,
       }),
     },
     delete: {
