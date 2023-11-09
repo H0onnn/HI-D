@@ -9,6 +9,7 @@ interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
   image?: string | React.ReactNode;
   button?: boolean;
   buttonText?: string;
+  buttonStyle?: React.CSSProperties;
   status?: 'default' | 'success' | 'error' | 'search';
   errorMessage?: string;
   onButtonClick?: () => void;
@@ -16,7 +17,16 @@ interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const Input = forwardRef<HTMLInputElement, InputInterface>(
   (
-    { image, button, status = 'default', errorMessage, buttonText, onButtonClick, ...props },
+    {
+      image,
+      button,
+      status = 'default',
+      errorMessage,
+      buttonText,
+      buttonStyle,
+      onButtonClick,
+      ...props
+    },
     ref,
   ) => {
     const renderIcon = () => {
@@ -51,6 +61,7 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
               disabled={status !== 'success'}
               onClick={onButtonClick}
               type='button'
+              buttonStyle={buttonStyle}
             >
               {buttonText}
             </VerifiedButton>
@@ -90,6 +101,7 @@ const CustomInput = styled.input<{ isFocused?: boolean }>`
   border: none;
   outline: none;
   background: none;
+  font-family: 'SUIT';
 
   &::placeholder {
     color: ${colors.gray5};
@@ -103,11 +115,11 @@ const ErrorText = styled.p`
   bottom: -2rem;
 `;
 
-const VerifiedButton = styled(Button)`
+const VerifiedButton = styled(Button)<{ buttonStyle?: React.CSSProperties }>`
   color: ${colors.white};
   font-size: 12px;
   border-radius: 900px;
-  width: 10.3rem;
+  width: ${({ buttonStyle }) => buttonStyle?.width || '10.3rem'};
   height: 2.6rem;
   position: absolute;
   right: 1.6rem;
