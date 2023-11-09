@@ -14,6 +14,7 @@ import PostDetailPage from '@/pages/post/PostDetailPage';
 import MyPage from '@/pages/mypage/MyPage';
 import DeleteAccountPage from '@/pages/mypage/DeleteAccountPage';
 import EditProfileInfoPage from '@/pages/mypage/editProfile/EditProfileInfoPage';
+import CSPage from '@/pages/mypage/CSPage';
 
 interface AppRoutesInterface {
   name: string;
@@ -123,6 +124,13 @@ const routes: AppRoutesInterface[] = [
     name: 'EditProfileInfo',
     path: LINK.EDIT_PROFILE,
     component: EditProfileInfoPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'CS',
+    path: LINK.CS,
+    component: CSPage,
     isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },
