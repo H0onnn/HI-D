@@ -1,5 +1,5 @@
 import useSetAuthToken from '@/store/authStore';
-import useUser from './useUser';
+import useUser, { QUERY_KEY as userQueryKey } from './useUser';
 import { useNavigate } from 'react-router-dom';
 import { getToken, getUserData } from '@/services/user';
 import { LINK } from '@/constants/links';
@@ -7,15 +7,13 @@ import toast from 'react-hot-toast';
 import { LoginDataInterface } from '@/types/types';
 import { UserDataInterface } from '@/types/user';
 
-export const QUERY_KEY = 'currentUser';
-
 const useLogin = () => {
   const navigate = useNavigate();
   const { setToken } = useSetAuthToken();
   const { queryClient } = useUser();
 
   const fetchAndSetUserData = async () => {
-    const userData = queryClient.getQueryData<UserDataInterface>([QUERY_KEY]);
+    const userData = queryClient.getQueryData<UserDataInterface>([userQueryKey]);
 
     if (!userData) await getUserData();
   };

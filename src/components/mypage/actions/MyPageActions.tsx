@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
-// import { LINK } from '@/constants/links';
+import { Link } from 'react-router-dom';
+import { LINK } from '@/constants/links';
 import SCHOOL_ICON from '@/public/images/ui/school.svg';
 import PASSWORD_ICON from '@/public/images/ui/password.svg';
 import CS_CENTER_ICON from '@/public/images/ui/cs_center.svg';
@@ -13,19 +14,19 @@ const MyPageActions = () => {
       title: '학교정보 변경',
       icon: SCHOOL_ICON,
       alt: 'edit_school',
-      // link: '/mypage/school',
+      link: LINK.EDIT_SCHOOL,
     },
     {
       title: '비밀번호 변경',
       icon: PASSWORD_ICON,
       alt: 'edit_password',
-      // link: '/mypage/password',
+      link: LINK.EDIT_PASSWORD,
     },
     {
       title: '고객센터',
       icon: CS_CENTER_ICON,
       alt: 'cs_center',
-      // link: '/mypage/cs',
+      link: LINK.CS,
     },
   ];
 
@@ -38,7 +39,9 @@ const MyPageActions = () => {
               <ActionIcon src={action.icon} alt={action.alt} />
               <ActionTitle>{action.title}</ActionTitle>
             </TitleContainer>
-            <ActionIcon src={ARROW_ICON} alt='arrow' />
+            <ActionLink to={action.link}>
+              <ActionIcon src={ARROW_ICON} alt='arrow' $isArrow />
+            </ActionLink>
           </ActionWrapper>
         );
       })}
@@ -78,9 +81,18 @@ const TitleContainer = styled.div`
   gap: 0.5rem;
 `;
 
-const ActionIcon = styled.img`
+const ActionLink = styled(Link)`
   width: 2.4rem;
   height: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+`;
+
+const ActionIcon = styled.img<{ $isArrow?: boolean }>`
+  width: ${({ $isArrow }) => ($isArrow ? '100%' : '2.4rem')};
+  height: ${({ $isArrow }) => ($isArrow ? '100%' : '2.4rem')};
   object-fit: contain;
 `;
 

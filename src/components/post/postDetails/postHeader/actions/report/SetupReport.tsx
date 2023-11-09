@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import useCommentActionHandler from '@/hooks/useCommentActionHandler';
-import ReportForm from './form/ReportForm';
+import GenericForm from '@/components/public/form/GenericForm';
 import ReportCategory from './category/ReportCategory';
 import ReportContent from './content/ReportContent';
 import { SetupPageLayout } from '@/styles/styles';
@@ -27,7 +27,13 @@ const SetupReport = ({ postId, replyId, type }: SetupReportInterface) => {
   };
 
   return (
-    <ReportForm onSubmit={submitHandler}>
+    <GenericForm<ReportDataInterface>
+      formOptions={{
+        mode: 'onSubmit',
+        shouldUnregister: false,
+      }}
+      onSubmit={submitHandler}
+    >
       <SetupPageLayout style={{ gap: '2rem' }}>
         <ReportCategory currentValue={currentValue} setCurrentValue={setCurrentValue} />
         <ReportContent />
@@ -40,7 +46,7 @@ const SetupReport = ({ postId, replyId, type }: SetupReportInterface) => {
       >
         신고하기
       </Button>
-    </ReportForm>
+    </GenericForm>
   );
 };
 

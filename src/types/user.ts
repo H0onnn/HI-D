@@ -16,3 +16,14 @@ export interface UserDataInterface {
 export interface DeleteUserInterface {
   password: string;
 }
+
+export interface EditUserInterface {
+  nickname: string;
+  imageUrl: string;
+}
+
+export interface EditPasswordInterface {
+  password: string;
+  newPassword: string;
+  newPasswrodConfirm: string;
+}

@@ -1,17 +1,19 @@
 import React from 'react';
-import useUser from '@/hooks/useUser';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { colors } from '@/constants/colors';
 import EDIT_ICON from '@/public/images/ui/edit_white.svg';
+import { LINK } from '@/constants/links';
+import { UserDataInterface } from '@/types/user';
 
-const MyUserInfo = () => {
-  const { user } = useUser();
-
+const MyUserInfo = ({ user }: { user: UserDataInterface | undefined }) => {
   return (
     <Layout>
       <NickNameWrapper>
         <Nickname>{user?.nickname}</Nickname>
-        <ProfileEditButton src={EDIT_ICON} alt='edit_button' />
+        <ProfileEditLink to={LINK.EDIT_PROFILE}>
+          <ProfileEditIcon src={EDIT_ICON} alt='edit_button' />
+        </ProfileEditLink>
       </NickNameWrapper>
       <SchoolMajorContainer>
         <School>{user?.school}</School>
@@ -50,9 +52,18 @@ const Nickname = styled.p`
   white-space: nowrap;
 `;
 
-const ProfileEditButton = styled.img`
+const ProfileEditLink = styled(Link)`
   width: 2.4rem;
   height: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+`;
+
+const ProfileEditIcon = styled.img`
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 `;
 

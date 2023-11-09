@@ -1,11 +1,9 @@
 import React from 'react';
-import useUser from '@/hooks/useUser';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
+import { UserDataInterface } from '@/types/user';
 
-const MyPosts = () => {
-  const { user } = useUser();
-
+const MyPosts = ({ user }: { user: UserDataInterface | undefined }) => {
   const postsInfo = [
     {
       title: '북마크',
