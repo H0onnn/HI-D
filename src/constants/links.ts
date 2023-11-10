@@ -9,7 +9,7 @@ export const LINK = {
   MYPAGE: '/mypage',
   DELETE_ACCOUNT: '/delete',
   EDIT_PROFILE: '/edit/profile',
-  EDIT_SCHOOL: '/edit/school',
+  EDIT_SCHOOL_INFO: '/edit/school-info',
   EDIT_PASSWORD: '/edit/password',
   CS: '/cs',
   CHAT: '/chat',

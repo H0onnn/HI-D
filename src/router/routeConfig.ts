@@ -15,6 +15,7 @@ import MyPage from '@/pages/mypage/MyPage';
 import DeleteAccountPage from '@/pages/mypage/DeleteAccountPage';
 import EditProfileInfoPage from '@/pages/mypage/editProfile/EditProfileInfoPage';
 import EditPasswordPage from '@/pages/mypage/editProfile/EditPasswordPage';
+import EditSchoolInfoPage from '@/pages/mypage/editProfile/EditSchoolInfoPage';
 import CSPage from '@/pages/mypage/CSPage';
 
 interface AppRoutesInterface {
@@ -129,16 +130,23 @@ const routes: AppRoutesInterface[] = [
     meta: { hideNavBar: true, hideFloatNav: true },
   },
   {
-    name: 'CS',
-    path: LINK.CS,
-    component: CSPage,
+    name: 'EditPassword',
+    path: LINK.EDIT_PASSWORD,
+    component: EditPasswordPage,
     isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },
   {
-    name: 'EditPassword',
-    path: LINK.EDIT_PASSWORD,
-    component: EditPasswordPage,
+    name: 'EditSchoolInfo',
+    path: LINK.EDIT_SCHOOL_INFO,
+    component: EditSchoolInfoPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'CS',
+    path: LINK.CS,
+    component: CSPage,
     isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },
