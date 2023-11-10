@@ -8,7 +8,13 @@ import {
   RequestMessageListInterface,
 } from '@/types/chat';
 import { ReportDataInterface } from '@/types/report';
-import { DeleteUserInterface, EditPasswordInterface, EditUserInterface } from '@/types/user';
+import {
+  DeleteUserInterface,
+  EditMajorInterface,
+  EditPasswordInterface,
+  EditSchoolInterface,
+  EditUserInterface,
+} from '@/types/user';
 
 // TODO: url(params) object response 가능하도록 바꾸기
 export const apiMethods = {
@@ -85,6 +91,14 @@ export const apiMethods = {
       }),
       password: (data: EditPasswordInterface) => ({
         url: 'members/my/password',
+        data,
+      }),
+      school: (data: EditSchoolInterface) => ({
+        url: 'members/my/school',
+        data,
+      }),
+      major: (data: EditMajorInterface) => ({
+        url: 'members/my/major',
         data,
       }),
     },
