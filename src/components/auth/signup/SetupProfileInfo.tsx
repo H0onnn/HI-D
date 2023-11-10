@@ -13,7 +13,7 @@ import CameraIcon from '../../../public/images/input/photo_camera.png';
 import { generateRandomNickname } from '@/utils/randomNick';
 import { UserDataInterface } from '@/types/user';
 
-const SetupProfileInfo = ({ user }: { user?: UserDataInterface }) => {
+const SetupProfileInfo = ({ user }: { user: UserDataInterface | undefined }) => {
   const { uploadImage } = useImageService();
   const { register: imageUrlRegister, setValue: setImageUrlValue } = useSetupInput('imageUrl');
 
