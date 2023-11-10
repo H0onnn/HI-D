@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useMyPageActions from '@/hooks/useMyPageActions';
 import PageHeader from '@/components/public/PageHeader';
 import GenericForm from '@/components/public/form/GenericForm';
-import SetupEditPassword from '@/components/mypage/actions/edit/SetupEditPassword';
+import SetupEditPassword from '@/components/mypage/actions/edit/password/SetupEditPassword';
 import { EditPasswordInterface } from '@/types/user';
 import { PageLayout } from '@/styles/styles';
 
