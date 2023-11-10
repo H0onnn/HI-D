@@ -14,7 +14,7 @@ const MyPageActions = () => {
       title: '학교정보 변경',
       icon: SCHOOL_ICON,
       alt: 'edit_school',
-      link: LINK.EDIT_SCHOOL,
+      link: LINK.EDIT_SCHOOL_INFO,
     },
     {
       title: '비밀번호 변경',
