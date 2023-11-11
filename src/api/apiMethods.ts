@@ -190,6 +190,15 @@ export const apiMethods = {
       ) => ({
         url: `posts/${postId}/replies?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
       }),
+      myReplies: (
+        page: number,
+        size: number,
+        boardType: string,
+        sortBy = 'createAt',
+        direction = 'DESC',
+      ) => ({
+        url: `replies/my?page=${page}&size=${size}&boardType=${boardType}&sortBy=${sortBy}&direction=${direction}`,
+      }),
     },
     post: {
       reply: (postId: number, content: string) => ({
