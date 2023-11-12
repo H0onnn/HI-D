@@ -35,12 +35,12 @@ const MyPageActions = () => {
       {actions.map((action, index) => {
         return (
           <ActionWrapper key={index}>
-            <TitleContainer>
-              <ActionIcon src={action.icon} alt={action.alt} />
-              <ActionTitle>{action.title}</ActionTitle>
-            </TitleContainer>
             <ActionLink to={action.link}>
-              <ActionIcon src={ARROW_ICON} alt='arrow' $isArrow />
+              <TitleContainer>
+                <ActionIcon src={action.icon} alt={action.alt} />
+                <ActionTitle>{action.title}</ActionTitle>
+              </TitleContainer>
+              <ActionIcon src={ARROW_ICON} alt='arrow' />
             </ActionLink>
           </ActionWrapper>
         );
@@ -82,17 +82,17 @@ const TitleContainer = styled.div`
 `;
 
 const ActionLink = styled(Link)`
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   text-decoration: none;
 `;
 
 const ActionIcon = styled.img<{ $isArrow?: boolean }>`
-  width: ${({ $isArrow }) => ($isArrow ? '100%' : '2.4rem')};
-  height: ${({ $isArrow }) => ($isArrow ? '100%' : '2.4rem')};
+  width: 2.4rem;
+  height: 2.4rem;
   object-fit: contain;
 `;
 
