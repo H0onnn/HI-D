@@ -5,6 +5,8 @@ import {
   EditUserInterface,
   UserDataInterface,
   EditPasswordInterface,
+  EditSchoolInterface,
+  EditMajorInterface,
 } from '@/types/user';
 
 export const getToken = async (data: LoginDataInterface) => {
@@ -35,6 +37,14 @@ export const patchUserInfo = async (data: EditUserInterface): Promise<EditUserIn
 
 export const patchPassword = async (data: EditPasswordInterface): Promise<void> => {
   await httpClient.members.patch.password(data);
+};
+
+export const patchSchool = async (data: EditSchoolInterface): Promise<void> => {
+  await httpClient.members.patch.school(data);
+};
+
+export const patchMajor = async (data: EditMajorInterface): Promise<void> => {
+  await httpClient.members.patch.major(data);
 };
 
 export const deleteUser = async (data: DeleteUserInterface): Promise<void> => {

@@ -13,7 +13,7 @@ const MyPage = () => {
 
   return (
     <>
-      <PageHeader title='마이페이지' />
+      <PageHeader title='마이페이지' isGoBack />
       <MyPageLayout>
         <Background />
         <Contents />

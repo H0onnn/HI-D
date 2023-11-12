@@ -31,8 +31,9 @@ const PostDetailPage = () => {
         <PostAuthorInfo
           profileImageSrc={postData.writer.imageUrl}
           userName={postData.writer.nickname}
-          schoolName={postData.writer.school}
+          schoolName={postData.isAnonymous ? '비공개' : postData.writer.school}
           writerMajor={postData.writer.major}
+          isAnonymous={postData.isAnonymous}
         />
         <PostHeader
           title={postData.title}

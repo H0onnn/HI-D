@@ -8,20 +8,27 @@ import { LINK } from '@/constants/links';
 
 interface PageHeaderInterface {
   title?: string;
+  isGoBack?: boolean;
   onClick?: () => void;
 }
 
-const PageHeader = ({ title, onClick }: PageHeaderInterface) => {
+const PageHeader = ({ title, isGoBack, onClick }: PageHeaderInterface) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const isWhite = location.pathname === LINK.MYPAGE;
 
   const backClickHandler = () => {
+    if (isGoBack === true) {
+      navigate(-1);
+      return;
+    }
+
     if (onClick) {
       onClick();
       return;
     }
+
     navigate(LINK.MAIN);
   };
 

@@ -15,3 +15,11 @@ export const timeSince = (date: string) => {
   }
   return date;
 };
+
+export const formatDate = (inputDate: string): string => {
+  const datePart = inputDate.split('T')[0];
+
+  const [year, month, day] = datePart.split('-');
+
+  return `${year}.${month}.${day}`;
+};

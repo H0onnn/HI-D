@@ -1,5 +1,9 @@
 import { httpClient } from '@/api/httpClient';
-import { CommentsDataInterface, CommentDataInterface } from '@/types/comment';
+import {
+  CommentsDataInterface,
+  CommentDataInterface,
+  MyCommentsDataInterface,
+} from '@/types/comment';
 import { ReportDataInterface } from '@/types/report';
 
 export const getCommentsData = async (
@@ -12,6 +16,20 @@ export const getCommentsData = async (
     return response.data;
   } catch (err: unknown) {
     console.error('댓글 조회 에러 : ', err);
+    throw err;
+  }
+};
+
+export const getMyCommentsData = async (
+  page: number,
+  size: number,
+  boardType: string,
+): Promise<MyCommentsDataInterface> => {
+  try {
+    const response = await httpClient.comment.get.myReplies(page, size, boardType);
+    return response.data;
+  } catch (err: unknown) {
+    console.error('내 댓글 조회 에러 : ', err);
     throw err;
   }
 };
