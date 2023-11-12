@@ -6,7 +6,7 @@ import FreeContainer from '@/components/post/FreeContainer';
 const FreePostListPage = () => {
   return (
     <>
-      <PageHeader title='자유게시판' />
+      <PageHeader title='자유게시판' isGoBack />
       <MainPageLayout>
         <FreeContainer />
       </MainPageLayout>

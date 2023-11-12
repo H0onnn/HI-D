@@ -27,3 +27,12 @@ export interface EditPasswordInterface {
   newPassword: string;
   newPasswrodConfirm: string;
 }
+
+export interface EditSchoolInterface {
+  school: string;
+  newMaril: string;
+}
+
+export interface EditMajorInterface {
+  major: string;
+}

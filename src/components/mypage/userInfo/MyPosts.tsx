@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
+import { LINK } from '@/constants/links';
 import { UserDataInterface } from '@/types/user';
 
 const MyPosts = ({ user }: { user: UserDataInterface | undefined }) => {
@@ -8,14 +10,17 @@ const MyPosts = ({ user }: { user: UserDataInterface | undefined }) => {
     {
       title: '북마크',
       count: user?.bookmarkCount,
+      link: LINK.MY_BOOKMARKS,
     },
     {
       title: '내가 쓴 글',
       count: user?.postCount,
+      link: LINK.MY_POSTS,
     },
     {
       title: '내가 쓴 댓글',
       count: user?.replyCount,
+      link: LINK.MY_COMMENTS,
     },
   ];
 
@@ -23,10 +28,10 @@ const MyPosts = ({ user }: { user: UserDataInterface | undefined }) => {
     <Layout>
       {postsInfo.map((postInfo, index) => {
         return (
-          <PostInfoWrapper key={index}>
+          <PostLink to={postInfo.link} key={index}>
             <PostTitle>{postInfo.title}</PostTitle>
             <PostCount>{postInfo.count}건</PostCount>
-          </PostInfoWrapper>
+          </PostLink>
         );
       })}
     </Layout>
@@ -48,7 +53,7 @@ const Layout = styled.div`
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.16);
 `;
 
-const PostInfoWrapper = styled.div`
+const PostLink = styled(Link)`
   width: 100%;
   height: 100%;
   display: flex;
@@ -61,6 +66,8 @@ const PostInfoWrapper = styled.div`
   &:last-child {
     border-right: none;
   }
+
+  text-decoration: none;
 `;
 
 const PostTitle = styled.p`

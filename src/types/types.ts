@@ -18,7 +18,8 @@ export interface SVGIconInterface {
 }
 
 export interface ProfileSetupStepInterface {
-  onNext: () => void;
+  onNext?: () => void;
+  isEdit?: boolean;
 }
 
 export type setValueFunction = (

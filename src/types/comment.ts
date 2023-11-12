@@ -3,6 +3,12 @@ export interface CommentsDataInterface {
   size: number;
   hasNext: boolean;
 }
+
+export interface MyCommentsDataInterface {
+  dataList: MyCommentDataInterface[];
+  size: number;
+  hasNext: boolean;
+}
 export interface CommentDataInterface {
   replyId: number;
   postId: number;
@@ -18,4 +24,14 @@ export interface CommentDataInterface {
   recommend: boolean;
   mine: boolean;
   anonymous: boolean;
+}
+
+export interface MyCommentDataInterface {
+  replyId: number;
+  postId: number;
+  content: string;
+  title: string;
+  recommendCount: number;
+  createAt: string;
+  updateAt: string;
 }
