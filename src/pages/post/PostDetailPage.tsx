@@ -26,7 +26,7 @@ const PostDetailPage = () => {
 
   return (
     <>
-      <PageHeader title='게시글' />
+      <PageHeader title='게시글' isGoBack />
       <PageLayout style={{ gap: '1rem' }}>
         <PostAuthorInfo
           profileImageSrc={postData.writer.imageUrl}
