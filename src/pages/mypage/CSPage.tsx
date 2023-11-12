@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import PageHeader from '@/components/public/PageHeader';
@@ -10,8 +9,6 @@ import CS_ICON from '@/public/images/ui/cs_page.svg';
 import toast from 'react-hot-toast';
 
 const CSPage = () => {
-  const navigate = useNavigate();
-
   // eslint-disable-next-line
   const [email, setEmail] = useState<string>('hidcs@gmail.com');
 
@@ -22,7 +19,7 @@ const CSPage = () => {
 
   return (
     <>
-      <PageHeader title='고객센터' onClick={() => navigate(-1)} />
+      <PageHeader title='고객센터' isGoBack />
       <PageLayout style={{ gap: '2rem' }}>
         <MainComment style={{ fontSize: '20px', marginBottom: '0' }} comment='메일로 문의' />
         <Text>

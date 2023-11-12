@@ -8,7 +8,7 @@ import { colors } from '@/constants/colors';
 const ChatPage = () => {
   return (
     <>
-      <PageHeader title='과끼리 톡톡' />
+      <PageHeader title='과끼리 톡톡' isGoBack />
       <MainPageLayout>
         <MainTextContainer>
           <MainText>참여 중인 톡톡</MainText>
