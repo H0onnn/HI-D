@@ -145,10 +145,10 @@ export const apiMethods = {
       dailyhot: () => ({
         url: `posts/dailyhot`,
       }),
-      my: (page: number, boardType: string) => ({
+      myPosts: (page: number, boardType: string) => ({
         url: `posts/my?page=${page}&boardType=${boardType}`,
       }),
-      bookmark: (page: number, boardType: string) => ({
+      myBookmarks: (page: number, boardType: string) => ({
         url: `posts/bookmark?page=${page}&boardType=${boardType}`,
       }),
     },

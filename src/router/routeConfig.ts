@@ -22,6 +22,8 @@ import EditPasswordPage from '@/pages/mypage/editProfile/EditPasswordPage';
 import EditSchoolInfoPage from '@/pages/mypage/editProfile/EditSchoolInfoPage';
 import CSPage from '@/pages/mypage/CSPage';
 import MyCommentsPage from '@/pages/mypage/myPosts/MyCommentsPage';
+import MyPostsPage from '@/pages/mypage/myPosts/MyPostsPage';
+import MyBookmarksPage from '@/pages/mypage/myPosts/MyBookmarksPage';
 
 interface AppRoutesInterface {
   name: string;
@@ -183,6 +185,20 @@ const routes: AppRoutesInterface[] = [
     name: 'MyComments',
     path: LINK.MY_COMMENTS,
     component: MyCommentsPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'MyComments',
+    path: LINK.MY_BOOKMARKS,
+    component: MyBookmarksPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'MyComments',
+    path: LINK.MY_POSTS,
+    component: MyPostsPage,
     isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },

@@ -4,11 +4,15 @@ import HelpContainerByMain from '../main/HelpContainerByMain';
 import FreeContainerByMain from '../main/FreeContainerByMain';
 import HelpContainer from './HelpContainer';
 import FreeContainer from './FreeContainer';
+import FreeContainerByMypage from './FreeContainerByMypage';
+import HelpContainerByMypage from './HelpContainerByMypage';
+import { LINK } from '@/constants/links';
 
 const PostListByCategory = (category: string, keyword?: string) => {
   const location = useLocation();
-  switch (location.pathname) {
-    case '/main':
+  console.log(location.pathname);
+  switch (true) {
+    case location.pathname.startsWith(LINK.MAIN):
       switch (category) {
         case 'NEED_HELP':
           return <HelpContainerByMain />;
@@ -17,7 +21,7 @@ const PostListByCategory = (category: string, keyword?: string) => {
         default:
           return;
       }
-    case '/post':
+    case location.pathname.startsWith(LINK.POST):
       switch (category) {
         case 'NEED_HELP':
           return <HelpContainer />;
@@ -26,7 +30,7 @@ const PostListByCategory = (category: string, keyword?: string) => {
         default:
           return;
       }
-    case '/search':
+    case location.pathname.startsWith(LINK.SEARCH):
       switch (category) {
         case 'NEED_HELP':
           return <HelpContainer keyword={keyword} />;
@@ -35,12 +39,12 @@ const PostListByCategory = (category: string, keyword?: string) => {
         default:
           return;
       }
-    case '/mypage':
+    case location.pathname.startsWith(LINK.MYPAGE):
       switch (category) {
         case 'NEED_HELP':
-          return <HelpContainer />;
+          return <HelpContainerByMypage />;
         case 'FREE':
-          return <FreeContainer />;
+          return <FreeContainerByMypage />;
         default:
           return;
       }
