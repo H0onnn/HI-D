@@ -1,15 +1,16 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useAuthToken } from '@/store/authStore';
 import { useNavigate } from 'react-router-dom';
+import { useLogout } from '@/store/authStore';
+import useModalStore from '@/store/modalStore';
 import { QUERY_KEY as userQueryKey } from './useUser';
 import { deleteUser } from '@/services/user';
-import { useLogout } from '@/store/authStore';
 import { postLogout, patchPassword } from '@/services/user';
-import useModalStore from '@/store/modalStore';
 import { LINK } from '@/constants/links';
 import { MODAL_TYPES } from '@/types/modal';
 import toast from 'react-hot-toast';
 import { DeleteUserInterface, EditPasswordInterface } from '@/types/user';
+import { webSocketInstance } from '@/services/websocketInstance';
 
 const useMyPageActions = () => {
   const queryClient = useQueryClient();
@@ -24,6 +25,9 @@ const useMyPageActions = () => {
       queryClient.removeQueries({ queryKey: [userQueryKey, token] });
       await postLogout();
       logout();
+
+      webSocketInstance.disconnect();
+
       navigate(LINK.LOGIN);
       toast.success('로그아웃 되었습니다.', { id: 'logoutSuccess' });
     } catch (err: unknown) {

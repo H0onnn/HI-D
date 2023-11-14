@@ -13,7 +13,7 @@ import PostingPage from '@/pages/posting/PostingPage';
 import PostDetailPage from '@/pages/post/PostDetailPage';
 import DeclarePage from '@/pages/admin/declare/DeclarePage';
 import AccountPage from '@/pages/admin/account/AccountPage';
-import DecalrePostPage from '@/pages/admin/declare/DeclarePostPage';
+import DeclarePostPage from '@/pages/admin/declare/DeclarePostPage';
 import DeclareReplyPage from '@/pages/admin/declare/DeclareReplyPage';
 import MyPage from '@/pages/mypage/MyPage';
 import DeleteAccountPage from '@/pages/mypage/DeleteAccountPage';
@@ -24,6 +24,7 @@ import CSPage from '@/pages/mypage/CSPage';
 import MyCommentsPage from '@/pages/mypage/myPosts/MyCommentsPage';
 import MyPostsPage from '@/pages/mypage/myPosts/MyPostsPage';
 import MyBookmarksPage from '@/pages/mypage/myPosts/MyBookmarksPage';
+import NotificationPage from '@/pages/notification/NotificationPage';
 
 interface AppRoutesInterface {
   name: string;
@@ -124,7 +125,7 @@ const routes: AppRoutesInterface[] = [
   {
     name: 'AdminDeclarePost',
     path: LINK.ADMIN_DECLARE_POST,
-    component: DecalrePostPage,
+    component: DeclarePostPage,
     meta: { hideFloatNav: true },
   },
   {
@@ -189,16 +190,23 @@ const routes: AppRoutesInterface[] = [
     meta: { hideNavBar: true, hideFloatNav: true },
   },
   {
-    name: 'MyComments',
+    name: 'MyBookmarks',
     path: LINK.MY_BOOKMARKS,
     component: MyBookmarksPage,
     isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },
   {
-    name: 'MyComments',
+    name: 'MyPosts',
     path: LINK.MY_POSTS,
     component: MyPostsPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'Notification',
+    path: LINK.NOTIFICATION,
+    component: NotificationPage,
     isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },

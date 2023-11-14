@@ -1,17 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '../../constants/colors';
 import LogoIcon from '../../public/images/main_logo.svg';
 import AlarmIcon from '../../public/images/alarm.svg';
 import { imageStyle } from '@/styles/styles';
+import { LINK } from '@/constants/links';
 
 const MainPageHeader = () => {
+  const navigate = useNavigate();
+
   return (
     <PageHeaderLayout>
-      <LogoImageWrapper>
+      <LogoImageWrapper onClick={() => navigate(LINK.MAIN)}>
         <img src={LogoIcon} alt='logo icon' />
       </LogoImageWrapper>
-      <AlarmImageWrapper>
+      <AlarmImageWrapper onClick={() => navigate(LINK.NOTIFICATION)}>
         <img src={AlarmIcon} alt='alarm icon' />
       </AlarmImageWrapper>
     </PageHeaderLayout>
@@ -37,7 +41,7 @@ const PageHeaderLayout = styled.div`
 
 const LogoImageWrapper = styled.div`
   width: 5.8rem;
-  height: 3s.6rem;
+  height: 3.6rem;
   ${imageStyle}
 `;
 
