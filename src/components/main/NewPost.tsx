@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProfileBox from '../post/postItem/ProfileBox';
 import { PostInterface } from '../../types/post';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
@@ -10,12 +9,11 @@ import { majorToKoreaMapping } from '@/constants/majorCategory';
 import { Footer } from '@/styles/post';
 
 const NewPost = ({
-  post: { postId, writer, title, createAt, majorCategory = 'undefined' },
+  post: { postId, title, createAt, majorCategory = 'ETC' },
 }: {
   post: PostInterface;
 }) => {
   const navigate = useNavigate();
-  const profileBoxSize = 'small';
 
   const postClickHandler = () => {
     navigate(`${LINK.POST}/${postId}`);
@@ -24,15 +22,11 @@ const NewPost = ({
   return (
     <Layout onClick={postClickHandler}>
       <div>
-        <TagBox>{majorToKoreaMapping[majorCategory]}</TagBox>
+        <TagBox>HOT</TagBox>
       </div>
       <Title>{title}</Title>
       <Footer>
-        <ProfileBox
-          writer={writer?.nickname}
-          profileImage={writer?.imageUrl}
-          size={profileBoxSize}
-        />
+        <MajorBox>{majorToKoreaMapping[majorCategory]}</MajorBox>
         <TimeAgoBox>{formatTimeAgo(createAt)}</TimeAgoBox>
       </Footer>
     </Layout>
@@ -83,5 +77,9 @@ const TimeAgoBox = styled.div`
   display: flex;
   align-items: center;
   color: ${colors.secondary};
+  font-size: 12px;
+`;
+const MajorBox = styled.div`
+  color: ${colors.gray6};
   font-size: 12px;
 `;

@@ -29,7 +29,7 @@ const HelpPost = ({
     replyCount,
     createAt,
     thumbnailImages = [],
-    majorCategory = 'undefined',
+    majorCategory = 'ETC',
   },
   keyword,
 }: PostProps) => {
