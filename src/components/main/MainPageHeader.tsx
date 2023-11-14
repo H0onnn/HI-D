@@ -1,17 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '../../constants/colors';
 import LogoIcon from '../../public/images/main_logo.svg';
 import AlarmIcon from '../../public/images/alarm.svg';
 import { imageStyle } from '@/styles/styles';
+import { LINK } from '@/constants/links';
 
 const MainPageHeader = () => {
+  const navigate = useNavigate();
+
   return (
     <PageHeaderLayout>
-      <LogoImageWrpper>
+      <LogoImageWrpper onClick={() => navigate(LINK.MAIN)}>
         <img src={LogoIcon} alt='logo icon' />
       </LogoImageWrpper>
-      <AlarmImageWrpper>
+      <AlarmImageWrpper onClick={() => navigate(LINK.NOTIFICATION)}>
         <img src={AlarmIcon} alt='alarm icon' />
       </AlarmImageWrpper>
     </PageHeaderLayout>
