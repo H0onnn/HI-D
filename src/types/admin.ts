@@ -3,15 +3,6 @@ export interface DeclareTabInterface {
   title: string;
   code: 'post' | 'reply';
 }
-export interface Request {
-  page?: number;
-  size?: number;
-  sortBy?: string;
-  direction?: string;
-  keyword?: string;
-  majorCategory?: string;
-}
-
 export interface ReportListInterface {
   dataList: ReportInterface[];
   size: number;
