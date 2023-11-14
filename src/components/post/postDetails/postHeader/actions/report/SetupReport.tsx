@@ -1,21 +1,39 @@
 import React, { useState } from 'react';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
-import ReportForm from './form/ReportForm';
+import useCommentActionHandler from '@/hooks/useCommentActionHandler';
+import GenericForm from '@/components/public/form/GenericForm';
 import ReportCategory from './category/ReportCategory';
 import ReportContent from './content/ReportContent';
 import { SetupPageLayout } from '@/styles/styles';
 import Button from '@/components/public/Button';
-
+import { ReportDataInterface } from '@/types/report';
 interface SetupReportInterface {
-  postId: number;
+  postId?: number;
+  replyId?: number;
+  type: 'POST' | 'COMMENT';
 }
 
-const SetupReport = ({ postId }: SetupReportInterface) => {
+const SetupReport = ({ postId, replyId, type }: SetupReportInterface) => {
   const [currentValue, setCurrentValue] = useState<string | null>(null);
   const { reportPost } = usePostActionHandlers();
+  const { reportComment } = useCommentActionHandler();
+
+  const submitHandler = (data: ReportDataInterface) => {
+    if (type === 'POST' && postId) {
+      reportPost(postId, data);
+    } else if (type === 'COMMENT' && postId && replyId) {
+      reportComment(replyId, data);
+    }
+  };
 
   return (
-    <ReportForm onSubmit={(data) => reportPost(postId, data)}>
+    <GenericForm<ReportDataInterface>
+      formOptions={{
+        mode: 'onSubmit',
+        shouldUnregister: false,
+      }}
+      onSubmit={submitHandler}
+    >
       <SetupPageLayout style={{ gap: '2rem' }}>
         <ReportCategory currentValue={currentValue} setCurrentValue={setCurrentValue} />
         <ReportContent />
@@ -28,7 +46,7 @@ const SetupReport = ({ postId }: SetupReportInterface) => {
       >
         신고하기
       </Button>
-    </ReportForm>
+    </GenericForm>
   );
 };
 

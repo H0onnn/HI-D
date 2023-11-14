@@ -8,6 +8,13 @@ import {
   RequestMessageListInterface,
 } from '@/types/chat';
 import { ReportDataInterface } from '@/types/report';
+import {
+  DeleteUserInterface,
+  EditMajorInterface,
+  EditPasswordInterface,
+  EditSchoolInterface,
+  EditUserInterface,
+} from '@/types/user';
 
 // TODO: url(params) object response 가능하도록 바꾸기
 export const apiMethods = {
@@ -75,6 +82,30 @@ export const apiMethods = {
       }),
       logout: () => ({
         url: 'logout',
+      }),
+    },
+    patch: {
+      myInfo: (data: EditUserInterface) => ({
+        url: 'members/my/image',
+        data,
+      }),
+      password: (data: EditPasswordInterface) => ({
+        url: 'members/my/password',
+        data,
+      }),
+      school: (data: EditSchoolInterface) => ({
+        url: 'members/my/school',
+        data,
+      }),
+      major: (data: EditMajorInterface) => ({
+        url: 'members/my/major',
+        data,
+      }),
+    },
+    delete: {
+      member: (data: DeleteUserInterface) => ({
+        url: 'members/my',
+        data,
       }),
     },
   },
@@ -159,11 +190,38 @@ export const apiMethods = {
       ) => ({
         url: `posts/${postId}/replies?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
       }),
+      myReplies: (
+        page: number,
+        size: number,
+        boardType: string,
+        sortBy = 'createAt',
+        direction = 'DESC',
+      ) => ({
+        url: `replies/my?page=${page}&size=${size}&boardType=${boardType}&sortBy=${sortBy}&direction=${direction}`,
+      }),
     },
     post: {
-      replies: (postId: number, content: string) => ({
+      reply: (postId: number, content: string) => ({
         url: 'replies',
         data: { postId, content },
+      }),
+      report: (replyId: number, data: ReportDataInterface) => ({
+        url: `replies/${replyId}/report`,
+        data,
+      }),
+    },
+    patch: {
+      reply: (replyId: number, content: string) => ({
+        url: `replies/${replyId}`,
+        data: { content },
+      }),
+      like: (replyId: number) => ({
+        url: `replies/${replyId}/recommend`,
+      }),
+    },
+    delete: {
+      reply: (replyId: number) => ({
+        url: `replies/${replyId}`,
       }),
     },
   },

@@ -13,6 +13,7 @@ interface PostAuthorInfoInterface {
   userName: string;
   schoolName: string;
   writerMajor: string;
+  isAnonymous?: boolean;
 }
 
 const PostAuthorInfo = ({
@@ -20,6 +21,7 @@ const PostAuthorInfo = ({
   userName,
   schoolName,
   writerMajor,
+  isAnonymous,
 }: PostAuthorInfoInterface) => {
   const navigate = useNavigate();
 
@@ -33,7 +35,13 @@ const PostAuthorInfo = ({
           writerMajor={writerMajor}
         />
       </AuthorInfoContainer>
-      <IconButton iconSrc={CHAT_ICON} alt='chat_icon' onClickHandler={() => navigate(LINK.CHAT)} />
+      {isAnonymous ? undefined : (
+        <IconButton
+          iconSrc={CHAT_ICON}
+          alt='chat_icon'
+          onClickHandler={() => navigate(LINK.CHAT)}
+        />
+      )}
     </PostAuthorInfoLayout>
   );
 };

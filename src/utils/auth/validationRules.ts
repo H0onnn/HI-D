@@ -1,8 +1,8 @@
 export const emailValidation = {
   required: '이메일은 필수 입력 항목입니다.',
   pattern: {
-    // 이메일 형식 검사 : ex) abc@abc.com
-    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+    // 이메일 형식 검사 : ex) abc@abc.com, test@test.school.kr
+    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}(\.[A-Z]{2,})?$/i,
     message: '올바른 이메일 형식이 아닙니다.',
   },
 };
@@ -51,8 +51,8 @@ export const schoolValidation = {
 export const majorValidation = {
   required: '학과명은 필수 입력 항목입니다.',
   pattern: {
-    // 한글만 허용 (특수문자, 공백 제외)
-    value: /^[가-힣]+학과$/,
+    // 한글만 허용 (특수문자, 공백 제외), 2글자 이상
+    value: /^[가-힣]{2,}$/,
     message: '올바른 학과명을 입력해주세요.',
   },
   validate: {

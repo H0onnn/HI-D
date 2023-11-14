@@ -47,7 +47,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <PageHeader title='검색' />
+      <PageHeader title='검색' isGoBack />
       <MainPageLayout>
         <SearchBar
           searchByKeyword={searchByKeyword}

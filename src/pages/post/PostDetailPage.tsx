@@ -1,5 +1,5 @@
 import React from 'react';
-import usePostActionState from '@/hooks/usePostActionState';
+import usePostActionState from '@/hooks/useActionState';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import usePostDetailData from '@/hooks/usePostDetailData';
 import { useParams } from 'react-router-dom';
@@ -26,13 +26,14 @@ const PostDetailPage = () => {
 
   return (
     <>
-      <PageHeader title='게시글' />
+      <PageHeader title='게시글' isGoBack />
       <PageLayout style={{ gap: '1rem' }}>
         <PostAuthorInfo
           profileImageSrc={postData.writer.imageUrl}
           userName={postData.writer.nickname}
-          schoolName={postData.writer.school}
+          schoolName={postData.isAnonymous ? '비공개' : postData.writer.school}
           writerMajor={postData.writer.major}
+          isAnonymous={postData.isAnonymous}
         />
         <PostHeader
           title={postData.title}
@@ -55,7 +56,7 @@ const PostDetailPage = () => {
         <CommentList postId={postId} />
         {isReported && (
           <SlideUpModal setModalState={toggleReport}>
-            <SetupReport postId={postData.postId} />
+            <SetupReport postId={postData.postId} type='POST' />
           </SlideUpModal>
         )}
       </PageLayout>

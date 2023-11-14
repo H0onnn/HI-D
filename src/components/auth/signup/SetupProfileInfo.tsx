@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
+import useImageService from '@/hooks/useImageService';
 import useSetupInput from '@/hooks/useSetupInput';
 import MainComment from '../../public/MainComment';
 import Input from '../../public/Input';
@@ -9,61 +10,56 @@ import styled from 'styled-components';
 import { colors } from '../../../constants/colors';
 import { URL } from '../../../constants/url';
 import CameraIcon from '../../../public/images/input/photo_camera.png';
-import { httpClient } from '../../../api/httpClient';
 import { generateRandomNickname } from '@/utils/randomNick';
+import { UserDataInterface } from '@/types/user';
 
-const SetupProfileInfo = () => {
+const SetupProfileInfo = ({ user }: { user?: UserDataInterface | undefined }) => {
+  const { uploadImage } = useImageService();
   const { register: imageUrlRegister, setValue: setImageUrlValue } = useSetupInput('imageUrl');
 
   const {
     register: nicknameRegister,
-    errors: nicknameErrors,
-    watch: nicknameWatch,
+    errors,
+    status: nicknameStatus,
     setValue: setNicknameValue,
   } = useSetupInput('nickname', nicknameValidation);
 
-  const [profileImageUrl, setProfileImageUrl] = useState<string>(URL.DEFAULT_PROFILE_IMG);
-  // eslint-disable-next-line
-  const [nickname, setNickname] = useState<string>(generateRandomNickname());
+  const [profileImageUrl, setProfileImageUrl] = useState<string | undefined>(
+    URL.DEFAULT_PROFILE_IMG,
+  );
+
+  const [nickname, setNickname] = useState<string>('');
 
   useEffect(() => {
-    setImageUrlValue('imageUrl', URL.DEFAULT_PROFILE_IMG);
-  }, [setImageUrlValue]);
+    if (user) {
+      setProfileImageUrl(user.imageUrl || URL.DEFAULT_PROFILE_IMG);
+      setImageUrlValue('imageUrl', user.imageUrl || URL.DEFAULT_PROFILE_IMG);
+    }
+  }, [user, setImageUrlValue]);
 
   useEffect(() => {
-    setNicknameValue('nickname', nickname);
-  }, [setNicknameValue, nickname]);
+    if (user) {
+      setNickname(user.nickname || generateRandomNickname());
+      setNicknameValue('nickname', user.nickname || generateRandomNickname());
+    }
+  }, [user, setNicknameValue, nickname]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const nicknameValue = nicknameWatch('nickname');
-
-  const nicknameStatus = nicknameErrors
-    ? 'error'
-    : nicknameValue && !nicknameErrors
-    ? 'success'
-    : 'default';
-
   const imageChangeClickHandler = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      try {
-        const image = await httpClient.image.post.upload(file);
-        const imageUrl = image.data[0];
-        setImageUrlValue('imageUrl', imageUrl);
-        setProfileImageUrl(imageUrl);
-      } catch (err: unknown) {
-        console.log(err);
-      }
-    }
+    const imageUrl = await uploadImage(e);
+    setImageUrlValue('imageUrl', imageUrl);
+    setProfileImageUrl(imageUrl);
   };
 
   return (
     <>
-      <MainComment
-        style={{ fontSize: '20px', textAlign: 'center' }}
-        comment='프로필을 설정해주세요'
-      />
+      {!user && (
+        <MainComment
+          style={{ fontSize: '20px', textAlign: 'center' }}
+          comment='프로필을 설정해주세요'
+        />
+      )}
       <div style={{ position: 'relative' }}>
         <ProfileImageWrapper>
           <ProfileImage src={profileImageUrl} alt='profile_image' />
@@ -81,13 +77,13 @@ const SetupProfileInfo = () => {
       </div>
       <InputWrapper>
         <Input
-          type='nickname'
+          type='text'
           status={nicknameStatus}
           {...nicknameRegister('nickname')}
           defaultValue={nickname}
           errorMessage={
-            nicknameErrors.nickname && typeof nicknameErrors.nickname.message === 'string'
-              ? nicknameErrors.nickname.message
+            errors.nickname && typeof errors.nickname.message === 'string'
+              ? errors.nickname.message
               : undefined
           }
           placeholder='사용하실 닉네임을 입력해주세요.'
@@ -95,7 +91,7 @@ const SetupProfileInfo = () => {
       </InputWrapper>
       <ButtonContainer>
         <Button $isFullWidth type='submit' disabled={nicknameStatus !== 'success'}>
-          회원가입
+          {user ? '변경하기' : '회원가입'}
         </Button>
       </ButtonContainer>
     </>
@@ -132,7 +128,7 @@ const EditImageButton = styled.div`
   background: #f4f5ff;
   cursor: pointer;
   z-index: 1;
-  bottom: 3rem;
+  bottom: 2rem;
   right: 10rem;
 `;
 

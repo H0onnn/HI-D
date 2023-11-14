@@ -26,7 +26,7 @@ export const postReport = async (postId: number, data: ReportDataInterface) => {
   }
 };
 
-export const postDelete = async (postId: number) => {
+export const postDelete = async (postId: number): Promise<void> => {
   try {
     await httpClient.post.delete.deletePost(postId);
   } catch (err: unknown) {

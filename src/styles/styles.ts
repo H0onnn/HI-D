@@ -2,12 +2,13 @@ import styled, { css, keyframes } from 'styled-components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-export const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div<{ $isRelative?: boolean }>`
   width: 100%;
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 1rem;
-  position: absolute;
+  position: ${({ $isRelative }) => ($isRelative ? 'relative' : 'absolute')};
   bottom: 7rem;
   left: 0;
   padding: 0 2rem;

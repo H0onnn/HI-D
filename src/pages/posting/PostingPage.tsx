@@ -4,11 +4,14 @@ import { useFunnel } from '@/hooks/useFunnel';
 import useSubmitPost from '@/hooks/useSubmitPost';
 import { PageLayout } from '@/styles/styles';
 import PageHeader from '@/components/public/PageHeader';
-import PostingForm from '@/components/posting/PostingForm';
 import PostingSetup from '@/components/posting/PostingSetup';
-import { handleNextClick, handlePrevClick } from '@/services/posting';
+import GenericForm from '@/components/public/form/GenericForm';
+import { handleNextClick, handlePrevClick } from '@/services/setupStep';
 import { LINK } from '@/constants/links';
 import { PostingDataInterface } from '@/types/posting';
+
+const steps = ['계열 선택', '게시글 작성'];
+const confirmMessage = '게시글 작성을 취소하시겠어요?';
 
 const PostingPage = () => {
   const navigate = useNavigate();
@@ -22,13 +25,12 @@ const PostingPage = () => {
   const isFreePost = currentPath === LINK.POSTING_FREE || postToEdit?.boardType === 'FREE';
   const submitType = isHelpPost ? 'needhelp' : 'free';
 
-  const steps = ['계열 선택', '게시글 작성'];
   const defaultStep = isHelpPost && !postToEdit ? steps[0] : steps[1];
 
   const { Funnel, Step, setStep, currentStep } = useFunnel(defaultStep);
 
   const nextClickHandler = handleNextClick(setStep, steps);
-  const prevClickHandler = handlePrevClick(setStep, steps, navigate, currentPath);
+  const prevClickHandler = handlePrevClick(setStep, steps, confirmMessage, navigate, currentPath);
 
   const submitPostHandler = (data: PostingDataInterface) => {
     if (postToEdit) {
@@ -42,7 +44,10 @@ const PostingPage = () => {
     <>
       <PageHeader title='게시글 작성' onClick={() => prevClickHandler(currentStep)} />
       <PageLayout>
-        <PostingForm onSubmit={submitPostHandler}>
+        <GenericForm<PostingDataInterface>
+          formOptions={{ mode: 'onChange' }}
+          onSubmit={submitPostHandler}
+        >
           <PostingSetup
             steps={steps}
             Funnel={Funnel}
@@ -52,7 +57,7 @@ const PostingPage = () => {
             isHelpPost={isHelpPost}
             postToEdit={postToEdit}
           />
-        </PostingForm>
+        </GenericForm>
       </PageLayout>
     </>
   );
