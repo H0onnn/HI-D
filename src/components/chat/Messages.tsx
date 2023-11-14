@@ -4,13 +4,14 @@ import MyMessage from './MyMessage';
 import YourMessage from './YourMessage';
 import { MessageInterface } from '@/types/chat';
 import { scrollNone } from '@/styles/styles';
+import useUser from '@/hooks/useUser';
 
 type Props = {
   messageList: MessageInterface[];
 };
 const Messages = ({ messageList }: Props) => {
-  const myNickname = 'myNickname'; // 전역변수에서 가져온다.
-  const isMyMessage = (sender: string) => sender === myNickname;
+  const { user } = useUser();
+  const isMyMessage = (sender: string) => sender === user?.nickname;
 
   return (
     <MessageListLayout>
