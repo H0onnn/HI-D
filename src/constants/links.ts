@@ -25,4 +25,5 @@ export const LINK = {
   POST_EDIT: '/post/edit/:id',
   SEARCH: '/search',
   ALERT: '/alert',
+  NOTIFICATION: '/notification',
 } as const;
