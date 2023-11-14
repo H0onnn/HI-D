@@ -1,55 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Input from '../public/Input';
-import { MessageInterface, PageStatusInterface } from '../../types/chat';
 import { colors } from '../../constants/colors';
-import { getMessageList } from '@/services/chat';
-import useObserver from '@/hooks/useObserver';
 import Messages from './Messages';
 import DefaultProfile from '@/public/images/default_profile.svg';
 import { imageStyle, slideUp } from '@/styles/styles';
 import { IModalProps } from '@/types/modal';
+import useMessages from '@/hooks/useMessages';
+// import LoadingContent from '../public/LoadingContent';
+// import useObserver from '@/hooks/useObserver';
 
 const ChatModal = ({ url: roomId }: IModalProps) => {
-  const [messageList, setMessageList] = useState<MessageInterface[]>([]);
-  const [{ page, hasNext }, setPage] = useState<PageStatusInterface>({ page: 1, hasNext: true });
-  const infinityRef = useObserver(() => nextPageHandler());
-  const [loading, setLoading] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
+  const { data } = useMessages(Number(roomId));
+  // const loadMoreRef = useObserver(() => moreDataHandler());
+  const [message, setMessage] = useState('');
 
-  const nextPageHandler = () => {
-    if (!hasNext || loading || page === 0 || !roomId) return;
-    setPage((prev) => ({ ...prev, page: prev.page + 1 }));
+  const sendMessage = () => {
+    if (message.trim() === '') return;
+    console.log('Sending message:', message);
+    setMessage('');
   };
 
-  useEffect(() => {
-    if (!hasNext || loading || page === 0 || !roomId) return;
-    setLoading(true);
-    getMessageList({ roomId: Number(roomId), page })
-      .then((data) => {
-        setPage((prev) => ({ ...prev, hasNext: data.hasNext }));
-        setMessageList((prev) => [...prev, ...data.dataList]);
-      })
-      .catch(() => {
-        setPage({ page: 0, hasNext: false });
-      });
-    setLoading(false);
-  }, [roomId, page, hasNext]);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) return;
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
 
   return (
     <ChatModalLayout>
-      {/* TODO: reverse infinity scroll */}
-      {!loading && hasNext && <div ref={infinityRef} style={{ height: '1px' }}></div>}
       <ImageWrapper>
         <img src={DefaultProfile} alt='profile_img' />
       </ImageWrapper>
-      <Messages messageList={messageList} />
+      {/* {isFetching ? <LoadingContent /> : <div ref={loadMoreRef} style={{ height: '1px' }}></div>} */}
+      {data?.pages.map((page, pageIndex) => (
+        <Messages messageList={page.dataList} key={pageIndex} />
+      ))}
       <InputWrapper>
         <Input
           type='text'
           placeholder='채팅을 입력해주세요.'
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
       </InputWrapper>
     </ChatModalLayout>
