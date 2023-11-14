@@ -47,11 +47,13 @@ export interface PostInterface {
     nickname: string;
     imageUrl: string;
   };
-  anonymous: boolean;
+  isAnonymous: boolean;
   boardType: keyof typeof Category;
   majorCategory?: string;
   createAt: string;
   updateAt?: string;
+  isBookmarked?: boolean;
+  tag?: string;
 }
 
 export type ReplyList = {

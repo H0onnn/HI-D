@@ -41,7 +41,6 @@ const PageHeaderLayout = styled.div`
 
 const LogoImageWrapper = styled.div`
   width: 5.8rem;
-  height: 3.6rem;
   ${imageStyle}
 `;
 
