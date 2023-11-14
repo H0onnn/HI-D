@@ -5,7 +5,7 @@ import FreeContainerByMain from '../main/FreeContainerByMain';
 import HelpContainer from './HelpContainer';
 import FreeContainer from './FreeContainer';
 
-const PostListByCategary = (category: string, keyword?: string) => {
+const PostListByCategory = (category: string, keyword?: string) => {
   const location = useLocation();
   switch (location.pathname) {
     case '/main':
@@ -49,4 +49,4 @@ const PostListByCategary = (category: string, keyword?: string) => {
   }
 };
 
-export default PostListByCategary;
+export default PostListByCategory;

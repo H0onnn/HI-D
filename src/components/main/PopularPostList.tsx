@@ -1,26 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { PostInterface } from '../../types/post';
+import React from 'react';
 import PopularPost from './PopularPost';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import { colors } from '@/constants/colors';
-import { getWeeklyHotPostList } from '@/services/main';
+import useMainPosts from '@/hooks/useMainPosts';
 
 const PopularPostList = () => {
-  const [postList, setPostList] = useState<PostInterface[]>([]);
-
-  useEffect(() => {
-    getWeeklyHotPostList().then((response) => {
-      setPostList(response.dataList);
-    });
-  }, []);
+  const { weeklyHotPosts } = useMainPosts();
 
   return (
     <Layout>
       <Slider {...settings}>
-        {postList.map((post) => (
-          <PopularPost post={post} key={post.postId} />
-        ))}
+        {weeklyHotPosts?.map((post) => <PopularPost post={post} key={post.postId} />)}
       </Slider>
     </Layout>
   );

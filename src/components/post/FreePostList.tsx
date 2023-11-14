@@ -2,35 +2,43 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
 import useObserver from '../../hooks/useObserver';
-import { PostListProps } from '../../types/post';
+import { FreePostListProps } from '../../types/post';
 import FreePost from './FreePost';
 import FreePostMedium from './FreePostMedium';
+import useFreePosts from '@/hooks/useFreePosts';
+import LoadingContent from '../public/LoadingContent';
+import ErrorContent from '../public/ErrorContent';
 
-const FreePostList = ({ postList, nextPageHandler, keyword }: PostListProps) => {
+const FreePostList = ({ tag, keyword }: FreePostListProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isPostListPage = location.pathname.includes(LINK.POST);
-  const infinityRef = useObserver(() => nextPageHandler());
+  const { data, moreDataHandler, isFetching } = useFreePosts({ tag, keyword });
+  const loadMoreRef = useObserver(() => moreDataHandler());
+
+  if (data?.pages[0].size === 0) return <ErrorContent />;
 
   return (
     <>
-      {postList.map((post) =>
-        isPostListPage ? (
-          <FreePostMedium
-            post={post}
-            key={post.postId}
-            onClick={() => navigate(`${LINK.POST}/${post.postId}`)}
-          />
-        ) : (
-          <FreePost
-            keyword={keyword}
-            post={post}
-            key={post.postId}
-            onClick={() => navigate(`${LINK.POST}/${post.postId}`)}
-          />
+      {data?.pages.map((page) =>
+        page.dataList.map((post) =>
+          isPostListPage ? (
+            <FreePostMedium
+              post={post}
+              key={post.postId}
+              onClick={() => navigate(`${LINK.POST}/${post.postId}`)}
+            />
+          ) : (
+            <FreePost
+              keyword={keyword}
+              post={post}
+              key={post.postId}
+              onClick={() => navigate(`${LINK.POST}/${post.postId}`)}
+            />
+          ),
         ),
       )}
-      <div ref={infinityRef} style={{ height: '1px' }}></div>
+      {isFetching ? <LoadingContent /> : <div ref={loadMoreRef} style={{ height: '1px' }}></div>}
     </>
   );
 };

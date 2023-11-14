@@ -37,7 +37,7 @@ const BottomBtnContainer = styled.div`
 `;
 
 const BtnImg = styled.img<{ $active?: boolean }>`
-  width: 100%;
+  /* width: 100%; */ // BtnText 길이에 따라 이미지 크기가 달라짐
   height: 100%;
   object-fit: cover;
 `;
