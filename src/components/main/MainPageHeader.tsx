@@ -12,10 +12,10 @@ const MainPageHeader = () => {
 
   return (
     <PageHeaderLayout>
-      <LogoImageWrpper onClick={() => navigate(LINK.MAIN)}>
+      <LogoImageWrapper onClick={() => navigate(LINK.MAIN)}>
         <img src={LogoIcon} alt='logo icon' />
-      </LogoImageWrpper>
-      <AlarmImageWrpper onClick={() => navigate(LINK.NOTIFICATION)}>
+      </LogoImageWrapper>
+      <AlarmImageWrapper onClick={() => navigate(LINK.NOTIFICATION)}>
         <img src={AlarmIcon} alt='alarm icon' />
       </AlarmImageWrapper>
     </PageHeaderLayout>
@@ -41,7 +41,7 @@ const PageHeaderLayout = styled.div`
 
 const LogoImageWrapper = styled.div`
   width: 5.8rem;
-  height: 3s.6rem;
+  height: 3.6rem;
   ${imageStyle}
 `;
 

@@ -256,6 +256,8 @@ export const apiMethods = {
       notification: () => ({
         url: 'notifications',
       }),
+    },
+  },
   report: {
     get: {
       postList: ({ page, size, sortBy, direction }: Partial<RequestReportListInterface>) => ({
@@ -295,8 +297,6 @@ export const apiMethods = {
       account: (memberId: number) => ({
         url: `members/${memberId}/lock`,
       }),
-        },
-      },
     },
-  }
-}
+  },
+};
