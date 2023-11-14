@@ -19,7 +19,7 @@ const HelpPostMedium = ({
     replyCount,
     createAt,
     thumbnailImages = [],
-    majorCategory = 'undefined',
+    majorCategory = 'ETC',
   },
 }: PostProps) => {
   const navigate = useNavigate();

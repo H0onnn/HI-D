@@ -3,34 +3,39 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { LINK } from '../../constants/links';
 import HelpPost from '../../components/post/HelpPost';
 import useObserver from '../../hooks/useObserver';
-import { PostListProps } from '../../types/post';
+import { HelpPostListProps } from '../../types/post';
 import HelpPostMedium from './HelpPostMedium';
+import useHelpPosts from '@/hooks/useHelpPosts';
+import LoadingContent from '../public/LoadingContent';
 
-const HelpPostList = ({ postList, nextPageHandler, keyword }: PostListProps) => {
+const HelpPostList = ({ major, keyword }: HelpPostListProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isPostListPage = location.pathname.includes(LINK.POST);
-  const infinityRef = useObserver(() => nextPageHandler());
+  const { data, moreDataHandler, isFetching } = useHelpPosts({ major, keyword });
+  const loadMoreRef = useObserver(() => moreDataHandler());
 
   return (
     <>
-      {postList.map((post) =>
-        isPostListPage ? (
-          <HelpPostMedium
-            post={post}
-            key={post.postId}
-            onClick={() => navigate(`${LINK.POST}/${post.postId}`)}
-          />
-        ) : (
-          <HelpPost
-            keyword={keyword}
-            post={post}
-            key={post.postId}
-            onClick={() => navigate(`${LINK.POST}/${post.postId}`)}
-          />
+      {data?.pages.map((page) =>
+        page.dataList.map((post) =>
+          isPostListPage ? (
+            <HelpPostMedium
+              post={post}
+              key={post.postId}
+              onClick={() => navigate(`${LINK.POST}/${post.postId}`)}
+            />
+          ) : (
+            <HelpPost
+              keyword={keyword}
+              post={post}
+              key={post.postId}
+              onClick={() => navigate(`${LINK.POST}/${post.postId}`)}
+            />
+          ),
         ),
       )}
-      <div ref={infinityRef} style={{ height: '1px' }}></div>
+      {isFetching ? <LoadingContent /> : <div ref={loadMoreRef} style={{ height: '1px' }}></div>}
     </>
   );
 };

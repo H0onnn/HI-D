@@ -12,13 +12,13 @@ const TabByCategory = ({ tabClickHandler, selectedTab }: Props) => {
   return (
     <TabBox>
       {tabList.map((tab) => (
-        <CategaryTitle
+        <CategoryTitle
           key={tab.id}
-          $isSeleced={tab.id === selectedTab.id}
+          $isSelected={tab.id === selectedTab.id}
           onClick={() => tabClickHandler(tab)}
         >
           {tab.name}
-        </CategaryTitle>
+        </CategoryTitle>
       ))}
     </TabBox>
   );
@@ -34,10 +34,10 @@ const TabBox = styled.div`
   gap: 1.2rem;
   border-bottom: 1px solid ${colors.gray1};
 `;
-const CategaryTitle = styled.div<{ $isSeleced: boolean }>`
+const CategoryTitle = styled.div<{ $isSelected: boolean }>`
   cursor: pointer;
   font-size: 20px;
   font-weight: 700;
-  border-bottom: ${({ $isSeleced }) => ($isSeleced ? `2px solid ${colors.black}` : 'none')};
-  color: ${({ $isSeleced }) => ($isSeleced ? `${colors.black}` : `${colors.gray4}`)};
+  border-bottom: ${({ $isSelected }) => ($isSelected ? `2px solid ${colors.black}` : 'none')};
+  color: ${({ $isSelected }) => ($isSelected ? `${colors.black}` : `${colors.gray4}`)};
 `;
