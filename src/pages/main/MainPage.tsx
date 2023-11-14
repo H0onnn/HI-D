@@ -10,7 +10,7 @@ import PopularPostList from '../../components/main/PopularPostList';
 import TabByCategory from '@/components/post/TabByCategory';
 import { colors } from '@/constants/colors';
 import { tabList } from '@/constants/post';
-import PostListByCategary from '@/components/post/PostListByCategary';
+import PostListByCategory from '@/components/post/PostListByCategory';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const MainPage = () => {
         </Title>
         <PopularPostList />
         <TabByCategory selectedTab={selectedTab} tabClickHandler={tabClickHandler} />
-        {PostListByCategary(selectedTab.category)}
+        {PostListByCategory(selectedTab.category)}
       </MainPageLayout>
     </>
   );

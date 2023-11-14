@@ -8,12 +8,12 @@ import { imageStyle } from '@/styles/styles';
 const MainPageHeader = () => {
   return (
     <PageHeaderLayout>
-      <LogoImageWrpper>
+      <LogoImageWrapper>
         <img src={LogoIcon} alt='logo icon' />
-      </LogoImageWrpper>
-      <AlarmImageWrpper>
+      </LogoImageWrapper>
+      <AlarmImageWrapper>
         <img src={AlarmIcon} alt='alarm icon' />
-      </AlarmImageWrpper>
+      </AlarmImageWrapper>
     </PageHeaderLayout>
   );
 };
@@ -35,13 +35,13 @@ const PageHeaderLayout = styled.div`
   border-bottom: 1px solid ${colors.gray1};
 `;
 
-const LogoImageWrpper = styled.div`
+const LogoImageWrapper = styled.div`
   width: 5.8rem;
   height: 3s.6rem;
   ${imageStyle}
 `;
 
-const AlarmImageWrpper = styled.div`
+const AlarmImageWrapper = styled.div`
   width: 2.4rem;
   height: 2.4rem;
   ${imageStyle}
