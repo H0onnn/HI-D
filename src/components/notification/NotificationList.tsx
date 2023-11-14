@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { useNotifications } from '@/store/notificateStore';
 import NotificationItem from './NotificationItem';
+import styled from 'styled-components';
+
 import { NotificationData } from '@/types/notification';
 
 interface NotificationListInterface {
+  notificationsData: NotificationData[];
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NotificationList = ({ isEditing, setIsEditing }: NotificationListInterface) => {
-  const notificationsData = useNotifications();
+const NotificationList = ({
+  notificationsData,
+  isEditing,
+  setIsEditing,
+}: NotificationListInterface) => {
   const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
 
   console.log(notificationsData);
