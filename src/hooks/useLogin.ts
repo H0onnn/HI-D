@@ -6,6 +6,7 @@ import { LINK } from '@/constants/links';
 import toast from 'react-hot-toast';
 import { LoginDataInterface } from '@/types/types';
 import { UserDataInterface } from '@/types/user';
+import { webSocketInstance } from '@/services/websocketInstance';
 
 const useLogin = () => {
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ const useLogin = () => {
       setToken(newToken);
 
       await fetchAndSetUserData();
+
+      webSocketInstance.setToken(newToken);
+      webSocketInstance.connect();
 
       navigate(LINK.MAIN);
       toast.success('로그인 되었습니다.', { id: 'loginSuccess' });
