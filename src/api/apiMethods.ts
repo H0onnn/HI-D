@@ -246,4 +246,11 @@ export const apiMethods = {
       }),
     },
   },
+  notification: {
+    get: {
+      notification: () => ({
+        url: 'notifications',
+      }),
+    },
+  },
 };
