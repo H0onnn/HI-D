@@ -1,45 +1,38 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { FieldValues, UseFormSetValue } from 'react-hook-form';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import DELETE_IMAGE from '@/public/images/posting/delete_image.svg';
-import { PostingDataInterface } from '@/types/posting';
-import { httpClient } from '@/api/httpClient';
-import toast from 'react-hot-toast';
 interface ImagePreviewInterface {
   src: string;
   alt: string;
-  deleteImage: (imageUrl: string) => void;
+  deleteImageHandler: (imageUrl: string) => void;
+  setValue: UseFormSetValue<FieldValues>;
+  currentImageUrls: string[];
 }
 
-const ImagePreview = ({ src, alt, deleteImage }: ImagePreviewInterface) => {
-  const { setValue, getValues } = useFormContext<PostingDataInterface>();
-
-  const deleteImageFromServer = async (imageUrl: string) => {
-    await httpClient.image.delete.delete(imageUrl);
-  };
-
+const ImagePreview = ({
+  src,
+  alt,
+  deleteImageHandler,
+  setValue,
+  currentImageUrls,
+}: ImagePreviewInterface) => {
   const updateLocalImageState = (imageUrl: string) => {
-    deleteImage(imageUrl);
-    const currentImageUrls: string[] = getValues().imageUrls || [];
     const updatedImageUrls = currentImageUrls.filter((url) => url !== imageUrl);
     setValue('imageUrls', updatedImageUrls);
   };
 
-  const deleteImageHandler = async (imageUrl: string) => {
-    try {
-      await deleteImageFromServer(imageUrl);
-      updateLocalImageState(imageUrl);
-    } catch (err: unknown) {
-      console.log(err);
-      toast.error('이미지 삭제에 실패했습니다.', { id: 'imageDeleteFail' });
-    }
+  const deleteHandler = (imageUrl: string) => {
+    updateLocalImageState(imageUrl);
+
+    deleteImageHandler(imageUrl);
   };
 
   return (
     <PreviewImagesContainer>
       <PreviewImages src={src} alt={alt} />
-      <DeleteButton type='button' onClick={() => deleteImageHandler(src)}>
+      <DeleteButton type='button' onClick={() => deleteHandler(src)}>
         <DeleteButtonIcon src={DELETE_IMAGE} alt='delete_image' />
       </DeleteButton>
     </PreviewImagesContainer>

@@ -6,7 +6,7 @@ import HelpContainer from '@/components/post/HelpContainer';
 const HelpPostListPage = () => {
   return (
     <>
-      <PageHeader title='도움이 필요해요' />
+      <PageHeader title='도움이 필요해요' isGoBack />
       <MainPageLayout>
         <HelpContainer />
       </MainPageLayout>

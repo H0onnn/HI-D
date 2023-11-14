@@ -9,9 +9,9 @@ import Button from '../../public/Button';
 import { majorValidation } from '../../../utils/auth/validationRules';
 import { ProfileSetupStepInterface } from '../../../types/types';
 import { ButtonContainer, InputWrapper } from '../../../styles/styles';
-import { applyKeywordToField } from '../../../services/signupService';
+import { applyKeywordToField } from '../../../services/signup';
 
-const SetupMajor = ({ onNext }: ProfileSetupStepInterface) => {
+const SetupMajor = ({ onNext, isEdit }: ProfileSetupStepInterface) => {
   const {
     register,
     errors,
@@ -32,12 +32,14 @@ const SetupMajor = ({ onNext }: ProfileSetupStepInterface) => {
 
   return (
     <>
-      <MainComment style={{ fontSize: '20px' }} comment='학과를 선택해주세요' />
+      {isEdit === false && (
+        <MainComment style={{ fontSize: '20px' }} comment='학과를 선택해주세요' />
+      )}
       <InputWrapper>
         <Input
           type='major'
           status={majorStatus}
-          {...register('major', majorValidation)}
+          {...register('major')}
           errorMessage={
             errors.major && typeof errors.major.message === 'string'
               ? errors.major.message
@@ -57,11 +59,14 @@ const SetupMajor = ({ onNext }: ProfileSetupStepInterface) => {
           />
         )}
       </InputWrapper>
-      <ButtonContainer>
-        <Button $isFullWidth onClick={onNext} disabled={!isNextButtonActive}>
-          다음
-        </Button>
-      </ButtonContainer>
+
+      {isEdit === false && (
+        <ButtonContainer>
+          <Button $isFullWidth onClick={onNext} disabled={!isNextButtonActive}>
+            다음
+          </Button>
+        </ButtonContainer>
+      )}
     </>
   );
 };

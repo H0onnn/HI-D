@@ -1,8 +1,7 @@
 import React from 'react';
-import usePostActionState from '@/hooks/usePostActionState';
+import usePostActionState from '@/hooks/useActionState';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import usePostDetailData from '@/hooks/usePostDetailData';
-import useUser from '@/hooks/useUser';
 import { useParams } from 'react-router-dom';
 import { PageLayout } from '@/styles/styles';
 import PageHeader from '@/components/public/PageHeader';
@@ -12,7 +11,8 @@ import PostBodyText from '@/components/post/postDetails/postContents/PostBodyTex
 import ImageSlider from '@/components/post/postDetails/postContents/ImageSlider';
 import UserInterest from '@/components/post/postDetails/postFooter/UserInterest';
 import CommentList from '@/components/comment/listing/CommentList';
-import ReportModal from '@/components/public/ReportModal';
+import SlideUpModal from '@/components/public/SlideUpModal';
+import SetupReport from '@/components/post/postDetails/postHeader/actions/report/SetupReport';
 
 const PostDetailPage = () => {
   const { id: postIdStr } = useParams<{ id: string }>();
@@ -21,25 +21,25 @@ const PostDetailPage = () => {
   const postStates = usePostActionState();
   const postActionHandlers = usePostActionHandlers();
   const { isReported, toggleReport } = postStates;
-  const { user } = useUser();
 
   if (!postData) return null;
 
   return (
     <>
-      <PageHeader title='게시글' />
+      <PageHeader title='게시글' isGoBack />
       <PageLayout style={{ gap: '1rem' }}>
         <PostAuthorInfo
           profileImageSrc={postData.writer.imageUrl}
           userName={postData.writer.nickname}
-          schoolName={postData.writer.school}
+          schoolName={postData.isAnonymous ? '비공개' : postData.writer.school}
           writerMajor={postData.writer.major}
+          isAnonymous={postData.isAnonymous}
         />
         <PostHeader
           title={postData.title}
-          userId={user?.memberId}
-          writerId={postData.writer.memberId}
           postId={postData.postId}
+          postData={postData}
+          isBookmarked={postData.isBookmarked}
           postStates={postStates}
           postActionHandlers={postActionHandlers}
         />
@@ -50,11 +50,15 @@ const PostDetailPage = () => {
           likeCount={postData.recommendCount}
           commentCount={postData.replyCount}
           viewCount={postData.viewCount}
-          postStates={postStates}
+          isRecommended={postData.isRecommended}
           postActionHandlers={postActionHandlers}
         />
         <CommentList postId={postId} />
-        {isReported && <ReportModal setModalState={toggleReport} />}
+        {isReported && (
+          <SlideUpModal setModalState={toggleReport}>
+            <SetupReport postId={postData.postId} type='POST' />
+          </SlideUpModal>
+        )}
       </PageLayout>
     </>
   );

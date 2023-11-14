@@ -14,7 +14,9 @@ const Checkbox = ({ text, checked, onChange, name, textStyle }: CheckBoxInterfac
   return (
     <StyledLabel htmlFor={text}>
       <StyledInput type='checkbox' id={text} name={name} checked={checked} onChange={onChange} />
-      <StyledP style={textStyle}>{text}</StyledP>
+      <StyledP style={textStyle} checked={checked}>
+        {text}
+      </StyledP>
     </StyledLabel>
   );
 };
@@ -45,8 +47,9 @@ const StyledLabel = styled.label`
   user-select: none;
 `;
 
-const StyledP = styled.p<{ textStyle?: React.CSSProperties }>`
+const StyledP = styled.p<{ textStyle?: React.CSSProperties; checked?: boolean }>`
   margin-left: 0.25rem;
   font-size: 14px;
   font-weight: ${({ textStyle }) => textStyle?.fontWeight || 'normal'};
+  color: ${({ checked }) => (checked ? colors.black : colors.gray3)};
 `;

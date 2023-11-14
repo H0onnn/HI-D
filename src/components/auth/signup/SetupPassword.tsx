@@ -1,5 +1,4 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
 import useSetupInput from '@/hooks/useSetupInput';
 import MainComment from '../../public/MainComment';
 import Input from '../../public/Input';
@@ -9,15 +8,14 @@ import { ProfileSetupStepInterface } from '../../../types/types';
 import { ButtonContainer, InputWrapper } from '../../../styles/styles';
 
 const SetupPassword = ({ onNext }: ProfileSetupStepInterface) => {
-  const { watch } = useFormContext();
-
-  const passwordValue = watch('password');
-
   const {
     register: passwordRegister,
     errors: passwordErrors,
     status: passwordStatus,
+    watch,
   } = useSetupInput('password', passwordValidation);
+
+  const passwordValue = watch('password');
 
   const {
     register: passwordConfirmRegister,
@@ -35,7 +33,7 @@ const SetupPassword = ({ onNext }: ProfileSetupStepInterface) => {
         <Input
           type='password'
           status={passwordStatus}
-          {...passwordRegister('password', passwordValidation)}
+          {...passwordRegister('password')}
           errorMessage={
             passwordErrors.password && typeof passwordErrors.password.message === 'string'
               ? passwordErrors.password.message

@@ -1,5 +1,5 @@
-import useAuthStore from '@/store/authStore';
-import useUser from './useUser';
+import useSetAuthToken from '@/store/authStore';
+import useUser, { QUERY_KEY as userQueryKey } from './useUser';
 import { useNavigate } from 'react-router-dom';
 import { getToken, getUserData } from '@/services/user';
 import { LINK } from '@/constants/links';
@@ -8,35 +8,26 @@ import { LoginDataInterface } from '@/types/types';
 import { UserDataInterface } from '@/types/user';
 
 const useLogin = () => {
-  const setToken = useAuthStore((state) => state.setToken);
-  const { queryClient } = useUser();
   const navigate = useNavigate();
+  const { setToken } = useSetAuthToken();
+  const { queryClient } = useUser();
 
-  const fetchToken = async (data: LoginDataInterface) => {
-    try {
-      const token = await getToken(data);
-      setToken(token);
-    } catch (err: unknown) {
-      console.error('토큰 fetching 에러 : ', err);
-    }
+  const fetchAndSetUserData = async () => {
+    const userData = queryClient.getQueryData<UserDataInterface>([userQueryKey]);
+
+    if (!userData) await getUserData();
   };
 
-  const loginHandler = async (data: LoginDataInterface) => {
+  const loginHandler = async (loginData: LoginDataInterface) => {
     try {
-      await fetchToken(data);
-      const token = useAuthStore.getState().token;
+      const newToken = await getToken(loginData);
+      setToken(newToken);
 
-      if (token) {
-        const userData = queryClient.getQueryData<UserDataInterface>(['currentUser']);
+      await fetchAndSetUserData();
 
-        if (!userData) {
-          await getUserData();
-        }
-
-        navigate(LINK.MAIN);
-        toast.success('로그인 되었습니다.', { id: 'loginSuccess' });
-        return;
-      }
+      navigate(LINK.MAIN);
+      toast.success('로그인 되었습니다.', { id: 'loginSuccess' });
+      return;
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message, { id: 'loginError' });

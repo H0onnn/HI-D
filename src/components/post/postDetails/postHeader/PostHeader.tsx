@@ -1,36 +1,37 @@
 import React from 'react';
-import usePostActionState from '@/hooks/usePostActionState';
+import useActionState from '@/hooks/useActionState';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 import styled from 'styled-components';
 import PostTitle from './PostTitle';
-import PostActions from './actions/PostActions';
+import MoreActions from './actions/author/MoreActions';
+import { PostDetailInterface } from '@/types/post';
 
 interface PostHeaderInterface {
   title: string;
-  postStates: ReturnType<typeof usePostActionState>;
+  postStates: ReturnType<typeof useActionState>;
   postActionHandlers: ReturnType<typeof usePostActionHandlers>;
-  userId?: number;
-  writerId: number;
   postId: number;
+  isBookmarked: boolean;
+  postData: PostDetailInterface;
 }
 
 const PostHeader = ({
   title,
   postStates,
   postActionHandlers,
-  userId,
-  writerId,
   postId,
+  isBookmarked,
+  postData,
 }: PostHeaderInterface) => {
   return (
     <PostHeaderLayout>
       <PostTitle title={title} />
-      <PostActions
-        userId={userId}
-        writerId={writerId}
+      <MoreActions
         postStates={postStates}
         postActionHandlers={postActionHandlers}
         postId={postId}
+        isBookMarked={isBookmarked}
+        postData={postData}
       />
     </PostHeaderLayout>
   );

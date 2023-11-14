@@ -15,6 +15,13 @@ import DeclarePage from '@/pages/admin/declare/DeclarePage';
 import AccountPage from '@/pages/admin/account/AccountPage';
 import DecalrePostPage from '@/pages/admin/declare/DeclarePostPage';
 import DeclareReplyPage from '@/pages/admin/declare/DeclareReplyPage';
+import MyPage from '@/pages/mypage/MyPage';
+import DeleteAccountPage from '@/pages/mypage/DeleteAccountPage';
+import EditProfileInfoPage from '@/pages/mypage/editProfile/EditProfileInfoPage';
+import EditPasswordPage from '@/pages/mypage/editProfile/EditPasswordPage';
+import EditSchoolInfoPage from '@/pages/mypage/editProfile/EditSchoolInfoPage';
+import CSPage from '@/pages/mypage/CSPage';
+import MyCommentsPage from '@/pages/mypage/myPosts/MyCommentsPage';
 
 interface AppRoutesInterface {
   name: string;
@@ -94,6 +101,13 @@ const routes: AppRoutesInterface[] = [
     meta: { hideNavBar: true, hideFloatNav: true },
   },
   {
+    name: 'PostEdit',
+    path: LINK.POST_EDIT,
+    component: PostingPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
     name: 'PostDetail',
     path: LINK.POST_DETAIL,
     component: PostDetailPage,
@@ -122,6 +136,55 @@ const routes: AppRoutesInterface[] = [
     path: LINK.ADMIN_ACCOUNT,
     component: AccountPage,
     meta: { hideFloatNav: true },
+  },
+  {
+    name: 'MyPage',
+    path: LINK.MYPAGE,
+    component: MyPage,
+    isProtected: true,
+    meta: { hideFloatNav: true },
+  },
+  {
+    name: 'DeleteAccount',
+    path: LINK.DELETE_ACCOUNT,
+    component: DeleteAccountPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'EditProfileInfo',
+    path: LINK.EDIT_PROFILE,
+    component: EditProfileInfoPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'EditPassword',
+    path: LINK.EDIT_PASSWORD,
+    component: EditPasswordPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'EditSchoolInfo',
+    path: LINK.EDIT_SCHOOL_INFO,
+    component: EditSchoolInfoPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'CS',
+    path: LINK.CS,
+    component: CSPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'MyComments',
+    path: LINK.MY_COMMENTS,
+    component: MyCommentsPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
   },
 ];
 

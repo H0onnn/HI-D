@@ -10,29 +10,33 @@ import PostContent from './PostContent';
 import AddImages from './AddImages';
 import FreePostCategoryTag from './FreePostCategoryTag';
 import POST_ALERT from '@/public/images/posting/posting_alert.svg';
+import { PostDetailInterface } from '@/types/post';
 interface WritePostInterface {
   major: string | null;
   isHelpPost: boolean;
   isFreePost: boolean;
+  postToEdit?: PostDetailInterface;
 }
 
-const WritePost = ({ major, isHelpPost, isFreePost }: WritePostInterface) => {
+const WritePost = ({ major, isHelpPost, isFreePost, postToEdit }: WritePostInterface) => {
   return (
     <>
       <TitleContainer>
         <MainTitle>게시글을 작성해주세요</MainTitle>
         <AnonymuseContainer>
           <AnonymousText>익명</AnonymousText>
-          <AnonymousToggle />
+          <AnonymousToggle initialAnonymous={postToEdit?.isAnonymous} />
         </AnonymuseContainer>
       </TitleContainer>
-      {isHelpPost && <EditMajorDropBox major={major} />}
+      {isHelpPost && (
+        <EditMajorDropBox major={major} initialMajorCategory={postToEdit?.majorCategory} />
+      )}
       <ContentsContainer>
-        <PostTitle initialTitle='' />
-        <PostContent />
-        <AddImages />
+        <PostTitle initialTitle={postToEdit?.title} />
+        <PostContent initialContent={postToEdit?.content} />
+        <AddImages initialImages={postToEdit?.images} />
       </ContentsContainer>
-      {isFreePost && <FreePostCategoryTag />}
+      {isFreePost && <FreePostCategoryTag initialTag={postToEdit?.tag} />}
       <PostAlertWrapper>
         <PostAlertImg src={POST_ALERT} alt='post_alert' />
       </PostAlertWrapper>

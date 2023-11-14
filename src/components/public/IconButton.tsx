@@ -6,7 +6,7 @@ interface IconButtonProps {
   isActive?: boolean;
   activeIconSrc?: string;
   onClickHandler?: () => void;
-  bookmarkPostHandler?: (postId: number) => Promise<void>;
+  bookmarkPostHandler?: (postId: number) => void;
   alt?: string;
   postId?: number;
 }

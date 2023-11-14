@@ -8,35 +8,39 @@ import { emailValidation } from '../../../utils/auth/validationRules';
 import { ProfileSetupStepInterface } from '../../../types/types';
 import { ButtonContainer, InputWrapper } from '../../../styles/styles';
 
-const SetupEmail = ({ onNext }: ProfileSetupStepInterface) => {
+const SetupEmail = ({ onNext, isEdit }: ProfileSetupStepInterface) => {
   const [codeValue, setCodeValue] = useState<string>('');
 
   const { requestEmail, verifyCode, isVerified } = useEmailConfirm();
+
+  const mailRegister = isEdit ? 'newMail' : 'mail';
 
   const {
     register: emailRegister,
     errors: emailErrors,
     status: emailStatus,
     value: email,
-  } = useSetupInput('mail', emailValidation);
+  } = useSetupInput(mailRegister, emailValidation);
+
+  const mailErrors = isEdit ? emailErrors.newMail : emailErrors.mail;
 
   const codeStatus = codeValue ? 'success' : 'default';
 
   return (
     <>
-      <MainComment
-        style={{ fontSize: '20px' }}
-        comment={`학교계정 이메일을 입력 후\n이메일을 인증해주세요 :)`}
-      />
+      {isEdit === false && (
+        <MainComment
+          style={{ fontSize: '20px' }}
+          comment={`학교계정 이메일을 입력 후\n이메일을 인증해주세요 :)`}
+        />
+      )}
       <InputWrapper style={{ marginBottom: '3rem' }}>
         <Input
           type='email'
           status={emailStatus}
-          {...emailRegister('mail', emailValidation)}
+          {...emailRegister(mailRegister)}
           errorMessage={
-            emailErrors.mail && typeof emailErrors.mail.message === 'string'
-              ? emailErrors.mail.message
-              : undefined
+            mailErrors && typeof mailErrors.message === 'string' ? mailErrors.message : undefined
           }
           placeholder='이메일을 입력해주세요.'
           button
@@ -56,11 +60,14 @@ const SetupEmail = ({ onNext }: ProfileSetupStepInterface) => {
           onButtonClick={() => verifyCode(email, codeValue)}
         />
       </InputWrapper>
-      <ButtonContainer>
-        <Button $isFullWidth onClick={onNext} disabled={emailStatus !== 'success' || !isVerified}>
-          다음
-        </Button>
-      </ButtonContainer>
+
+      {isEdit === false && (
+        <ButtonContainer>
+          <Button $isFullWidth onClick={onNext} disabled={emailStatus !== 'success' || !isVerified}>
+            다음
+          </Button>
+        </ButtonContainer>
+      )}
     </>
   );
 };

@@ -1,21 +1,26 @@
 import React from 'react';
-import { styled, css } from 'styled-components';
+import useSetupInput from '@/hooks/useSetupInput';
 import { MAJORS } from '@/constants/majorCategory';
 import MajorCategoryItem from './MajorCategoryItem';
+import { CommonListLayout } from '@/styles/selectableItem';
 
 export interface MajorCategoryListInterface {
   onMajorSelect: (major: string) => void;
   selectedMajor?: string | null;
   $isEdit?: boolean;
+  register?: ReturnType<typeof useSetupInput>['register'];
+  setValue?: ReturnType<typeof useSetupInput>['setValue'];
 }
 
 const MajorCategoryList = ({
   onMajorSelect,
   selectedMajor,
   $isEdit,
+  register,
+  setValue,
 }: MajorCategoryListInterface) => {
   return (
-    <ListLayout $isEdit={$isEdit}>
+    <CommonListLayout $isEdit={$isEdit}>
       {MAJORS.map((major, index, array) => (
         <MajorCategoryItem
           key={major}
@@ -25,24 +30,12 @@ const MajorCategoryList = ({
           $isEdit={$isEdit}
           $first={index === 0}
           $last={index === array.length - 1}
+          register={register}
+          setValue={setValue}
         />
       ))}
-    </ListLayout>
+    </CommonListLayout>
   );
 };
 
 export default MajorCategoryList;
-
-const ListLayout = styled.div<{ $isEdit?: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 1rem;
-
-  ${({ $isEdit }) =>
-    $isEdit &&
-    css`
-      gap: 0;
-    `}
-`;

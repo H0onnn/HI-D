@@ -1,6 +1,13 @@
 import { httpClient } from '@/api/httpClient';
 import { LoginDataInterface } from '@/types/types';
-import { UserDataInterface } from '@/types/user';
+import {
+  DeleteUserInterface,
+  EditUserInterface,
+  UserDataInterface,
+  EditPasswordInterface,
+  EditSchoolInterface,
+  EditMajorInterface,
+} from '@/types/user';
 
 export const getToken = async (data: LoginDataInterface) => {
   const response = await httpClient.members.post.login(data);
@@ -9,10 +16,37 @@ export const getToken = async (data: LoginDataInterface) => {
   return token;
 };
 
+export const postLogout = async () => {
+  await httpClient.members.post.logout();
+};
+
 export const getUserData = async (): Promise<UserDataInterface> => {
   const response = await httpClient.members.get.myData();
   const userData: UserDataInterface = response.data;
   console.log('유저 데이터 : ', userData);
 
   return userData;
+};
+
+export const patchUserInfo = async (data: EditUserInterface): Promise<EditUserInterface> => {
+  const response = await httpClient.members.patch.myInfo(data);
+  const updatedUserInfo: EditUserInterface = response.data;
+
+  return updatedUserInfo;
+};
+
+export const patchPassword = async (data: EditPasswordInterface): Promise<void> => {
+  await httpClient.members.patch.password(data);
+};
+
+export const patchSchool = async (data: EditSchoolInterface): Promise<void> => {
+  await httpClient.members.patch.school(data);
+};
+
+export const patchMajor = async (data: EditMajorInterface): Promise<void> => {
+  await httpClient.members.patch.major(data);
+};
+
+export const deleteUser = async (data: DeleteUserInterface): Promise<void> => {
+  await httpClient.members.delete.member(data);
 };

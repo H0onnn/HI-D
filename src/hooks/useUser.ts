@@ -1,30 +1,30 @@
-import useAuthStore from '@/store/authStore';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useAuthToken } from '@/store/authStore';
 import { useQuery, useQueryClient, QueryClient } from '@tanstack/react-query';
 import { getUserData } from '@/services/user';
 import { UserDataInterface } from '@/types/user';
+import { LINK } from '@/constants/links';
+
+export const QUERY_KEY = 'currentUser';
 
 const useUser = () => {
   const queryClient: QueryClient = useQueryClient();
-  const token = useAuthStore((state) => state.token);
+  const token = useAuthToken();
+  const location = useLocation();
 
-  const { data: user } = useQuery<UserDataInterface, Error>({
-    queryKey: ['currnetUser'],
+  const { data: user, refetch } = useQuery<UserDataInterface>({
+    queryKey: [QUERY_KEY],
     queryFn: getUserData,
     enabled: !!token,
     staleTime: 1000 * 60 * 60, // 1시간
   });
 
-  // 유저 데이터 업데이트하기
-  //   const mutation = useMutation(updateUser, {
-  //     onSuccess: () => {
-  // 데이터가 성공적으로 업데이트되면, 캐시를 무효화하여 다시 가져옵니다.
-  //       queryClient.invalidateQueries('user');
-  //     },
-  //   });
-
-  // const setUser = (userData) => {
-  //   mutation.mutate(userData);
-  // };
+  useEffect(() => {
+    if (location.pathname === LINK.MYPAGE) {
+      refetch();
+    }
+  }, [location.pathname, refetch]);
 
   return { queryClient, user };
 };
