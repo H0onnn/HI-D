@@ -11,6 +11,7 @@ import { Contents, Footer, Header, Layout, LayoutWrapper, TimeBox, Title } from 
 import PostButtonBox from './postItem/PostButtonBox';
 
 const FreePost = ({
+  post,
   post: {
     postId,
     writer,
@@ -21,6 +22,7 @@ const FreePost = ({
     replyCount,
     createAt,
     thumbnailImages = [],
+    isBookmarked = true,
   },
   keyword,
 }: PostProps) => {
@@ -35,7 +37,7 @@ const FreePost = ({
 
   return (
     <LayoutWrapper>
-      {isMyPage && <PostButtonBox />}
+      {isMyPage && <PostButtonBox postId={postId} isBookMarked={isBookmarked} postData={post} />}
       <Layout onClick={postClickHandler}>
         <Header>
           <ProfileBox writer={writer?.nickname} profileImage={writer?.imageUrl} />
