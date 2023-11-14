@@ -81,12 +81,13 @@ export interface PostContainerProps {
   keyword?: string;
   errorMessage?: string;
 }
-export interface PostListProps {
-  postList: PostInterface[];
-  pageStatus?: PageStatusInterface;
-  nextPageHandler: () => void;
+export interface HelpPostListProps {
   keyword?: string;
-  errorMessage?: string;
+  major?: string;
+}
+export interface FreePostListProps {
+  keyword?: string;
+  tag?: string;
 }
 export interface PostProps {
   post: PostInterface;

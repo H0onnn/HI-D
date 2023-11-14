@@ -1,16 +1,16 @@
 import React from 'react';
-import { PostInterface } from '../../types/post';
 import styled from 'styled-components';
 import NewPost from './NewPost';
 import { colors } from '@/constants/colors';
+import useMainPosts from '@/hooks/useMainPosts';
 
-const NewPostList = ({ postList }: { postList: PostInterface[] }) => {
+const NewPostList = () => {
+  const { dailyHotPosts } = useMainPosts();
+
   return (
     <Layout>
       <PostListLayout>
-        {postList.map((post) => (
-          <NewPost post={post} key={post.postId} />
-        ))}
+        {dailyHotPosts?.map((post) => <NewPost post={post} key={post.postId} />)}
       </PostListLayout>
     </Layout>
   );

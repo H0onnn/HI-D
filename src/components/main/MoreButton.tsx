@@ -7,8 +7,7 @@ import { imageStyle } from '@/styles/styles';
 const MoreButton = ({ onClick }: { onClick: () => void }) => {
   return (
     <Button onClick={onClick}>
-      <span>최신글 </span>
-      더보기
+      <span>최신글&nbsp;</span>더보기
       <ImageWrapper>
         <img src={ArrowIcon} />
       </ImageWrapper>
