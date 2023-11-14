@@ -4,27 +4,32 @@ import { truncateContent } from '../../utils/post';
 import DeleteIcon from '../../public/images/ui/delete_icon.svg';
 import { colors } from '@/constants/colors';
 import { scrollNone } from '@/styles/styles';
+import usePostSearchStore from '@/store/postSearchStore';
 
-type Props = {
-  searchHistory: string[];
-  deleteHistory: (keyword: string) => void;
-  deleteAllHistory: () => void;
-  searchByHistoryKeyword: (keyword: string) => void;
-};
-const SearchHistory = ({
-  searchHistory,
-  deleteAllHistory,
-  deleteHistory,
-  searchByHistoryKeyword,
-}: Props) => {
+const SearchHistory = () => {
+  const {
+    keywordHistory,
+    deleteKeywordHistory,
+    deleteKeywordHistoryAll,
+    setKeyword,
+    setKeywordHistory,
+    setShowKeywordHistory,
+  } = usePostSearchStore();
+
+  const searchByHistoryKeyword = (keyword: string) => {
+    setKeyword(keyword);
+    setKeywordHistory(keyword);
+    setShowKeywordHistory(false);
+  };
+
   return (
     <Layout>
       <Title>
         <p>최근검색어</p>
-        <div onClick={deleteAllHistory}>전체삭제</div>
+        <div onClick={deleteKeywordHistoryAll}>전체삭제</div>
       </Title>
       <SearchHistoryContainer>
-        {searchHistory.map((keyword, index) => (
+        {keywordHistory.map((keyword, index) => (
           <SearchHistoryItem key={index}>
             <KeywordText onClick={() => searchByHistoryKeyword(keyword)}>
               {truncateContent(keyword, 6)}
@@ -32,7 +37,7 @@ const SearchHistory = ({
             <IconWrapper
               onClick={(e) => {
                 e.preventDefault();
-                deleteHistory(keyword);
+                deleteKeywordHistory(keyword);
               }}
             >
               <img src={DeleteIcon} alt='delete_icon' />

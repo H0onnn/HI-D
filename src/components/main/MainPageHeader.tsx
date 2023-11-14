@@ -12,12 +12,12 @@ const MainPageHeader = () => {
 
   return (
     <PageHeaderLayout>
-      <LogoImageWrpper onClick={() => navigate(LINK.MAIN)}>
+      <LogoImageWrapper onClick={() => navigate(LINK.MAIN)}>
         <img src={LogoIcon} alt='logo icon' />
-      </LogoImageWrpper>
-      <AlarmImageWrpper onClick={() => navigate(LINK.NOTIFICATION)}>
+      </LogoImageWrapper>
+      <AlarmImageWrapper onClick={() => navigate(LINK.NOTIFICATION)}>
         <img src={AlarmIcon} alt='alarm icon' />
-      </AlarmImageWrpper>
+      </AlarmImageWrapper>
     </PageHeaderLayout>
   );
 };
@@ -39,13 +39,13 @@ const PageHeaderLayout = styled.div`
   border-bottom: 1px solid ${colors.gray1};
 `;
 
-const LogoImageWrpper = styled.div`
+const LogoImageWrapper = styled.div`
   width: 5.8rem;
   height: 3s.6rem;
   ${imageStyle}
 `;
 
-const AlarmImageWrpper = styled.div`
+const AlarmImageWrapper = styled.div`
   width: 2.4rem;
   height: 2.4rem;
   ${imageStyle}

@@ -36,6 +36,9 @@ const Layout = styled.div`
 const ImageWrapper = styled.div`
   width: 12rem;
   ${imageStyle}
+  > img {
+    object-fit: none;
+  }
 `;
 const Text = styled.div`
   color: ${colors.gray6};

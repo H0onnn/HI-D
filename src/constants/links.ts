@@ -26,4 +26,9 @@ export const LINK = {
   SEARCH: '/search',
   ALERT: '/alert',
   NOTIFICATION: '/notification',
+  ADMIN_DECLARE: '/admin/declare',
+  ADMIN_DECLARE_POST: '/admin/declare/post/:postId',
+  ADMIN_DECLARE_REPLY: '/admin/declare/reply/:replyId',
+  ADMIN_ACCOUNT: '/admin/account',
+  ADMIN_LOGOUT: '/admin/logout',
 } as const;

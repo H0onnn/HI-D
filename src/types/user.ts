@@ -4,7 +4,7 @@ export interface UserDataInterface {
   nickname: string;
   school: string;
   major: string;
-  roles: string;
+  roles: string[];
   imageUrl: string;
   createAt: string;
   updateAt: string;
