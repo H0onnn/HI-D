@@ -6,8 +6,9 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { LINK } from '@/constants/links';
 import { ReportDetailPostInterface } from '@/types/admin';
 import { MODAL_TYPES } from '@/types/modal';
-import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import useModalStore from '@/store/modalStore';
+import { postDelete } from '@/services/postActions';
+import toast from 'react-hot-toast';
 
 const DeclarePost = () => {
   const navigate = useNavigate();
@@ -15,30 +16,30 @@ const DeclarePost = () => {
   const postContent = searchParams.get('postContent');
   const { postId } = useParams();
   const [dataList, setDataList] = useState<ReportDetailPostInterface[]>([]);
-  const { lockScroll } = useBodyScrollLock();
   const { openModal, closeModal } = useModalStore();
 
-  const deleteReportPostHandler = () => {
+  const deletePostHandler = async (postId: number) => {
     closeModal();
-    // const resposne = await deleteReportPost();
-    // if (resposne) {
-    //   // TODO: toast alert
-    // } else {
-    //   // TODO: toast alert
-    // }
+    try {
+      await postDelete(postId);
+      // navigate(LINK.);
+      toast.success('게시글이 삭제되었어요.', { id: 'postDeleteSuccess' });
+    } catch (err: unknown) {
+      console.error('게시글 삭제 오류 : ', err);
+      toast.error('게시글 삭제 중 오류가 발생했어요.', { id: 'postDeleteFail' });
+    }
   };
 
-  const deleteModalHandler = () => {
+  const deleteModalHandler = (postId: number) => {
     openModal({
       modalType: MODAL_TYPES.ALERT,
       modalProps: {
         title: `해당 게시물을 삭제하시겠습니까?`,
         content: '삭제하면 해당 글이 사라지며 복구할 수 없어요',
         confirmText: '삭제',
-        onConfirmHandler: deleteReportPostHandler,
+        onConfirmHandler: () => deletePostHandler(postId),
       },
     });
-    lockScroll();
   };
 
   const movePostPageHandler = () => {
@@ -77,7 +78,7 @@ const DeclarePost = () => {
           />
         ))}
       </ListWrapper>
-      <DeleteButton onClick={deleteModalHandler}>글 삭제하기</DeleteButton>
+      <DeleteButton onClick={() => deleteModalHandler(Number(postId))}>글 삭제하기</DeleteButton>
     </Layout>
   );
 };

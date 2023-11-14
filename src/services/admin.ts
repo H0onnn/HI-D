@@ -111,12 +111,20 @@ export const deleteReportDetail = async ({
   reportId: number;
   id: number;
   category: 'post' | 'reply';
-}): Promise<void> => {
+}): Promise<boolean> => {
   try {
     if (category === 'post') {
-      await httpClient.report.delete.post({ reportId, id });
+      const response = await httpClient.report.delete.post({ reportId, id });
+      if (response.status === 204) {
+        return true;
+      }
+      return false;
     } else {
-      await httpClient.report.delete.reply({ reportId, id });
+      const response = await httpClient.report.delete.reply({ reportId, id });
+      if (response.status === 204) {
+        return true;
+      }
+      return false;
     }
   } catch (e) {
     throw new Error();
@@ -131,7 +139,7 @@ export const getAccountList = async ({
   direction = 'DESC',
 }: Partial<RequestAccountListInterface>): Promise<AccountListInterface> => {
   try {
-    const response = await httpClient.account.get.userList({
+    const response = await httpClient.account.get.accountList({
       keyword,
       page,
       size,

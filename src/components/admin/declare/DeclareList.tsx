@@ -1,6 +1,6 @@
 import useObserver from '@/hooks/useObserver';
 import React, { useEffect, useState } from 'react';
-import DecalreItem from './DeclareItem';
+import DeclareItem from './DeclareItem';
 import { DeclareTabInterface, PageStatusInterface, ReportInterface } from '@/types/admin';
 import { getReportList } from '@/services/admin';
 import styled from 'styled-components';
@@ -38,20 +38,20 @@ const DeclareList = ({ tab }: { tab: DeclareTabInterface }) => {
   }, [page]);
 
   return (
-    <ListWrpper>
+    <ListWrapper>
       {/* {loading && <LoadingContent />} */}
       {/* {!loading && error && <ErrorContent />} */}
       {dataList.map((data) => (
-        <DecalreItem key={data.postId} {...data} {...tab} />
+        <DeclareItem key={data.postId} {...data} {...tab} />
       ))}
       <div ref={infinityRef} style={{ height: '1px' }}></div>
-    </ListWrpper>
+    </ListWrapper>
   );
 };
 
 export default DeclareList;
 
-const ListWrpper = styled.div`
+const ListWrapper = styled.div`
   padding: 2rem 0;
   display: flex;
   flex-direction: column;

@@ -6,8 +6,10 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { LINK } from '@/constants/links';
 import { ReportDetailReplyInterface } from '@/types/admin';
 import useModalStore from '@/store/modalStore';
-import useBodyScrollLock from '@/hooks/useBodyScrollLock';
+// import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import { MODAL_TYPES } from '@/types/modal';
+import { deleteComment } from '@/services/comments';
+import toast from 'react-hot-toast';
 
 const DeclareReply = () => {
   const navigate = useNavigate();
@@ -17,30 +19,30 @@ const DeclareReply = () => {
   const postId = searchParams.get('postId');
   const { replyId } = useParams();
   const [dataList, setDataList] = useState<ReportDetailReplyInterface[]>([]);
-  const { lockScroll } = useBodyScrollLock();
   const { openModal, closeModal } = useModalStore();
 
-  const deleteReportReplyHandler = async () => {
+  const deleteReplyHandler = async (reportId: number) => {
     closeModal();
-    const resposne = await deleteReportReply();
-    if (resposne) {
-      // TODO: toast alert
-    } else {
-      // TODO: toast alert
+    try {
+      await deleteComment(reportId);
+      // navigate(LINK.);
+      toast.success('게시글이 삭제되었어요.', { id: 'postDeleteSuccess' });
+    } catch (err: unknown) {
+      console.error('게시글 삭제 오류 : ', err);
+      toast.error('게시글 삭제 중 오류가 발생했어요.', { id: 'postDeleteFail' });
     }
   };
 
-  const deleteModalHandler = () => {
+  const deleteModalHandler = (replyId: number) => {
     openModal({
       modalType: MODAL_TYPES.ALERT,
       modalProps: {
         title: `해당 댓글을 삭제하시겠습니까?`,
         content: '삭제하면 해당 댓글이 사라지며 복구할 수 없어요',
         confirmText: '삭제',
-        onConfirmHandler: deleteReportReplyHandler,
+        onConfirmHandler: () => deleteReplyHandler(replyId),
       },
     });
-    lockScroll();
   };
 
   const movePostPageHandler = () => {
@@ -81,7 +83,7 @@ const DeclareReply = () => {
           />
         ))}
       </ListWrapper>
-      <DeleteButton onClick={deleteModalHandler}>댓글 삭제하기</DeleteButton>
+      <DeleteButton onClick={() => deleteModalHandler(Number(replyId))}>댓글 삭제하기</DeleteButton>
     </Layout>
   );
 };

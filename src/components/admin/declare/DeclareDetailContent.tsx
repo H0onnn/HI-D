@@ -16,8 +16,8 @@ const DeclareDetailContent = ({ reporter, type, content, id, reportId, category 
 
   const deleteReportDetailHandler = async () => {
     closeModal();
-    const resposne = await deleteReportDetail({ id, reportId, category });
-    if (resposne) {
+    const response = await deleteReportDetail({ id, reportId, category });
+    if (response) {
       // TODO: toast alert
     } else {
       // TODO: toast alert
@@ -56,14 +56,14 @@ const DeclareDetailContent = ({ reporter, type, content, id, reportId, category 
         </ToggleButton>
       </SimpleContents>
       <DetailContents $open={open}>
-        <TypeWrpper>
+        <TypeWrapper>
           <Title>신고유형</Title>
           <Content>{type}</Content>
-        </TypeWrpper>
-        <ContentWapper>
+        </TypeWrapper>
+        <ContentWrapper>
           <Title>상세내용</Title>
           <Content>{content}</Content>
-        </ContentWapper>
+        </ContentWrapper>
         <DeleteButton onClick={deleteModalHandler} disabled={!open}>
           삭제하기
         </DeleteButton>
@@ -111,11 +111,11 @@ const SimpleContents = styled.div`
   position: relative;
   padding: 1rem 1.5rem 0 1.5rem;
 `;
-const TypeWrpper = styled.div`
+const TypeWrapper = styled.div`
   display: flex;
   padding-bottom: 2.5rem;
 `;
-const ContentWapper = styled.div`
+const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;

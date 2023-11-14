@@ -7,7 +7,7 @@ import { LINK } from '@/constants/links';
 import { DeclareTabInterface, ReportInterface } from '@/types/admin';
 import { colors } from '@/constants/colors';
 
-const DecalreItem = ({
+const DeclareItem = ({
   postId,
   replyId = 0,
   content,
@@ -40,7 +40,7 @@ const DecalreItem = ({
   );
 };
 
-export default DecalreItem;
+export default DeclareItem;
 
 const Layout = styled.div`
   padding: 1.4rem 1.6rem;

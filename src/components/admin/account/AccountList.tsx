@@ -1,58 +1,37 @@
-import useObserver from '@/hooks/useObserver';
-import React, { useEffect, useState } from 'react';
-import { AccountInterface, PageStatusInterface } from '@/types/admin';
+import React from 'react';
 import styled from 'styled-components';
 import AccountItem from './AccountItem';
-// import { getAccountList } from '@/services/admin';
+import useAccountList from '@/hooks/useAccountList';
+import ErrorContent from '@/components/public/ErrorContent';
 // import LoadingContent from '@/components/public/LoadingContent';
-// import ErrorContent from '@/components/public/ErrorContent';
 
 const AccountList = ({ keyword }: { keyword: string }) => {
-  const infinityRef = useObserver(() => nextPageHandler());
-  const [dataList, setDataList] = useState<AccountInterface[]>([]);
-  const [{ page, hasNext }, setPage] = useState<PageStatusInterface>({ page: 1, hasNext: true });
-  //   const [loading, setLoading] = useState<boolean>(false);
-  //   const [error, setError] = useState<boolean>(false);
+  const { data, infinityRef } = useAccountList({ keyword });
 
-  const nextPageHandler = () => {
-    if (!hasNext || page === 0) return;
-    setPage((prev) => ({ ...prev, page: prev.page + 1 }));
-  };
-
-  const fetchData = async () => {
-    if (!hasNext || page === 0) return;
-    // setLoading(true);
-    // const response = await getAccountList({ page, keyword });0
-    // if (response) {
-    //   setDataList((prev) => [...prev, ...response.dataList]);
-    await setDataList([]);
-    //   setPage((prev) => ({ ...prev, hasNext: response.hasNext }));
-    // } else {
-    //   setPage({ page: 0, hasNext: false });
-    //   //   setError(true);
-    // }
-    // // setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [page, keyword]);
+  if (!data || data.pages[0].dataList.length === 0) {
+    return <ErrorContent />;
+  }
 
   return (
-    <ListWrpper>
+    <ListWrapper>
       {/* {loading && <LoadingContent />} */}
-      {/* {!loading && error && <ErrorContent />} */}
-      {dataList.map((data) => (
-        <AccountItem key={data.memberId} {...data} />
-      ))}
-      <div ref={infinityRef} style={{ height: '1px' }}></div>
-    </ListWrpper>
+      {data?.pages.map((page, pageIndex, pageArray) =>
+        page.dataList.map((data, dataIndex, dataArray) => {
+          const isLastData =
+            pageIndex === pageArray.length - 1 && dataIndex === dataArray.length - 1;
+          return (
+            <AccountItem key={data.memberId} ref={isLastData ? infinityRef : null} {...data} />
+          );
+        }),
+      )}
+      {/* <div ref={infinityRef} style={{ height: '1px' }}></div> */}
+    </ListWrapper>
   );
 };
 
 export default AccountList;
 
-const ListWrpper = styled.div`
+const ListWrapper = styled.div`
   padding: 2rem 0;
   display: flex;
   flex-direction: column;

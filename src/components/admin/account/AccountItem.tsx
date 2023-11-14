@@ -16,15 +16,16 @@ const AccountItem = ({
   imageUrl,
   createAt,
   locked,
-}: AccountInterface) => {
+  ref,
+}: AccountInterface & React.RefAttributes<HTMLDivElement>) => {
   const { lockScroll } = useBodyScrollLock();
   const { openModal, closeModal } = useModalStore();
 
   const lockAccountHandler = async () => {
     closeModal();
-    const resposne = await lockAccount(memberId);
+    const response = await lockAccount(memberId);
     // 분기 나누기
-    if (resposne) {
+    if (response) {
       // TODO: toast alert
     } else {
       // TODO: toast alert
@@ -58,8 +59,8 @@ const AccountItem = ({
 
   const deleteAccountHandler = async () => {
     closeModal();
-    const resposne = await deleteAccount(memberId);
-    if (resposne) {
+    const response = await deleteAccount(memberId);
+    if (response) {
       // TODO: toast alert
     } else {
       // TODO: toast alert
@@ -80,7 +81,7 @@ const AccountItem = ({
   };
 
   return (
-    <Layout>
+    <Layout ref={ref}>
       <Header>
         <ProfileBox writer={nickname} profileImage={imageUrl} />
         {locked && <LockText>영구정지</LockText>}
