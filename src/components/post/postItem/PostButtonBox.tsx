@@ -5,14 +5,21 @@ import { useLocation } from 'react-router-dom';
 import IconButton from '@/components/public/IconButton';
 import BOOKMARK_NONE from '@/public/images/ui/bookmark_none.svg';
 import BOOKMARK_ACTIVE from '@/public/images/ui/bookmark_active.svg';
+import usePostActionHandlers from '@/hooks/usePostActionHandlers';
+import { PostingDataInterface } from '@/types/posting';
 
-const PostButtonBox = () => {
+const PostButtonBox = ({
+  postId,
+  isBookMarked,
+  postData,
+}: {
+  postId: number;
+  isBookMarked: boolean;
+  postData: PostingDataInterface;
+}) => {
   const location = useLocation();
   const isMyBookmark = location.pathname.includes('/bookmark');
-  const isBookMarked = false;
-  const toggleBookmarkHandler = () => {};
-  const movePostUpdatePage = () => {};
-  const deletePostButtonHandler = () => {};
+  const { bookmarkPost, editPost, deletePostHandler } = usePostActionHandlers();
 
   return (
     <ButtonContainer>
@@ -22,14 +29,15 @@ const PostButtonBox = () => {
             iconSrc={BOOKMARK_NONE}
             activeIconSrc={BOOKMARK_ACTIVE}
             isActive={isBookMarked}
-            onClickHandler={toggleBookmarkHandler}
+            bookmarkPostHandler={bookmarkPost}
             alt='bookmark_icon'
+            postId={postId}
           />
         </ButtonWrapper>
       ) : (
         <>
-          <PatchButton onClick={movePostUpdatePage}>수정</PatchButton>
-          <DeleteButton onClick={deletePostButtonHandler}>삭제</DeleteButton>
+          <PatchButton onClick={() => editPost(postData, postId)}>수정</PatchButton>
+          <DeleteButton onClick={() => deletePostHandler(postId)}>삭제</DeleteButton>
         </>
       )}
     </ButtonContainer>

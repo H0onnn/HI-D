@@ -52,6 +52,8 @@ export interface PostInterface {
   majorCategory?: string;
   createAt: string;
   updateAt?: string;
+  isBookmarked?: boolean;
+  tag?: string;
 }
 
 export type ReplyList = {
