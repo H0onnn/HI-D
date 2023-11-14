@@ -251,6 +251,13 @@ export const apiMethods = {
       }),
     },
   },
+  notification: {
+    get: {
+      notification: () => ({
+        url: 'notifications',
+      }),
+    },
+  },
   report: {
     get: {
       postList: ({ page, size, sortBy, direction }: Partial<RequestReportListInterface>) => ({

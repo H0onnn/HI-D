@@ -22,6 +22,7 @@ import EditPasswordPage from '@/pages/mypage/editProfile/EditPasswordPage';
 import EditSchoolInfoPage from '@/pages/mypage/editProfile/EditSchoolInfoPage';
 import CSPage from '@/pages/mypage/CSPage';
 import MyCommentsPage from '@/pages/mypage/myPosts/MyCommentsPage';
+import NotificationPage from '@/pages/notification/NotificationPage';
 
 interface AppRoutesInterface {
   name: string;
@@ -183,6 +184,13 @@ const routes: AppRoutesInterface[] = [
     name: 'MyComments',
     path: LINK.MY_COMMENTS,
     component: MyCommentsPage,
+    isProtected: true,
+    meta: { hideNavBar: true, hideFloatNav: true },
+  },
+  {
+    name: 'Notification',
+    path: LINK.NOTIFICATION,
+    component: NotificationPage,
     isProtected: true,
     meta: { hideNavBar: true, hideFloatNav: true },
   },

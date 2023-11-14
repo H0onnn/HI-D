@@ -25,6 +25,7 @@ export const LINK = {
   POST_EDIT: '/post/edit/:id',
   SEARCH: '/search',
   ALERT: '/alert',
+  NOTIFICATION: '/notification',
   ADMIN_DECLARE: '/admin/declare',
   ADMIN_DECLARE_POST: '/admin/declare/post/:postId',
   ADMIN_DECLARE_REPLY: '/admin/declare/reply/:replyId',

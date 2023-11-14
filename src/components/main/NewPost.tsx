@@ -10,7 +10,6 @@ import { Footer } from '@/styles/post';
 
 const NewPost = ({
   post: { postId, title, createAt, majorCategory = 'ETC' },
-
 }: {
   post: PostInterface;
 }) => {
