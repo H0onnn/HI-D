@@ -13,7 +13,7 @@ const FloatingNav = () => {
   const { lockScroll, openScroll } = useBodyScrollLock();
   const { openModal, modalOpen, closeModal } = useModalStore();
 
-  const openModalHanlder = () => {
+  const openModalHandler = () => {
     openModal({ modalType: MODAL_TYPES.FLOAT });
     lockScroll();
   };
@@ -25,7 +25,7 @@ const FloatingNav = () => {
   return (
     <ModalFloat>
       <FloatingMenu>
-        <FloatingItem onClick={modalOpen ? closeModalHandler : openModalHanlder}>
+        <FloatingItem onClick={modalOpen ? closeModalHandler : openModalHandler}>
           <ModalIcon>
             <img
               src={modalOpen ? CloseIcon : OpenIcon}
