@@ -6,11 +6,13 @@ import { NAV_ITEMS, NAV_ITEMS_ADMIN } from '@/constants/bottomNavItem';
 import useModalStore from '@/store/modalStore';
 import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import { MODAL_TYPES } from '@/types/modal';
+import useUserStore from '@/store/userStore';
 
 const BottomNavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const isAdmin = location.pathname.includes('/admin'); // todo: check if user is admin
+  const { user } = useUserStore();
+  const isAdmin = user?.roles.includes('ROLE_MANAGER') ?? false;
   const navItems = isAdmin ? NAV_ITEMS_ADMIN : NAV_ITEMS;
   const { lockScroll } = useBodyScrollLock();
   const { openModal, closeModal } = useModalStore();
