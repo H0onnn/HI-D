@@ -5,7 +5,7 @@ import SearchBar from '../../components/search/SearchBar';
 import TabByCategory from '@/components/post/TabByCategory';
 import { TabInterface } from '@/types/post';
 import PageHeader from '@/components/public/PageHeader';
-import PostListByCategary from '@/components/post/PostListByCategary';
+import PostListByCategory from '@/components/post/PostListByCategory';
 import { tabList } from '@/constants/post';
 
 const SearchPage = () => {
@@ -65,7 +65,7 @@ const SearchPage = () => {
         {!showSearchHistory && (
           <>
             <TabByCategory selectedTab={selectedTab} tabClickHandler={tabClickHandler} />
-            {PostListByCategary(selectedTab.category, keyword)}
+            {PostListByCategory(selectedTab.category, keyword)}
           </>
         )}
       </MainPageLayout>
