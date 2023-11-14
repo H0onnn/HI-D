@@ -25,7 +25,7 @@ const DeclareReply = () => {
     closeModal();
     try {
       await deleteComment(reportId);
-      // navigate(LINK.);
+      navigate(LINK.ADMIN_DECLARE_REPLY);
       toast.success('게시글이 삭제되었어요.', { id: 'postDeleteSuccess' });
     } catch (err: unknown) {
       console.error('게시글 삭제 오류 : ', err);

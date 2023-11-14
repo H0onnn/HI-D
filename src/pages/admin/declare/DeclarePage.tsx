@@ -1,6 +1,6 @@
 import DeclareList from '@/components/admin/declare/DeclareList';
 import MainPageHeader from '@/components/main/MainPageHeader';
-import { decalreTab } from '@/constants/admin';
+import { declareTab } from '@/constants/admin';
 import { colors } from '@/constants/colors';
 import { AdminPageLayout } from '@/styles/admin';
 import { DeclareTabInterface } from '@/types/admin';
@@ -8,17 +8,17 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const DeclarePage = () => {
-  const [tab, setTab] = useState<DeclareTabInterface>(decalreTab[0]);
+  const [tab, setTab] = useState<DeclareTabInterface>(declareTab[0]);
 
   return (
     <>
       <MainPageHeader />
       <AdminPageLayout>
         <TabLayout>
-          <Button onClick={() => setTab(decalreTab[0])} $active={tab.id === 0}>
+          <Button onClick={() => setTab(declareTab[0])} $active={tab.id === 0}>
             글 관리
           </Button>
-          <Button onClick={() => setTab(decalreTab[1])} $active={tab.id === 1}>
+          <Button onClick={() => setTab(declareTab[1])} $active={tab.id === 1}>
             댓글 관리
           </Button>
         </TabLayout>

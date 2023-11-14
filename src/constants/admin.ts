@@ -1,6 +1,6 @@
 import { DeclareTabInterface } from '@/types/admin';
 
-export const decalreTab: DeclareTabInterface[] = [
+export const declareTab: DeclareTabInterface[] = [
   {
     id: 0,
     title: '글 관리',

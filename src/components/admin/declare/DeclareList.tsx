@@ -1,50 +1,26 @@
 import useObserver from '@/hooks/useObserver';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import DeclareItem from './DeclareItem';
-import { DeclareTabInterface, PageStatusInterface, ReportInterface } from '@/types/admin';
-import { getReportList } from '@/services/admin';
+import { DeclareTabInterface } from '@/types/admin';
 import styled from 'styled-components';
-// import LoadingContent from '@/components/public/LoadingContent';
-// import ErrorContent from '@/components/public/ErrorContent';
+import LoadingContent from '@/components/public/LoadingContent';
+import useDeclares from '@/hooks/useDeclares';
+import ErrorContent from '@/components/public/ErrorContent';
 
 const DeclareList = ({ tab }: { tab: DeclareTabInterface }) => {
-  const infinityRef = useObserver(() => nextPageHandler());
-  const [dataList, setDataList] = useState<ReportInterface[]>([]);
-  const [{ page, hasNext }, setPage] = useState<PageStatusInterface>({ page: 1, hasNext: true });
-  //   const [loading, setLoading] = useState<boolean>(false);
-  //   const [error, setError] = useState<boolean>(false);
+  const { data, moreDataHandler, isFetching } = useDeclares({ category: tab.code });
+  const loadMoreRef = useObserver(() => moreDataHandler());
 
-  const nextPageHandler = () => {
-    if (!hasNext || page === 0) return;
-    setPage((prev) => ({ ...prev, page: prev.page + 1 }));
-  };
-
-  const fetchData = async () => {
-    if (!hasNext || page === 0) return;
-    // setLoading(true);
-    const response = await getReportList({ page, category: tab.code });
-    if (response) {
-      setDataList((prev) => [...prev, ...response.dataList]);
-      setPage((prev) => ({ ...prev, hasNext: response.hasNext }));
-    } else {
-      setPage({ page: 0, hasNext: false });
-      //   setError(true);
-    }
-    // setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [page]);
+  if (!data || data.pages[0].dataList.length === 0) {
+    return <ErrorContent />;
+  }
 
   return (
     <ListWrapper>
-      {/* {loading && <LoadingContent />} */}
-      {/* {!loading && error && <ErrorContent />} */}
-      {dataList.map((data) => (
-        <DeclareItem key={data.postId} {...data} {...tab} />
-      ))}
-      <div ref={infinityRef} style={{ height: '1px' }}></div>
+      {data?.pages.map((page) =>
+        page.dataList.map((data) => <DeclareItem key={data.postId} {...data} {...tab} />),
+      )}
+      {isFetching ? <LoadingContent /> : <div ref={loadMoreRef} style={{ height: '1px' }}></div>}
     </ListWrapper>
   );
 };

@@ -16,8 +16,7 @@ const AccountItem = ({
   imageUrl,
   createAt,
   locked,
-  ref,
-}: AccountInterface & React.RefAttributes<HTMLDivElement>) => {
+}: AccountInterface) => {
   const { lockScroll } = useBodyScrollLock();
   const { openModal, closeModal } = useModalStore();
 
@@ -81,7 +80,7 @@ const AccountItem = ({
   };
 
   return (
-    <Layout ref={ref}>
+    <Layout>
       <Header>
         <ProfileBox writer={nickname} profileImage={imageUrl} />
         {locked && <LockText>영구정지</LockText>}

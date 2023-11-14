@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import AccountItem from './AccountItem';
-import useAccountList from '@/hooks/useAccountList';
+import useAccounts from '@/hooks/useAccounts';
 import ErrorContent from '@/components/public/ErrorContent';
-// import LoadingContent from '@/components/public/LoadingContent';
+import LoadingContent from '@/components/public/LoadingContent';
+import useObserver from '@/hooks/useObserver';
 
 const AccountList = ({ keyword }: { keyword: string }) => {
-  const { data, infinityRef } = useAccountList({ keyword });
+  const { data, moreDataHandler, isFetching } = useAccounts({ keyword });
+  const loadMoreRef = useObserver(() => moreDataHandler());
 
   if (!data || data.pages[0].dataList.length === 0) {
     return <ErrorContent />;
@@ -14,17 +16,10 @@ const AccountList = ({ keyword }: { keyword: string }) => {
 
   return (
     <ListWrapper>
-      {/* {loading && <LoadingContent />} */}
-      {data?.pages.map((page, pageIndex, pageArray) =>
-        page.dataList.map((data, dataIndex, dataArray) => {
-          const isLastData =
-            pageIndex === pageArray.length - 1 && dataIndex === dataArray.length - 1;
-          return (
-            <AccountItem key={data.memberId} ref={isLastData ? infinityRef : null} {...data} />
-          );
-        }),
+      {data?.pages.map((page) =>
+        page.dataList.map((data) => <AccountItem key={data.memberId} {...data} />),
       )}
-      {/* <div ref={infinityRef} style={{ height: '1px' }}></div> */}
+      {isFetching ? <LoadingContent /> : <div ref={loadMoreRef} style={{ height: '1px' }}></div>}
     </ListWrapper>
   );
 };
