@@ -25,7 +25,7 @@ const useSetupInput = (
   field: string,
   validationRules?: ValidationRulesInterface,
   defaultStatus: 'search' | 'default' = 'search',
-  initialValue?: string,
+  initialValue?: string | string[],
 ) => {
   const {
     register,

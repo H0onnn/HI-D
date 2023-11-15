@@ -17,7 +17,7 @@ const PostTitle = ({ title }: PostTitleInterface) => {
 export default PostTitle;
 
 const TitleLayout = styled.div`
-  width: 30rem;
+  width: 25rem;
   height: 100%;
 `;
 

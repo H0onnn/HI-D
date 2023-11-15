@@ -24,11 +24,11 @@ const ProfileSetup = ({ steps, nextClickHandler, Funnel, Step }: ProfileSetupInt
         </Step>
 
         <Step name='학교 선택'>
-          <SetupSchool onNext={() => nextClickHandler(steps[2])} />
+          <SetupSchool onNext={() => nextClickHandler(steps[2])} isEdit={false} />
         </Step>
 
         <Step name='학과 선택'>
-          <SetupMajor onNext={() => nextClickHandler(steps[3])} />
+          <SetupMajor onNext={() => nextClickHandler(steps[3])} isEdit={false} />
         </Step>
 
         <Step name='이메일 인증'>
