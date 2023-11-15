@@ -21,14 +21,15 @@ const shouldNavigateAway = (
   confirmMessage: string,
   navigate: NavigateFunction,
   currentPath?: string,
+  isFreePost?: boolean,
 ) => {
-  const isHelpPost = currentPath === LINK.POSTING_HELP;
   const currentStepIndex = steps.indexOf(currentStep);
-  const isFirstStep = currentStepIndex === 0 || (isHelpPost && currentStepIndex === 1);
+  const isFirstStep = currentStepIndex === 0;
+  const isSecondStepInFreePost = isFreePost && currentStepIndex === 1;
 
   if (
-    (isHelpPost && isFirstStep && window.confirm(confirmMessage)) ||
-    (!isHelpPost && currentStepIndex === 0 && window.confirm(confirmMessage))
+    (isFirstStep && window.confirm(confirmMessage)) ||
+    (isSecondStepInFreePost && window.confirm(confirmMessage))
   ) {
     navigate(LINK.MAIN);
     return true;
@@ -52,9 +53,10 @@ export const handlePrevClick =
     confirmMessage: string,
     navigate: NavigateFunction,
     currentPath?: string,
+    isFreePost?: boolean,
   ) =>
   (currentStep: string) => {
-    if (shouldNavigateAway(currentStep, steps, confirmMessage, navigate, currentPath)) {
+    if (shouldNavigateAway(currentStep, steps, confirmMessage, navigate, currentPath, isFreePost)) {
       return;
     }
 
