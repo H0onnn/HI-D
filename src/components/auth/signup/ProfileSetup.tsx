@@ -32,7 +32,7 @@ const ProfileSetup = ({ steps, nextClickHandler, Funnel, Step }: ProfileSetupInt
         </Step>
 
         <Step name='이메일 인증'>
-          <SetupEmail onNext={() => nextClickHandler(steps[4])} />
+          <SetupEmail onNext={() => nextClickHandler(steps[4])} isEdit={false} />
         </Step>
 
         <Step name='비밀번호 설정'>
