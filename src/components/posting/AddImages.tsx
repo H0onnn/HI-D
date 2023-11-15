@@ -10,7 +10,12 @@ interface AddImagesInterface {
 }
 
 const AddImages = ({ initialImages }: AddImagesInterface) => {
-  const { register, setValue, getValues } = useSetupInput('imageUrls');
+  const { register, setValue, getValues } = useSetupInput(
+    'imageUrls',
+    undefined,
+    undefined,
+    initialImages,
+  );
   const { uploadImage, deleteImage } = useImageService();
   const [uploadedImages, setUploadedImages] = useState<string[]>(initialImages || []);
 
