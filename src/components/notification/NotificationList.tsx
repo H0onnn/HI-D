@@ -21,7 +21,9 @@ const NotificationList = ({
 
   const groupedNotifications = notificationsData.reduce(
     (acc, notification) => {
-      const key = (notification.postId || notification.replyId).toString();
+      const key = `${notification.type}_${(
+        notification.postId || notification.replyId
+      ).toString()}`;
       if (!acc[key]) {
         acc[key] = [notification];
       } else {
