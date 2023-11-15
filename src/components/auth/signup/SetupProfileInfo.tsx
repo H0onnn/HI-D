@@ -34,15 +34,18 @@ const SetupProfileInfo = ({ user }: { user?: UserDataInterface | undefined }) =>
     if (user) {
       setProfileImageUrl(user.imageUrl || URL.DEFAULT_PROFILE_IMG);
       setImageUrlValue('imageUrl', user.imageUrl || URL.DEFAULT_PROFILE_IMG);
-    }
-  }, [user, setImageUrlValue]);
+      setNickname(user.nickname);
+      setNicknameValue('nickname', user.nickname);
+    } else {
+      const defaultImageUrl = URL.DEFAULT_PROFILE_IMG;
+      const randomNickname = generateRandomNickname();
 
-  useEffect(() => {
-    if (user) {
-      setNickname(user.nickname || generateRandomNickname());
-      setNicknameValue('nickname', user.nickname || generateRandomNickname());
+      setProfileImageUrl(defaultImageUrl);
+      setImageUrlValue('imageUrl', defaultImageUrl);
+      setNickname(randomNickname);
+      setNicknameValue('nickname', randomNickname);
     }
-  }, [user, setNicknameValue, nickname]);
+  }, [user, setImageUrlValue, setNicknameValue]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
