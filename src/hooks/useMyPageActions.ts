@@ -10,7 +10,6 @@ import { LINK } from '@/constants/links';
 import { MODAL_TYPES } from '@/types/modal';
 import toast from 'react-hot-toast';
 import { DeleteUserInterface, EditPasswordInterface } from '@/types/user';
-import { webSocketInstance } from '@/services/websocketInstance';
 
 const useMyPageActions = () => {
   const queryClient = useQueryClient();
@@ -25,8 +24,6 @@ const useMyPageActions = () => {
       queryClient.removeQueries({ queryKey: [userQueryKey, token] });
       await postLogout();
       logout();
-
-      webSocketInstance.disconnect();
 
       navigate(LINK.LOGIN);
       toast.success('로그아웃 되었습니다.', { id: 'logoutSuccess' });
