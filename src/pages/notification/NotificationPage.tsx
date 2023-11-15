@@ -1,24 +1,37 @@
 import React, { useState } from 'react';
+import { useNotifications } from '@/store/notificateStore';
 import styled from 'styled-components';
 import PageHeader from '@/components/public/PageHeader';
+import ErrorContent from '@/components/public/ErrorContent';
 import NotificationList from '@/components/notification/NotificationList';
 import { PageLayout } from '@/styles/styles';
 import { colors } from '@/constants/colors';
 
 const NotificationPage = () => {
+  const notificationsData = useNotifications();
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   return (
     <>
       <PageHeader title='알림' isGoBack />
       <PageLayout>
-        <ButtonContainer>
-          <EditButton onClick={() => setIsEditing(!isEditing)}>
-            {isEditing ? '완료' : '편집'}
-          </EditButton>
-          {isEditing && <EditButton style={{ width: '6rem' }}>전체삭제</EditButton>}
-        </ButtonContainer>
-        <NotificationList isEditing={isEditing} setIsEditing={setIsEditing} />
+        {notificationsData.length === 0 ? (
+          <ErrorContent />
+        ) : (
+          <>
+            <ButtonContainer>
+              <EditButton onClick={() => setIsEditing(!isEditing)}>
+                {isEditing ? '완료' : '편집'}
+              </EditButton>
+              {isEditing && <EditButton style={{ width: '6rem' }}>전체삭제</EditButton>}
+            </ButtonContainer>
+            <NotificationList
+              notificationsData={notificationsData}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
+            />
+          </>
+        )}
       </PageLayout>
     </>
   );
