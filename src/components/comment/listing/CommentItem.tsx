@@ -13,7 +13,7 @@ import MoreActionButtons from '@/components/public/MoreActionButtons';
 import SlideUpModal from '@/components/public/SlideUpModal';
 import SetupReport from '@/components/post/postDetails/postHeader/actions/report/SetupReport';
 import CommentTextArea from '../contentArea/CommentTextArea';
-import { timeSince } from '@/utils/caculateDate';
+import { timeSince } from '@/utils/calculateDate';
 
 interface CommentItemInterface {
   replyId: number;

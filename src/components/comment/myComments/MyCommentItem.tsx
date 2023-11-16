@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import ARROW_ICON from '@/public/images/ui/arrow_right.svg';
-import { formatDate } from '@/utils/caculateDate';
+import { formatDate } from '@/utils/calculateDate';
 
 interface MyCommentItemInterface {
   title: string;

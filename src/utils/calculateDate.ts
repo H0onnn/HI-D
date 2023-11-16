@@ -23,3 +23,22 @@ export const formatDate = (inputDate: string): string => {
 
   return `${year}.${month}.${day}`;
 };
+
+export const getWeek = (date: Date) => {
+  const currentDate = date.getDate();
+  const firstDay = new Date(date.setDate(1)).getDay();
+
+  return Math.ceil((currentDate + firstDay) / 7);
+};
+
+export const getMonth = (date: Date) => {
+  const month = date.getMonth() + 1;
+  return month;
+};
+
+export const formatChatTime = (timestamp: string) => {
+  const date = new Date(timestamp);
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  return `${hours}:${minutes}`;
+};

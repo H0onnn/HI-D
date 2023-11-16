@@ -30,7 +30,14 @@ const PostingPage = () => {
   const { Funnel, Step, setStep, currentStep } = useFunnel(defaultStep);
 
   const nextClickHandler = handleNextClick(setStep, steps);
-  const prevClickHandler = handlePrevClick(setStep, steps, confirmMessage, navigate, currentPath);
+  const prevClickHandler = handlePrevClick(
+    setStep,
+    steps,
+    confirmMessage,
+    navigate,
+    currentPath,
+    isFreePost,
+  );
 
   const submitPostHandler = (data: PostingDataInterface) => {
     if (postToEdit) {

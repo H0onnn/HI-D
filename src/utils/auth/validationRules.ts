@@ -76,7 +76,7 @@ export const nicknameValidation = {
   },
   pattern: {
     // 특수문자 제외, 1글자에서 8글자 사이
-    value: /^[A-Za-z0-9가-힣]{1,8}$/,
+    value: /^[A-Za-z0-9가-힣]{2,8}$/,
     message: '사용할 수 없는 닉네임입니다.',
   },
 };

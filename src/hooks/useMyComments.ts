@@ -1,4 +1,10 @@
-import { useInfiniteQuery, InfiniteData, InfiniteQueryObserverResult } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import {
+  useQueryClient,
+  useInfiniteQuery,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from '@tanstack/react-query';
 import { getMyCommentsData } from '@/services/comments';
 import { MyCommentsDataInterface } from '@/types/comment';
 
@@ -17,6 +23,14 @@ const COMMENTS_PER_PAGE = 10;
 export const QUERY_KEY = 'my_comments';
 
 const useMyComments = (boardType: string): UseCommentQueryReturnType => {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({ queryKey: [QUERY_KEY, boardType] });
+    };
+  }, [boardType, queryClient]);
+
   const fetchComments = async (pageParam = 1) => {
     const response = await getMyCommentsData(pageParam, COMMENTS_PER_PAGE, boardType);
 
