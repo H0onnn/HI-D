@@ -1,12 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import AuthorProfileImage from './AuthorProfileImage';
 import UserNameAndSchoolInfo from './UserNameAndSchoolInfo';
 import IconButton from '@/components/public/IconButton';
 import { colors } from '@/constants/colors';
 import CHAT_ICON from '@/public/images/ui/chat_icon.svg';
-import { LINK } from '@/constants/links';
+import usePostActionHandlers from '@/hooks/usePostActionHandlers';
 
 interface PostAuthorInfoInterface {
   profileImageSrc: string;
@@ -14,6 +13,8 @@ interface PostAuthorInfoInterface {
   schoolName: string;
   writerMajor: string;
   isAnonymous?: boolean;
+  memberId: number;
+  postActionHandlers: ReturnType<typeof usePostActionHandlers>;
 }
 
 const PostAuthorInfo = ({
@@ -22,8 +23,10 @@ const PostAuthorInfo = ({
   schoolName,
   writerMajor,
   isAnonymous,
+  memberId,
+  postActionHandlers,
 }: PostAuthorInfoInterface) => {
-  const navigate = useNavigate();
+  const { enterChatRoomHandler } = postActionHandlers;
 
   return (
     <PostAuthorInfoLayout>
@@ -39,7 +42,7 @@ const PostAuthorInfo = ({
         <IconButton
           iconSrc={CHAT_ICON}
           alt='chat_icon'
-          onClickHandler={() => navigate(LINK.CHAT)}
+          onClickHandler={() => enterChatRoomHandler(memberId)}
         />
       )}
     </PostAuthorInfoLayout>

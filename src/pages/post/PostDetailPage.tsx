@@ -29,11 +29,13 @@ const PostDetailPage = () => {
       <PageHeader title='게시글' isGoBack />
       <PageLayout style={{ gap: '1rem' }}>
         <PostAuthorInfo
+          memberId={postData.writer.memberId}
           profileImageSrc={postData.writer.imageUrl}
           userName={postData.writer.nickname}
           schoolName={postData.isAnonymous ? '비공개' : postData.writer.school}
           writerMajor={postData.writer.major}
           isAnonymous={postData.isAnonymous}
+          postActionHandlers={postActionHandlers}
         />
         <PostHeader
           title={postData.title}

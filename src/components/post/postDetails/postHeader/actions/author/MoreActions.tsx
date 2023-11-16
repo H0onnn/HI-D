@@ -26,7 +26,7 @@ const MoreActions = ({
   postData,
 }: MoreActionsInterface) => {
   const { isMoreActions, toggleMoreActions, toggleReport } = postStates;
-  const { bookmarkPost, editPost, deletePostHandler } = postActionHandlers;
+  const { bookmarkPost, editPost, deletePostHandler, enterChatRoomHandler } = postActionHandlers;
 
   return (
     <MoreActionsLayout>
@@ -57,6 +57,7 @@ const MoreActions = ({
             isOwnContent={postData.isMine}
             editHandler={() => editPost(postData, postId)}
             deleteHandler={() => deletePostHandler(postId)}
+            chatHandler={() => enterChatRoomHandler(postData.writer.memberId)}
           />
         </MoreActionModal>
       )}
