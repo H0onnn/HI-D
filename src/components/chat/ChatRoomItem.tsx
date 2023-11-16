@@ -28,8 +28,8 @@ const ChatRoomItem = ({
 
   const deleteChatRoomHandler = async () => {
     closeModal();
-    const resposne = await deleteChatRoom({ roomId: chatRoomId });
-    if (resposne) {
+    const response = await deleteChatRoom({ roomId: chatRoomId });
+    if (response) {
       // TODO: toast alert
     } else {
       // TODO: toast alert

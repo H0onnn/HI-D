@@ -21,8 +21,13 @@ const useMessages = (roomId: number): UseMessagesQueryReturnType => {
       page: pageParam,
     });
 
-    return {
+    const reverseResponse = {
       ...response,
+      dataList: response.dataList.reverse(),
+    };
+
+    return {
+      ...reverseResponse,
       nextPage: response.hasNext ? pageParam + 1 : null,
     };
   };
