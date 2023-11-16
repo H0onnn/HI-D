@@ -1,5 +1,4 @@
 import {
-  ChatRoomInterface,
   ChatRoomListInterface,
   MessageListInterface,
   RequestChatRoomCreateInterface,
@@ -12,14 +11,24 @@ import { httpClient } from '../api/httpClient';
 export const getChatRoomList = async ({
   page,
 }: RequestChatRoomListInterface): Promise<ChatRoomListInterface> => {
-  const response = await httpClient.chat.get.chatrooms({ page });
-  return response.data;
+  try {
+    const response = await httpClient.chat.get.chatrooms({ page });
+    return response.data;
+  } catch (err: unknown) {
+    throw new Error();
+  }
 };
 export const postChatRoom = async ({
   memberId,
-}: RequestChatRoomCreateInterface): Promise<ChatRoomInterface> => {
-  const response = await httpClient.chat.post.chatroom({ memberId });
-  return response.data;
+}: RequestChatRoomCreateInterface): Promise<{ chatRoomId: number } | undefined> => {
+  try {
+    const response = await httpClient.chat.post.chatroom({ memberId });
+    if (response.status === 201) {
+      return response.data;
+    }
+  } catch (err: unknown) {
+    throw new Error();
+  }
 };
 
 export const deleteChatRoom = async ({
@@ -37,6 +46,10 @@ export const getMessageList = async ({
   roomId,
   page,
 }: RequestMessageListInterface): Promise<MessageListInterface> => {
-  const response = await httpClient.chat.get.messages({ roomId, page });
-  return response.data;
+  try {
+    const response = await httpClient.chat.get.messages({ roomId, page });
+    return response.data;
+  } catch (err: unknown) {
+    throw new Error();
+  }
 };

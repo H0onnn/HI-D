@@ -32,7 +32,7 @@ const useDeclares = ({ category }: { category: 'post' | 'reply' }): UseDeclaresQ
     queryFn: ({ pageParam }) => fetchAccounts(pageParam as number),
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 1,
-    staleTime: DEFAULT_STALE_TIME,
+    staleTime: STALE_TIME_DEFAULT,
   });
 
   const moreDataHandler = () => {
@@ -45,6 +45,6 @@ const useDeclares = ({ category }: { category: 'post' | 'reply' }): UseDeclaresQ
 };
 
 export const QUERY_KEY_DECLARE = 'Declares';
-export const DEFAULT_STALE_TIME = 1000 * 60 * 5;
+export const STALE_TIME_DEFAULT = 1000 * 60 * 5;
 
 export default useDeclares;

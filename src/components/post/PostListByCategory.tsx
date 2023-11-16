@@ -10,7 +10,6 @@ import { LINK } from '@/constants/links';
 
 const PostListByCategory = (category: string, keyword?: string) => {
   const location = useLocation();
-  console.log(location.pathname);
   switch (true) {
     case location.pathname.startsWith(LINK.MAIN):
       switch (category) {

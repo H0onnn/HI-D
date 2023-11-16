@@ -3,9 +3,18 @@ import { QUERY_KEY as commentQueryKey, CommentQueryResponse } from './useComment
 import { likeComment, commentReport } from '@/services/comments';
 import toast from 'react-hot-toast';
 import { ReportDataInterface } from '@/types/report';
+import { useNavigate } from 'react-router-dom';
+import useBodyScrollLock from './useBodyScrollLock';
+import useModalStore from '@/store/modalStore';
+import { postChatRoom } from '@/services/chat';
+import { LINK } from '@/constants/links';
+import { MODAL_TYPES } from '@/types/modal';
 
 const useCommentActionHandler = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { lockScroll } = useBodyScrollLock();
+  const { openModal } = useModalStore();
 
   const likeCommentMutation = useMutation<
     void,
@@ -60,9 +69,21 @@ const useCommentActionHandler = () => {
     }
   };
 
+  const enterChatRoomHandler = async (memberId: number) => {
+    const response = await postChatRoom({ memberId });
+    if (!response) return;
+    navigate(LINK.CHAT);
+    openModal({
+      modalType: MODAL_TYPES.CHAT,
+      modalProps: { url: response?.chatRoomId as number },
+    });
+    lockScroll();
+  };
+
   return {
     likeComment: likeCommentHandler,
     reportComment,
+    enterChatRoom: enterChatRoomHandler,
   };
 };
 
