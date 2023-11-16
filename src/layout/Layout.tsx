@@ -19,7 +19,7 @@ const Layout = ({ children }: LayoutInterface) => {
 
   return (
     <PageLayout>
-      <PageContentLayout>
+      <PageContentLayout $hideBottomNav={hideBottomNav}>
         {children}
         {!hideBottomNav && <BottomNavBar />}
         {!hideFloatNav && <FloatingNav />}
@@ -40,7 +40,7 @@ const PageLayout = styled.div`
   background: ${colors.gray1};
 `;
 
-const PageContentLayout = styled.div`
+const PageContentLayout = styled.div<{ $hideBottomNav: boolean }>`
   position: relative;
   display: flex;
   justify-content: center;
@@ -48,5 +48,5 @@ const PageContentLayout = styled.div`
   max-width: 39rem;
   background: ${colors.white};
   margin: 0 auto;
-  padding-bottom: 6.5rem;
+  padding-bottom: ${({ $hideBottomNav }) => ($hideBottomNav ? '0' : '6.5rem;')};
 `;
