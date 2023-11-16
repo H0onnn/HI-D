@@ -11,7 +11,7 @@ import TabByCategory from '@/components/post/TabByCategory';
 import { colors } from '@/constants/colors';
 import { tabList } from '@/constants/post';
 import PostListByCategory from '@/components/post/PostListByCategory';
-import { getMonth, getWeek } from '@/utils/caculateDate';
+import { getMonth, getWeek } from '@/utils/calculateDate';
 
 const MainPage = () => {
   const navigate = useNavigate();
