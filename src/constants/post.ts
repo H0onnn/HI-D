@@ -33,4 +33,4 @@ export const englishToTagMapping: { [key: string]: FreePostTag } = {
   CHITCHAT: '잡담',
 };
 
-export const DEAFAULT_TAG: FreePostTag = '연애';
+export const DEFAULT_TAG: FreePostTag = '연애';

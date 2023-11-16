@@ -3,7 +3,7 @@ import useSetupInput from '@/hooks/useSetupInput';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import FreePostTagContainer from '../post/FreePostTag';
-import { tagToEnglishMapping, englishToTagMapping, DEAFAULT_TAG } from '@/constants/post';
+import { tagToEnglishMapping, englishToTagMapping, DEFAULT_TAG } from '@/constants/post';
 import { FreePostTag } from '@/types/post';
 import { PostDetailInterface } from '@/types/post';
 interface FreePostCategoryTagInterface {
@@ -12,14 +12,14 @@ interface FreePostCategoryTagInterface {
 
 const FreePostCategoryTag = ({ initialTag }: FreePostCategoryTagInterface) => {
   const [currentTag, setCurrentTag] = useState<FreePostTag>(
-    initialTag ? englishToTagMapping[initialTag] : DEAFAULT_TAG,
+    initialTag ? englishToTagMapping[initialTag] : DEFAULT_TAG,
   );
 
   const { register, setValue } = useSetupInput('tag', undefined, 'default', initialTag);
 
   useEffect(() => {
     // 컴포넌트 마운트 후 초기값 'LOVE'로 설정
-    setValue('tag', tagToEnglishMapping[DEAFAULT_TAG]);
+    setValue('tag', tagToEnglishMapping[DEFAULT_TAG]);
   }, []);
 
   const tagClickHandler = (e: React.MouseEvent<HTMLElement>) => {
