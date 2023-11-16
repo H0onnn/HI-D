@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import { NotificationData } from '@/types/notification';
-import { timeSince } from '@/utils/caculateDate';
+import { timeSince } from '@/utils/calculateDate';
 import { LINK } from '@/constants/links';
 import ICON from '@/public/images/ui/notification_post.svg';
 import MORE_ICON from '@/public/images/ui/notification_more.svg';
