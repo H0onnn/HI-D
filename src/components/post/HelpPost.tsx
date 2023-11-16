@@ -31,7 +31,7 @@ const HelpPost = ({
     createAt,
     thumbnailImages = [],
     majorCategory = 'ETC',
-    isBookmarked = true,
+    isBookmarked = true, // 백엔드 데이터 없음
   },
   keyword,
 }: PostProps) => {
