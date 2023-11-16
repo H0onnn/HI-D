@@ -35,3 +35,10 @@ export const getMonth = (date: Date) => {
   const month = date.getMonth() + 1;
   return month;
 };
+
+export const formatChatTime = (timestamp: string) => {
+  const date = new Date(timestamp);
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  return `${hours}:${minutes}`;
+};
