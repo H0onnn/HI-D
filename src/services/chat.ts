@@ -20,13 +20,12 @@ export const getChatRoomList = async ({
 };
 export const postChatRoom = async ({
   memberId,
-}: RequestChatRoomCreateInterface): Promise<boolean> => {
+}: RequestChatRoomCreateInterface): Promise<{ chatRoomId: number } | undefined> => {
   try {
     const response = await httpClient.chat.post.chatroom({ memberId });
     if (response.status === 201) {
-      return true;
+      return response.data;
     }
-    return false;
   } catch (err: unknown) {
     throw new Error();
   }
