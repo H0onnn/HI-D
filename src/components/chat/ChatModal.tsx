@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Input from '../public/Input';
 import { colors } from '../../constants/colors';
 import Messages from './Messages';
 import DefaultProfile from '@/public/images/default_profile.svg';
-import { imageStyle, slideUp } from '@/styles/styles';
+import { imageStyle, scrollNone, slideUp } from '@/styles/styles';
 import { IModalProps } from '@/types/modal';
 import useMessages from '@/hooks/useMessages';
+import { webSocketInstance } from '@/services/websocketInstance';
+import { useChatMessageStore } from '@/store/chatMessageStore';
 // import LoadingContent from '../public/LoadingContent';
 // import useObserver from '@/hooks/useObserver';
 
@@ -14,10 +16,11 @@ const ChatModal = ({ url: roomId }: IModalProps) => {
   const { data } = useMessages(Number(roomId));
   // const loadMoreRef = useObserver(() => moreDataHandler());
   const [message, setMessage] = useState('');
+  const { messages, initMessages } = useChatMessageStore();
 
   const sendMessage = () => {
     if (message.trim() === '') return;
-    console.log('Sending message:', message);
+    webSocketInstance.sendMessage(Number(roomId), message);
     setMessage('');
   };
 
@@ -29,15 +32,26 @@ const ChatModal = ({ url: roomId }: IModalProps) => {
     }
   };
 
+  useEffect(() => {
+    webSocketInstance.enterChatRoom(Number(roomId));
+    return () => {
+      initMessages();
+      webSocketInstance.exitChatRoom();
+    };
+  }, [roomId]);
+
   return (
     <ChatModalLayout>
       <ImageWrapper>
         <img src={DefaultProfile} alt='profile_img' />
       </ImageWrapper>
       {/* {isFetching ? <LoadingContent /> : <div ref={loadMoreRef} style={{ height: '1px' }}></div>} */}
-      {data?.pages.map((page, pageIndex) => (
-        <Messages messageList={page.dataList} key={pageIndex} />
-      ))}
+      <MessageListLayout>
+        {data?.pages.map((page, pageIndex) => (
+          <Messages messageList={page.dataList} key={pageIndex} />
+        ))}
+        <Messages messageList={messages} />
+      </MessageListLayout>
       <InputWrapper>
         <Input
           type='text'
@@ -82,4 +96,15 @@ const ImageWrapper = styled.div`
 const InputWrapper = styled.div`
   width: 100%;
   position: relative;
+`;
+
+const MessageListLayout = styled.div`
+  width: 100%;
+  height: 100%;
+  gap: 0.8rem;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  ${scrollNone};
 `;

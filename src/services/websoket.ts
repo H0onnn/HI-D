@@ -1,12 +1,14 @@
 import SockJS from 'sockjs-client';
-import { Client } from '@stomp/stompjs';
+import { Client, StompSubscription } from '@stomp/stompjs';
 import { NotificationData } from '@/types/notification';
 import { URL } from '@/constants/url';
 import { useNotificationStore } from '@/store/notificateStore';
+import { useChatMessageStore } from '@/store/chatMessageStore';
 
 export class WebSocketService {
   private client: Client;
   private connected: boolean = false;
+  private chatSubscription: StompSubscription | undefined = undefined;
 
   constructor() {
     this.client = new Client({
@@ -54,5 +56,27 @@ export class WebSocketService {
     if (this.connected) {
       this.client.deactivate();
     }
+  }
+
+  public enterChatRoom(roomId: number): void {
+    this.chatSubscription = this.client.subscribe(`/sub/chat/rooms/${roomId}`, (messages) => {
+      if (messages.body) {
+        const response = JSON.parse(messages.body);
+        useChatMessageStore.getState().pushMessage(response);
+        return response;
+      }
+    });
+  }
+
+  public exitChatRoom(): void {
+    this.chatSubscription?.unsubscribe();
+  }
+
+  public sendMessage(roomId: number, message: string): void {
+    console.log(roomId, message);
+    this.client.publish({
+      destination: `/pub/chat/rooms/${roomId}`,
+      body: JSON.stringify({ content: message }),
+    });
   }
 }
