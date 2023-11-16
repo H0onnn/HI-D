@@ -39,7 +39,7 @@ interface AppRoutesInterface {
 
 const routes: AppRoutesInterface[] = [
   {
-    name: 'Spalsh',
+    name: 'Splash',
     path: LINK.SPLASH,
     component: HomePage,
     meta: { hideNavBar: true, hideFloatNav: true },

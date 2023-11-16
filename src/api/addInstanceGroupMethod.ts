@@ -13,7 +13,7 @@ type GroupedMethodInstanceObjectAPI = {
   [key: string]: MethodInstanceObjectAPI;
 };
 
-export function addInstace(
+function addInstance(
   instance: AxiosInstance,
   instanceObjectAPI: InstanceObjectAPI,
 ): Record<string, (...args: any[]) => Promise<any>> {
@@ -24,16 +24,16 @@ export function addInstace(
   return Object.fromEntries(Object.entries(instanceObjectAPI).map(instanceMap));
 }
 
-export function addInstaceGroup(
+export function addInstanceGroup(
   instance: AxiosInstance,
   instanceObjectAPI: GroupedInstanceObjectAPI,
 ): Record<string, Record<string, (...args: any[]) => Promise<any>>> {
   return Object.fromEntries(
-    Object.entries(instanceObjectAPI).map(([key, value]) => [key, addInstace(instance, value)]),
+    Object.entries(instanceObjectAPI).map(([key, value]) => [key, addInstance(instance, value)]),
   );
 }
 
-export function addInstaceMethod(
+function addInstanceMethod(
   instance: AxiosInstance,
   instanceObjectAPI: MethodInstanceObjectAPI,
 ): Record<string, Record<string, (...args: any[]) => Promise<any>>> {
@@ -52,14 +52,14 @@ export function addInstaceMethod(
   );
 }
 
-export function addInstaceGroupMethod(
+export function addInstanceGroupMethod(
   instance: AxiosInstance,
   instanceObjectAPI: GroupedMethodInstanceObjectAPI,
 ): Record<string, Record<string, Record<string, (...args: any[]) => Promise<any>>>> {
   return Object.fromEntries(
     Object.entries(instanceObjectAPI).map(([key, value]) => [
       key,
-      addInstaceMethod(instance, value),
+      addInstanceMethod(instance, value),
     ]),
   );
 }

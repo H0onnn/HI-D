@@ -1,3 +1,3 @@
-import { WebSocketService } from './websoket';
+import { WebSocketService } from './websocket';
 
 export const webSocketInstance = new WebSocketService();

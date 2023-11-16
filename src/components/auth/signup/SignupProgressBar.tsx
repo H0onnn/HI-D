@@ -40,10 +40,10 @@ const StyledProgressBar = styled.div<SignupProgressBarInterface>`
     transition: width 1s ease-out;
     height: 100%;
     background: linear-gradient(90deg, #596bff 0%, #5061ff 100%);
-    animation: ProgressBarfillAnimation 1s ease-out;
+    animation: ProgressBarFillAnimation 1s ease-out;
   }
 
-  @keyframes ProgressBarfillAnimation {
+  @keyframes ProgressBarFillAnimation {
     from {
       width: 0;
     }

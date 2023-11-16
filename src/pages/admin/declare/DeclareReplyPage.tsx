@@ -3,7 +3,7 @@ import PageHeader from '@/components/public/PageHeader';
 import { AdminPageLayout } from '@/styles/admin';
 import DeclareReply from '@/components/admin/declare/DeclareReply';
 
-const DecalreReplyPage = () => {
+const DeclareReplyPage = () => {
   return (
     <>
       <PageHeader title='신고 댓글 상세' />
@@ -14,4 +14,4 @@ const DecalreReplyPage = () => {
   );
 };
 
-export default DecalreReplyPage;
+export default DeclareReplyPage;
