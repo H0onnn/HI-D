@@ -6,17 +6,20 @@ import Messages from './Messages';
 import DefaultProfile from '@/public/images/default_profile.svg';
 import { imageStyle, scrollNone, slideUp } from '@/styles/styles';
 import { IModalProps } from '@/types/modal';
-import useMessages from '@/hooks/useMessages';
+import useMessages, { QUERY_KEY_MESSAGE } from '@/hooks/useMessages';
 import { webSocketInstance } from '@/services/websocketInstance';
 import { useChatMessageStore } from '@/store/chatMessageStore';
-// import LoadingContent from '../public/LoadingContent';
-// import useObserver from '@/hooks/useObserver';
+import useObserver from '@/hooks/useObserver';
+import { useQueryClient } from '@tanstack/react-query';
 
 const ChatModal = ({ url: roomId }: IModalProps) => {
-  const { data } = useMessages(Number(roomId));
-  // const loadMoreRef = useObserver(() => moreDataHandler());
+  const { data, moreDataHandler, isFetching } = useMessages(Number(roomId));
+  const loadMoreRef = useObserver(() => moreDataHandler());
   const [message, setMessage] = useState('');
   const { messages, initMessages } = useChatMessageStore();
+  const messagesContainerRef = React.useRef<HTMLDivElement>(null);
+  const [scrollHeight, setScrollHeight] = useState(0);
+  const queryClient = useQueryClient();
 
   const sendMessage = () => {
     if (message.trim() === '') return;
@@ -40,16 +43,39 @@ const ChatModal = ({ url: roomId }: IModalProps) => {
     };
   }, [roomId]);
 
+  useEffect(() => {
+    if (!messagesContainerRef) return;
+
+    if (messagesContainerRef.current) {
+      const scrollTop = messagesContainerRef.current.scrollHeight - scrollHeight;
+      messagesContainerRef.current.scrollTop = scrollTop;
+      setScrollHeight(messagesContainerRef.current.scrollHeight);
+    }
+  }, [data?.pages.length]);
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({ queryKey: [QUERY_KEY_MESSAGE, roomId] });
+    };
+  }, [roomId]);
+
   return (
     <ChatModalLayout>
       <ImageWrapper>
         <img src={DefaultProfile} alt='profile_img' />
       </ImageWrapper>
-      {/* {isFetching ? <LoadingContent /> : <div ref={loadMoreRef} style={{ height: '1px' }}></div>} */}
-      <MessageListLayout>
-        {data?.pages.map((page, pageIndex) => (
-          <Messages messageList={page.dataList} key={pageIndex} />
-        ))}
+      <MessageListLayout ref={messagesContainerRef}>
+        {isFetching ? (
+          <div>Loading...</div>
+        ) : (
+          <div ref={loadMoreRef} style={{ height: '1px' }}></div>
+        )}
+        {data?.pages
+          .slice()
+          .reverse()
+          .map((page, pageIndex) => (
+            <Messages messageList={page.dataList.slice().reverse()} key={pageIndex} />
+          ))}
         <Messages messageList={messages} />
       </MessageListLayout>
       <InputWrapper>
