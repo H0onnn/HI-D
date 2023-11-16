@@ -21,19 +21,14 @@ const useMessages = (roomId: number): UseMessagesQueryReturnType => {
       page: pageParam,
     });
 
-    const reverseResponse = {
-      ...response,
-      dataList: response.dataList.reverse(),
-    };
-
     return {
-      ...reverseResponse,
+      ...response,
       nextPage: response.hasNext ? pageParam + 1 : null,
     };
   };
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<MessagesQueryResponse>({
-    queryKey: [QUERY_KEY_MESSAGE],
+    queryKey: [QUERY_KEY_MESSAGE, roomId],
     queryFn: ({ pageParam }) => fetchMessages(pageParam as number),
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 1,
