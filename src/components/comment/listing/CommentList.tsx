@@ -42,6 +42,7 @@ const CommentList = ({ postId }: CommentListInterface) => {
                   comment_like={comment.recommendCount}
                   isMine={comment.mine}
                   isRecommended={comment.recommend}
+                  writer_id={comment.writer.memberId}
                 />
               );
             }),

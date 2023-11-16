@@ -28,7 +28,7 @@ const useFreePosts = ({ tag, keyword }: FreePostListProps): UseFreePostQueryRetu
     queryFn: ({ pageParam }) => fetchPosts(pageParam as number),
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 1,
-    staleTime: DEFAULT_STALE_TIME,
+    staleTime: STALE_TIME_DEFAULT,
   });
 
   const moreDataHandler = () => {
@@ -41,6 +41,6 @@ const useFreePosts = ({ tag, keyword }: FreePostListProps): UseFreePostQueryRetu
 };
 
 export const QUERY_KEY_FREE = 'freePost';
-export const DEFAULT_STALE_TIME = 1000 * 60 * 5;
+export const STALE_TIME_DEFAULT = 1000 * 60 * 5;
 
 export default useFreePosts;
