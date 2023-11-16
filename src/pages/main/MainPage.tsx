@@ -11,6 +11,7 @@ import TabByCategory from '@/components/post/TabByCategory';
 import { colors } from '@/constants/colors';
 import { tabList } from '@/constants/post';
 import PostListByCategory from '@/components/post/PostListByCategory';
+import { getMonth, getWeek } from '@/utils/caculateDate';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const MainPage = () => {
   const tabClickHandler = (tab: TabInterface) => {
     setSelectedTab(tab);
   };
+  const date = new Date();
 
   return (
     <>
@@ -26,7 +28,7 @@ const MainPage = () => {
       <MainPageLayout>
         <MainSearchBar onClick={() => navigate(LINK.SEARCH)} />
         <Title>
-          9월 3주차 <span>인기 게시물🔥</span>
+          {getMonth(date)}월 {getWeek(date)}주차 <span>인기 게시물🔥</span>
         </Title>
         <PopularPostList />
         <TabByCategory selectedTab={selectedTab} tabClickHandler={tabClickHandler} />

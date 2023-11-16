@@ -23,3 +23,15 @@ export const formatDate = (inputDate: string): string => {
 
   return `${year}.${month}.${day}`;
 };
+
+export const getWeek = (date: Date) => {
+  const currentDate = date.getDate();
+  const firstDay = new Date(date.setDate(1)).getDay();
+
+  return Math.ceil((currentDate + firstDay) / 7);
+};
+
+export const getMonth = (date: Date) => {
+  const month = date.getMonth() + 1;
+  return month;
+};
