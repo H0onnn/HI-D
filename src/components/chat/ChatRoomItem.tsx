@@ -20,6 +20,7 @@ const ChatRoomItem = ({
     chatRoomId,
     member: { imageUrl = DefaultProfile, nickname },
     recentChatMessage: { content, createAt },
+    existNotRead,
   },
 }: Props) => {
   const { openModal, closeModal } = useModalStore();
@@ -50,14 +51,15 @@ const ChatRoomItem = ({
     openModal({ modalType: MODAL_TYPES.CHAT, modalProps: { url: chatRoomId } });
   };
 
-  // TODO: 안읽음 ui
-
   return (
     <Layout>
       <ChatRoomItemLayout onClick={openChatModalHandler}>
-        <ImageWrapper>
-          <img src={imageUrl} alt='your_profile' />
-        </ImageWrapper>
+        <ProfileContainer>
+          <ImageWrapper>
+            <img src={imageUrl} alt='your_profile' />
+          </ImageWrapper>
+          {existNotRead && <UnreadIcon />}
+        </ProfileContainer>
         <MessageContainer>
           <MessageNickname nickname={nickname} />
           <MessageContent>{content}</MessageContent>
@@ -136,4 +138,19 @@ const DeleteButton = styled.div`
   z-index: 1;
   width: 2rem;
   height: 2rem;
+`;
+
+const ProfileContainer = styled.div`
+  position: relative;
+`;
+
+const UnreadIcon = styled.div`
+  position: absolute;
+  top: 0.1rem;
+  right: 0.1rem;
+  z-index: 1;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background-color: ${colors.error};
 `;
