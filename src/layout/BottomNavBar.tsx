@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import BottomNavButton from './BottomNavButton';
 import { NAV_ITEMS, NAV_ITEMS_ADMIN } from '@/constants/bottomNavItem';
 import useModalStore from '@/store/modalStore';
-import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import { MODAL_TYPES } from '@/types/modal';
 import useUser from '@/hooks/useUser';
 
@@ -14,7 +13,6 @@ const BottomNavBar = () => {
   const { user } = useUser();
   const isAdmin = user?.roles.includes('ROLE_MANAGER') ?? false;
   const navItems = isAdmin ? NAV_ITEMS_ADMIN : NAV_ITEMS;
-  const { lockScroll } = useBodyScrollLock();
   const { openModal, closeModal } = useModalStore();
 
   const logoutHandler = () => {
@@ -30,7 +28,6 @@ const BottomNavBar = () => {
         onConfirmHandler: logoutHandler,
       },
     });
-    lockScroll();
   };
 
   return (
