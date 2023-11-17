@@ -46,6 +46,13 @@ const ChatModal = ({ url: roomId }: IModalProps) => {
   }, [roomId]);
 
   useEffect(() => {
+    return () => {
+      queryClient.removeQueries({ queryKey: [QUERY_KEY_MESSAGE, roomId] });
+    };
+  }, [roomId]);
+
+  // 이전 메시지 불러올때, 스크롤 높이 유지
+  useEffect(() => {
     if (!messagesContainerRef) return;
 
     if (messagesContainerRef.current) {
@@ -55,12 +62,7 @@ const ChatModal = ({ url: roomId }: IModalProps) => {
     }
   }, [data?.pages.length]);
 
-  useEffect(() => {
-    return () => {
-      queryClient.removeQueries({ queryKey: [QUERY_KEY_MESSAGE, roomId] });
-    };
-  }, [roomId]);
-
+  // 상대방 입장시 최근 메시지로 스크롤다운
   useEffect(() => {
     if (!enterMember) return;
     if (enterMember !== user?.nickname) {
@@ -68,6 +70,12 @@ const ChatModal = ({ url: roomId }: IModalProps) => {
       refetch();
     }
   }, [enterMember]);
+
+  // 메시지 생길때마다 스크롤다운
+  useEffect(() => {
+    if (!messagesContainerRef.current) return;
+    messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+  }, [messages.length]);
 
   return (
     <ChatModalLayout>

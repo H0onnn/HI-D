@@ -7,7 +7,6 @@ import { formatTimeAgo } from '@/utils/post';
 import MessageNickname from './MessageNickname';
 import DeleteIcon from '@/public/images/ui/delete_fill.svg';
 import useModalStore from '@/store/modalStore';
-import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import { imageStyle } from '@/styles/styles';
 import { MODAL_TYPES } from '@/types/modal';
 import { deleteChatRoom } from '@/services/chat';
@@ -23,7 +22,6 @@ const ChatRoomItem = ({
     recentChatMessage: { content, createAt },
   },
 }: Props) => {
-  const { lockScroll } = useBodyScrollLock();
   const { openModal, closeModal } = useModalStore();
 
   const deleteChatRoomHandler = async () => {
@@ -46,13 +44,13 @@ const ChatRoomItem = ({
         onConfirmHandler: deleteChatRoomHandler,
       },
     });
-    lockScroll();
   };
 
   const openChatModalHandler = () => {
     openModal({ modalType: MODAL_TYPES.CHAT, modalProps: { url: chatRoomId } });
-    lockScroll();
   };
+
+  // TODO: 안읽음 ui
 
   return (
     <Layout>
