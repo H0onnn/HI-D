@@ -8,7 +8,7 @@ const LoadingContent = () => {
   return (
     <Layout>
       <ImageWrapper>
-        <img src={LoadingImage} alt='laoding_image' />
+        <img src={LoadingImage} alt='loading_image' />
       </ImageWrapper>
       <Text>{'Loading...'}</Text>
     </Layout>
