@@ -11,15 +11,17 @@ import { webSocketInstance } from '@/services/websocketInstance';
 import { useChatMessageStore } from '@/store/chatMessageStore';
 import useObserver from '@/hooks/useObserver';
 import { useQueryClient } from '@tanstack/react-query';
+import useUser from '@/hooks/useUser';
 
 const ChatModal = ({ url: roomId }: IModalProps) => {
-  const { data, moreDataHandler, isFetching } = useMessages(Number(roomId));
+  const { data, moreDataHandler, isFetching, refetch } = useMessages(Number(roomId));
   const loadMoreRef = useObserver(() => moreDataHandler());
   const [message, setMessage] = useState('');
-  const { messages, initMessages } = useChatMessageStore();
+  const { messages, initMessages, enterMember } = useChatMessageStore();
   const messagesContainerRef = React.useRef<HTMLDivElement>(null);
   const [scrollHeight, setScrollHeight] = useState(0);
   const queryClient = useQueryClient();
+  const { user } = useUser();
 
   const sendMessage = () => {
     if (message.trim() === '') return;
@@ -58,6 +60,14 @@ const ChatModal = ({ url: roomId }: IModalProps) => {
       queryClient.removeQueries({ queryKey: [QUERY_KEY_MESSAGE, roomId] });
     };
   }, [roomId]);
+
+  useEffect(() => {
+    if (!enterMember) return;
+    if (enterMember !== user?.nickname) {
+      queryClient.removeQueries({ queryKey: [QUERY_KEY_MESSAGE, roomId] });
+      refetch();
+    }
+  }, [enterMember]);
 
   return (
     <ChatModalLayout>
