@@ -10,12 +10,11 @@ import { ModalFloat } from '@/components/public/modal/GlobalModal';
 import { MODAL_TYPES } from '@/types/modal';
 
 const FloatingNav = () => {
-  const { lockScroll, openScroll } = useBodyScrollLock();
+  const { openScroll } = useBodyScrollLock();
   const { openModal, modalOpen, closeModal } = useModalStore();
 
   const openModalHandler = () => {
     openModal({ modalType: MODAL_TYPES.FLOAT });
-    lockScroll();
   };
   const closeModalHandler = () => {
     closeModal();

@@ -4,14 +4,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ToggleOpenIcon from '@/public/images/ui/toggle_open.svg';
 import ToggleCloseIcon from '@/public/images/ui/toggle_close.svg';
-import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import useModalStore from '@/store/modalStore';
 import { MODAL_TYPES } from '@/types/modal';
 import { deleteReportDetail } from '@/services/admin';
 
 const DeclareDetailContent = ({ reporter, type, content, id, reportId, category }: Props) => {
   const [open, setOpen] = useState(false);
-  const { lockScroll } = useBodyScrollLock();
   const { openModal, closeModal } = useModalStore();
 
   const deleteReportDetailHandler = async () => {
@@ -34,7 +32,6 @@ const DeclareDetailContent = ({ reporter, type, content, id, reportId, category 
         onConfirmHandler: deleteReportDetailHandler,
       },
     });
-    lockScroll();
   };
 
   const toggleHandler = () => {
