@@ -7,11 +7,11 @@ interface GenericFormInterface<TFormData extends FieldValues> {
   formOptions?: UseFormProps<TFormData>;
 }
 
-function GenericForm<TFormData extends FieldValues>({
+const GenericForm = <TFormData extends FieldValues>({
   children,
   onSubmit,
   formOptions,
-}: GenericFormInterface<TFormData>) {
+}: GenericFormInterface<TFormData>) => {
   const methods = useForm<TFormData>(formOptions);
 
   return (
@@ -19,6 +19,6 @@ function GenericForm<TFormData extends FieldValues>({
       <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
     </FormProvider>
   );
-}
+};
 
 export default GenericForm;
