@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import styled from 'styled-components';
 import useModalStore from '@/store/modalStore';
@@ -9,7 +9,7 @@ import ChatModal from '@/components/chat/ChatModal';
 
 const GlobalModal = () => {
   const { closeModal, modalOpen, modalType, modalProps } = useModalStore();
-  const { openScroll } = useBodyScrollLock();
+  const { openScroll, lockScroll } = useBodyScrollLock();
 
   const closeModalHandler = () => {
     closeModal();
@@ -38,6 +38,15 @@ const GlobalModal = () => {
       </>
     );
   };
+
+  useEffect(() => {
+    if (modalOpen) {
+      lockScroll();
+    }
+    return () => {
+      openScroll();
+    };
+  }, []);
 
   return <>{renderComponent()}</>;
 };

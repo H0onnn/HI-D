@@ -13,7 +13,7 @@ const SettingModal = ({ position = '', setModal, settingList }: Props) => {
   const { openScroll } = useBodyScrollLock();
   const modalBackground = useRef(null);
 
-  const closeModalHanlder = (e: React.MouseEvent<HTMLElement>) => {
+  const closeModalHandler = (e: React.MouseEvent<HTMLElement>) => {
     if (e.target === modalBackground.current) {
       setModal(false);
       openScroll();
@@ -21,7 +21,7 @@ const SettingModal = ({ position = '', setModal, settingList }: Props) => {
   };
   return (
     <>
-      <BackDrop ref={modalBackground} onClick={closeModalHanlder} />
+      <BackDrop ref={modalBackground} onClick={closeModalHandler} />
       <Layout $position={position}>
         {settingList.map((item, index) => (
           <MenuItem key={index} onClick={item.clickHandler}>

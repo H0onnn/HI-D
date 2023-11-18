@@ -9,11 +9,14 @@ import { ReportDataInterface } from '@/types/report';
 import { PostDetailInterface } from '@/types/post';
 import { MODAL_TYPES } from '@/types/modal';
 import toast from 'react-hot-toast';
+import useBodyScrollLock from './useBodyScrollLock';
+import { postChatRoom } from '@/services/chat';
 
 const usePostActionHandlers = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { openModal, closeModal } = useModalStore();
+  const { lockScroll } = useBodyScrollLock();
 
   const likePostMutation = useMutation<void, Error, number, { postId: number }>({
     mutationFn: async (postId) => {
@@ -99,12 +102,24 @@ const usePostActionHandlers = () => {
     });
   };
 
+  const enterChatRoomHandler = async (memberId: number) => {
+    const response = await postChatRoom({ memberId });
+    if (!response) return;
+    navigate(LINK.CHAT);
+    openModal({
+      modalType: MODAL_TYPES.CHAT,
+      modalProps: { url: response?.chatRoomId as number },
+    });
+    lockScroll();
+  };
+
   return {
     likePost,
     bookmarkPost,
     reportPost,
     editPost,
     deletePostHandler,
+    enterChatRoomHandler,
   };
 };
 

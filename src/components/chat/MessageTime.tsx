@@ -1,7 +1,7 @@
 import React from 'react';
 import { colors } from '@/constants/colors';
 import styled from 'styled-components';
-import { formatChatTime } from '@/utils/post';
+import { formatChatTime } from '@/utils/calculateDate';
 
 interface Props {
   createAt: string;

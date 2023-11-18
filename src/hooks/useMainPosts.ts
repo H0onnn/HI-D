@@ -21,7 +21,7 @@ const useMainPosts = (): UseMainPostsQueryReturnType => {
   const { data: weeklyHotPosts, error: weeklyHotPostError } = useQuery<PostInterface[]>({
     queryKey: [QUERY_KEY_MAIN_WEEKLY],
     queryFn: () => getWeeklyHotPostList().then((response) => response.dataList),
-    staleTime: DEFAULT_STALE_TIME,
+    staleTime: STALE_TIME_DEFAULT,
   });
   if (weeklyHotPostError) {
     console.error('게시글 데이터 fetching 에러 : ', weeklyHotPostError);
@@ -31,7 +31,7 @@ const useMainPosts = (): UseMainPostsQueryReturnType => {
   const { data: dailyHotPosts, error: dailyHotPostError } = useQuery<PostInterface[]>({
     queryKey: [QUERY_KEY_MAIN_DAILY],
     queryFn: () => getDailyHotPostList().then((response) => response.dataList),
-    staleTime: DEFAULT_STALE_TIME,
+    staleTime: STALE_TIME_DEFAULT,
   });
   if (dailyHotPostError) {
     console.error('게시글 데이터 fetching 에러 : ', dailyHotPostError);
@@ -45,7 +45,7 @@ const useMainPosts = (): UseMainPostsQueryReturnType => {
   } = useQuery<PostInterface[]>({
     queryKey: [QUERY_KEY_MAIN_HELP],
     queryFn: () => getHelpPostListByMain().then((response) => response.dataList),
-    staleTime: DEFAULT_STALE_TIME,
+    staleTime: STALE_TIME_DEFAULT,
   });
   if (helpPostError) {
     // console.error('게시글 데이터 fetching 에러 : ', helpPostError);
@@ -59,7 +59,7 @@ const useMainPosts = (): UseMainPostsQueryReturnType => {
   } = useQuery<PostInterface[]>({
     queryKey: [QUERY_KEY_MAIN_FREE],
     queryFn: () => getFreePostListByMain(currentTag).then((response) => response.dataList),
-    staleTime: DEFAULT_STALE_TIME,
+    staleTime: STALE_TIME_DEFAULT,
   });
   if (freePostError) {
     // console.error('게시글 데이터 fetching 에러 : ', freePostError);
@@ -86,6 +86,6 @@ export const QUERY_KEY_MAIN_WEEKLY = 'weeklyHotPost';
 export const QUERY_KEY_MAIN_DAILY = 'dailyHotPost';
 export const QUERY_KEY_MAIN_HELP = 'mainHelpPost';
 export const QUERY_KEY_MAIN_FREE = 'mainFreePost';
-export const DEFAULT_STALE_TIME = 1000 * 60 * 5; // 5분
+export const STALE_TIME_DEFAULT = 1000 * 60 * 5; // 5분
 
 export default useMainPosts;

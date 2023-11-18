@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
-import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import useModalStore from '@/store/modalStore';
 import { MODAL_TYPES } from '@/types/modal';
 import { deleteAccount, lockAccount } from '@/services/admin';
@@ -17,7 +16,6 @@ const AccountItem = ({
   createAt,
   locked,
 }: AccountInterface) => {
-  const { lockScroll } = useBodyScrollLock();
   const { openModal, closeModal } = useModalStore();
 
   const lockAccountHandler = async () => {
@@ -53,7 +51,6 @@ const AccountItem = ({
         },
       });
     }
-    lockScroll();
   };
 
   const deleteAccountHandler = async () => {
@@ -76,7 +73,6 @@ const AccountItem = ({
         onConfirmHandler: deleteAccountHandler,
       },
     });
-    lockScroll();
   };
 
   return (

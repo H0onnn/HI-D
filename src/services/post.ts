@@ -73,7 +73,6 @@ export const getMyBookmarkList = async (
 ): Promise<PostListInterface> => {
   try {
     const response = await httpClient.post.get.myBookmarks(page, boardType);
-    console.log(response.data);
     return response.data;
   } catch (e) {
     throw new Error('게시글 불러오기 오류');

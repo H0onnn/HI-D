@@ -19,7 +19,7 @@ const AlertModal = ({ title, content, onConfirmHandler, confirmText = '확인' }
       <Title>{title}</Title>
       <Content>{content}</Content>
       <Footer>
-        <CancleButton onClick={closeModalHandler}>취소</CancleButton>
+        <CancelButton onClick={closeModalHandler}>취소</CancelButton>
         <ConfirmButton onClick={onConfirmHandler}>{confirmText}</ConfirmButton>
       </Footer>
     </Layout>
@@ -64,7 +64,7 @@ const ButtonStyle = css`
   font-weight: 700;
   border: none;
 `;
-const CancleButton = styled.button`
+const CancelButton = styled.button`
   ${ButtonStyle};
   background-color: ${colors.gray1};
   color: ${colors.gray5};

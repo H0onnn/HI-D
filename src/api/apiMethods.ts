@@ -236,7 +236,7 @@ export const apiMethods = {
         url: `chat/rooms?page=${page}&size=10&sortBy=createAt&direction=DESC`,
       }),
       messages: ({ roomId, page }: RequestMessageListInterface) => ({
-        url: `chat/rooms/${roomId}/messages?${page}&size=10&sortBy=createAt&direction=DESC`,
+        url: `chat/rooms/${roomId}/messages?page=${page}&size=10&sortBy=createAt&direction=DESC`,
       }),
     },
     post: {

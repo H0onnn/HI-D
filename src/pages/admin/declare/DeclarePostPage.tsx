@@ -3,7 +3,7 @@ import PageHeader from '@/components/public/PageHeader';
 import { AdminPageLayout } from '@/styles/admin';
 import DeclarePost from '@/components/admin/declare/DeclarePost';
 
-const DecalrePostPage = () => {
+const DeclarePostPage = () => {
   return (
     <>
       <PageHeader title='신고 글 상세' />
@@ -14,4 +14,4 @@ const DecalrePostPage = () => {
   );
 };
 
-export default DecalrePostPage;
+export default DeclarePostPage;

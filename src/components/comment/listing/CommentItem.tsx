@@ -13,7 +13,7 @@ import MoreActionButtons from '@/components/public/MoreActionButtons';
 import SlideUpModal from '@/components/public/SlideUpModal';
 import SetupReport from '@/components/post/postDetails/postHeader/actions/report/SetupReport';
 import CommentTextArea from '../contentArea/CommentTextArea';
-import { timeSince } from '@/utils/caculateDate';
+import { timeSince } from '@/utils/calculateDate';
 
 interface CommentItemInterface {
   replyId: number;
@@ -25,6 +25,7 @@ interface CommentItemInterface {
   comment_like: number;
   isMine: boolean;
   isRecommended: boolean;
+  writer_id: number;
 }
 
 const CommentItem = forwardRef<HTMLDivElement, CommentItemInterface>(
@@ -39,6 +40,7 @@ const CommentItem = forwardRef<HTMLDivElement, CommentItemInterface>(
       comment_like,
       isMine,
       isRecommended,
+      writer_id,
     },
     ref,
   ) => {
@@ -51,7 +53,7 @@ const CommentItem = forwardRef<HTMLDivElement, CommentItemInterface>(
       toggleIsEditing,
     } = useActionState();
     const { editComment, deleteComment } = useCommentMutation();
-    const { likeComment } = useCommentActionHandler();
+    const { likeComment, enterChatRoom } = useCommentActionHandler();
 
     const editCommentHandler = (editedContent: string) => {
       editComment({ replyId, content: editedContent });
@@ -63,6 +65,10 @@ const CommentItem = forwardRef<HTMLDivElement, CommentItemInterface>(
 
     const likeCommentHandler = () => {
       likeComment(replyId, postId);
+    };
+
+    const enterChatRoomHandler = () => {
+      enterChatRoom(writer_id);
     };
 
     return (
@@ -82,7 +88,7 @@ const CommentItem = forwardRef<HTMLDivElement, CommentItemInterface>(
                 isOwnContent={isMine}
                 editHandler={toggleIsEditing}
                 deleteHandler={deleteCommentHandler}
-                chatHandler={() => {}}
+                chatHandler={enterChatRoomHandler}
                 reportHandler={toggleReport}
               />
             </MoreActionModal>

@@ -14,7 +14,7 @@ export interface RequestChatRoomListInterface {
   page: number;
 }
 export interface RequestChatRoomCreateInterface {
-  memberId: string;
+  memberId: number;
 }
 export interface RequestChatRoomDeleteInterface {
   roomId: number;
@@ -26,10 +26,12 @@ export interface MessageListInterface {
   hasNext: boolean;
 }
 export interface MessageInterface {
+  type: 'ENTER' | 'NORMAL';
   chatMessageId: number;
   sender: string; // nickname
   content: string;
   createAt: string;
+  read: boolean;
 }
 export interface RequestMessageListInterface {
   roomId: number;
