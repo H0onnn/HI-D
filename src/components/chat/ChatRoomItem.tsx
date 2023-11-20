@@ -10,6 +10,7 @@ import useModalStore from '@/store/modalStore';
 import { imageStyle } from '@/styles/styles';
 import { MODAL_TYPES } from '@/types/modal';
 import { deleteChatRoom } from '@/services/chat';
+import toast from 'react-hot-toast';
 
 interface Props {
   chatRoom: ChatRoomInterface;
@@ -29,9 +30,7 @@ const ChatRoomItem = ({
     closeModal();
     const response = await deleteChatRoom({ roomId: chatRoomId });
     if (response) {
-      // TODO: toast alert
-    } else {
-      // TODO: toast alert
+      toast.success('채팅이 삭제되었어요.', { id: 'deleteChatRoom' });
     }
   };
 
