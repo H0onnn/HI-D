@@ -2,10 +2,12 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useFunnel } from '@/hooks/useFunnel';
 import useSubmitPost from '@/hooks/useSubmitPost';
+import usePostDetailData from '@/hooks/usePostDetailData';
 import { PageLayout } from '@/styles/styles';
 import PageHeader from '@/components/public/PageHeader';
 import PostingSetup from '@/components/posting/PostingSetup';
 import GenericForm from '@/components/public/form/GenericForm';
+import LoadingContent from '@/components/public/LoadingContent';
 import { handleNextClick, handlePrevClick } from '@/services/setupStep';
 import { LINK } from '@/constants/links';
 import { PostingDataInterface } from '@/types/posting';
@@ -17,16 +19,17 @@ const PostingPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { submitPost, editPost } = useSubmitPost();
-
   const currentPath = location.pathname;
-  const postToEdit = location.state?.post;
+  const currnetPostId = Number(currentPath.split('/')[3]);
+  const { postData: initialPost, isFetching } = usePostDetailData(currnetPostId);
+
+  const postToEdit = currentPath.includes('edit') ? initialPost : undefined;
 
   const isHelpPost = currentPath === LINK.POSTING_HELP || postToEdit?.boardType === 'NEED_HELP';
   const isFreePost = currentPath === LINK.POSTING_FREE || postToEdit?.boardType === 'FREE';
   const submitType = isHelpPost ? 'needhelp' : 'free';
 
   const defaultStep = isHelpPost && !postToEdit ? steps[0] : steps[1];
-
   const { Funnel, Step, setStep, currentStep } = useFunnel(defaultStep);
 
   const nextClickHandler = handleNextClick(setStep, steps);
@@ -46,6 +49,8 @@ const PostingPage = () => {
     }
     submitPost(submitType, data);
   };
+
+  if (isFetching) return <LoadingContent />;
 
   return (
     <>
