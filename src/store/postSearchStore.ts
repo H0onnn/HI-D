@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface PostSearchStateInterface {
   keyword: string;
@@ -13,27 +14,34 @@ interface PostSearchActionsInterface {
   setShowKeywordHistory: (showKeywordHistory: boolean) => void;
 }
 
-const usePostSearchStore = create<PostSearchStateInterface & PostSearchActionsInterface>((set) => ({
-  keyword: '',
-  keywordHistory: [],
-  setKeyword: (newKeyword) => set(() => ({ keyword: newKeyword })),
-  setKeywordHistory: (newKeyword) =>
-    set((state) => ({
-      keywordHistory: [
-        newKeyword,
-        ...state.keywordHistory.filter((keyword) => keyword !== newKeyword),
-      ],
-    })),
-  deleteKeywordHistoryAll: () =>
-    set(() => ({
+const usePostSearchStore = create(
+  persist<PostSearchStateInterface & PostSearchActionsInterface>(
+    (set) => ({
+      keyword: '',
       keywordHistory: [],
-    })),
-  deleteKeywordHistory: (deleteKeyword) =>
-    set((state) => ({
-      keywordHistory: [...state.keywordHistory.filter((keyword) => keyword !== deleteKeyword)],
-    })),
-  showKeywordHistory: true,
-  setShowKeywordHistory: (showKeywordHistory) => set(() => ({ showKeywordHistory })),
-}));
+      setKeyword: (newKeyword) => set(() => ({ keyword: newKeyword })),
+      setKeywordHistory: (newKeyword) =>
+        set((state) => ({
+          keywordHistory: [
+            newKeyword,
+            ...state.keywordHistory.filter((keyword) => keyword !== newKeyword),
+          ],
+        })),
+      deleteKeywordHistoryAll: () =>
+        set(() => ({
+          keywordHistory: [],
+        })),
+      deleteKeywordHistory: (deleteKeyword) =>
+        set((state) => ({
+          keywordHistory: [...state.keywordHistory.filter((keyword) => keyword !== deleteKeyword)],
+        })),
+      showKeywordHistory: true,
+      setShowKeywordHistory: (showKeywordHistory) => set(() => ({ showKeywordHistory })),
+    }),
+    {
+      name: 'post-search',
+    },
+  ),
+);
 
 export default usePostSearchStore;
