@@ -103,6 +103,7 @@ const ChatModal = ({ url: roomId, image }: IModalProps) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
+          status='chat'
         />
       </InputWrapper>
     </ChatModalLayout>
@@ -114,7 +115,7 @@ export default ChatModal;
 const ChatModalLayout = styled.div`
   position: absolute;
   width: 100%;
-  padding: 6rem 3rem 2rem 3rem;
+  padding: 6rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   animation: ${slideUp} 0.5s ease-in-out;
