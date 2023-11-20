@@ -7,8 +7,6 @@ import { PostListLayout, PostListWrapper, TagWrapper } from '@/styles/post';
 
 const FreeContainer = ({ keyword }: PostContainerProps) => {
   const [currentTag, setCurrentTag] = useState<TagInterface>(freePostTagList[0]);
-  const needFilter = ['/search', '/post'].some((path) => location.pathname.includes(path));
-  // TODO: 정렬 필터 추가
 
   const handleTagClick = (e: React.MouseEvent<HTMLElement>) => {
     if (currentTag.name === e.currentTarget.textContent) return;
@@ -19,7 +17,6 @@ const FreeContainer = ({ keyword }: PostContainerProps) => {
 
   return (
     <PostListLayout>
-      {needFilter && <></>}
       <TagWrapper>
         <FreePostTagContainer
           onClick={handleTagClick}

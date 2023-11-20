@@ -8,12 +8,14 @@ import HelpPostMedium from './HelpPostMedium';
 import useHelpPosts from '@/hooks/useHelpPosts';
 import LoadingContent from '../public/LoadingContent';
 import ErrorContent from '../public/ErrorContent';
+import usePostFilterStore from '@/store/postFilterStore';
 
-const HelpPostList = ({ major, keyword }: HelpPostListProps) => {
+const HelpPostList = ({ keyword }: HelpPostListProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isPostListPage = location.pathname.includes(LINK.POST);
-  const { data, moreDataHandler, isFetching } = useHelpPosts({ major, keyword });
+  const { filter, major } = usePostFilterStore();
+  const { data, moreDataHandler, isFetching } = useHelpPosts({ major, keyword, filter });
   const loadMoreRef = useObserver(() => moreDataHandler());
 
   if (data?.pages[0].size === 0) return <ErrorContent />;
