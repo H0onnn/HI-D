@@ -4,6 +4,8 @@ interface PostSearchStateInterface {
   keyword: string;
   keywordHistory: string[] | [];
   showKeywordHistory: boolean;
+}
+interface PostSearchActionsInterface {
   setKeyword: (newKeyword: string) => void;
   setKeywordHistory: (newKeyword: string) => void;
   deleteKeywordHistoryAll: () => void;
@@ -11,7 +13,7 @@ interface PostSearchStateInterface {
   setShowKeywordHistory: (showKeywordHistory: boolean) => void;
 }
 
-const usePostSearchStore = create<PostSearchStateInterface>((set) => ({
+const usePostSearchStore = create<PostSearchStateInterface & PostSearchActionsInterface>((set) => ({
   keyword: '',
   keywordHistory: [],
   setKeyword: (newKeyword) => set(() => ({ keyword: newKeyword })),
