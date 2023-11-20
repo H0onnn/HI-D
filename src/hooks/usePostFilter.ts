@@ -12,7 +12,6 @@ const usePostFilter = () => {
   const { setFilter, setMajor } = usePostFilterStore();
 
   useEffect(() => {
-    if (!selectedId) return;
     const selectedContent = dataList.find((data) => data.id === selectedId) || dataList[0];
     setFilter({
       sortBy: selectedContent?.sortBy,
@@ -27,7 +26,6 @@ const usePostFilter = () => {
   }, [selectedId]);
 
   useEffect(() => {
-    if (!majorId) return;
     const selectedMajor = majorDataList.find((data) => data.id === majorId) || majorDataList[0];
     setMajor(selectedMajor?.code);
     return () => {
