@@ -8,12 +8,14 @@ import FreePostMedium from './FreePostMedium';
 import useFreePosts from '@/hooks/useFreePosts';
 import LoadingContent from '../public/LoadingContent';
 import ErrorContent from '../public/ErrorContent';
+import usePostFilterStore from '@/store/postFilterStore';
 
 const FreePostList = ({ tag, keyword }: FreePostListProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isPostListPage = location.pathname.includes(LINK.POST);
-  const { data, moreDataHandler, isFetching } = useFreePosts({ tag, keyword });
+  const { filter } = usePostFilterStore();
+  const { data, moreDataHandler, isFetching } = useFreePosts({ tag, keyword, filter });
   const loadMoreRef = useObserver(() => moreDataHandler());
 
   if (data?.pages[0].size === 0) return <ErrorContent />;

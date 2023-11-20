@@ -13,9 +13,19 @@ interface UseHelpPostQueryReturnType {
   isFetching: boolean;
 }
 
-const useHelpPosts = ({ major, keyword }: HelpPostListProps): UseHelpPostQueryReturnType => {
+const useHelpPosts = ({
+  major,
+  keyword,
+  filter,
+}: HelpPostListProps): UseHelpPostQueryReturnType => {
   const fetchPosts = async (pageParam = 1) => {
-    const response = await getHelpPostList({ majorCategory: major, page: pageParam, keyword });
+    const response = await getHelpPostList({
+      majorCategory: major,
+      page: pageParam,
+      keyword,
+      sortBy: filter?.sortBy,
+      direction: filter?.direction,
+    });
 
     return {
       ...response,
@@ -24,7 +34,7 @@ const useHelpPosts = ({ major, keyword }: HelpPostListProps): UseHelpPostQueryRe
   };
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<HelpPostQueryResponse>({
-    queryKey: [QUERY_KEY_HELP, keyword, major],
+    queryKey: [QUERY_KEY_HELP, keyword, major, filter?.sortBy, filter?.direction],
     queryFn: ({ pageParam }) => fetchPosts(pageParam as number),
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 1,
