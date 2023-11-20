@@ -6,13 +6,13 @@ import { defaultMessageLayout, defaultMessageTextLayout } from '@/styles/chat';
 import MessageTime from './MessageTime';
 import MessageNickname from './MessageNickname';
 
-const YourMessage = ({ sender, content, createAt, read }: MessageInterface) => {
+const YourMessage = ({ sender, content, createAt, isRead }: MessageInterface) => {
   return (
     <MessageLayout>
       <MessageNickname nickname={sender} />
       <MessageText>{content}</MessageText>
       <MessageFooter>
-        {!read && <MessageUnRead>1</MessageUnRead>}
+        {!isRead && <MessageUnRead>1</MessageUnRead>}
         <MessageTime createAt={createAt} />
       </MessageFooter>
     </MessageLayout>

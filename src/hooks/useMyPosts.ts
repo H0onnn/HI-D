@@ -14,11 +14,11 @@ interface UseMyPostQueryReturnType {
 }
 
 const useMyPosts = ({
-  category,
+  category = 'NEED_HELP',
   location,
 }: {
-  category: 'NEED_HELP' | 'FREE';
-  location: 'bookmarks' | 'posts';
+  category?: 'NEED_HELP' | 'FREE';
+  location?: 'bookmarks' | 'posts';
 }): UseMyPostQueryReturnType => {
   const fetchPosts = async (pageParam = 1) => {
     if (location === 'bookmarks') {
@@ -37,7 +37,7 @@ const useMyPosts = ({
   };
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<MyPostsQueryResponse>({
-    queryKey: [QUERY_KEY_MY_POST, location, category],
+    queryKey: [QUERY_KEY_MY_POST, category, location],
     queryFn: ({ pageParam }) => fetchPosts(pageParam as number),
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 1,
