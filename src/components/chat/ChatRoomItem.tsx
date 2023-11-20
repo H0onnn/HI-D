@@ -48,7 +48,7 @@ const ChatRoomItem = ({
   };
 
   const openChatModalHandler = () => {
-    openModal({ modalType: MODAL_TYPES.CHAT, modalProps: { url: chatRoomId } });
+    openModal({ modalType: MODAL_TYPES.CHAT, modalProps: { url: chatRoomId, image: imageUrl } });
   };
 
   return (
@@ -90,11 +90,9 @@ const ChatRoomItemLayout = styled.div`
   background: ${colors.white};
   &:hover {
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    scale: 1.01;
   }
   &:active {
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    scale: 1.01;
   }
 `;
 

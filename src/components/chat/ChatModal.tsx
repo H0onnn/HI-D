@@ -13,7 +13,7 @@ import useObserver from '@/hooks/useObserver';
 import { useQueryClient } from '@tanstack/react-query';
 import useUser from '@/hooks/useUser';
 
-const ChatModal = ({ url: roomId }: IModalProps) => {
+const ChatModal = ({ url: roomId, image }: IModalProps) => {
   const { data, moreDataHandler, isFetching, refetch } = useMessages(Number(roomId));
   const loadMoreRef = useObserver(() => moreDataHandler());
   const [message, setMessage] = useState('');
@@ -80,7 +80,7 @@ const ChatModal = ({ url: roomId }: IModalProps) => {
   return (
     <ChatModalLayout>
       <ImageWrapper>
-        <img src={DefaultProfile} alt='profile_img' />
+        <img src={image || DefaultProfile} alt='profile_img' />
       </ImageWrapper>
       <MessageListLayout ref={messagesContainerRef}>
         {isFetching ? (
