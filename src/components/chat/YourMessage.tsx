@@ -23,6 +23,7 @@ export default YourMessage;
 const MessageLayout = styled.div`
   ${defaultMessageLayout}
   align-items: flex-start;
+  padding-right: 2rem;
 `;
 const MessageText = styled.div`
   ${defaultMessageTextLayout}
