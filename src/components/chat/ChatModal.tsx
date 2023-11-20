@@ -12,7 +12,6 @@ import { useChatMessageStore } from '@/store/chatMessageStore';
 import useObserver from '@/hooks/useObserver';
 import { useQueryClient } from '@tanstack/react-query';
 import useUser from '@/hooks/useUser';
-import { QUERY_KEY_CHAT_ROOM } from '@/hooks/useChatRooms';
 
 const ChatModal = ({ url: roomId, image }: IModalProps) => {
   const { data, moreDataHandler, isFetching, refetch } = useMessages(Number(roomId));
@@ -39,6 +38,7 @@ const ChatModal = ({ url: roomId, image }: IModalProps) => {
   };
 
   useEffect(() => {
+    if (!roomId) return;
     webSocketInstance.enterChatRoom(Number(roomId));
     return () => {
       initMessages();
@@ -81,7 +81,7 @@ const ChatModal = ({ url: roomId, image }: IModalProps) => {
   // 모달창 꺼질때, 채팅방 리스트 업데이트
   useEffect(() => {
     return () => {
-      queryClient.removeQueries({ queryKey: [QUERY_KEY_CHAT_ROOM] });
+      // queryClient.removeQueries({ queryKey: [QUERY_KEY_CHAT_ROOM] });
     };
   }, []);
 
