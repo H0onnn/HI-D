@@ -26,3 +26,13 @@ export const majorToKoreaMapping: Record<string, MajorKeys> = {
   MEDICAL: '간호, 의약, 의학 계열',
   ETC: '기타',
 } as const;
+
+export const MAJOR_LIST = [
+  { id: 0, content: '전체', code: '' },
+  { id: 1, content: '인문, 경영, 사회 계열', code: 'SOCIAL' },
+  { id: 2, content: '자연, 컴퓨터, 공학 계열', code: 'ENGINEERING' },
+  { id: 3, content: '교대, 사범대, 교육 계열', code: 'EDUCATION' },
+  { id: 4, content: '음악, 미술, 체육 예체능 계열', code: 'PHYSICAL' },
+  { id: 5, content: '간호, 의약, 의학 계열', code: 'MEDICAL' },
+  { id: 6, content: '기타', code: 'ETC' },
+];
