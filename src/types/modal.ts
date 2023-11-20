@@ -32,6 +32,7 @@ export interface ISettingModal {
 
 export interface IModalProps {
   url?: string | number;
+  image?: string;
   title?: string;
   content?: JSX.Element | string;
   confirmText?: string;

@@ -10,6 +10,7 @@ import useModalStore from '@/store/modalStore';
 import { imageStyle } from '@/styles/styles';
 import { MODAL_TYPES } from '@/types/modal';
 import { deleteChatRoom } from '@/services/chat';
+import toast from 'react-hot-toast';
 
 interface Props {
   chatRoom: ChatRoomInterface;
@@ -20,6 +21,7 @@ const ChatRoomItem = ({
     chatRoomId,
     member: { imageUrl = DefaultProfile, nickname },
     recentChatMessage: { content, createAt },
+    existNotRead,
   },
 }: Props) => {
   const { openModal, closeModal } = useModalStore();
@@ -28,9 +30,7 @@ const ChatRoomItem = ({
     closeModal();
     const response = await deleteChatRoom({ roomId: chatRoomId });
     if (response) {
-      // TODO: toast alert
-    } else {
-      // TODO: toast alert
+      toast.success('채팅이 삭제되었어요.', { id: 'deleteChatRoom' });
     }
   };
 
@@ -47,17 +47,18 @@ const ChatRoomItem = ({
   };
 
   const openChatModalHandler = () => {
-    openModal({ modalType: MODAL_TYPES.CHAT, modalProps: { url: chatRoomId } });
+    openModal({ modalType: MODAL_TYPES.CHAT, modalProps: { url: chatRoomId, image: imageUrl } });
   };
-
-  // TODO: 안읽음 ui
 
   return (
     <Layout>
       <ChatRoomItemLayout onClick={openChatModalHandler}>
-        <ImageWrapper>
-          <img src={imageUrl} alt='your_profile' />
-        </ImageWrapper>
+        <ProfileContainer>
+          <ImageWrapper>
+            <img src={imageUrl} alt='your_profile' />
+          </ImageWrapper>
+          {existNotRead && <UnreadIcon />}
+        </ProfileContainer>
         <MessageContainer>
           <MessageNickname nickname={nickname} />
           <MessageContent>{content}</MessageContent>
@@ -88,11 +89,9 @@ const ChatRoomItemLayout = styled.div`
   background: ${colors.white};
   &:hover {
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    scale: 1.01;
   }
   &:active {
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    scale: 1.01;
   }
 `;
 
@@ -136,4 +135,19 @@ const DeleteButton = styled.div`
   z-index: 1;
   width: 2rem;
   height: 2rem;
+`;
+
+const ProfileContainer = styled.div`
+  position: relative;
+`;
+
+const UnreadIcon = styled.div`
+  position: absolute;
+  top: 0.1rem;
+  right: 0.1rem;
+  z-index: 1;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background-color: ${colors.error};
 `;

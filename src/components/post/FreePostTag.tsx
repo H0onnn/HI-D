@@ -73,7 +73,6 @@ const TagBox = styled.div<{ $active: boolean; $noneMarginStyles?: boolean }>`
   }
   &:hover {
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    scale: 1.01;
   }
   &:active {
     color: ${colors.white};
@@ -81,6 +80,5 @@ const TagBox = styled.div<{ $active: boolean; $noneMarginStyles?: boolean }>`
     border: 0.08rem solid ${colors.primary};
     background: ${colors.primary};
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    scale: 1.01;
   }
 `;

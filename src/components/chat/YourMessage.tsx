@@ -6,24 +6,36 @@ import { defaultMessageLayout, defaultMessageTextLayout } from '@/styles/chat';
 import MessageTime from './MessageTime';
 import MessageNickname from './MessageNickname';
 
-const YourMessage = ({ sender, content, createAt }: MessageInterface) => {
+const YourMessage = ({ sender, content, createAt, read }: MessageInterface) => {
   return (
     <MessageLayout>
       <MessageNickname nickname={sender} />
       <MessageText>{content}</MessageText>
-      <MessageTime createAt={createAt} />
+      <MessageFooter>
+        {!read && <MessageUnRead>1</MessageUnRead>}
+        <MessageTime createAt={createAt} />
+      </MessageFooter>
     </MessageLayout>
   );
 };
 export default YourMessage;
 
-export const MessageLayout = styled.div`
+const MessageLayout = styled.div`
   ${defaultMessageLayout}
   align-items: flex-start;
+  padding-right: 2rem;
 `;
 const MessageText = styled.div`
   ${defaultMessageTextLayout}
   border-radius: 0px 16px 16px 16px;
   background: ${colors.pastel};
   color: ${colors.black};
+`;
+
+const MessageUnRead = styled.div`
+  color: ${colors.primary};
+`;
+const MessageFooter = styled.div`
+  display: flex;
+  gap: 0.6rem;
 `;

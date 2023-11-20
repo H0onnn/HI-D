@@ -22,11 +22,9 @@ export const Layout = styled.div`
   background: ${colors.white};
   &:hover {
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    scale: 1.01;
   }
   &:active {
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    scale: 1.01;
   }
 `;
 export const Header = styled.div`
@@ -69,6 +67,7 @@ export const PostListWrapper = styled.div`
 export const PostListLayout = styled.div`
   height: 100%;
   background-color: ${colors.pastel};
+  position: relative;
 `;
 export const TagWrapper = styled.div`
   padding: 3.2rem 0 0 0;

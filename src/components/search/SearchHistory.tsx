@@ -81,7 +81,7 @@ const Title = styled.div`
 const SearchHistoryContainer = styled.div`
   display: flex;
   gap: 0.8rem;
-  height: 3.6rem;
+  /* height: 3.6rem; */
   white-space: nowrap;
   align-items: end;
   overflow-x: scroll;
@@ -91,6 +91,7 @@ const SearchHistoryContainer = styled.div`
 const SearchHistoryItem = styled.div`
   position: relative;
   padding: 0.6rem 2.6rem 0.6rem 1.2rem;
+  margin: 0.6rem 0 1rem 0;
   height: 3.3rem;
   border-radius: 90rem;
   border: 1px solid ${colors.gray3};
@@ -116,9 +117,7 @@ const IconWrapper = styled.div`
     height: 90%;
   }
   &:hover {
-    scale: 1.1;
   }
   &:active {
-    scale: 1.1;
   }
 `;

@@ -3,28 +3,40 @@ import { tabList } from '@/constants/post';
 import { TabInterface } from '@/types/post';
 import React from 'react';
 import styled from 'styled-components';
+import PostFilterSelect from './postItem/PostFilterSelect';
 
 type Props = {
   tabClickHandler: (tab: TabInterface) => void;
   selectedTab: TabInterface;
 };
+
 const TabByCategory = ({ tabClickHandler, selectedTab }: Props) => {
+  const needPostFilter = ['/search'].some((path) => location.pathname.includes(path));
+
   return (
-    <TabBox>
-      {tabList.map((tab) => (
-        <CategoryTitle
-          key={tab.id}
-          $isSelected={tab.id === selectedTab.id}
-          onClick={() => tabClickHandler(tab)}
-        >
-          {tab.name}
-        </CategoryTitle>
-      ))}
-    </TabBox>
+    <Layout>
+      <TabBox>
+        {tabList.map((tab) => (
+          <CategoryTitle
+            key={tab.id}
+            $isSelected={tab.id === selectedTab.id}
+            onClick={() => tabClickHandler(tab)}
+          >
+            {tab.name}
+          </CategoryTitle>
+        ))}
+      </TabBox>
+      {needPostFilter && <PostFilterSelect />}
+    </Layout>
   );
 };
 
 export default TabByCategory;
+
+const Layout = styled.div`
+  position: relative;
+  display: flex;
+`;
 
 const TabBox = styled.div`
   width: 100%;

@@ -5,12 +5,14 @@ import Button from './Button';
 import CheckIcon from '@/public/images/input/input_check.svg';
 import WarningIcon from '@/public/images/input/error_warning.svg';
 import SearchIcon from '@/public/images/input/search.png';
+import SUBMIT_ICON from '@/public/images/ui/send_icon.svg';
+
 interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
   image?: string | React.ReactNode;
   button?: boolean;
   buttonText?: string;
   buttonStyle?: React.CSSProperties;
-  status?: 'default' | 'success' | 'error' | 'search';
+  status?: 'default' | 'success' | 'error' | 'search' | 'chat';
   errorMessage?: string;
   onButtonClick?: () => void;
 }
@@ -45,6 +47,8 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
               style={{ width: '20px', height: '20px', marginTop: '0.3rem' }}
             />
           );
+        case 'chat':
+          return <img src={SUBMIT_ICON} alt='submit_button' />;
         default:
           return typeof image === 'string' ? <img src={image} alt='input icon' /> : image;
       }
@@ -77,7 +81,7 @@ Input.displayName = 'Input';
 
 export default Input;
 
-const InputLayout = styled.div<{ status: 'default' | 'success' | 'error' | 'search' }>`
+const InputLayout = styled.div<{ status: 'default' | 'success' | 'error' | 'search' | 'chat' }>`
   position: relative;
   width: 100%;
   height: 4.8rem;
