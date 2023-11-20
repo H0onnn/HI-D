@@ -13,9 +13,15 @@ interface UseFreePostQueryReturnType {
   isFetching: boolean;
 }
 
-const useFreePosts = ({ tag, keyword }: FreePostListProps): UseFreePostQueryReturnType => {
+const useFreePosts = ({ tag, keyword, filter }: FreePostListProps): UseFreePostQueryReturnType => {
   const fetchPosts = async (pageParam = 1) => {
-    const response = await getFreePostList({ tag, page: pageParam, keyword });
+    const response = await getFreePostList({
+      tag,
+      page: pageParam,
+      keyword,
+      sortBy: filter?.sortBy,
+      direction: filter?.direction,
+    });
 
     return {
       ...response,
@@ -24,7 +30,7 @@ const useFreePosts = ({ tag, keyword }: FreePostListProps): UseFreePostQueryRetu
   };
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<FreePostQueryResponse>({
-    queryKey: [QUERY_KEY_FREE, keyword, tag],
+    queryKey: [QUERY_KEY_FREE, keyword, tag, filter?.sortBy, filter?.direction],
     queryFn: ({ pageParam }) => fetchPosts(pageParam as number),
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 1,

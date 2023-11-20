@@ -81,15 +81,22 @@ export type RequestReplyUpdate = {
 
 export interface PostContainerProps {
   keyword?: string;
-  errorMessage?: string;
 }
 export interface HelpPostListProps {
   keyword?: string;
   major?: string;
+  filter?: {
+    sortBy?: string;
+    direction?: string;
+  };
 }
 export interface FreePostListProps {
   keyword?: string;
   tag?: string;
+  filter?: {
+    sortBy?: string;
+    direction?: string;
+  };
 }
 export interface PostProps {
   post: PostInterface;

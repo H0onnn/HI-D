@@ -34,3 +34,10 @@ export const englishToTagMapping: { [key: string]: FreePostTag } = {
 };
 
 export const DEFAULT_TAG: FreePostTag = '연애';
+
+export const POST_FILTER_LIST = [
+  { id: 1, content: '최신순', sortBy: 'createAt', direction: 'DESC' },
+  { id: 2, content: '오래된순', sortBy: 'createAt', direction: 'ASC' },
+  { id: 3, content: '추천순', sortBy: 'recommendCount', direction: 'DESC' },
+  { id: 4, content: '조회순', sortBy: 'viewCount', direction: 'DESC' },
+];

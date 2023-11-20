@@ -1,27 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { PostContainerProps } from '../../types/post';
 import styled from 'styled-components';
 import HelpPostList from './HelpPostList';
 import { PostListLayout, PostListWrapper } from '@/styles/post';
 import { useLocation } from 'react-router-dom';
+import MajorFilterSelect from './postItem/MajorFilterSelect';
 
 const HelpContainer = ({ keyword = '' }: PostContainerProps) => {
   const location = useLocation();
-  const needFilter = ['/search', '/post'].some((path) => location.pathname.includes(path));
-  const [major, setMajor] = useState<string>('');
-  // TODO: 전공 필터 추가
-  // TODO: 정렬 필터 추가
-
-  useEffect(() => {
-    setMajor('');
-  }, [major]);
+  const needMajorFilter = ['/search', '/post'].some((path) => location.pathname.includes(path));
 
   return (
     <PostListLayout>
-      {needFilter && <></>}
-      <TagWrapper></TagWrapper>
+      <TagWrapper />
+      {needMajorFilter && <MajorFilterSelect />}
       <PostListWrapper>
-        <HelpPostList keyword={keyword} major={major} />
+        <HelpPostList keyword={keyword} />
       </PostListWrapper>
     </PostListLayout>
   );
@@ -30,5 +24,5 @@ const HelpContainer = ({ keyword = '' }: PostContainerProps) => {
 export default HelpContainer;
 
 const TagWrapper = styled.div`
-  padding: 3.2rem 0 0 0;
+  padding: 6.8rem 0 0 0;
 `;

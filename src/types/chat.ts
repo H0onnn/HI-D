@@ -7,7 +7,7 @@ export interface ChatRoomInterface {
   chatRoomId: number;
   member: { memberId: string; nickname: string; imageUrl: string };
   recentChatMessage: MessageInterface;
-  notReadCount: boolean;
+  existNotRead: boolean;
 }
 
 export interface RequestChatRoomListInterface {

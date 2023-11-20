@@ -5,11 +5,14 @@ import { colors } from '@/constants/colors';
 import MessageTime from './MessageTime';
 import { defaultMessageLayout, defaultMessageTextLayout } from '@/styles/chat';
 
-const MyMessage = ({ content, createAt }: MessageInterface) => {
+const MyMessage = ({ content, createAt, read }: MessageInterface) => {
   return (
     <MessageLayout>
       <MessageText>{content}</MessageText>
-      <MessageTime createAt={createAt} />
+      <MessageFooter>
+        {!read && <MessageUnRead>1</MessageUnRead>}
+        <MessageTime createAt={createAt} />
+      </MessageFooter>
     </MessageLayout>
   );
 };
@@ -19,9 +22,18 @@ const MessageLayout = styled.div`
   ${defaultMessageLayout}
   align-items: flex-end;
 `;
-export const MessageText = styled.div`
+
+const MessageText = styled.div`
   ${defaultMessageTextLayout}
   border-radius: 16px 0px 16px 16px;
   background: ${colors.primary};
   color: ${colors.white};
+`;
+
+const MessageUnRead = styled.div`
+  color: ${colors.primary};
+`;
+const MessageFooter = styled.div`
+  display: flex;
+  gap: 0.6rem;
 `;

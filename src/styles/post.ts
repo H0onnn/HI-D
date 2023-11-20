@@ -69,6 +69,7 @@ export const PostListWrapper = styled.div`
 export const PostListLayout = styled.div`
   height: 100%;
   background-color: ${colors.pastel};
+  position: relative;
 `;
 export const TagWrapper = styled.div`
   padding: 3.2rem 0 0 0;
