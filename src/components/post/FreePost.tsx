@@ -36,7 +36,6 @@ const FreePost = ({
   const myImageUrl = user?.imageUrl;
   const contentSnippet = getContentSnippet(content, keyword);
 
-  console.log(user);
   const postClickHandler = () => {
     navigate(`${LINK.POST}/${postId}`);
   };
