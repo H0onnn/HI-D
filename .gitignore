@@ -37,3 +37,8 @@ dist-ssr
 .env.test.local
 .env.production.local
 .eslintcache
+
+# pwa
+registerSW.js
+sw.js
+workbox-*.js
