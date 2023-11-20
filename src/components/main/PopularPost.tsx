@@ -83,7 +83,6 @@ const Layout = styled.div<{ url: string }>`
   &:hover,
   &:active {
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    scale: 1.01;
   }
 `;
 
