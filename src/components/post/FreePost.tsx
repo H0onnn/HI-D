@@ -12,7 +12,6 @@ import PostButtonBox from './postItem/PostButtonBox';
 import useUser from '@/hooks/useUser';
 
 const FreePost = ({
-  post,
   post: {
     postId,
     writer,
@@ -36,14 +35,13 @@ const FreePost = ({
   const myImageUrl = user?.imageUrl;
   const contentSnippet = getContentSnippet(content, keyword);
 
-  console.log(user);
   const postClickHandler = () => {
     navigate(`${LINK.POST}/${postId}`);
   };
 
   return (
     <LayoutWrapper>
-      {isMyPage && <PostButtonBox postId={postId} isBookMarked={isBookmarked} postData={post} />}
+      {isMyPage && <PostButtonBox postId={postId} isBookMarked={isBookmarked} />}
       <Layout onClick={postClickHandler}>
         <Header>
           {isMyPost ? (

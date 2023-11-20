@@ -55,7 +55,7 @@ const MoreActions = ({
             id={postId}
             type='POST'
             isOwnContent={postData.isMine}
-            editHandler={() => editPost(postData, postId)}
+            editHandler={() => editPost(postId)}
             deleteHandler={() => deletePostHandler(postId)}
             chatHandler={() => enterChatRoomHandler(postData.writer.memberId)}
           />

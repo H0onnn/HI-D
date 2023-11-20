@@ -6,17 +6,8 @@ import IconButton from '@/components/public/IconButton';
 import BOOKMARK_NONE from '@/public/images/ui/bookmark_none.svg';
 import BOOKMARK_ACTIVE from '@/public/images/ui/bookmark_active.svg';
 import usePostActionHandlers from '@/hooks/usePostActionHandlers';
-import { PostingDataInterface } from '@/types/posting';
 
-const PostButtonBox = ({
-  postId,
-  isBookMarked,
-  postData,
-}: {
-  postId: number;
-  isBookMarked: boolean;
-  postData: PostingDataInterface;
-}) => {
+const PostButtonBox = ({ postId, isBookMarked }: { postId: number; isBookMarked: boolean }) => {
   const location = useLocation();
   const isMyBookmark = location.pathname.includes('/bookmark');
   const { bookmarkPost, editPost, deletePostHandler } = usePostActionHandlers();
@@ -36,7 +27,7 @@ const PostButtonBox = ({
         </ButtonWrapper>
       ) : (
         <>
-          <PatchButton onClick={() => editPost(postData, postId)}>수정</PatchButton>
+          <PatchButton onClick={() => editPost(postId)}>수정</PatchButton>
           <DeleteButton onClick={() => deletePostHandler(postId)}>삭제</DeleteButton>
         </>
       )}
