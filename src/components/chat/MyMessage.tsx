@@ -21,6 +21,7 @@ export default MyMessage;
 const MessageLayout = styled.div`
   ${defaultMessageLayout}
   align-items: flex-end;
+  padding-left: 2rem;
 `;
 
 const MessageText = styled.div`

@@ -48,11 +48,9 @@ const Layout = styled.div`
   box-shadow: 0px 4px 16px 0px rgba(100, 100, 100, 0.1);
   &:hover {
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    scale: 1.01;
   }
   &:active {
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    scale: 1.01;
   }
 `;
 const Title = styled.div`
