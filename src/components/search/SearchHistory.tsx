@@ -117,9 +117,7 @@ const IconWrapper = styled.div`
     height: 90%;
   }
   &:hover {
-    scale: 1.1;
   }
   &:active {
-    scale: 1.1;
   }
 `;
