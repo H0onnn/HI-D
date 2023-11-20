@@ -14,6 +14,7 @@ import toast from 'react-hot-toast';
 
 interface Props {
   chatRoom: ChatRoomInterface;
+  refetch: () => void;
 }
 
 const ChatRoomItem = ({
@@ -23,6 +24,7 @@ const ChatRoomItem = ({
     recentChatMessage: { content, createAt },
     existNotRead,
   },
+  refetch,
 }: Props) => {
   const { openModal, closeModal } = useModalStore();
 
@@ -30,6 +32,7 @@ const ChatRoomItem = ({
     closeModal();
     const response = await deleteChatRoom({ roomId: chatRoomId });
     if (response) {
+      refetch();
       toast.success('채팅이 삭제되었어요.', { id: 'deleteChatRoom' });
     }
   };
