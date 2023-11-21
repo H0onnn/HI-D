@@ -15,4 +15,5 @@ export enum NotificationType {
   REPLY = 'REPLY',
   POST_REPORT = 'POST_REPORT',
   REPLY_REPORT = 'REPLY_REPORT',
+  CHAT_MESSAGE = 'CHAT_MESSAGE',
 }

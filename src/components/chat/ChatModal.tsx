@@ -67,7 +67,7 @@ const ChatModal = ({ url: roomId, image }: IModalProps) => {
   useEffect(() => {
     if (!enterMember) return;
     if (enterMember !== user?.nickname) {
-      queryClient.removeQueries({ queryKey: [QUERY_KEY_MESSAGE, roomId] });
+      // queryClient.removeQueries({ queryKey: [QUERY_KEY_MESSAGE, roomId] });
       refetch();
     }
   }, [enterMember]);

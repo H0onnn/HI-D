@@ -6,15 +6,24 @@ import { ChatRoomContainer } from '@/styles/chat';
 import useChatRooms from '@/hooks/useChatRooms';
 import LoadingContent from '../public/LoadingContent';
 import useModalStore from '@/store/modalStore';
+import { useChatMessageStore } from '@/store/chatMessageStore';
 
 const ChatRoomList = () => {
   const { data, isFetching, moreDataHandler, refetch } = useChatRooms();
   const { modalOpen } = useModalStore();
   const loadMoreRef = useObserver(() => moreDataHandler());
+  const { newChatNotification, setNewChatNotification } = useChatMessageStore();
 
   useEffect(() => {
     refetch();
   }, [modalOpen]);
+
+  useEffect(() => {
+    if (newChatNotification) {
+      refetch();
+      setNewChatNotification(false);
+    }
+  }, [newChatNotification]);
 
   if (!data || data.pages[0].dataList.length === 0) {
     return (
