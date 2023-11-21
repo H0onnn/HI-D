@@ -48,15 +48,18 @@ export const formatTimeAgo = (timestamp: string) => {
   const pastTime = new Date(timestamp).getTime();
   const timeDifference = currentTime - pastTime;
 
+  if (timeDifference < 0) {
+    return `0분전`;
+  }
   if (timeDifference < 3600000) {
     const minutesAgo = Math.floor(timeDifference / 60000);
     return `${minutesAgo}분전`;
-  } else if (timeDifference < 10800000) {
+  }
+  if (timeDifference < 10800000) {
     const hoursAgo = Math.floor(timeDifference / 3600000);
     return `${hoursAgo}시간전`;
-  } else {
-    return formatTime(timestamp);
   }
+  return formatTime(timestamp);
 };
 
 export const formatTime = (timestamp: string) => {
