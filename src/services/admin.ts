@@ -112,15 +112,17 @@ export const deleteReportDetail = async ({
   id: number;
   category: 'post' | 'reply';
 }): Promise<boolean> => {
+  console.log(id, reportId, category);
+
   try {
     if (category === 'post') {
-      const response = await httpClient.report.delete.post({ reportId, id });
+      const response = await httpClient.report.delete.post(id, reportId);
       if (response.status === 204) {
         return true;
       }
       return false;
     } else {
-      const response = await httpClient.report.delete.reply({ reportId, id });
+      const response = await httpClient.report.delete.reply(id, reportId);
       if (response.status === 204) {
         return true;
       }

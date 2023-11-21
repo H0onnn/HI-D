@@ -56,10 +56,10 @@ const DeclarePost = () => {
           page.dataList.map((data) => (
             <DeclareDetailContent
               key={postId}
-              {...data}
               id={data.postId}
               reportId={data.postReportId}
               category='post'
+              {...data}
             />
           )),
         )}
