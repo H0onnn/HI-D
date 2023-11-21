@@ -34,6 +34,9 @@ export class WebSocketService {
         const notification: NotificationData = JSON.parse(message.body);
         console.log(notification);
         useNotificationStore.getState().addNotification(notification);
+        if (notification.type === 'CHAT_MESSAGE') {
+          useChatMessageStore.getState().setNewChatNotification(true);
+        }
       }
     });
   }
