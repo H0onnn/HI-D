@@ -19,7 +19,6 @@ const DeclarePost = () => {
   const { openModal, closeModal } = useModalStore();
 
   const deletePostHandler = async (postId: number) => {
-    closeModal();
     try {
       await postDelete(postId);
       navigate(LINK.ADMIN_DECLARE);
@@ -28,6 +27,7 @@ const DeclarePost = () => {
       console.error('게시글 삭제 오류 : ', err);
       toast.error('게시글 삭제 중 오류가 발생했어요.', { id: 'postDeleteFail' });
     }
+    closeModal();
   };
 
   const deleteModalHandler = (postId: number) => {

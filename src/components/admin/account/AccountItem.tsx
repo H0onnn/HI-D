@@ -53,13 +53,13 @@ const AccountItem = ({
   };
 
   const deleteAccountHandler = async () => {
-    closeModal();
     const response = await deleteAccount(memberId);
     if (response) {
       // TODO: toast alert
     } else {
       // TODO: toast alert
     }
+    closeModal();
   };
 
   const deleteModalHandler = () => {
