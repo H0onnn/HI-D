@@ -12,6 +12,7 @@ interface UseDeclaresQueryReturnType {
     | Promise<InfiniteQueryObserverResult<InfiniteData<DeclaresQueryResponse, unknown>, Error>>
     | undefined;
   isFetching: boolean;
+  refetch: () => void;
 }
 
 const useDeclares = ({ category }: { category: 'post' | 'reply' }): UseDeclaresQueryReturnType => {
@@ -27,13 +28,14 @@ const useDeclares = ({ category }: { category: 'post' | 'reply' }): UseDeclaresQ
     };
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<DeclaresQueryResponse>({
-    queryKey: [QUERY_KEY_DECLARE, category],
-    queryFn: ({ pageParam }) => fetchAccounts(pageParam as number),
-    getNextPageParam: (lastPage) => lastPage.nextPage,
-    initialPageParam: 1,
-    staleTime: STALE_TIME_DEFAULT,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetching, refetch } =
+    useInfiniteQuery<DeclaresQueryResponse>({
+      queryKey: [QUERY_KEY_DECLARE, category],
+      queryFn: ({ pageParam }) => fetchAccounts(pageParam as number),
+      getNextPageParam: (lastPage) => lastPage.nextPage,
+      initialPageParam: 1,
+      staleTime: STALE_TIME_DEFAULT,
+    });
 
   const moreDataHandler = () => {
     if (hasNextPage) {
@@ -41,7 +43,7 @@ const useDeclares = ({ category }: { category: 'post' | 'reply' }): UseDeclaresQ
     }
   };
 
-  return { data, moreDataHandler, isFetching };
+  return { data, moreDataHandler, isFetching, refetch };
 };
 
 export const QUERY_KEY_DECLARE = 'Declares';

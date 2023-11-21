@@ -13,13 +13,13 @@ const DeclareDetailContent = ({ reporter, type, content, id, reportId, category 
   const { openModal, closeModal } = useModalStore();
 
   const deleteReportDetailHandler = async () => {
-    closeModal();
     const response = await deleteReportDetail({ id, reportId, category });
     if (response) {
       // TODO: toast alert
     } else {
       // TODO: toast alert
     }
+    closeModal();
   };
 
   const deleteModalHandler = () => {

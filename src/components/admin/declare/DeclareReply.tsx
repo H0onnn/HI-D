@@ -1,5 +1,5 @@
 import { colors } from '@/constants/colors';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import DeclareItemContent from './DeclareDetailContent';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
@@ -17,8 +17,8 @@ const DeclareReply = () => {
   const replyContent = searchParams.get('replyContent');
   const postId = searchParams.get('postId');
   const { replyId } = useParams();
-  const { data } = useDeclareReplies(replyId || '');
-  const { openModal, closeModal } = useModalStore();
+  const { data, refetch } = useDeclareReplies(replyId || '');
+  const { openModal, closeModal, modalOpen } = useModalStore();
 
   const deleteReplyHandler = async (reportId: number) => {
     try {
@@ -47,6 +47,15 @@ const DeclareReply = () => {
   const movePostPageHandler = () => {
     navigate(`${LINK.POST}/${postId}`);
   };
+
+  useEffect(() => {
+    if (modalOpen) return;
+    refetch();
+  }, [modalOpen]);
+
+  if (!data || data.pages[0].dataList.length === 0) {
+    navigate(LINK.ADMIN_DECLARE);
+  }
 
   return (
     <Layout>

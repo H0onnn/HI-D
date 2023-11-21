@@ -1,5 +1,5 @@
 import { colors } from '@/constants/colors';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import DeclareDetailContent from './DeclareDetailContent';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
@@ -15,8 +15,8 @@ const DeclarePost = () => {
   const [searchParams] = useSearchParams();
   const postContent = searchParams.get('postContent');
   const { postId } = useParams();
-  const { data } = useDeclarePosts(postId || '');
-  const { openModal, closeModal } = useModalStore();
+  const { data, refetch } = useDeclarePosts(postId || '');
+  const { openModal, closeModal, modalOpen } = useModalStore();
 
   const deletePostHandler = async (postId: number) => {
     try {
@@ -45,6 +45,15 @@ const DeclarePost = () => {
   const movePostPageHandler = () => {
     navigate(`${LINK.POST}/${postId}`);
   };
+
+  useEffect(() => {
+    if (modalOpen) return;
+    refetch();
+  }, [modalOpen]);
+
+  if (!data || data.pages[0].dataList.length === 0) {
+    navigate(LINK.ADMIN_DECLARE);
+  }
 
   return (
     <Layout>
