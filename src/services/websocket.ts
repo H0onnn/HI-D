@@ -73,7 +73,6 @@ export class WebSocketService {
   }
 
   public sendMessage(roomId: number, message: string): void {
-    console.log(roomId, message);
     this.client.publish({
       destination: `/pub/chat/rooms/${roomId}`,
       body: JSON.stringify({ content: message }),
