@@ -4,9 +4,9 @@ import ArrowIcon from '@/public/images/ui/arrow_icon.svg';
 import styled from 'styled-components';
 import { imageStyle } from '@/styles/styles';
 
-const DetailButton = ({ onClick }: { onClick: () => void }) => {
+const DetailButton = () => {
   return (
-    <Button onClick={onClick}>
+    <Button>
       자세히 보기
       <ImageWrapper>
         <img src={ArrowIcon} />
@@ -17,10 +17,8 @@ const DetailButton = ({ onClick }: { onClick: () => void }) => {
 export default DetailButton;
 
 const Button = styled.div`
-  margin: 2rem 0;
   cursor: pointer;
   width: 9rem;
-  height: 4.8rem;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -10,4 +10,6 @@ export const errorMessages = [
   { path: LINK.MY_POSTS, message: '내가 쓴 글이 없어요' },
   { path: LINK.MY_COMMENTS, message: '내가 쓴 댓글이 없어요' },
   { path: LINK.NOTIFICATION, message: '새로운 알림이 없어요' },
+  { path: LINK.ADMIN_DECLARE, message: '신고 내용이 없어요' },
+  { path: LINK.ADMIN_ACCOUNT, message: '해당 사용자가 없어요' },
 ];

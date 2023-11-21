@@ -1,5 +1,5 @@
 import useObserver from '@/hooks/useObserver';
-import React from 'react';
+import React, { useEffect } from 'react';
 import DeclareItem from './DeclareItem';
 import { DeclareTabInterface } from '@/types/admin';
 import styled from 'styled-components';
@@ -8,8 +8,12 @@ import useDeclares from '@/hooks/useDeclares';
 import ErrorContent from '@/components/public/ErrorContent';
 
 const DeclareList = ({ tab }: { tab: DeclareTabInterface }) => {
-  const { data, moreDataHandler, isFetching } = useDeclares({ category: tab.code });
+  const { data, moreDataHandler, isFetching, refetch } = useDeclares({ category: tab.code });
   const loadMoreRef = useObserver(() => moreDataHandler());
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   if (!data || data.pages[0].dataList.length === 0) {
     return <ErrorContent />;
