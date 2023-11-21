@@ -1,28 +1,28 @@
 import { colors } from '@/constants/colors';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import DeclareDetailContent from './DeclareDetailContent';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { LINK } from '@/constants/links';
-import { ReportDetailPostInterface } from '@/types/admin';
 import { MODAL_TYPES } from '@/types/modal';
 import useModalStore from '@/store/modalStore';
 import { postDelete } from '@/services/postActions';
 import toast from 'react-hot-toast';
+import useDeclarePosts from '@/hooks/useDeclarePosts';
 
 const DeclarePost = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const postContent = searchParams.get('postContent');
   const { postId } = useParams();
-  const [dataList, setDataList] = useState<ReportDetailPostInterface[]>([]);
+  const { data } = useDeclarePosts(postId || '');
   const { openModal, closeModal } = useModalStore();
 
   const deletePostHandler = async (postId: number) => {
     closeModal();
     try {
       await postDelete(postId);
-      navigate(LINK.ADMIN_DECLARE_POST);
+      navigate(LINK.ADMIN_DECLARE);
       toast.success('게시글이 삭제되었어요.', { id: 'postDeleteSuccess' });
     } catch (err: unknown) {
       console.error('게시글 삭제 오류 : ', err);
@@ -46,37 +46,23 @@ const DeclarePost = () => {
     navigate(`${LINK.POST}/${postId}`);
   };
 
-  const fetchData = () => {
-    setDataList([
-      {
-        postReportId: 1,
-        postId: 1,
-        content: '신고내용',
-        reporter: '신고자',
-        type: '신고유형',
-      },
-    ]);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [postId]);
-
   return (
     <Layout>
       <Title>신고 게시글 보기</Title>
       <Content onClick={movePostPageHandler}>{postContent}</Content>
       <Title>신고 내역</Title>
       <ListWrapper>
-        {dataList.map((data) => (
-          <DeclareDetailContent
-            key={postId}
-            {...data}
-            id={data.postId}
-            reportId={data.postReportId}
-            category='post'
-          />
-        ))}
+        {data?.pages.map((page) =>
+          page.dataList.map((data) => (
+            <DeclareDetailContent
+              key={postId}
+              {...data}
+              id={data.postId}
+              reportId={data.postReportId}
+              category='post'
+            />
+          )),
+        )}
       </ListWrapper>
       <DeleteButton onClick={() => deleteModalHandler(Number(postId))}>글 삭제하기</DeleteButton>
     </Layout>

@@ -1,8 +1,8 @@
 import { httpClient } from '@/api/httpClient';
 import {
   AccountListInterface,
-  ReportDetailPostInterface,
-  ReportDetailReplyInterface,
+  ReportDetailPostListInterface,
+  ReportDetailReplyListInterface,
   ReportListInterface,
   ReportPostInterface,
   RequestAccountListInterface,
@@ -67,7 +67,7 @@ export const getReportPostDetail = async ({
   size = 10,
   sortBy = 'createAt',
   direction = 'DESC',
-}: RequestReportDetailInterface): Promise<ReportDetailPostInterface> => {
+}: RequestReportDetailInterface): Promise<ReportDetailPostListInterface> => {
   try {
     const response = await httpClient.report.get.post({
       id,
@@ -88,7 +88,7 @@ export const getReportReplyDetail = async ({
   size = 10,
   sortBy = 'createAt',
   direction = 'DESC',
-}: RequestReportDetailInterface): Promise<ReportDetailReplyInterface> => {
+}: RequestReportDetailInterface): Promise<ReportDetailReplyListInterface> => {
   try {
     const response = await httpClient.report.get.reply({
       id,
