@@ -12,6 +12,7 @@ interface UseAccountsQueryReturnType {
     | Promise<InfiniteQueryObserverResult<InfiniteData<AccountsQueryResponse, unknown>, Error>>
     | undefined;
   isFetching: boolean;
+  refetch: () => void;
 }
 
 const useAccounts = ({ keyword = '' }): UseAccountsQueryReturnType => {
@@ -27,13 +28,14 @@ const useAccounts = ({ keyword = '' }): UseAccountsQueryReturnType => {
     };
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<AccountsQueryResponse>({
-    queryKey: [QUERY_KEY_ACCOUNT, keyword],
-    queryFn: ({ pageParam }) => fetchAccounts(pageParam as number),
-    getNextPageParam: (lastPage) => lastPage.nextPage,
-    initialPageParam: 1,
-    staleTime: STALE_TIME_DEFAULT,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetching, refetch } =
+    useInfiniteQuery<AccountsQueryResponse>({
+      queryKey: [QUERY_KEY_ACCOUNT, keyword],
+      queryFn: ({ pageParam }) => fetchAccounts(pageParam as number),
+      getNextPageParam: (lastPage) => lastPage.nextPage,
+      initialPageParam: 1,
+      staleTime: STALE_TIME_DEFAULT,
+    });
 
   const moreDataHandler = () => {
     if (hasNextPage) {
@@ -41,7 +43,7 @@ const useAccounts = ({ keyword = '' }): UseAccountsQueryReturnType => {
     }
   };
 
-  return { data, moreDataHandler, isFetching };
+  return { data, moreDataHandler, isFetching, refetch };
 };
 
 export const QUERY_KEY_ACCOUNT = 'accountList';

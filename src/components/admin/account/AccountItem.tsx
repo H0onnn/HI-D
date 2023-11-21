@@ -19,14 +19,13 @@ const AccountItem = ({
   const { openModal, closeModal } = useModalStore();
 
   const lockAccountHandler = async () => {
-    closeModal();
     const response = await lockAccount(memberId);
-    // 분기 나누기
     if (response) {
       // TODO: toast alert
     } else {
       // TODO: toast alert
     }
+    closeModal();
   };
 
   const lockModalHandler = () => {
@@ -54,13 +53,13 @@ const AccountItem = ({
   };
 
   const deleteAccountHandler = async () => {
-    closeModal();
     const response = await deleteAccount(memberId);
     if (response) {
       // TODO: toast alert
     } else {
       // TODO: toast alert
     }
+    closeModal();
   };
 
   const deleteModalHandler = () => {

@@ -1,12 +1,12 @@
-import { ReportListInterface } from '@/types/admin';
-import { getReportList } from '@/services/admin';
+import { getReportPostDetail } from '@/services/admin';
+import { ReportDetailPostListInterface } from '@/types/admin';
 import { useInfiniteQuery, InfiniteData, InfiniteQueryObserverResult } from '@tanstack/react-query';
 
-interface DeclaresQueryResponse extends ReportListInterface {
+interface DeclaresQueryResponse extends ReportDetailPostListInterface {
   nextPage: number | null;
 }
 
-interface UseDeclaresQueryReturnType {
+interface UseDeclarePostsQueryReturnType {
   data: InfiniteData<DeclaresQueryResponse> | undefined;
   moreDataHandler: () =>
     | Promise<InfiniteQueryObserverResult<InfiniteData<DeclaresQueryResponse, unknown>, Error>>
@@ -15,11 +15,11 @@ interface UseDeclaresQueryReturnType {
   refetch: () => void;
 }
 
-const useDeclares = ({ category }: { category: 'post' | 'reply' }): UseDeclaresQueryReturnType => {
-  const fetchAccounts = async (pageParam = 1) => {
-    const response = await getReportList({
+const useDeclarePosts = (postId: string): UseDeclarePostsQueryReturnType => {
+  const fetchPosts = async (pageParam = 1) => {
+    const response = await getReportPostDetail({
       page: pageParam,
-      category,
+      id: Number(postId),
     });
 
     return {
@@ -30,8 +30,8 @@ const useDeclares = ({ category }: { category: 'post' | 'reply' }): UseDeclaresQ
 
   const { data, fetchNextPage, hasNextPage, isFetching, refetch } =
     useInfiniteQuery<DeclaresQueryResponse>({
-      queryKey: [QUERY_KEY_DECLARE, category],
-      queryFn: ({ pageParam }) => fetchAccounts(pageParam as number),
+      queryKey: [QUERY_KEY_DECLARE, postId],
+      queryFn: ({ pageParam }) => fetchPosts(pageParam as number),
       getNextPageParam: (lastPage) => lastPage.nextPage,
       initialPageParam: 1,
       staleTime: STALE_TIME_DEFAULT,
@@ -46,7 +46,7 @@ const useDeclares = ({ category }: { category: 'post' | 'reply' }): UseDeclaresQ
   return { data, moreDataHandler, isFetching, refetch };
 };
 
-export const QUERY_KEY_DECLARE = 'Declares';
+export const QUERY_KEY_DECLARE = 'DeclarePosts';
 export const STALE_TIME_DEFAULT = 1000 * 60 * 5;
 
-export default useDeclares;
+export default useDeclarePosts;

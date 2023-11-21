@@ -1,6 +1,6 @@
 import ProfileBox from '@/components/post/postItem/ProfileBox';
 import React from 'react';
-// import DetailButton from './DetailButton';
+import DetailButton from './DetailButton';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { LINK } from '@/constants/links';
@@ -20,9 +20,18 @@ const DeclareItem = ({
 
   const moveDetailPage = () => {
     if (code === 'post') {
-      navigate(`${LINK.ADMIN_DECLARE_POST}/${postId}?postContent=${content}`);
+      navigate(
+        `${LINK.ADMIN_DECLARE_POST.replace(':postId', postId.toString())}?postContent=${encodeURI(
+          content,
+        )}`,
+      );
     } else {
-      navigate(`${LINK.ADMIN_DECLARE_REPLY}/${replyId}?postId=${postId}?replyContent=${content}`);
+      navigate(
+        `${LINK.ADMIN_DECLARE_REPLY.replace(
+          ':replyId',
+          replyId.toString(),
+        )}?postId=${postId}?replyContent=${encodeURI(content)}`,
+      );
     }
   };
 
@@ -34,7 +43,7 @@ const DeclareItem = ({
       </Header>
       <Footer>
         <ProfileBox writer={writer.nickname} profileImage={writer.imageUrl} size={profileBoxSize} />
-        {/* <DetailButton onClick={onClick} /> */}
+        <DetailButton />
       </Footer>
     </Layout>
   );

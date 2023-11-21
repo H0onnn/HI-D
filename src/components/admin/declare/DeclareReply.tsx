@@ -1,15 +1,14 @@
 import { colors } from '@/constants/colors';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import DeclareItemContent from './DeclareDetailContent';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { LINK } from '@/constants/links';
-import { ReportDetailReplyInterface } from '@/types/admin';
 import useModalStore from '@/store/modalStore';
-// import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import { MODAL_TYPES } from '@/types/modal';
 import { deleteComment } from '@/services/comments';
 import toast from 'react-hot-toast';
+import useDeclareReplies from '@/hooks/useDeclareReplies';
 
 const DeclareReply = () => {
   const navigate = useNavigate();
@@ -18,11 +17,10 @@ const DeclareReply = () => {
   const replyContent = searchParams.get('replyContent');
   const postId = searchParams.get('postId');
   const { replyId } = useParams();
-  const [dataList, setDataList] = useState<ReportDetailReplyInterface[]>([]);
-  const { openModal, closeModal } = useModalStore();
+  const { data, refetch } = useDeclareReplies(replyId || '');
+  const { openModal, closeModal, modalOpen } = useModalStore();
 
   const deleteReplyHandler = async (reportId: number) => {
-    closeModal();
     try {
       await deleteComment(reportId);
       navigate(LINK.ADMIN_DECLARE_REPLY);
@@ -31,6 +29,7 @@ const DeclareReply = () => {
       console.error('게시글 삭제 오류 : ', err);
       toast.error('게시글 삭제 중 오류가 발생했어요.', { id: 'postDeleteFail' });
     }
+    closeModal();
   };
 
   const deleteModalHandler = (replyId: number) => {
@@ -49,21 +48,14 @@ const DeclareReply = () => {
     navigate(`${LINK.POST}/${postId}`);
   };
 
-  const fetchData = () => {
-    setDataList([
-      {
-        replyReportId: 1,
-        replyId: 1,
-        content: '신고내용',
-        reporter: '신고자',
-        type: '신고유형',
-      },
-    ]);
-  };
-
   useEffect(() => {
-    fetchData();
-  }, [postId]);
+    if (modalOpen) return;
+    refetch();
+  }, [modalOpen]);
+
+  if (!data || data.pages[0].dataList.length === 0) {
+    navigate(LINK.ADMIN_DECLARE);
+  }
 
   return (
     <Layout>
@@ -73,15 +65,17 @@ const DeclareReply = () => {
       <Content onClick={movePostPageHandler}>{replyContent}</Content>
       <Title>신고 내역</Title>
       <ListWrapper>
-        {dataList.map((data) => (
-          <DeclareItemContent
-            key={replyId}
-            {...data}
-            id={data.replyId}
-            reportId={data.replyReportId}
-            category={'reply'}
-          />
-        ))}
+        {data?.pages.map((page) =>
+          page.dataList.map((data) => (
+            <DeclareItemContent
+              key={replyId}
+              {...data}
+              id={data.replyId}
+              reportId={data.replyReportId}
+              category={'reply'}
+            />
+          )),
+        )}
       </ListWrapper>
       <DeleteButton onClick={() => deleteModalHandler(Number(replyId))}>댓글 삭제하기</DeleteButton>
     </Layout>
