@@ -27,7 +27,7 @@ const usePostFilter = () => {
 
   useEffect(() => {
     const selectedMajor = majorDataList.find((data) => data.id === majorId) || majorDataList[0];
-    setMajor(selectedMajor?.code);
+    setMajor(selectedMajor.code);
     return () => {
       setMajor('');
     };
