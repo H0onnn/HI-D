@@ -34,6 +34,9 @@ export class WebSocketService {
         const notification: NotificationData = JSON.parse(message.body);
         console.log(notification);
         useNotificationStore.getState().addNotification(notification);
+        if (notification.type === 'CHAT_MESSAGE') {
+          useChatMessageStore.getState().setNewChatNotification(true);
+        }
       }
     });
   }
@@ -73,7 +76,6 @@ export class WebSocketService {
   }
 
   public sendMessage(roomId: number, message: string): void {
-    console.log(roomId, message);
     this.client.publish({
       destination: `/pub/chat/rooms/${roomId}`,
       body: JSON.stringify({ content: message }),

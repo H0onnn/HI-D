@@ -39,7 +39,7 @@ const useMessages = (roomId: number): UseMessagesQueryReturnType => {
       queryFn: ({ pageParam }) => fetchMessages(pageParam as number),
       getNextPageParam: (lastPage) => lastPage.nextPage,
       initialPageParam: 1,
-      staleTime: STALE_TIME_MESSAGE,
+      // staleTime: STALE_TIME_MESSAGE,
     });
 
   const moreDataHandler = () => {
@@ -52,6 +52,6 @@ const useMessages = (roomId: number): UseMessagesQueryReturnType => {
 };
 
 export const QUERY_KEY_MESSAGE = 'Messages';
-export const STALE_TIME_MESSAGE = 1000 * 60 * 1; // 1분
+// export const STALE_TIME_MESSAGE = 1000 * 60 * 1; // 1분
 
 export default useMessages;
