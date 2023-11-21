@@ -43,7 +43,6 @@ export const Title = styled.div`
   font-weight: 700;
 `;
 export const TimeBox = styled.div`
-  ${textOverflowStyles}
   color: ${colors.gray6};
   font-size: 14px;
 `;
