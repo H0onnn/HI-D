@@ -32,6 +32,7 @@ export default DeclarePage;
 
 const TabLayout = styled.div`
   height: 4.8rem;
+  min-height: 4.8rem;
   padding: 0.4rem;
   display: flex;
   align-items: center;
