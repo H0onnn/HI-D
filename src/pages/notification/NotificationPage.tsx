@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNotifications } from '@/store/notificateStore';
+import { useDeleteAllNotifications } from '@/store/notificateStore';
+import { deleteAllNotificationsByIds } from '@/services/notification';
 import styled from 'styled-components';
 import PageHeader from '@/components/public/PageHeader';
 import ErrorContent from '@/components/public/ErrorContent';
@@ -9,7 +11,14 @@ import { colors } from '@/constants/colors';
 
 const NotificationPage = () => {
   const notificationsData = useNotifications();
+  const deleteAllNotifications = useDeleteAllNotifications();
   const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  const deleteAllNotifacitonsHandler = async () => {
+    const idsToDelete = notificationsData.map((notification) => notification.notificationId);
+    await deleteAllNotificationsByIds(idsToDelete);
+    deleteAllNotifications(idsToDelete);
+  };
 
   return (
     <>
@@ -23,13 +32,13 @@ const NotificationPage = () => {
               <EditButton onClick={() => setIsEditing(!isEditing)}>
                 {isEditing ? '완료' : '편집'}
               </EditButton>
-              {isEditing && <EditButton style={{ width: '6rem' }}>전체삭제</EditButton>}
+              {isEditing && (
+                <EditButton onClick={deleteAllNotifacitonsHandler} style={{ width: '6rem' }}>
+                  전체삭제
+                </EditButton>
+              )}
             </ButtonContainer>
-            <NotificationList
-              notificationsData={notificationsData}
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-            />
+            <NotificationList notificationsData={notificationsData} isEditing={isEditing} />
           </>
         )}
       </PageLayout>

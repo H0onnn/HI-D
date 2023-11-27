@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDeleteNotification } from '@/store/notificateStore';
+import { deleteNotificationById } from '@/services/notification';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
 import { NotificationData } from '@/types/notification';
@@ -16,7 +18,6 @@ interface NotificationItemInterface {
   expanded: boolean;
   className?: string;
   isEditing: boolean;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const NotificationItem = ({
@@ -26,11 +27,16 @@ const NotificationItem = ({
   expanded,
   className,
   isEditing,
-  setIsEditing,
 }: NotificationItemInterface) => {
   const navigate = useNavigate();
+  const deleteNotification = useDeleteNotification();
 
-  const titleRender = (notification: NotificationData) => {
+  const deleteNotificationHandler = async (notificationId: number) => {
+    await deleteNotificationById(notificationId);
+    deleteNotification(notificationId);
+  };
+
+  const renderTitle = (notification: NotificationData) => {
     if (notification.type === 'REPLY') {
       return '내 게시글에 새로운 댓글이 있어요!';
     }
@@ -47,11 +53,16 @@ const NotificationItem = ({
       <>
         <NotificationHeader>
           <NotificationIcon src={ICON} alt='notification_icon' />
-          <NotificationTitle>{titleRender(notification)}</NotificationTitle>
+          <NotificationTitle>{renderTitle(notification)}</NotificationTitle>
         </NotificationHeader>
         <NotificationContent>{notification.content}</NotificationContent>
         {isEditing ? (
-          <DeleteButton onClick={() => setIsEditing(!isEditing)}>
+          <DeleteButton
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
+              deleteNotificationHandler(notification.notificationId);
+            }}
+          >
             <DeleteIcon src={DELETE} alt='delete_icon' />
           </DeleteButton>
         ) : (
@@ -270,6 +281,8 @@ const DeleteButton = styled.div`
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
+  z-index: 3;
+  pointer-events: auto;
 `;
 
 const DeleteIcon = styled.img`
