@@ -20,7 +20,6 @@ import {
 import PostButtonBox from './postItem/PostButtonBox';
 
 const HelpPost = ({
-  post,
   post: {
     postId,
     title,
@@ -46,7 +45,7 @@ const HelpPost = ({
 
   return (
     <LayoutWrapper>
-      {isMyPage && <PostButtonBox postId={postId} isBookMarked={isBookmarked} postData={post} />}
+      {isMyPage && <PostButtonBox postId={postId} isBookMarked={isBookmarked} />}
       <Layout onClick={postClickHandler}>
         <Header>
           <MajorBox>{majorToKoreaMapping[majorCategory]}</MajorBox>

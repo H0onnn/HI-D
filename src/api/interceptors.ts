@@ -6,7 +6,7 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
   instance.interceptors.response.use(
     (response) => response,
     async (error: AxiosError) => {
-      if (error.response?.status === 999) {
+      if (error.response?.status === 989) {
         try {
           const response = await httpClient.auth.post.refreshToken();
           const newAccessToken = response.headers['authorization'];
