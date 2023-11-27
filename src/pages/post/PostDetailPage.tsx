@@ -26,7 +26,7 @@ const PostDetailPage = () => {
 
   return (
     <>
-      <PageHeader title='게시글' isGoBack />
+      <PageHeader title='게시글' />
       <PageLayout style={{ gap: '1rem' }}>
         <PostAuthorInfo
           memberId={postData.writer.memberId}

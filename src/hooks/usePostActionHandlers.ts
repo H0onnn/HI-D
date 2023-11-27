@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { QUERY_KEY as postQueryKey } from './usePostDetailData';
 import { postLike, postBookmark, postReport, postDelete } from '@/services/postActions';
 import { LINK } from '@/constants/links';
-import { PostingDataInterface } from '@/types/posting';
 import { ReportDataInterface } from '@/types/report';
 import { PostDetailInterface } from '@/types/post';
 import { MODAL_TYPES } from '@/types/modal';
@@ -71,11 +70,8 @@ const usePostActionHandlers = () => {
     }
   };
 
-  const editPost = (post: PostingDataInterface, postId: number) => {
-    navigate(LINK.POST_EDIT.replace(':id', postId.toString()), {
-      state: { post },
-    }),
-      console.log(post);
+  const editPost = (postId: number) => {
+    navigate(LINK.POST_EDIT.replace(':id', postId.toString()));
   };
 
   const deletePost = async (postId: number) => {

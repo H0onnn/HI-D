@@ -4,7 +4,11 @@ import { PostDetailInterface } from '@/types/post';
 import toast from 'react-hot-toast';
 
 const usePostDetailData = (postId: number) => {
-  const { data: postData, error } = useQuery<PostDetailInterface>({
+  const {
+    data: postData,
+    error,
+    isFetching,
+  } = useQuery<PostDetailInterface>({
     queryKey: [QUERY_KEY, postId],
     queryFn: () => getPostDetailData(postId),
     staleTime: 1000 * 60 * 5, // 5분
@@ -15,7 +19,7 @@ const usePostDetailData = (postId: number) => {
     toast.error('게시글을 불러오는 중 오류가 발생했습니다.', { id: 'postFetchingError' });
   }
 
-  return { postData };
+  return { postData, isFetching };
 };
 
 export const QUERY_KEY = 'postDetailData';

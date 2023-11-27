@@ -7,17 +7,10 @@ import { NotificationData } from '@/types/notification';
 interface NotificationListInterface {
   notificationsData: NotificationData[];
   isEditing: boolean;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NotificationList = ({
-  notificationsData,
-  isEditing,
-  setIsEditing,
-}: NotificationListInterface) => {
+const NotificationList = ({ notificationsData, isEditing }: NotificationListInterface) => {
   const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
-
-  console.log(notificationsData);
 
   const groupedNotifications = notificationsData.reduce(
     (acc, notification) => {
@@ -64,7 +57,6 @@ const NotificationList = ({
             onToggle={() => toggleExpanded(groupId)}
             className={isGrouped && !isExpanded ? 'grouped' : ''}
             isEditing={isEditing}
-            setIsEditing={setIsEditing}
           />
         );
       })}

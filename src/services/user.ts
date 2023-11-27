@@ -23,7 +23,6 @@ export const postLogout = async () => {
 export const getUserData = async (): Promise<UserDataInterface> => {
   const response = await httpClient.members.get.myData();
   const userData: UserDataInterface = response.data;
-  console.log('유저 데이터 : ', userData);
 
   return userData;
 };
