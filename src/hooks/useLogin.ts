@@ -6,6 +6,7 @@ import { LINK } from '@/constants/links';
 import toast from 'react-hot-toast';
 import { LoginDataInterface } from '@/types/types';
 import { UserDataInterface } from '@/types/user';
+import { AxiosError } from 'axios';
 
 const useLogin = () => {
   const navigate = useNavigate();
@@ -29,8 +30,8 @@ const useLogin = () => {
       toast.success('로그인 되었습니다.', { id: 'loginSuccess' });
       return;
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        toast.error(err.message, { id: 'loginError' });
+      if (err instanceof AxiosError) {
+        toast.error(err.response?.data.message, { id: 'loginError' });
       } else {
         toast.error('로그인 중 오류가 발생했습니다.', { id: 'unknownError' });
       }
