@@ -257,6 +257,15 @@ export const apiMethods = {
         url: 'notifications',
       }),
     },
+    delete: {
+      notification: (notificationId: number) => ({
+        url: `notifications/${notificationId}`,
+      }),
+      allNotifications: (notificationIds: number[]) => ({
+        url: 'notifications',
+        data: { notificationIds },
+      }),
+    },
   },
   report: {
     get: {
