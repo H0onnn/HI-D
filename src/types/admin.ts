@@ -30,8 +30,13 @@ export interface ReportPostInterface {
   };
 }
 
-export interface ReportDetailListInterface {
-  dataList: ReportDetailPostInterface[] | ReportDetailReplyInterface[];
+export interface ReportDetailPostListInterface {
+  dataList: ReportDetailPostInterface[];
+  size: number;
+  hasNext: boolean;
+}
+export interface ReportDetailReplyListInterface {
+  dataList: ReportDetailReplyInterface[];
   size: number;
   hasNext: boolean;
 }

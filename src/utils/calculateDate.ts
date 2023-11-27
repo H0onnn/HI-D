@@ -1,6 +1,9 @@
 export const timeSince = (date: string) => {
   const secondsPast = (Date.now() - new Date(date).getTime()) / 1000;
 
+  if (secondsPast < 0) {
+    return `0초전`;
+  }
   if (secondsPast < 60) {
     return `${Math.round(secondsPast)}초전`;
   }

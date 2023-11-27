@@ -5,7 +5,7 @@ interface PostFilterStateInterface {
     sortBy: string;
     direction: string;
   };
-  major?: string;
+  major: string;
 }
 interface PostFilterActionsInterface {
   setFilter: (newFilter: { sortBy: string; direction: string }) => void;
@@ -17,7 +17,7 @@ const usePostFilterStore = create<PostFilterStateInterface & PostFilterActionsIn
     sortBy: 'createAt',
     direction: 'DESC',
   },
-  major: undefined,
+  major: '',
   setFilter: (newFilter) => set(() => ({ filter: newFilter })),
   setMajor: (newMajor) => set(() => ({ major: newMajor })),
 }));

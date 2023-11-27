@@ -86,6 +86,6 @@ export const QUERY_KEY_MAIN_WEEKLY = 'weeklyHotPost';
 export const QUERY_KEY_MAIN_DAILY = 'dailyHotPost';
 export const QUERY_KEY_MAIN_HELP = 'mainHelpPost';
 export const QUERY_KEY_MAIN_FREE = 'mainFreePost';
-export const STALE_TIME_DEFAULT = 1000 * 60 * 5; // 5분
+export const STALE_TIME_DEFAULT = 1000 * 30; // 30초
 
 export default useMainPosts;

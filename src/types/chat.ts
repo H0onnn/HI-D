@@ -31,7 +31,7 @@ export interface MessageInterface {
   sender: string; // nickname
   content: string;
   createAt: string;
-  read: boolean;
+  isRead: boolean;
 }
 export interface RequestMessageListInterface {
   roomId: number;

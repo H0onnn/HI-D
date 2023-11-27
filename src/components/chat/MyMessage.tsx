@@ -5,12 +5,12 @@ import { colors } from '@/constants/colors';
 import MessageTime from './MessageTime';
 import { defaultMessageLayout, defaultMessageTextLayout } from '@/styles/chat';
 
-const MyMessage = ({ content, createAt, read }: MessageInterface) => {
+const MyMessage = ({ content, createAt, isRead }: MessageInterface) => {
   return (
     <MessageLayout>
       <MessageText>{content}</MessageText>
       <MessageFooter>
-        {!read && <MessageUnRead>1</MessageUnRead>}
+        {!isRead && <MessageUnRead>1</MessageUnRead>}
         <MessageTime createAt={createAt} />
       </MessageFooter>
     </MessageLayout>
