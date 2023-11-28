@@ -3,6 +3,8 @@ import { NotificationData } from '@/types/notification';
 
 interface NotificationState {
   notifications: NotificationData[];
+  hasPendingNotifications: boolean;
+  setHasPendingNotifications: (hasPending: boolean) => void;
   addNotification: (notification: NotificationData) => void;
   deleteNotification: (notifiactionId: number) => void;
   deleteAllNotifications: (notificationIds: number[]) => void;
@@ -10,6 +12,11 @@ interface NotificationState {
 
 export const useNotificationStore = create<NotificationState>((set) => ({
   notifications: [],
+  hasPendingNotifications: false,
+  setHasPendingNotifications: (hasPending: boolean) =>
+    set(() => ({
+      hasPendingNotifications: hasPending,
+    })),
   addNotification: (notification) =>
     set((state) => ({
       notifications: [...state.notifications, notification],
@@ -34,3 +41,7 @@ export const useDeleteNotification = () =>
   useNotificationStore((state) => state.deleteNotification);
 export const useDeleteAllNotifications = () =>
   useNotificationStore((state) => state.deleteAllNotifications);
+export const useHasPendingNotifications = () =>
+  useNotificationStore((state) => state.hasPendingNotifications);
+export const useSetHasPendingNotifications = () =>
+  useNotificationStore((state) => state.setHasPendingNotifications);

@@ -1,7 +1,9 @@
 import useSetAuthToken from '@/store/authStore';
+import { useSetHasPendingNotifications } from '@/store/notificateStore';
 import useUser, { QUERY_KEY as userQueryKey } from './useUser';
 import { useNavigate } from 'react-router-dom';
 import { getToken, getUserData } from '@/services/user';
+import { getNewNotificationsBeforeLogin } from '@/services/notification';
 import { LINK } from '@/constants/links';
 import toast from 'react-hot-toast';
 import { LoginDataInterface } from '@/types/types';
@@ -11,6 +13,7 @@ import { AxiosError } from 'axios';
 const useLogin = () => {
   const navigate = useNavigate();
   const { setToken } = useSetAuthToken();
+  const setHasPendingNotifications = useSetHasPendingNotifications();
   const { queryClient } = useUser();
 
   const fetchAndSetUserData = async () => {
@@ -19,10 +22,26 @@ const useLogin = () => {
     if (!userData) await getUserData();
   };
 
+  const fetchAndSetNewNotifications = async () => {
+    const result = await getNewNotificationsBeforeLogin();
+
+    if (result === true) {
+      setHasPendingNotifications(true);
+      return;
+    }
+
+    if (result === false) {
+      setHasPendingNotifications(false);
+      return;
+    }
+  };
+
   const loginHandler = async (loginData: LoginDataInterface) => {
     try {
       const newToken = await getToken(loginData);
       setToken(newToken);
+
+      await fetchAndSetNewNotifications();
 
       await fetchAndSetUserData();
 
