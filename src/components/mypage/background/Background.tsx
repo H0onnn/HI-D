@@ -1,11 +1,9 @@
 import React from 'react';
-import useUser from '@/hooks/useUser';
 import styled from 'styled-components';
 import { colors } from '@/constants/colors';
+import { UserDataInterface } from '@/types/user';
 
-const Background = () => {
-  const { user } = useUser();
-
+const Background = ({ user }: { user: UserDataInterface | undefined }) => {
   return (
     <Layout>
       <ImageWrapper>

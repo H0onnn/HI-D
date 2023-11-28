@@ -6,6 +6,16 @@ export const getNotifications = async (): Promise<NotificationInterface> => {
   return response.data;
 };
 
+export const getNewNotificationsBeforeLogin = async (): Promise<boolean> => {
+  try {
+    const response = await httpClient.notification.get.newBeforeLogin();
+    return response.data;
+  } catch (err: unknown) {
+    console.error('새 알림 조회 에러 : ', err);
+    throw err;
+  }
+};
+
 export const deleteNotificationById = async (notificationId: number): Promise<void> => {
   try {
     await httpClient.notification.delete.notification(notificationId);

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { AxiosInstance, AxiosError } from 'axios';
 import useAuthStore from '../store/authStore';
 import { httpClient } from './httpClient';
@@ -6,7 +7,7 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
   instance.interceptors.response.use(
     (response) => response,
     async (error: AxiosError) => {
-      if (error.response?.status === 989) {
+      if ((error.response?.data as any).code === 'AUTH-001') {
         try {
           const response = await httpClient.auth.post.refreshToken();
           const newAccessToken = response.headers['authorization'];
