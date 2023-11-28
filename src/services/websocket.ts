@@ -34,6 +34,7 @@ export class WebSocketService {
         const notification: NotificationData = JSON.parse(message.body);
         console.log(notification);
         useNotificationStore.getState().addNotification(notification);
+        useNotificationStore.getState().setHasPendingNotifications(true);
         if (notification.type === 'CHAT_MESSAGE') {
           useChatMessageStore.getState().setNewChatNotification(true);
         }
