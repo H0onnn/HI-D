@@ -92,6 +92,7 @@ const NotificationItem = ({
 
   const moveToPostHandler = (notification: NotificationData) => {
     navigate(`${LINK.POST}/${notification.postId}`);
+    deleteNotificationHandler(notification.notificationId);
   };
 
   return (
