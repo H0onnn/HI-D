@@ -256,6 +256,9 @@ export const apiMethods = {
       notification: () => ({
         url: 'notifications',
       }),
+      newBeforeLogin: () => ({
+        url: 'notifications/new',
+      }),
     },
     delete: {
       notification: (notificationId: number) => ({
