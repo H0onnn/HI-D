@@ -1,4 +1,5 @@
 import React from 'react';
+import useUser from '@/hooks/useUser';
 import useMyPageActions from '@/hooks/useMyPageActions';
 import styled from 'styled-components';
 import { ButtonContainer } from '@/styles/styles';
@@ -10,13 +11,14 @@ import DeleteAccountBtn from '@/components/mypage/actions/deleteAccount/DeleteAc
 
 const MyPage = () => {
   const { logoutModalHandler } = useMyPageActions();
+  const { user } = useUser();
 
   return (
     <>
       <PageHeader title='마이페이지' isGoBack />
       <MyPageLayout>
-        <Background />
-        <Contents />
+        <Background user={user} />
+        <Contents user={user} />
         <ButtonContainer $isRelative>
           <Button $isFullWidth onClick={logoutModalHandler}>
             로그아웃

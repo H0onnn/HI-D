@@ -1,13 +1,11 @@
 import React from 'react';
-import useUser from '@/hooks/useUser';
 import styled from 'styled-components';
 import MyUserInfo from '../userInfo/MyUserInfo';
 import MyPosts from '../userInfo/MyPosts';
 import MyPageActions from '../actions/MyPageActions';
+import { UserDataInterface } from '@/types/user';
 
-const Contents = () => {
-  const { user } = useUser();
-
+const Contents = ({ user }: { user: UserDataInterface | undefined }) => {
   return (
     <Layout>
       <MyUserInfo user={user} />
