@@ -21,9 +21,9 @@ const useMyPageActions = () => {
   const handleLogout = async () => {
     try {
       closeModal();
-      queryClient.removeQueries({ queryKey: [userQueryKey, token] });
       await postLogout();
       logout();
+      queryClient.clear();
 
       navigate(LINK.LOGIN);
       toast.success('로그아웃 되었습니다.', { id: 'logoutSuccess' });
