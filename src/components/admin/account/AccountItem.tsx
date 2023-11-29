@@ -7,6 +7,7 @@ import { deleteAccount, lockAccount } from '@/services/admin';
 import { AccountInterface } from '@/types/admin';
 import ProfileBox from '@/components/post/postItem/ProfileBox';
 import { formatTime } from '@/utils/post';
+import toast from 'react-hot-toast';
 
 const AccountItem = ({
   memberId,
@@ -21,9 +22,9 @@ const AccountItem = ({
   const lockAccountHandler = async () => {
     const response = await lockAccount(memberId);
     if (response) {
-      // TODO: toast alert
+      toast.success('해당 계정이 정지 처리 되었어요.', { id: 'lockAccountSuccess' });
     } else {
-      // TODO: toast alert
+      toast.error('정지 요청 처리중 오류가 발생했어요.', { id: 'lockAccountError' });
     }
     closeModal();
   };
@@ -33,7 +34,7 @@ const AccountItem = ({
       openModal({
         modalType: MODAL_TYPES.ALERT,
         modalProps: {
-          title: `해당 계정의 영구정지를 해제하시겠습니까?`,
+          title: '해당 계정의 영구정지를 해제하시겠어요?',
           content: '해당 계정은 정상적으로 이용 가능 상태가 돼요',
           confirmText: '해제',
           onConfirmHandler: lockAccountHandler,
@@ -43,7 +44,7 @@ const AccountItem = ({
       openModal({
         modalType: MODAL_TYPES.ALERT,
         modalProps: {
-          title: `해당 계정을 영구정지 처리하시겠습니까?`,
+          title: '해당 계정을 영구정지 처리하시겠어요?',
           content: '해당 계정은 영구적으로 이용 불가 상태가 돼요',
           confirmText: '정지',
           onConfirmHandler: lockAccountHandler,
@@ -55,9 +56,9 @@ const AccountItem = ({
   const deleteAccountHandler = async () => {
     const response = await deleteAccount(memberId);
     if (response) {
-      // TODO: toast alert
+      toast.success('해당 계정이 탈퇴 처리 되었어요.', { id: 'deleteAccountSuccess' });
     } else {
-      // TODO: toast alert
+      toast.error('탈퇴 요청 처리중 오류가 발생했어요.', { id: 'deleteAccountError' });
     }
     closeModal();
   };

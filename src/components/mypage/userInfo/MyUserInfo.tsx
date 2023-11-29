@@ -7,6 +7,8 @@ import { LINK } from '@/constants/links';
 import { UserDataInterface } from '@/types/user';
 
 const MyUserInfo = ({ user }: { user: UserDataInterface | undefined }) => {
+  const isAdmin = user?.roles.includes('ROLE_MANAGER') ?? false;
+
   return (
     <Layout>
       <NickNameWrapper>
@@ -15,11 +17,17 @@ const MyUserInfo = ({ user }: { user: UserDataInterface | undefined }) => {
           <ProfileEditIcon src={EDIT_ICON} alt='edit_button' />
         </ProfileEditLink>
       </NickNameWrapper>
-      <SchoolMajorContainer>
-        <School>{user?.school}</School>
-        <LineDiv />
-        <Major>{user?.major}</Major>
-      </SchoolMajorContainer>
+      {isAdmin ? (
+        <SchoolMajorContainer>
+          <School>관리자</School>
+        </SchoolMajorContainer>
+      ) : (
+        <SchoolMajorContainer>
+          <School>{user?.school}</School>
+          <LineDiv />
+          <Major>{user?.major}</Major>
+        </SchoolMajorContainer>
+      )}
     </Layout>
   );
 };
