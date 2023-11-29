@@ -15,7 +15,7 @@ export class WebSocketService {
       webSocketFactory: () => new SockJS(URL.API_BASE_URL + 'ws-endpoint'),
       onConnect: () => {
         this.connected = true;
-        this.subscribeToNotifications();
+        this.subscribeToNotificationsAndChat();
         console.log('STOMP 연결 성공');
       },
       onDisconnect: () => {
@@ -28,11 +28,11 @@ export class WebSocketService {
     };
   }
 
-  private subscribeToNotifications(): void {
+  private subscribeToNotificationsAndChat(): void {
     this.client.subscribe('/user/sub/notifications', (message) => {
       if (message.body) {
         const notification: NotificationData = JSON.parse(message.body);
-        console.log(notification);
+
         useNotificationStore.getState().addNotification(notification);
         useNotificationStore.getState().setHasPendingNotifications(true);
         if (notification.type === 'CHAT_MESSAGE') {
