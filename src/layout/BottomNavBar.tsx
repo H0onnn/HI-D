@@ -1,9 +1,9 @@
 import React from 'react';
+import useMyPageActions from '@/hooks/useMyPageActions';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import BottomNavButton from './BottomNavButton';
 import { NAV_ITEMS, NAV_ITEMS_ADMIN } from '@/constants/bottomNavItem';
-import useModalStore from '@/store/modalStore';
 import { MODAL_TYPES } from '@/types/modal';
 import useUser from '@/hooks/useUser';
 
@@ -13,22 +13,7 @@ const BottomNavBar = () => {
   const { user } = useUser();
   const isAdmin = user?.roles.includes('ROLE_MANAGER') ?? false;
   const navItems = isAdmin ? NAV_ITEMS_ADMIN : NAV_ITEMS;
-  const { openModal, closeModal } = useModalStore();
-
-  const logoutHandler = () => {
-    closeModal();
-  };
-
-  const logoutModalHandler = () => {
-    openModal({
-      modalType: MODAL_TYPES.ALERT,
-      modalProps: {
-        title: '로그아웃 하시겠습니까?',
-        confirmText: '로그아웃',
-        onConfirmHandler: logoutHandler,
-      },
-    });
-  };
+  const { logoutModalHandler } = useMyPageActions();
 
   return (
     <BottomNavBarLayout>
