@@ -3,7 +3,6 @@ import {
   useNotifications,
   useAddNotification,
   useDeleteAllNotifications,
-  useHasPendingNotifications,
   useSetHasPendingNotifications,
 } from '@/store/notificateStore';
 import { getNotifications, deleteAllNotificationsByIds } from '@/services/notification';
@@ -18,7 +17,6 @@ const NotificationPage = () => {
   const notificationsData = useNotifications();
   const addNotification = useAddNotification();
   const deleteAllNotifications = useDeleteAllNotifications();
-  const hasPendingNotifications = useHasPendingNotifications();
   const setHasPendingNotifications = useSetHasPendingNotifications();
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -30,19 +28,26 @@ const NotificationPage = () => {
 
   useEffect(() => {
     const getNotificationsData = async () => {
-      if (hasPendingNotifications === true) {
-        const notifications = await getNotifications();
-        setHasPendingNotifications(false);
+      const notifications = await getNotifications();
+      setHasPendingNotifications(false);
 
-        if (notifications) {
-          notifications.dataList.forEach((notification) => {
+      if (!notifications) return;
+
+      if (notifications) {
+        notifications.dataList.forEach((notification) => {
+          if (
+            !notificationsData.some(
+              (existingNotification) =>
+                existingNotification.notificationId === notification.notificationId,
+            )
+          ) {
             addNotification(notification);
-          });
-        }
+          }
+        });
       }
     };
     getNotificationsData();
-  }, [hasPendingNotifications]);
+  }, []);
 
   return (
     <>
